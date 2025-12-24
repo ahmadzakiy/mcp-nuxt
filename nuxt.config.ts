@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   compatibilityDate: '2025-07-15',
   devtools: {
     enabled: process.env.NODE_ENV === "development",
@@ -17,6 +17,10 @@ export default defineNuxtConfig({
         ]
       }
     }
+  },
+  nitro: {
+    // Nuxt 4 still uses Nitro. Use the Netlify preset:
+    preset: 'netlify'
   },
   mcp: {
     version: '0.0.1',

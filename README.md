@@ -73,15 +73,15 @@ Located in `server/mcp/resources/`:
 Install dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
 ## Development
 
-Start the development server on `http://localhost:3000`:
+Start the development server on `http://localhost:3200`:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 ## Production
@@ -89,14 +89,42 @@ pnpm dev
 Build for production:
 
 ```bash
-pnpm build
+npm run build
 ```
 
-Preview production build:
+Preview production build locally:
 
 ```bash
-pnpm preview
+npm run preview
 ```
+
+Start the production server:
+
+```bash
+npm run start
+```
+
+## Netlify Deployment
+
+This project is configured for deployment on Netlify with the Nitro Netlify preset.
+
+### Automatic Deployment
+
+When you connect this repository to Netlify, it will automatically:
+- Use the build command: `npm run build`
+- Deploy static assets from `dist/`
+- Deploy serverless functions from `.netlify/functions-internal/` (including MCP endpoints)
+- Use Node.js 20 as specified in `netlify.toml`
+
+### Manual Deployment
+
+For local testing of the production build:
+
+1. Install dependencies: `npm install`
+2. Build the application: `npm run build`
+3. Preview the build: `npm run preview`
+
+The MCP server endpoints will be available at `/mcp` in production, just as in development.
 
 ## Usage with AI Assistants
 

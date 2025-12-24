@@ -92,37 +92,23 @@ Build for production:
 npm run build
 ```
 
-Preview production build locally:
-
-```bash
-npm run preview
-```
-
-Start the production server:
-
-```bash
-npm run start
-```
+**Note**: This project uses the Netlify preset, which is optimized for deployment on Netlify. For local testing, use the development server (`npm run dev`).
 
 ## Netlify Deployment
 
 This project is configured for deployment on Netlify with the Nitro Netlify preset.
 
-### Automatic Deployment
+### Deployment Steps
 
-When you connect this repository to Netlify, it will automatically:
+1. Push your code to GitHub
+2. Connect your repository to Netlify
+3. Netlify will automatically detect the configuration from `netlify.toml` and deploy your application
+
+Netlify will:
 - Use the build command: `npm run build`
 - Deploy static assets from `dist/`
 - Deploy serverless functions from `.netlify/functions-internal/` (including MCP endpoints)
 - Use Node.js 20 as specified in `netlify.toml`
-
-### Manual Deployment
-
-For local testing of the production build:
-
-1. Install dependencies: `npm install`
-2. Build the application: `npm run build`
-3. Preview the build: `npm run preview`
 
 The MCP server endpoints will be available at `/mcp` in production, just as in development.
 

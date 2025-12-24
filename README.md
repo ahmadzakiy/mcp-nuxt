@@ -1,99 +1,110 @@
-# Mekari Pixel MCP Server
+# Mekari Pixel 3 + MCP Server
 
-MCP (Model Context Protocol) server for Mekari Pixel component library documentation.
+A Nuxt 3 application with Mekari Pixel 3 design system and an integrated MCP (Model Context Protocol) server for AI-assisted component documentation.
+
+## Tech Stack
+
+- **Nuxt 3** - Vue 3 framework
+- **TypeScript** - Type safety
+- **@mekari/pixel3** - Mekari Pixel 3 design system
+- **MCP Server** - AI-powered documentation tools
 
 ## Features
 
-- **Get Component Documentation**: Retrieve detailed documentation for any Pixel component from `llms-components.txt`
-- **Component Search**: Search by component name (e.g., "Accordion", "MpAccordion", "Button")
-- **Complete Documentation**: Returns props, events, slots, and usage examples
+### Pixel 3 Integration
+- Pre-configured Pixel 3 design system with Design Token 2.4
+- Vue 3 Composition API with `<script setup>`
+- CSS Props and CSS Function styling support
 
-## MCP Tools
+### MCP Tools for AI Assistants
 
-### get-component
-
-Retrieves component documentation and details from llms-components.txt.
+#### `get-component`
+Retrieves Pixel component documentation from `llms-components.txt`.
 
 **Parameters:**
-- `componentName` (string): The name of the component (e.g., "Accordion", "MpAccordion", "Button")
+- `componentName` (string): Component name (e.g., "Button", "MpButton", "mp-button")
 
-**Example Usage:**
+**Example:**
 ```json
-{
-  "componentName": "Accordion"
-}
+{ "componentName": "Button" }
 ```
 
-The tool will return complete documentation including props, events, slots, and usage examples for the requested component.
+#### `get-docs`
+Retrieves Pixel documentation, answers questions about setup, design tokens, and usage.
+
+**Parameters:**
+- `query` (string): Search query (e.g., "how to setup Pixel", "dark mode", "token 2.4")
+
+**Example:**
+```json
+{ "query": "difference between token 2.1 and 2.4" }
+```
+
+#### `hello-pixel`
+Simple test tool to verify MCP connection.
+
+### MCP Resources
+
+Located in `server/mcp/resources/`:
+- `llms-components.txt` - Component documentation
+- `llms-design-tokens-21.txt` - Design Token 2.1 reference
+- `llms-design-tokens-24.txt` - Design Token 2.4 reference
+- `llms-docs.txt` - General documentation
+
+## Project Structure
+
+```
+├── app/
+│   ├── assets/css/pixel.css    # Pixel CSS imports
+│   ├── components/             # Vue components
+│   ├── pages/                  # Nuxt pages
+│   └── plugins/pixel.client.ts # Pixel plugin setup
+├── server/
+│   └── mcp/
+│       ├── prompts/            # MCP prompts
+│       ├── resources/          # Documentation files
+│       ├── tools/              # MCP tool implementations
+│       └── utils/              # Utility functions
+└── nuxt.config.ts
+```
 
 ## Setup
 
-Make sure to install dependencies:
+Install dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## Development
 
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
 
-Build the application for production:
+Build for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Usage with AI Assistants
+
+This MCP server can be used with AI assistants (like GitHub Copilot, Claude) to:
+
+1. Get component documentation quickly
+2. Understand Pixel 3 design tokens
+3. Convert Figma designs to Pixel 3 components
+4. Learn best practices for styling with CSS Props
+
+See `figma-to-pixel-instructions.md` for detailed Figma-to-Pixel conversion guidelines.

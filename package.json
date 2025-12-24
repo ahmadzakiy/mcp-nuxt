@@ -1,0 +1,24 @@
+{
+  "name": "mcp-nuxt",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --port 3200",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@mekari/pixel3": "^1.0.8",
+    "@mekari/pixel3-postcss": "^1.0.8",
+    "@nuxtjs/mcp-toolkit": "0.5.2",
+    "nuxt": "^4.2.2",
+    "vue": "^3.5.25",
+    "vue-router": "^4.6.3",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.2"
+  }
+}

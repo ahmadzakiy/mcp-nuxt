@@ -1,0 +1,265 @@
+# Design Tokens v2.1
+
+## Colors
+
+### Foundation Colors
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `background` | `#F1F5F9` | `var(--mp-colors-background)` |
+| `currentcolor` | `currentcolor` | `var(--mp-colors-currentcolor)` |
+| `dark` | `#232933` | `var(--mp-colors-dark)` |
+| `debug` | `blue` | `var(--mp-colors-debug)` |
+| `overlay` | `rgba(22, 26, 32, 0.8)` | `var(--mp-colors-overlay)` |
+| `vibrantPurple` | `linear-gradient(98deg, #F8F9FB 0%, #B5A2EC 50.01%, #4B61DD 100%)` | `var(--mp-colors-vibrantPurple)` |
+| `white` | `#FFFFFF` | `var(--mp-colors-white)` |
+| `brand.capital` | `#2F5573` | `var(--mp--brand-capital)` |
+| `brand.esign` | `#00C853` | `var(--mp--brand-esign)` |
+| `brand.expense` | `#183883` | `var(--mp--brand-expense)` |
+| `brand.flex` | `#7C4DFF` | `var(--mp--brand-flex)` |
+| `brand.jurnal` | `#40C3FF` | `var(--mp--brand-jurnal)` |
+| `brand.klikpajak` | `#FF9100` | `var(--mp--brand-klikpajak)` |
+| `brand.mekari` | `#651FFF` | `var(--mp--brand-mekari)` |
+| `brand.qontak` | `#2979FF` | `var(--mp--brand-qontak)` |
+| `brand.talenta` | `#F22929` | `var(--mp--brand-talenta)` |
+| `brand.university` | `#448AFF` | `var(--mp--brand-university)` |
+| `amber.100` | `#FBBF24` | `var(--mp--amber-100)` |
+| `amber.400` | `#F59E0B` | `var(--mp--amber-400)` |
+| `apricot.100` | `#FB923C` | `var(--mp--apricot-100)` |
+| `apricot.400` | `#F97316` | `var(--mp--apricot-400)` |
+| `aqua.100` | `#22D3EE` | `var(--mp--aqua-100)` |
+| `aqua.400` | `#06B6D4` | `var(--mp--aqua-400)` |
+| `ash.100` | `#E7EDF5` | `var(--mp--ash-100)` |
+| `blackAlpha.50` | `rgba(0, 0, 0, 0.04)` | `var(--mp--blackAlpha-50)` |
+| `blackAlpha.100` | `rgba(0, 0, 0, 0.06)` | `var(--mp--blackAlpha-100)` |
+| `blackAlpha.200` | `rgba(0, 0, 0, 0.08)` | `var(--mp--blackAlpha-200)` |
+| `blackAlpha.300` | `rgba(0, 0, 0, 0.16)` | `var(--mp--blackAlpha-300)` |
+| `blackAlpha.400` | `rgba(0, 0, 0, 0.24)` | `var(--mp--blackAlpha-400)` |
+| `blackAlpha.500` | `rgba(0, 0, 0, 0.36)` | `var(--mp--blackAlpha-500)` |
+| `blackAlpha.600` | `rgba(0, 0, 0, 0.48)` | `var(--mp--blackAlpha-600)` |
+| `blackAlpha.700` | `rgba(0, 0, 0, 0.64)` | `var(--mp--blackAlpha-700)` |
+| `blackAlpha.800` | `rgba(0, 0, 0, 0.80)` | `var(--mp--blackAlpha-800)` |
+| `blackAlpha.900` | `rgba(0, 0, 0, 0.92)` | `var(--mp--blackAlpha-900)` |
+| `blue.50` | `#EAECFB` | `var(--mp--blue-50)` |
+| `blue.100` | `#D5DEFF` | `var(--mp--blue-100)` |
+| `blue.400` | `#4B61DD` | `var(--mp--blue-400)` |
+| `blue.500` | `#1C44D5` | `var(--mp--blue-500)` |
+| `blue.700` | `#0031BE` | `var(--mp--blue-700)` |
+| `fuchsia.100` | `#E879F9` | `var(--mp--fuchsia-100)` |
+| `fuchsia.400` | `#D946EF` | `var(--mp--fuchsia-400)` |
+| `gray.25` | `#F8F9FB` | `var(--mp--gray-25)` |
+| `gray.50` | `#EDF0F2` | `var(--mp--gray-50)` |
+| `gray.100` | `#D0D6DD` | `var(--mp--gray-100)` |
+| `gray.400` | `#8B95A5` | `var(--mp--gray-400)` |
+| `gray.600` | `#626B79` | `var(--mp--gray-600)` |
+| `green.50` | `#E8F5EB` | `var(--mp--green-50)` |
+| `green.400` | `#68BE79` | `var(--mp--green-400)` |
+| `green.500` | `#4FB262` | `var(--mp--green-500)` |
+| `green.700` | `#3C914D` | `var(--mp--green-700)` |
+| `ice.50` | `#E0EEFF` | `var(--mp--ice-50)` |
+| `ice.100` | `#B4D3F2` | `var(--mp--ice-100)` |
+| `leaf.100` | `#4ADE80` | `var(--mp--leaf-100)` |
+| `leaf.400` | `#22C55E` | `var(--mp--leaf-400)` |
+| `lime.100` | `#A3E635` | `var(--mp--lime-100)` |
+| `lime.400` | `#84CC16` | `var(--mp--lime-400)` |
+| `orange.50` | `#FBF3DD` | `var(--mp--orange-50)` |
+| `orange.400` | `#E0AB00` | `var(--mp--orange-400)` |
+| `orange.500` | `#DE9400` | `var(--mp--orange-500)` |
+| `orange.700` | `#DB8000` | `var(--mp--orange-700)` |
+| `pink.100` | `#F472B6` | `var(--mp--pink-100)` |
+| `pink.400` | `#EC4899` | `var(--mp--pink-400)` |
+| `red.50` | `#FDECEE` | `var(--mp--red-50)` |
+| `red.400` | `#DA473F` | `var(--mp--red-400)` |
+| `red.500` | `#C83E39` | `var(--mp--red-500)` |
+| `red.700` | `#AB3129` | `var(--mp--red-700)` |
+| `rose.100` | `#F87171` | `var(--mp--rose-100)` |
+| `rose.400` | `#EF4444` | `var(--mp--rose-400)` |
+| `sky.100` | `#60A5FA` | `var(--mp--sky-100)` |
+| `sky.400` | `#3B82F6` | `var(--mp--sky-400)` |
+| `stone.100` | `#A1A1AA` | `var(--mp--stone-100)` |
+| `stone.400` | `#71717A` | `var(--mp--stone-400)` |
+| `teal.100` | `#2DD4BF` | `var(--mp--teal-100)` |
+| `teal.400` | `#14B8A6` | `var(--mp--teal-400)` |
+| `violet.100` | `#A78BFA` | `var(--mp--violet-100)` |
+| `violet.400` | `#8B5CF6` | `var(--mp--violet-400)` |
+| `whiteAlpha.50` | `rgba(255, 255, 255, 0.04)` | `var(--mp--whiteAlpha-50)` |
+| `whiteAlpha.100` | `rgba(255, 255, 255, 0.06)` | `var(--mp--whiteAlpha-100)` |
+| `whiteAlpha.200` | `rgba(255, 255, 255, 0.08)` | `var(--mp--whiteAlpha-200)` |
+| `whiteAlpha.300` | `rgba(255, 255, 255, 0.16)` | `var(--mp--whiteAlpha-300)` |
+| `whiteAlpha.400` | `rgba(255, 255, 255, 0.24)` | `var(--mp--whiteAlpha-400)` |
+| `whiteAlpha.500` | `rgba(255, 255, 255, 0.36)` | `var(--mp--whiteAlpha-500)` |
+| `whiteAlpha.600` | `rgba(255, 255, 255, 0.48)` | `var(--mp--whiteAlpha-600)` |
+| `whiteAlpha.700` | `rgba(255, 255, 255, 0.64)` | `var(--mp--whiteAlpha-700)` |
+| `whiteAlpha.800` | `rgba(255, 255, 255, 0.80)` | `var(--mp--whiteAlpha-800)` |
+| `whiteAlpha.900` | `rgba(255, 255, 255, 0.92)` | `var(--mp--whiteAlpha-900)` |
+
+## Typography
+
+### Font Sizes
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `2xl` | `1.5rem` | `var(--mp-font-sizes-2xl)` |
+| `lg` | `1rem` | `var(--mp-font-sizes-lg)` |
+| `md` | `0.875rem` | `var(--mp-font-sizes-md)` |
+| `sm` | `0.75rem` | `var(--mp-font-sizes-sm)` |
+| `xl` | `1.25rem` | `var(--mp-font-sizes-xl)` |
+| `xs` | `0.625rem` | `var(--mp-font-sizes-xs)` |
+
+### Font Weights
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `bold` | `800` | `var(--mp-font-weights-bold)` |
+| `regular` | `400` | `var(--mp-font-weights-regular)` |
+| `semiBold` | `600` | `var(--mp-font-weights-semiBold)` |
+
+### Fonts
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `body` | `"Inter", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif, Segoe UI, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"` | `var(--mp-fonts-body)` |
+| `mono` | `SFMono-Regular, Menlo, Monaco,Consolas, "Liberation Mono", "Courier New", monospace` | `var(--mp-fonts-mono)` |
+
+### Letter Spacings
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `normal` | `0` | `var(--mp-letter-spacings-normal)` |
+| `tight` | `-0.025em` | `var(--mp-letter-spacings-tight)` |
+| `tighter` | `-0.05em` | `var(--mp-letter-spacings-tighter)` |
+| `wide` | `0.025em` | `var(--mp-letter-spacings-wide)` |
+| `wider` | `0.05em` | `var(--mp-letter-spacings-wider)` |
+| `widest` | `0.1em` | `var(--mp-letter-spacings-widest)` |
+
+### Line Heights
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `2xl` | `1.67` | `var(--mp-line-heights-2xl)` |
+| `3xl` | `1.71` | `var(--mp-line-heights-3xl)` |
+| `lg` | `1.429` | `var(--mp-line-heights-lg)` |
+| `md` | `1.4` | `var(--mp-line-heights-md)` |
+| `sm` | `1.34` | `var(--mp-line-heights-sm)` |
+| `xl` | `1.5` | `var(--mp-line-heights-xl)` |
+| `xs` | `1.2` | `var(--mp-line-heights-xs)` |
+
+## Sizes
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `full` | `100%` | `var(--mp-sizes-full)` |
+| `sm` | `24rem` | `var(--mp-sizes-sm)` |
+| `0` | `0` | `var(--mp-sizes-0)` |
+| `1` | `0.25rem` | `var(--mp-sizes-1)` |
+| `2` | `0.5rem` | `var(--mp-sizes-2)` |
+| `3` | `0.75rem` | `var(--mp-sizes-3)` |
+| `4` | `1rem` | `var(--mp-sizes-4)` |
+| `5` | `1.25rem` | `var(--mp-sizes-5)` |
+| `6` | `1.5rem` | `var(--mp-sizes-6)` |
+| `7` | `1.75rem` | `var(--mp-sizes-7)` |
+| `8` | `2rem` | `var(--mp-sizes-8)` |
+| `9` | `2.25rem` | `var(--mp-sizes-9)` |
+| `10` | `2.5rem` | `var(--mp-sizes-10)` |
+| `11` | `2.75rem` | `var(--mp-sizes-11)` |
+| `12` | `3rem` | `var(--mp-sizes-12)` |
+| `16` | `4rem` | `var(--mp-sizes-16)` |
+| `20` | `5rem` | `var(--mp-sizes-20)` |
+| `22` | `5.5rem` | `var(--mp-sizes-22)` |
+| `56` | `14rem` | `var(--mp-sizes-56)` |
+| `65` | `17.5rem` | `var(--mp-sizes-65)` |
+| `0.5` | `0.125rem` | `var(--mp-sizes-0-5)` |
+| `0.25` | `0.0625rem` | `var(--mp-sizes-0-25)` |
+| `2.5` | `0.625rem` | `var(--mp-sizes-2-5)` |
+| `7.5` | `1.875rem` | `var(--mp-sizes-7-5)` |
+| `9.5` | `2.375rem` | `var(--mp-sizes-9-5)` |
+
+## Radius
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `full` | `50%` | `var(--mp-radii-full)` |
+| `lg` | `0.5rem` | `var(--mp-radii-lg)` |
+| `md` | `0.375rem` | `var(--mp-radii-md)` |
+| `none` | `0` | `var(--mp-radii-none)` |
+| `sm` | `0.25rem` | `var(--mp-radii-sm)` |
+| `xl` | `0.75rem` | `var(--mp-radii-xl)` |
+| `xs` | `0.125rem` | `var(--mp-radii-xs)` |
+
+## Spacing
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `0` | `0` | `var(--mp-spacing-0)` |
+| `1` | `0.25rem` | `var(--mp-spacing-1)` |
+| `2` | `0.5rem` | `var(--mp-spacing-2)` |
+| `3` | `0.75rem` | `var(--mp-spacing-3)` |
+| `4` | `1rem` | `var(--mp-spacing-4)` |
+| `5` | `1.3rem` | `var(--mp-spacing-5)` |
+| `6` | `1.5rem` | `var(--mp-spacing-6)` |
+| `8` | `2rem` | `var(--mp-spacing-8)` |
+| `12` | `3rem` | `var(--mp-spacing-12)` |
+| `16` | `4rem` | `var(--mp-spacing-16)` |
+| `20` | `5rem` | `var(--mp-spacing-20)` |
+| `24` | `6rem` | `var(--mp-spacing-24)` |
+| `32` | `8rem` | `var(--mp-spacing-32)` |
+| `40` | `10rem` | `var(--mp-spacing-40)` |
+| `64` | `16rem` | `var(--mp-spacing-64)` |
+| `0.5` | `0.125rem` | `var(--mp-spacing-0-5)` |
+| `1.5` | `0.375rem` | `var(--mp-spacing-1-5)` |
+
+## Borders
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `lg` | `2px` | `var(--mp-borders-lg)` |
+| `md` | `1.5px` | `var(--mp-borders-md)` |
+| `none` | `none` | `var(--mp-borders-none)` |
+| `sm` | `1px` | `var(--mp-borders-sm)` |
+
+## Shadows
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `2xl` | `0 25px 50px -12px rgba(0, 0, 0, 0.25)` | `var(--mp-shadows-2xl)` |
+| `focus` | `0 0 0 3px rgba(224, 238, 255, 1)` | `var(--mp-shadows-focus)` |
+| `inner` | `inset 0 2px 4px 0 rgba( 0, 0, 0, 0.06)` | `var(--mp-shadows-inner)` |
+| `lg` | `0px 6px 16px 0px rgba(0, 0, 0, 0.08),0px 9px 28px 8px rgba(0, 0, 0, 0.05)` | `var(--mp-shadows-lg)` |
+| `md` | `0px 10px 10px -5px rgba(0, 0, 0, 0.04),0px 20px 25px -5px rgba(0, 0, 0, 0.10)` | `var(--mp-shadows-md)` |
+| `none` | `none` | `var(--mp-shadows-none)` |
+| `outer` | `0 0 0 3px rgba(224, 238, 255, 1)` | `var(--mp-shadows-outer)` |
+| `outline` | `0 0 0 3px #E0EEFF` | `var(--mp-shadows-outline)` |
+| `outline-tab` | `0 0 0 2px #E0EEFF` | `var(--mp-shadows-outline-tab)` |
+| `sm` | `0px 4px 6px -2px rgba(0, 0, 0, 0.05),0px 10px 15px -3px rgba(0, 0, 0, 0.10)` | `var(--mp-shadows-sm)` |
+| `xl` | `0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)` | `var(--mp-shadows-xl)` |
+| `xs` | `0px 0px 2px 0px rgba(0, 0, 0, 0.12),0px 2px 4px 0px rgba(0, 0, 0, 0.14)` | `var(--mp-shadows-xs)` |
+
+## Durations
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `fast` | `300ms` | `var(--mp-durations-fast)` |
+| `normal` | `250ms` | `var(--mp-durations-normal)` |
+| `slow` | `100ms` | `var(--mp-durations-slow)` |
+
+## Opacity
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `0` | `0` | `var(--mp-opacity-0)` |
+| `40` | `0.4` | `var(--mp-opacity-40)` |
+| `60` | `0.6` | `var(--mp-opacity-60)` |
+| `100` | `1` | `var(--mp-opacity-100)` |
+
+## Z-Index
+
+| Key | Value | CSS Variable |
+|-----|-------|---------------|
+| `base` | `0` | `var(--mp-z-index-base)` |
+| `docked` | `10` | `var(--mp-z-index-docked)` |
+| `hide` | `-1` | `var(--mp-z-index-hide)` |
+| `modal` | `1400` | `var(--mp-z-index-modal)` |
+| `overlay` | `1300` | `var(--mp-z-index-overlay)` |
+| `popover` | `1500` | `var(--mp-z-index-popover)` |
+| `sticky` | `1100` | `var(--mp-z-index-sticky)` |
+| `tooltip` | `1800` | `var(--mp-z-index-tooltip)` |

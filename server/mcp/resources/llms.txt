@@ -1,0 +1,94 @@
+# Mekari Pixel
+
+## What this is
+
+LLM-friendly guidance for **Mekari Pixel3** (Vue 3 + TS). Always output **Vue SFC** using `<script setup lang="ts">`. Prefer **Pixel components (`Mp*`)** over raw HTML. **No Tailwind**.
+
+## Quick start
+
+* Package import:
+
+  ```ts
+  import { MpButton, MpInput, MpLabel, MpCard, MpDialog, MpBadge } from "@mekari/pixel3";
+  ```
+* Minimal:
+
+  ```vue
+  <script setup lang="ts">
+  import { MpButton } from "@mekari/pixel3";
+  </script>
+
+  <template>
+    <MpButton variant="primary" size="md">Save</MpButton>
+  </template>
+  ```
+
+## House rules
+
+1. Use `Mp*` components whenever available (don’t hand‑roll HTML/CSS for common UI).
+2. Prefer **props/variants** to custom CSS. Use minimal scoped CSS only if necessary.
+3. **A11y**: pair `<MpLabel for>` with `<MpInput id>`, manage focus with `<MpDialog>`, use `aria-*` appropriately.
+4. Snippets must be **complete & paste‑ready**.
+
+## HTML → Pixel mapping (common)
+
+* `<button>` → `<MpButton variant="primary">…</MpButton>`
+* `<input type="text">` → `<MpInput />` (+ `<MpLabel>` when labeled)
+* Card DOM → `<MpCard>` (header/body/footer slots)
+* Status → `<MpAlert>` / `<MpBadge>`
+
+## Component: MpButton
+
+Props (typical): `variant: "primary"|"secondary"|"outline"|"ghost"|"link"`, `size: "sm"|"md"|"lg"`.
+Icon left example:
+
+```vue
+<script setup lang="ts">
+import { MpButton } from "@mekari/pixel3";
+import { PlusIcon } from "@mekari/pixel3/icons"; // adjust if different
+</script>
+
+<template>
+  <MpButton variant="primary" size="md">
+    <PlusIcon aria-hidden />
+    Add item
+  </MpButton>
+</template>
+```
+
+## Component: MpInput + MpLabel
+
+```vue
+<script setup lang="ts">
+import { MpInput, MpLabel } from "@mekari/pixel3";
+</script>
+
+<template>
+  <MpLabel for="email">Email</MpLabel>
+  <MpInput id="email" type="email" autocomplete="username" />
+</template>
+```
+
+## Pattern: Login form
+
+```vue
+<script setup lang="ts">
+import { MpInput, MpLabel, MpButton } from "@mekari/pixel3";
+</script>
+
+<template>
+  <form @submit.prevent>
+    <MpLabel for="email">Email</MpLabel>
+    <MpInput id="email" type="email" autocomplete="username" />
+    <MpLabel for="password">Password</MpLabel>
+    <MpInput id="password" type="password" autocomplete="current-password" />
+    <MpButton type="submit" variant="primary">Sign in</MpButton>
+  </form>
+</template>
+```
+
+## Tokens quick
+
+* Prefer tokens (CSS vars/props) over raw hex & magic numbers.
+* Primary color: `--color-primary` (update to your real token)
+* Radius/spacing/typography: use named tokens.

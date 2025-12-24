@@ -1,0 +1,1226 @@
+---
+pageClass: faq-page
+---
+
+# 📝 Frequently Asked Questions
+
+Here are the most common questions regarding Mekari Pixel.
+
+## 1. What is Mekari Pixel?
+
+Mekari Pixel is a design system and component library built for Mekari products. It provides a collection of reusable UI components, design tokens, patterns, and templates to help create consistent user experiences across Mekari applications.
+
+## 2. What are the differences between the `@mekari/pixel` and `@mekari/pixel3` packages?
+
+- `@mekari/pixel` is built for Vue 2 applications. For documentation, please visit: [Storybook](https://storybook.mekari.design/)
+- `@mekari/pixel3` is built for Vue 3 applications and is the current, latest major version
+
+`@mekari/pixel3` contains new features and improvements that are not present in `@mekari/pixel`, such as:
+
+- Improved TypeScript support
+- Better performance
+- An advanced design tokens system that seamlessly supports both light and dark modes right out of the box
+
+Despite the differences, many components share similar APIs between versions, so most of your Vue 2 `@mekari/pixel` knowledge will transfer to Vue 3 `@mekari/pixel3`.
+
+For new projects, we strongly recommend using `@mekari/pixel3` with Vue 3.
+
+## 3. Can I upgrade from `@mekari/pixel` to `@mekari/pixel3`?
+
+Quick answer: **No**, direct migration from `@mekari/pixel` to `@mekari/pixel3` is not possible due to:
+
+1. Fundamental differences between Vue 2 and Vue 3 with many breaking changes (<https://v3-migration.vuejs.org/breaking-changes/>)
+2. `@mekari/pixel3` components were rebuilt from scratch for Vue 3, using a different component engine and resulting in different props and behaviors
+3. Changes in component APIs and architecture
+
+Instead, we recommend:
+
+- **For new projects:** Start with Vue 3 and `@mekari/pixel3`
+- **For existing Vue 2 projects:**
+  1. Continue using `@mekari/pixel`, upgrade to Vue 2.7, and adopt Vite as your bundler to enhance performance (<https://v2.vuejs.org/v2/guide/migration-vue-2-7.html?redirect=true>).
+
+## 3. Is `@mekari/pixel` Still Supported?
+
+`@mekari/pixel` (the Vue 2 version) has transitioned to maintenance mode following the End of Life (EOL) of Vue 2 on December 31st, 2023 [(source)](https://v2.vuejs.org/eol/). While it will continue to receive necessary updates and new components, these will not be as frequent or extensive as those for `@mekari/pixel3`.
+
+## 4. What license does Mekari Pixel use?
+
+Mekari Pixel is a proprietary software solution created by PT Mid Solusi Nusantara ([Mekari](https://www.mekari.com/)), designed specifically for Mekari products.
+
+## 5. What browsers does Mekari Pixel support?
+
+- `@mekari/pixel3` (Vue 3 version) supports modern browsers with native ES2016 support. This excludes IE11.
+- `@mekari/pixel` (Vue 2 version) supports older browsers including IE11.
+
+For further information, please visit: <https://vuejs.org/about/faq#what-s-the-difference-between-vue-2-and-vue-3>
+
+## 6. What is the difference between design token `2.1` and `2.4` in `@mekari/pixel3`?
+
+Design tokens `2.4`, introduced in `@mekari/pixel3` v1.0.0, includes significant improvements over `2.1`:
+
+- Built-in light and dark mode support
+- Theme management via `usePixelTheme` composable
+- Latest design token updates and improvements
+- Maintains backward compatibility with version `2.1`
+
+For new projects, we recommend using design token version `2.4` to take advantage of:
+- Modern theming capabilities
+- Simplified theme management
+- Latest design improvements
+- Better dark mode support
+
+## 7. How to upgrade from design token `2.1` to `2.4`?
+
+Upgrading from design token `2.1` to `2.4` should be a seamless process, as version `2.4` is designed to maintain backward compatibility.
+
+For more details, please visit: [Pixel Theme](docs/guides/pixel-theme.html)
+
+## 8. How to writing a custom styling in `@mekari/pixel3`?
+
+There are three main approaches to writing custom styles in `@mekari/pixel3`:
+
+1. **CSS Function**
+   ```vue
+   <div :class="css({ display: 'flex', padding: '12' })">
+     <MpText :class="css({ mt: '4' })">Hello</MpText>
+   </div>
+   ```
+   :br
+   Use this when you need to:
+   - Style native HTML tags
+   - Override Pixel component styles (Be careful, as it can break the component built-in style, structure and behavior)
+2. **CSS Props**
+   ```vue
+   <MpFlex direction="column" padding="12" background="background">
+     <Pixel.img height="100px" mb="4" />
+   </MpFlex>
+   ```
+   :br
+   Use this when working with:
+   - `MpFlex` component
+   - `Pixel` tag components
+3. **Dynamic Styles**
+   ```vue
+   <MpFlex :style="{ background: token.var(`colors.${dynamicColor}`) }">
+     <MpText>Dynamic content</MpText>
+   </MpFlex>
+   ```
+   :br
+   Use this for runtime/dynamic styling needs.
+
+All approaches support:
+
+- Utility props and their shorthands (e.g., `backgroundColor` or `bg`). Ref: [📚 Utility Props](/docs/utility-props.html)
+- Design token values (e.g., `brand.mekari` or `red.400`). Ref: [📚 Design Token](/docs/design-token-v2-4.html)
+
+For more detailed information, visit:
+- [CSS Function Guide](/docs/guides/css-function.html)
+- [CSS Props Guide](/docs/guides/css-props.html)
+- [Dynamic Styles Guide](/docs/guides/dynamic-styles.html)
+
+## 9. Does `@mekari/pixel3` include pattern collections like `@mekari/pixel`?
+
+Yes, `@mekari/pixel3` has patterns collections like in `@mekari/pixel`. Please visit: [Patterns](/patterns.html).
+
+But not all patterns in `@mekari/pixel` are available in `@mekari/pixel3`, we are working on it.
+
+## 10. Does `@mekari/pixel3` include template collections like `@mekari/pixel`?
+
+Yes, `@mekari/pixel3` has template collections like in `@mekari/pixel`. Please visit: [Templates](/templates.html).
+
+But not all templates in `@mekari/pixel` are available in `@mekari/pixel3`, we are working on it.
+
+# What's New in Pixel Vue3 v1
+
+Welcome to the latest version of **Mekari Pixel Vue3**! 🎉
+
+This update brings several exciting features designed to enhance your development experience and improve UI consistency.
+
+## 🔥 New Features
+
+### Design Token 2.4
+
+In the previous version (**Token 2.1)** provided a structured way to manage design tokens across our components. With this update, we’re introducing **Token 2.4**, which enhances the system with **Semantic Tokens** and **full Dark Mode support**.
+
+This new version simplifies token naming, improves consistency, and allows for dynamic theme adaptation without additional configuration. However, if you're not ready to transition immediately, **you can still use Token 2.1 or switch to Token 2.4 at your own pace**. Both versions remain supported, giving you flexibility in maintaining or gradually updating your implementation.
+
+You can easily switch to the new theme system ( Token 2.4) using the following API:
+
+```ts
+import { usePixelTheme } from '@mekari/pixel3'
+
+const { isNextTheme, setNextTheme } = usePixelTheme()
+
+setNextTheme(true)  // Enable next theme (Token 2.4)
+setNextTheme(false) // Disable next theme, Revert to light mode and previous theme (Token 2.1)
+```
+
+### Dark Mode Support
+
+Dark Mode is now fully integrated into Mekari Pixel, ensuring a smooth and visually balanced experience across all components. This update enhances contrast, improves readability, and adapts seamlessly to user preferences.
+
+With automatic theme switching, your UI will look great in both light and dark environments—no extra configuration needed. If you need manual control, you can easily toggle dark mode using the following API:
+
+```ts
+import { usePixelTheme } from '@mekari/pixel3'  
+const { isDark, setDarkMode } = usePixelTheme()  
+setDarkMode(true)  // Enable dark mode 
+setDarkMode(false) // Enable light mode
+```
+
+### New Components
+
+We’ve added two powerful new components:
+
+- **MpAireneButton (NEW 🎉)** A specialized button designed for Airene, offering a sleek and accessible experience.
+- **MpTextlink (NEW 🎉)** A lightweight text-based link component, perfect for inline navigation. It serves as a replacement for `<MpButton variant="textLink">`.
+
+These components are now available and fully compatible with both **Token 2.1** and **Token 2.4**, ensuring seamless integration into your existing projects.
+
+### **Component Enhancements**
+
+Several components have been improved with new props and variants:
+
+- **MpButton** – Added `tertiary` variant and `isFullWidth` prop.
+- **MpBadge** – Added `for` and `type` props.
+- **MpBroadcast** – Introduced a new `critical` variant.
+- **MpColorPicker** – Added `isDisabled` prop.
+- **MpDivider** – Now includes a `label` prop.
+- **MpProgress** – Updated the default color to `sky` and introduced additional color options.
+- **MpAvatar & MpAvatarGroup** – Default `size` prop is now `lg`.
+- **MpIcon** – Default `size` is now `sm`.
+
+### ⚠️ Breaking Changes
+
+There are **no breaking changes** in this release! 🎉
+
+While some props have been deprecated, they remain functional as they are automatically mapped to the new properties. This ensures a smooth transition without requiring immediate updates to your existing code.
+
+We recommend gradually migrating to the new props for better consistency and future compatibility, but your current implementation will continue to work as expected.
+
+##
+
+### **📖 Migration Guide**
+
+Upgrading to the latest version of **Mekari Pixel** is straightforward. Follow the steps below based on your package manager:
+
+#### **1️⃣ Update to the latest version**
+
+Run the appropriate command for your package manager:
+
+- **pnpm**
+
+```bash
+pnpm update @mekari/pixel3
+```
+
+- **npm**
+
+```bash
+  npm update @mekari/pixel3
+```
+
+- **yarn**
+
+```bash
+yarn upgrade @mekari/pixel3
+```
+
+#### **2️⃣ Enable Design Token 2.4 (Optional, if you want to switch to the new token system)**
+
+If you want to migrate to **Token 2.4**, you can enable it dynamically in your project:
+
+```ts
+import { usePixelTheme } from '@mekari/pixel3'  
+const { isNextTheme, setNextTheme } = usePixelTheme()  
+setNextTheme(true)  // Enable next theme (Token 2.4) 
+setNextTheme(false) // Revert to light mode (Token 2.1) 
+```
+
+#### **3️⃣ Review Deprecated Props (Optional, but recommended)**
+
+Even though there are no breaking changes, some props have been **deprecated** in favor of new ones. We recommend updating your components to use the latest prop names for future compatibility.
+
+# Add Directive
+
+A tutorial to add Pixel directives.
+
+## 1. `v-tooltip`
+
+### Automatically Register directive
+
+You can register the tooltip directive automatically by setting `tooltipDirective: true` in the plugin options (defaults to `false`). For better type safety, we recommend importing the `PixelPluginConfig` type from `@mekari/pixel3` when configuring the plugin options.
+
+```js{3,7}
+// main.{ts|js}
+import { createApp } from 'vue'
+import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(PixelPlugin, { tooltipDirective: true } as PixelPluginConfig)
+app.mount('#app')
+```
+
+### Manually Register directive
+
+```ts:line-numbers{4,7}
+import { createApp } from 'vue'
+import './pixel.css'
+import App from './App.vue'
+import { PixelTooltipDirective } from '@mekari/pixel3'
+
+const app = createApp(App)
+app.directive('tooltip', PixelTooltipDirective)
+app.mount('#app')
+```
+
+### How to use
+
+```vue:line-numbers{5,11-16}
+<template>
+  <MpFlex direction="column" gap="4" p="12">
+    <MpText
+      size="h1"
+      v-tooltip="'Tooltip for title'"
+    >
+      Hello Pixel Vue 3
+    </MpText>
+
+    <MpButton
+      v-tooltip="{
+        label: 'Tooltip for button',
+        placement: 'left',
+        showDelay: 10,
+        hideDelay: 10
+      }"
+    >
+      Start to Develop
+    </MpButton>
+  </MpFlex>
+</template>
+
+
+```
+
+# Add Font
+
+The 'Inter' typeface serves as the default font family for Pixel. Choose one of this tutorial below into your project:
+
+::: warning
+You don't need to add Inter font manually since Pixel Vue 3 version 0.4.0
+:::
+
+## 1. Mekari CDN
+
+By default Pixel Vue 3 not shipping with Inter font, you can add manually in `pixel.css` file via CDN.
+
+```css
+@layer pixel_reset, pixel_base, pixel_tokens, pixel_recipes, pixel_utilities;
+
+@font-face {
+  font-family: 'inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('https://cdn.mekari.design/fonts/Inter/Inter-Regular.woff2') format('woff2'),
+    url('https://cdn.mekari.design/fonts/Inter/Inter-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'inter';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('https://cdn.mekari.design/fonts/Inter/Inter-Italic.woff2') format('woff2'),
+    url('https://cdn.mekari.design/fonts/Inter/Inter-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    url('https://cdn.mekari.design/fonts/Inter/Inter-SemiBold.woff2') format('woff2'),
+    url('https://cdn.mekari.design/fonts/Inter/Inter-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'inter';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    url('https://cdn.mekari.design/fonts/Inter/Inter-SemiBoldItalic.woff2') format('woff2'),
+    url('https://cdn.mekari.design/fonts/Inter/Inter-SemiBoldItalic.ttf') format('truetype');
+}
+```
+
+## 2. Font Source
+
+Use third party library if you prefer to load font from within your apps.
+
+```sh
+npm install @fontsource/inter
+```
+
+Then import the font in your project.
+
+```js
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/400-italic.css'
+import '@fontsource/inter/600.css'
+import '@fontsource/inter/600-italic.css'
+```
+
+# CSS Function
+
+Pixel Vue 3 introduced the CSS function to writing styles.
+
+## When to use
+
+You can use CSS function, if you want to:
+
+- Writing style for native HTML tag
+- Override style for Pixel components
+
+## How to use
+
+For basic usage just import CSS function and add to class attribute.
+
+```vue:line-numbers{3-10,15,17}
+<template>
+  <div
+    :class="
+      css({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: 'background',
+        padding: '12',
+      })
+    "
+  >
+    <img
+      src="https://cdn.mekari.design/logo/mekari/default.svg"
+      :class="cx(css({ height: '100px' }), 'mekari-logo-class')"
+    />
+    <MpText :class="css({ mt: '4' })" size="h1">Hello Pixel Vue 3</MpText>
+  </div>
+</template>
+
+
+```
+
+### Tips
+
+- CSS function receive all utility props and the shorthand, for ex: `backgroundColor` or `bg`
+- CSS function receive all value from Design token, for ex: `brand.mekari` or `red.400`
+
+## Links
+
+- Read more about Utility props in this [docs](/docs/utility-props)
+- Read more about Design token in this [docs](/docs/design-token)
+
+# CSS Props
+
+Pixel Vue 3 introduced CSS props to passing css properties as "props" to components.
+
+## When to use
+
+You can use CSS props, if you want to:
+
+- Writing style for native HTML with `Pixel` tag
+- Add style for layouting with `MpFlex`, `MpSkeleton`, and `MpScrollbar`
+
+## How to use
+
+By default only `MpFlex`, `MpSkeleton`, `MpScrollbar` and `Pixel` tag that can receive CSS props
+
+```vue:line-numbers{5,6,8,10,11}
+<template>
+  <MpFlex
+    direction="column"
+    align="center"
+    background="background"
+    padding="12"
+  >
+    <Pixel.img
+      src="https://cdn.mekari.design/logo/mekari/default.svg"
+      height="100px"
+      mb="4"
+    />
+    <MpText size="h1">Hello Pixel Vue 3</MpText>
+  </MpFlex>
+</template>
+
+
+```
+
+### Tips
+
+- CSS props receive all utility props and the shorthand, for ex: `backgroundColor` or `bg`
+- CSS props receive all value from Design token, for ex: `brand.mekari` or `red.400`
+
+### Limitations
+
+- CSS props only can write with `camelCase`, for ex: write `backgroundColor` instead of `background-color`
+
+## Links
+
+- Read more about Utility props in this [docs](/docs/utility-props)
+- Read more about Design token in this [docs](/docs/design-token)
+
+# Dynamic Styles
+
+A guide to handle dynamic styles in your project.
+
+## Why need a guide
+
+Pixel Vue 3 uses [Panda](https://panda-css.com/) as styling engine, Panda is a styling engine that statically analyzable styles in your project
+and then generates atomic CSS at build time. Therefore we need to handle dynamic styles in Panda's way.
+
+## How to write dynamic styles
+
+For example you have an Object that will render dynamic color of title's background.
+Maybe you will write like this below, **but this approach won't work.**
+
+```vue:line-numbers{6}
+<template>
+  <MpFlex
+    direction="column"
+    gap="4"
+    p="4"
+    :background="productList[product].color"
+  >
+    <MpText size="h1" color="white">{{ productList[product].name }}</MpText>
+  </MpFlex>
+
+  <MpFlex gap="4" p="4" mt="2">
+    <MpRadio id="radio-1" value="0" v-model="product"> Talenta </MpRadio>
+    <MpRadio id="radio-2" value="1" v-model="product"> Jurnal </MpRadio>
+    <MpRadio id="radio-3" value="2" v-model="product"> Qontak </MpRadio>
+  </MpFlex>
+</template>
+
+
+```
+
+with the approach as above, Panda have inability to determine the style values.
+
+Instead we can use style attribute with `token()` function to generate dynamic styles.
+
+```vue:line-numbers{6}
+<template>
+  <MpFlex
+    direction="column"
+    gap="4"
+    p="4"
+    :style="{ background: token.var(`colors.${productList[product].color}`) }"
+  >
+    <MpText size="h1" color="white">{{ productList[product].name }}</MpText>
+  </MpFlex>
+
+  <MpFlex gap="4" p="4" mt="2">
+    <MpRadio id="radio-1" value="0" v-model="product"> Talenta </MpRadio>
+    <MpRadio id="radio-2" value="1" v-model="product"> Jurnal </MpRadio>
+    <MpRadio id="radio-3" value="2" v-model="product"> Qontak </MpRadio>
+  </MpFlex>
+</template>
+
+
+```
+
+The `token()` function is contains an object of all tokens by dot-path, allowing you to query for token's raw value at the runtime.
+
+```js
+/**
+ * @param {Token} name: name of the token. for ex: 'colors.brand.mekari' or 'sizes.8'.
+ * @param {string} fallback: fallback value if token is undefined. for ex: '#FF0000' or '8px'
+ * @return {string} return the value of token or in CSS variable.
+ */
+function token(name, fallback) {
+  ...
+}
+```
+
+### Tips
+
+- Use `token.var()` instead of `token()` to generate value with CSS variable
+- `MpText` and some other Pixel components already handle dynamic styles via props
+
+## Links
+
+- Read more about dynamic styles in Panda this [docs](https://panda-css.com/docs/guides/dynamic-styling)
+
+# Pixel Theme
+
+Starting in v1.0.0, we've introduced Design Token v2.4, bringing built-in light/dark mode capabilities and an enhanced usePixelTheme composable for seamless theme management.
+
+While you can manually handle HTML attributes for theming, we strongly recommend using usePixelTheme for its key benefits:
+
+✅ Automatic Theme Handling – No need to manually set HTML attributes.
+
+✅ Full Compatibility – Effortlessly switch between Design Token v2.1 and Design Token v2.4.
+
+✅ Persistent User Preferences – Theme settings are saved in local storage.
+
+✅ Clean & Type-Safe API – Simplifies theme management with intuitive methods.
+
+
+
+## 📌 Prerequisites
+Before proceeding, ensure that you have installed and configured PixelPlugin in your project.
+If you haven't done so, please refer to the [Getting Started - Vue 3](/docs/getting-started.html#install-pixel-vue-3).
+
+
+## 🌟 Enabling Design Token 2.4
+By default, Token 2.1 is applied. To enable Token 2.4, use the following API:
+
+```ts
+import { usePixelTheme } from '@mekari/pixel3'
+
+const { isNextTheme, setNextTheme } = usePixelTheme()
+
+setNextTheme(true)  // Enable Design Token v2.4
+setNextTheme(false) // Revert to Design Token v2.1
+
+```
+
+
+🔹 API Reference
+- `isNextTheme` → A boolean indicating whether Token 2.4 is active.
+  - `true` → The theme uses Design Token v2.4.
+  - `false` → The theme remains on Design Token v2.1.
+- `setNextTheme(value: boolean)` → A function to toggle between Token 2.1 and Token 2.4.
+
+
+
+ ## 🌕 Managing Dark & Light Mode
+Mekari Pixel provides a built-in dark mode system, allowing you to toggle between light and dark themes effortlessly.
+
+🔹 Usage
+```ts
+import { usePixelTheme } from '@mekari/pixel3'
+
+const { isDark, setDarkMode } = usePixelTheme()
+
+setDarkMode(true)  // Enable Dark Mode
+setDarkMode(false) // Enable Light Mode
+```
+🔹 API Reference
+
+- `isDark` → A boolean indicating whether dark mode is active.
+- `setDarkMode(value: boolean)` → A function to toggle light/dark mode dynamically.
+
+Pro Tip: You can combine Token 2.4 with dark mode for an adaptive UI experience.
+
+
+
+## 💻 Implementations  
+
+### 🌍 Globally Apply Token 2.4
+
+By default, Token 2.1 is active. You can globally enable Token 2.4 and toggle dark mode using the `usePixelTheme` composable.
+
+
+
+### ExamplePixelThemeUsage
+
+```vue
+<script setup lang="ts">
+  import { MpButton } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme, isDark, setNextTheme, setDarkMode } = usePixelTheme()
+
+  function toggleDarkMode(value: boolean) {
+    if (value) {
+      /** 
+       * Make sure next theme is enabled if dark mode is enabled.
+       * Since dark mode is only available in next theme (Design Token v2.4).
+       */
+      if (!isNextTheme.value) setNextTheme(true)
+
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
+    }
+  }
+
+  function toggleNextTheme(value: boolean) {
+    if (value) {
+      setNextTheme(true)
+    } else {
+      /** 
+       * Make sure dark mode is disabled if next theme is disabled.
+       * Since dark mode is only available in next theme (Design Token v2.4).
+       */
+      if (isDark.value) setDarkMode(false)
+      setNextTheme(false)
+    }
+  }
+</script>
+
+<template>
+  <div>
+    <div style="display: flex; flex-direction: column">
+      <strong>Current state: </strong>
+      <code>isNextTheme: {{ isNextTheme }}</code>
+      <code>isDark: {{ isDark }}</code>
+    </div>
+
+    <div style="display: flex; gap: 8px; margin-top: 16px">
+      <MpButton :variant="isNextTheme ? 'danger' : 'primary'" @click="toggleNextTheme(!isNextTheme)">
+        {{ isNextTheme ? 'Disable' : 'Enable' }} Next Theme
+      </MpButton>
+      <MpButton :variant="isDark ? 'danger' : 'primary'" @click="toggleDarkMode(!isDark)">
+        {{ isDark ? 'Disable' : 'Enable' }} Dark Mode
+      </MpButton>
+    </div>
+  </div>
+</template>
+
+```
+
+
+
+### ⚡ Gradually Apply Token 2.4
+
+You can enable Token 2.4 only for specific pages or components instead of applying it globally.
+
+🔹 Example: Enable Token 2.4 only on /inbox page
+
+```ts
+import { usePixelTheme } from "@mekari/pixel3-utils"; // Ensure the package is installed
+const { setNextTheme, setDarkMode } = usePixelTheme();
+watchEffect(() => {
+  // Apply next theme (Design Token v2.4) only for path inbox.
+  setNextTheme(route.path === "/inbox");
+  setDarkMode(false);
+});
+
+```
+
+### 🔧 Manually Handle Theme Changes
+
+While we recommend using the usePixelTheme composable for seamless theme management, manual handling is also possible.
+
+1. Disable Built-in Theme Management:
+
+```ts{4}
+import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
+
+const app = createApp(App)
+app.use(PixelPlugin, { pixelTheme: false } as PixelPluginConfig)
+app.mount('#app')
+```
+2. Implement Custom Theme Handling
+
+::: warning
+⚠ Important: Always keep isNextTheme in sync when handling themes manually.
+- `isNextTheme = true` when data-panda-theme="next" is set.
+- `isNextTheme = false` when data-panda-theme="next" is not set.
+- **Mismatched states may result in incorrect component styling.**
+
+:::
+
+**Example: Manually Setting Themes**
+
+
+```ts{16,21}
+import { usePixelTheme } from '@mekari/pixel3'
+
+const { setNextTheme } = usePixelTheme()
+
+function showLightMode() {
+  document.documentElement.classList.add('light')
+  document.documentElement.classList.remove('dark')
+}
+function showDarkMode() {
+  document.documentElement.classList.add('dark')
+  document.documentElement.classList.remove('light')
+}
+function applyNextTheme() {
+  document.documentElement.setAttribute('data-panda-theme', 'next')
+
+  setNextTheme(true)
+}
+function removeNextTheme() {
+  document.documentElement.removeAttribute('data-panda-theme')
+
+  setNextTheme(false)
+}
+```
+
+# Responsive Design
+
+Pixel Vue 3 support responsive design by using `css()` utility function that lets you write clean, responsive, and type-safe styles directly in your code. Pixel Vue 3 comes with 4 predefined breakpoints: 
+
+| Breakpoint | Min Width (em) | Min Width (px) | Description                           |
+| ---------- | -------------- | -------------- | ------------------------------------- |
+| `base`     | —              | —              | Default (applies to all screen sizes) |
+| `sm`       | `22.5em`       | 360px          | Small screens (e.g., phones)          |
+| `md`       | `48em`         | 768px          | Medium screens (e.g., tablets)        |
+| `lg`       | `64em`         | 1024px         | Large screens (e.g., laptops)         |
+| `xl`       | `80em`         | 1280px         | Extra-large screens (e.g., desktops)  |
+
+
+> ℹ️ `base` acts as the **default style**, used before any breakpoint overrides apply.
+
+
+
+
+### Example: Responsive `backgroundColor`
+
+```tsx
+
+
+<template>
+  <div
+    :class="css({
+      backgroundColor: {
+        base: 'orange.500', // default
+        sm: 'lime.100',     // ≥ 22.5em
+        md: 'fuchsia.100',  // ≥ 48em
+        lg: 'leaf.100',     // ≥ 64em
+        xl: 'dark'          // ≥ 80em
+      }
+    })"
+  >
+    Text
+  </div>
+</template>
+```
+
+#### Result Overview
+| Screen Width | Background Color |
+| ------------ | ---------------- |
+| `< 22.5em`   | `orange.500`     |
+| `≥ 22.5em`   | `lime.100`       |
+| `≥ 48em`     | `fuchsia.100`    |
+| `≥ 64em`     | `leaf.100`       |
+| `≥ 80em`     | `dark`           |
+
+---
+
+### Simplify With Array Syntax
+Pixel Vue 3 also accepts arrays as value.
+
+```tsx
+
+
+<template>
+  <div
+  :class="css({
+    backgroundColor: [
+      'orange.500',
+      'lime.100',
+      'fuchsia.100',
+      'leaf.100',
+      'dark']
+  })">
+  Text
+</div>
+</template>
+```
+---
+
+# Auto import
+
+Using auto import in Vue 3 with Vite and Nuxt 3 streamlines development by reducing boilerplate code, boosting productivity with automatic component imports, and also supporting TypeScript types.
+
+<img src="https://cdn.mekari.design/pixel3-docs/auto-import.gif" style="border-radius: 12px;" />
+
+## Vue 3 + Vite
+
+To enable auto import in a Vue 3 project using Vite, you need to configure your `vite.config.ts`.
+
+```ts{5,11}
+// vite.config.ts
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import PixelComponent from '@mekari/pixel3-auto-import';
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    vueJsx(),
+    PixelComponent(),
+  ],
+})
+```
+
+::: details Click me to view example
+
+<iframe
+  id="inlineFrameExample"
+  title="Inline Frame Example"
+  width="100%"
+  height="500"
+  src="https://stackblitz.com/edit/jnkydt?embed=1&file=src/App.vue">
+</iframe>
+:::
+
+## Nuxt 3
+
+To enable auto import in a Nuxt 3 project, you need to configure your `nuxt.config.ts`.
+
+```ts{4}
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: [
+    '@mekari-pixel3/nuxt'
+  ],
+})
+```
+
+::: details Click me to view example
+
+<iframe
+  id="inlineFrameExample"
+  title="Inline Frame Example"
+  width="100%"
+  height="500"
+  src="https://stackblitz.com/edit/github-gnzpda?embed=1&file=pages%2Findex.vue">
+</iframe>
+:::
+
+# Getting Started
+
+A quick tutorial to get you up and running project with Pixel Vue 3.
+
+### Prequisite
+
+- Vue 3.x (Pixel Vue 3 recommended for Vue 3.4 or higher)
+- PostCSS (Pixel Vue 3 uses a set of PostCSS plugins to convert the parsed data to atomic css at build time)
+
+## Vue 3 + Vite
+
+### Install Pixel Vue 3
+
+When you already have Vue 3 + Vite project, next you can install the library.
+
+```sh
+npm install @mekari/pixel3 @mekari/pixel3-postcss
+```
+
+Add `PixelPlugin` plugin to your Vue project.
+
+```js{3,7,8,9}
+// main.{ts|js}
+import { createApp } from 'vue'
+import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(PixelPlugin, {
+  pixelTheme: true // To enable pixel theme watcher.
+} as PixelPluginConfig)
+app.mount('#app')
+```
+
+### Configure PostCSS
+
+Create `postcss.config.cjs` file, or wherever PostCSS is configured in your project.
+
+```js
+module.exports = {
+  plugins: {
+    '@mekari/pixel3-postcss': {
+      include: [
+        './src/**/*.{js,jsx,ts,tsx,vue}' // path where you develop components or pages
+      ]
+    }
+  }
+}
+```
+
+### Configure entry for CSS
+
+Create `pixel.css` file, or any CSS file which is going to be the root css of your project.
+
+```css
+@layer pixel_reset, pixel_base, pixel_tokens, pixel_recipes, pixel_utilities;
+```
+
+Don't forget to include CSS file in your apps
+
+```js
+import { createApp } from 'vue'
+import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
+import './pixel.css'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(PixelPlugin, {
+  pixelTheme: true // To enable pixel theme watcher.
+} as PixelPluginConfig)
+app.mount('#app')
+```
+
+### Add Directive
+
+Register Pixel directive to your project, follow this [guide](/docs/guides/add-directive)
+
+### Start using Pixel Vue 3
+
+Use components from `@mekari/pixel3` package in your code and Pixel will extract them to the generated CSS file.
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4" p="12">
+    <MpText size="h1">Hello Pixel Vue 3</MpText>
+    <MpButton>Start to Develop</MpButton>
+  </MpFlex>
+</template>
+
+
+```
+
+## Nuxt 3
+
+### Install Pixel Vue 3
+
+When you already have Nuxt 3 project, next you can install the library.
+
+```sh
+npm install @mekari/pixel3 @mekari/pixel3-postcss
+```
+
+Create plugin file `plugins/pixel.ts` or `plugins/pixel.client.ts` and add the following code.
+
+```ts{2,5,6,7}
+// plugins/pixel.ts or plugins/pixel.client.ts
+import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(PixelPlugin, {
+  pixelTheme: true // To enable pixel theme watcher.
+} as PixelPluginConfig)
+})
+```
+
+### Configure entry for CSS
+
+Create `pixel.css` file, or any CSS file which is going to be the root css of your project.
+
+```css
+@layer pixel_reset, pixel_base, pixel_tokens, pixel_recipes, pixel_utilities;
+```
+
+### Configure Nuxt
+
+Add the following configuration to the `nuxt.config.ts` file
+
+```ts
+export default defineNuxtConfig({
+  css: [
+    '@/assets/css/pixel.css' // make sure to load pixel.css file at the very last
+  ],
+  postcss: {
+    plugins: {
+      '@mekari/pixel3-postcss': {
+        include: [
+          './pages/**/*.{js,jsx,ts,tsx,vue}', // path where you develop pages
+          './components/**/*.{js,jsx,ts,tsx,vue}' // path where you develop components
+        ]
+      }
+    }
+  }
+})
+```
+
+### Add Directive
+
+Register Pixel directive to your project, follow this [guide](/docs/guides/add-directive)
+
+### Start using Pixel Vue 3
+
+Use components from `@mekari/pixel3` package in your code and Pixel will extract them to the generated CSS file.
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4" p="12">
+    <MpText size="h1">Hello Pixel Vue 3</MpText>
+    <MpButton>Start to Develop</MpButton>
+  </MpFlex>
+</template>
+
+
+```
+
+# Utility Props
+
+List of style properties that can be used in CSS function or CSS props.
+
+## Background
+
+### Background Colors
+
+| Prop                         | CSS Property       | Token Category |
+| ---------------------------- | ------------------ | -------------- |
+| `bg`, `background`           | `background`       | `colors`       |
+| `bgColor`, `backgroundColor` | `background-color` | `colors`       |
+| `bgGradient`                 | `background-image` | `gradients`    |
+
+### Background Gradients
+
+| Prop           | CSS Property       | Token Category |
+| -------------- | ------------------ | -------------- |
+| `bgGradient`   | `background-image` | `gradients`    |
+| `textGradient` | `background-image` | `gradients`    |
+| `gradientFrom` | `--gradient-from`  | `colors`       |
+| `gradientTo`   | `--gradient-to`    | `colors`       |
+| `gradientVia`  | `--gradient-via`   | `colors`       |
+
+## Border
+
+### Border
+
+| Prop                                | CSS Property        | Token Category |
+| ----------------------------------- | ------------------- | -------------- |
+| `border`                            | `border`            | `borders`      |
+| `borderX` , `borderInline`          | `borderInline`      | `borders`      |
+| `borderY` , `borderBlock`           | `borderBlock`       | `borders`      |
+| `borderStart` , `borderInlineStart` | `borderInlineStart` | `borders`      |
+| `borderEnd` , `borderInlineEnd`     | `borderInlineEnd`   | `borders`      |
+
+### Border Radi
+
+| Prop                                     | CSS Property                        | Token Category |
+| ---------------------------------------- | ----------------------------------- | -------------- |
+| `rounded`,`borderRadius`                 | `border-radius`                     | `radii`        |
+| `roundedTopLeft`,`borderTopLeftRadius`   | `border-top-left-radius`            | `radii`        |
+| `roundedTopRight`,`borderTopRight`       | `border-top-right-radius`           | `radii`        |
+| `roundedBottomRight`,`borderBottomRight` | `border-bottom-right-radius`        | `radii`        |
+| `roundedBottomLeft`,`borderBottomLeft`   | `border-bottom-left-radius`         | `radii`        |
+| `roundedTop`,`borderTopRadius`           | `border-top-{left+right}-radius`    | `radii`        |
+| `roundedRight`,`borderRightRadius`       | `border-{top+bottom}-right-radius`  | `radii`        |
+| `roundedBottom`,`borderBottomRadius`     | `border-bottom-{left+right}-radius` | `radii`        |
+| `roundedLeft`,`borderLeftRadius`         | `border-{top+bottom}-left-radius`   | `radii`        |
+
+### Border Width
+
+| Prop                                 | CSS Property                |
+| ------------------------------------ | --------------------------- |
+| `borderWidth`                        | `border-width`              |
+| `borderTopWidth`                     | `border-top-width`          |
+| `borderLeftWidth`                    | `border-left-width`         |
+| `borderRightWidth`                   | `border-right-width`        |
+| `borderBottomWidth`                  | `border-bottom-width`       |
+| `borderXWidth` , `borderInlineWidth` | `border-{left+right}-width` |
+| `borderYWidth` , `borderBlockWidth`  | `border-{top+bottom}-width` |
+
+### Border Color
+
+| Prop                | CSS Property          | Token Category |
+| ------------------- | --------------------- | -------------- |
+| `borderColor`       | `border-color`        | `colors`       |
+| `borderTopColor`    | `border-top-color`    | `colors`       |
+| `borderLeftColor`   | `border-left-color`   | `colors`       |
+| `borderRightColor`  | `border-right-color`  | `colors`       |
+| `borderBottomColor` | `border-bottom-color` | `colors`       |
+
+## Effects
+
+### Opacity
+
+| Prop      | CSS Property | Token Category |
+| --------- | ------------ | -------------- |
+| `opacity` | `opacity`    | `opacity`      |
+
+### Box Shadow
+
+| Prop          | CSS Property     | Token Category |
+| ------------- | ---------------- | -------------- |
+| `boxShadow`   | `box-shadow`     | `shadows`      |
+| `shadow`      | `box-shadow`     | `shadows`      |
+| `shadowColor` | `--shadow-color` | `colors`       |
+
+## Sizing
+
+### Width
+
+| Prop               | CSS Property | Token Category |
+| ------------------ | ------------ | -------------- |
+| `w`, `width`       | `width`      | `sizing`       |
+| `maxW`, `maxWidth` | `max-width`  | `sizing`       |
+| `minW`, `minWidth` | `min-width`  | `sizing`       |
+
+### Height
+
+| Prop                | CSS Property | Token Category |
+| ------------------- | ------------ | -------------- |
+| `h`, `height`       | `height`     | `sizing`       |
+| `maxH`, `maxHeight` | `max-height` | `sizing`       |
+| `minH`, `minHeight` | `min-height` | `sizing`       |
+
+## Spacing
+
+### Position
+
+| Prop     | CSS Property | Token Category |
+| -------- | ------------ | -------------- |
+| `top`    | `top`        | `spacing`      |
+| `right`  | `right`      | `spacing`      |
+| `bottom` | `bottom`     | `spacing`      |
+| `left`   | `left`       | `spacing`      |
+
+### Padding
+
+| Prop                  | CSS Property     | Token Category |
+| --------------------- | ---------------- | -------------- |
+| `p`,`padding`         | `padding`        | `spacing`      |
+| `pl`, `paddingLeft`   | `padding-left`   | `spacing`      |
+| `pr`, `paddingRight`  | `padding-right`  | `spacing`      |
+| `pt`, `paddingTop`    | `padding-top`    | `spacing`      |
+| `pb`, `paddingBottom` | `padding-bottom` | `spacing`      |
+| `px`, `paddingX`      | `padding-left`   | `spacing`      |
+| `py`, `paddingY`      | `padding-top`    | `spacing`      |
+
+### Margin
+
+| Prop                 | CSS Property    | Token Category |
+| -------------------- | --------------- | -------------- |
+| `m`,`margin`         | `margin`        | `spacing`      |
+| `ml`, `marginLeft`   | `margin-left`   | `spacing`      |
+| `mr`, `marginRight`  | `margin-right`  | `spacing`      |
+| `mt`, `marginTop`    | `margin-top`    | `spacing`      |
+| `mb`, `marginBottom` | `margin-bottom` | `spacing`      |
+| `mx`, `marginX`      | `margin-left`   | `spacing`      |
+| `my`, `marginY`      | `margin-top`    | `spacing`      |
+
+## Typography
+
+### Font Properties
+
+| Prop                  | CSS Property            | Token Category   |
+| --------------------- | ----------------------- | ---------------- |
+| `fontFamily`          | `font-family`           | `fonts`          |
+| `fontSize`            | `font-size`             | `fontSizes`      |
+| `fontWeight`          | `font-weight`           | `fontWeights`    |
+| `letterSpacing`       | `letter-spacing`        | `letterSpacings` |
+| `lineHeight`          | `line-height`           | `lineHeights`    |
+| `textDecorationColor` | `text-decoration-color` | `colors`         |
+| `textEmphasisColor`   | `text-emphasis-color`   | `colors`         |
+| `textIndent`          | `text-indent`           | `spacing`        |
+| `textShadow`          | `text-shadow`           | `shadows`        |
+
+### Truncate
+
+| Prop        | CSS Property        | Token Category |
+| ----------- | ------------------- | -------------- |
+| `lineClamp` | `webkit-line-clamp` | none           |
+| `truncate`  | `text-overflow`     | none           |
+
+### Text Styles
+
+| Prop        | Config       |
+| ----------- | ------------ |
+| `textStyle` | `textStyles` |
+

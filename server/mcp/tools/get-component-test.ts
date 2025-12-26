@@ -1,7 +1,7 @@
 export default defineMcpTool({
   description: 'Retrieves Pixel component documentation and details from llms-components.txt',
   async handler() {
-  try {
+    try {
       const config = useRuntimeConfig()
       const baseUrl = config.pixelMcpBaseUrl
       const response = await fetch(`${baseUrl}/llms.txt`)
@@ -23,5 +23,5 @@ export default defineMcpTool({
         isError: true,
       }
     }
-}
+  },
 })

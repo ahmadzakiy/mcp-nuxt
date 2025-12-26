@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { defineMcpTool } from '@nuxtjs/mcp-toolkit' // optional
 
 export default defineMcpTool({
   description: 'Get current weather for a city',

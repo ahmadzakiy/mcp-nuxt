@@ -4,12 +4,12 @@ export default defineMcpTool({
   try {
       const config = useRuntimeConfig()
       const baseUrl = config.pixelMcpBaseUrl
-      // const data = await $fetch<string>(`${baseUrl}/llms.txt`)
+      const data = await $fetch<string>(`${baseUrl}/llms.txt`)
 
       return {
         content: [{
           type: 'text',
-          text: `${baseUrl}/llms.txt`,
+          text: data,
         }],
       }
     }

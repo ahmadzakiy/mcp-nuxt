@@ -6,7 +6,10 @@ export default defineNuxtConfig({
     enabled: process.env.NODE_ENV === "development",
   },
   runtimeConfig: {
-    pixelMcpBaseUrl: process.env.NODE_ENV === "development" ? 'http://localhost:3200' : 'https://pixel-mcp.netlify.app'
+    pixelMcpBaseUrl: process.env.NODE_ENV === "development" ? 'http://localhost:3200' : 'https://pixel-mcp.netlify.app',
+    public: {
+      mcpVersion: '0.0.1'
+    }
   },
   modules: ['@nuxtjs/mcp-toolkit'],
   css: [

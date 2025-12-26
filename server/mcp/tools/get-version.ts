@@ -4,10 +4,9 @@ export default defineMcpTool({
   inputSchema: {},
   handler: async () => {
     const config = useRuntimeConfig()
-    const mcpConfig = useAppConfig().mcp
     
     return jsonResult({
-      version: mcpConfig?.version || '0.0.1',
+      version: config.public.mcpVersion,
       pixelMcpBaseUrl: config.pixelMcpBaseUrl,
     })
   },

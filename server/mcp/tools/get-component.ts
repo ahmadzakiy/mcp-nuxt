@@ -1,6 +1,4 @@
 import { z } from 'zod'
-import { readFile } from 'fs/promises'
-import { join } from 'path'
 import { normalizeComponentName } from '../utils/normalizeComponentName'
 
 export default defineMcpTool({
@@ -14,9 +12,10 @@ export default defineMcpTool({
       // Normalize component name
       const normalizedName = normalizeComponentName(componentName)
       
-      // Read the llms-components.txt file
-      const filePath = join(process.cwd(), 'server/mcp/resources/llms-components.txt')
-      const fileContent = await readFile(filePath, 'utf-8')
+      // Fetch the llms-components.txt file from public directory
+      const config = useRuntimeConfig()
+      const baseUrl = config.pixelMcpBaseUrl
+      const fileContent = await $fetch<string>(`${baseUrl}/llms-components.txt`, { responseType: 'text' })
       
       // Split content by main component headers (lines starting with "# ")
       const sections = fileContent.split(/\n(?=# )/)

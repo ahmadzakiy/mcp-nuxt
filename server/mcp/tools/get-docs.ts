@@ -1,6 +1,4 @@
 import { z } from 'zod'
-import { readFile } from 'fs/promises'
-import { join } from 'path'
 
 export default defineMcpTool({
   description: 'Retrieves Pixel documentation, answers questions about setup, component usage, design tokens (2.1 vs 2.4), and other Pixel-related queries',
@@ -11,13 +9,12 @@ export default defineMcpTool({
     try {
       const normalizedQuery = query.toLowerCase().trim()
       
-      // Define paths for all documentation files
-      const docsPath = join(process.cwd(), 'server/mcp/resources/llms-docs.txt')
-      const token21Path = join(process.cwd(), 'server/mcp/resources/llms-design-tokens-21.txt')
-      const token24Path = join(process.cwd(), 'server/mcp/resources/llms-design-tokens-24.txt')
+      // Base URL for fetching resources
+      const config = useRuntimeConfig()
+      const baseUrl = config.pixelMcpBaseUrl
       
-      // Read all relevant files
-      const docsContent = await readFile(docsPath, 'utf-8')
+      // Fetch all relevant files
+      const docsContent = await $fetch<string>(`${baseUrl}/llms-docs.txt`, { responseType: 'text' })
       
       // Determine what type of query this is
       const isTokenQuery = /token|design token|2\.1|2\.4|v2\.1|v2\.4/i.test(normalizedQuery)
@@ -60,8 +57,8 @@ export default defineMcpTool({
       
       // If token-related query, include token documentation
       if (isTokenQuery) {
-        const token21Content = await readFile(token21Path, 'utf-8')
-        const token24Content = await readFile(token24Path, 'utf-8')
+        const token21Content = await $fetch<string>(`${baseUrl}/llms-design-tokens-21.txt`, { responseType: 'text' })
+        const token24Content = await $fetch<string>(`${baseUrl}/llms-design-tokens-24.txt`, { responseType: 'text' })
         
         relevantContent.push({
           title: 'Design Tokens v2.1 vs v2.4 Comparison',

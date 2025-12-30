@@ -114,7 +114,7 @@ Divide content into collapsible sections.
 
       <MpAccordionItem id="accordion-item-2" icon-position="start">
         <MpAccordionHeader>
-          <MpAccordionIcon name="caret-right" />
+          <MpAccordionIcon name="chevrons-right" />
 
           <MpText size="h2" :class="headerTextClass">Header 2</MpText>
         </MpAccordionHeader>
@@ -201,7 +201,7 @@ Divide content into collapsible sections.
         </MpAccordionPanel>
       </MpAccordionItem>
 
-      <MpAccordionItem id="accordion-item-3" default-is-open>
+      <MpAccordionItem id="accordion-item-3">
         <MpAccordionHeader>
           <MpText size="h2" :class="headerTextClass">Header 3</MpText>
 
@@ -386,48 +386,51 @@ Divide content into collapsible sections.
     textAlign: 'left',
     fontWeight: 'semiBold'
   })
+
+  const accordionItems = [
+    {
+      id: 1,
+      title: 'Section 1',
+      description:
+        'Open repair of infrarenal aortic aneurysm or dissection, plus repair of associated arterial trauma, following unsuccessful endovascular repair; aorto-bifemoral prosthesis',
+      content: 'Content for section 1',
+      isDefaultOpen: true
+    },
+    {
+      id: 2,
+      title: 'Section 2',
+      description:
+        'Open repair of infrarenal aortic aneurysm or dissection, plus repair of associated arterial trauma, following unsuccessful endovascular repair; aorto-bifemoral prosthesis',
+      content: 'Content for section 2',
+      isDefaultOpen: true
+    }
+  ]
 </script>
 
 <template>
   <div>
     <MpAccordion is-allow-multiple id="accordion-icon-position">
-      <MpAccordionItem id="accordion-item-1" icon-position="start">
-        <MpAccordionHeader style="align-items: start">
+      <MpAccordionItem
+        v-for="item in accordionItems"
+        :key="item.id"
+        icon-position="start"
+        :is-default-open="item.isDefaultOpen"
+      >
+        <MpAccordionHeader>
           <MpAccordionIcon />
 
           <div :class="css({ display: 'flex', alignItems: 'center', gap: '2' })">
-            <MpText size="h2" :class="headerTextClass">Section 1</MpText>
+            <MpText size="h2" :class="headerTextClass">{{ item.title }}</MpText>
             <MpIcon name="info" size="sm" v-tooltip="'Tooltip content'" />
           </div>
 
           <template #description>
-            Open repair of infrarenal aortic aneurysm or dissection, plus repair of associated
-            arterial trauma, following unsuccessful endovascular repair; aorto-bifemoral prosthesis
+            {{ item.description }}
           </template>
         </MpAccordionHeader>
 
         <MpAccordionPanel>
-          <MpText color="inherit"> Content </MpText>
-        </MpAccordionPanel>
-      </MpAccordionItem>
-
-      <MpAccordionItem id="accordion-item-2" icon-position="start">
-        <MpAccordionHeader style="align-items: start">
-          <MpAccordionIcon />
-
-          <div :class="css({ display: 'flex', alignItems: 'center', gap: '2' })">
-            <MpText size="h2" :class="headerTextClass">Section 2</MpText>
-            <MpIcon name="info" size="sm" v-tooltip="'Tooltip content'" />
-          </div>
-
-          <template #description>
-            Open repair of infrarenal aortic aneurysm or dissection, plus repair of associated
-            arterial trauma, following unsuccessful endovascular repair; aorto-bifemoral prosthesis
-          </template>
-        </MpAccordionHeader>
-
-        <MpAccordionPanel>
-          <MpText color="inherit"> Content </MpText>
+          <MpText color="inherit">{{ item.content }}</MpText>
         </MpAccordionPanel>
       </MpAccordionItem>
     </MpAccordion>
@@ -463,7 +466,7 @@ Divide content into collapsible sections.
     <MpAccordion is-allow-multiple id="accordion-icon-position">
       <MpAccordionItem id="accordion-item-1" icon-position="start">
         <MpAccordionHeader style="align-items: start">
-          <MpAccordionIcon name="caret-right" />
+          <MpAccordionIcon name="chevrons-right" />
 
           <div :class="css({ display: 'flex', alignItems: 'center', gap: '2' })">
             <MpText size="h2" :class="headerTextClass">Section 1</MpText>
@@ -483,7 +486,7 @@ Divide content into collapsible sections.
 
       <MpAccordionItem id="accordion-item-2" icon-position="start">
         <MpAccordionHeader style="align-items: start">
-          <MpAccordionIcon name="caret-right" />
+          <MpAccordionIcon name="chevrons-right" />
 
           <div :class="css({ display: 'flex', alignItems: 'center', gap: '2' })">
             <MpText size="h2" :class="headerTextClass">Section 2</MpText>
@@ -700,7 +703,7 @@ Chat Bubble component for Airene.
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import {
     MpAireneChatBubble,
     MpSkeleton,
@@ -718,9 +721,11 @@ Chat Bubble component for Airene.
   const isLoading = ref(true)
   const isSourceOpen = ref(false)
 
-  setTimeout(() => {
-    isLoading.value = true
-  }, 4000)
+  onMounted(() => {
+    setTimeout(() => {
+      isLoading.value = true
+    }, 4000)
+  })
 
   function handleAlert(message: string) {
     alert(message)
@@ -740,7 +745,7 @@ Chat Input component for Airene.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `id` | `-` | `-` | Id of chat input. |
-| `modelValue` | `-` | `-` | modelValue of chat input, use for v-model. |
+| `model-value` | `-` | `-` | modelValue of chat input, use for v-model. |
 | `placeholder` | `-` | `-` | Placeholder of chat input. |
 | `maxlength` | `-` | `-` | Max length of chat input. |
 | `aria-labelled` | `-` | `-` | Optional prop for accessibility. |
@@ -827,6 +832,108 @@ Chat Input component for Airene.
 
 ```
 
+### Usage: Upload
+
+```vue
+<template>
+  <MpFlex direction="column" gap="1.5" mb="8">
+    <MpFlex v-if="previews.length" gap="3">
+      <div v-for="(src, index) in previews" :key="index" style="margin-bottom: 10px">
+        <MpFlex class="group" position="relative" width="64px" height="64px">
+          <MpImage :src="src" layout="fixed" :width="64" :height="64" :is-lazy="false" />
+          <MpIcon
+            :class="
+              css({
+                position: 'absolute',
+                right: '-8px',
+                top: '-8px',
+                cursor: 'pointer',
+                opacity: 0,
+                transition: 'opacity 250ms',
+                _groupHover: {
+                  opacity: 1
+                }
+              })
+            "
+            name="reset"
+            size="sm"
+            @click="removeImage(index)"
+          />
+        </MpFlex>
+      </div>
+    </MpFlex>
+
+    <MpAireneChatInput id="upload" v-model="chat" :is-disabled="false">
+      <MpFlex gap="1.5" alignItems="center" cursor="pointer">
+        <MpIcon name="img" size="sm" @click="triggerUpload" />
+        <input
+          ref="fileInput"
+          type="file"
+          multiple
+          accept="image/*"
+          @change="handleFiles"
+          style="display: none"
+        />
+      </MpFlex>
+    </MpAireneChatInput>
+    <MpText size="label-small" :color="isNextTheme ? 'text.secondary' : 'gray.400'">
+      Airene responses can be inaccurate or misleading.
+      <MpText
+        as="span"
+        size="label-small"
+        :color="isNextTheme ? 'text.link' : 'blue.400'"
+        is-text-link
+      >
+        Learn more
+      </MpText>
+    </MpText>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { css, MpFlex, MpAireneChatInput, MpText, MpImage, MpIcon } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme } = usePixelTheme()
+  const chat = ref('')
+  const fileInput = ref()
+  const previews = ref<string[]>([])
+
+  function triggerUpload() {
+    fileInput.value.click()
+  }
+
+  function handleFiles(event: Event) {
+    const input = event.target as HTMLInputElement
+    if (!input.files) return
+
+    const files = Array.from(input.files)
+    previews.value = []
+
+    files.forEach((file) => {
+      const reader = new FileReader()
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const result = e.target?.result
+        if (typeof result === 'string') {
+          previews.value.push(result)
+        }
+      }
+
+      reader.readAsDataURL(file)
+    })
+
+    input.value = ''
+  }
+
+  function removeImage(index: number) {
+    previews.value.splice(index, 1)
+  }
+</script>
+
+```
+
 ### Usage: Advance
 
 ```vue
@@ -886,242 +993,6 @@ Chat Input component for Airene.
     return chat.value.length > 0 && chat.value.length < 10
   })
 </script>
-
-```
-
-# Avatar
-
-Used to display profile image, initial or fallback icon.
-
-### MpAvatar
-
-#### MpAvatar Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of avatar. |
-| `name` | `-` | `-` | Name of avatar. |
-| `variant` | `-` | `-` | Variant of avatar. |
-| `variant-color` | `-` | `-` | Variant color of avatar. Not set will be get random color. |
-| `size` | `-` | `-` | Size of avatar. |
-| `has-border` | `-` | `-` | If true, avatar border will be displayed. |
-| `border-color` | `-` | `-` | Border color of avatar. |
-| `src` | `-` | `-` | Image url of avatar. |
-| `icon` | `-` | `-` | Icon of avatar. |
-| `icon-variant` | `-` | `-` | Icon variant of avatar. |
-| `icon-color` | `-` | `-` | Icon color of avatar. |
-
-#### MpAvatar Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-
-#### MpAvatar Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Avatar slot. |
-
-### MpAvatarGroup
-
-#### MpAvatarGroup Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of avatar group. |
-| `size` | `-` | `-` | Size of avatar in group. |
-| `max` | `-` | `-` | Displayed maximum avatar. |
-| `spacing` | `-` | `-` | Space between each avatar in group. |
-| `border-color` | `-` | `-` | Border color of avatar. |
-
-#### MpAvatarGroup Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-
-#### MpAvatarGroup Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Avatar group slot. |
-
-### Usage: Variant
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpAvatar } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpAvatar id="avatar-wtm" name="Initial" variant-color="gray" />
-    <MpAvatar
-      id="avatar-0tn"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar id="avatar-w3s" variant-color="gray" icon="mekari-brand" />
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatar id="avatar-ri9" name="Initial" variant="square" variant-color="gray" />
-    <MpAvatar
-      id="avatar-s7g"
-      variant="square"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar id="avatar-qdp" variant="square" variant-color="gray" icon="mekari-brand" />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Variant color
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpAvatar } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpAvatar id="avatar-wtm" name="Gray" variant-color="gray" />
-    <MpAvatar id="avatar-0tn" name="Sky" variant-color="sky" />
-    <MpAvatar id="avatar-w3s" name="Teal" variant-color="teal" />
-    <MpAvatar id="avatar-ri9" name="Violet" variant-color="violet" />
-    <MpAvatar id="avatar-s7g" name="Amber" variant-color="amber" />
-    <MpAvatar id="avatar-qdp" name="Rose" variant-color="rose" />
-    <MpAvatar id="avatar-fi0" name="Stone" variant-color="stone" />
-    <MpAvatar id="avatar-sqm" name="Lime" variant-color="lime" />
-    <MpAvatar id="avatar-zxc" name="Pink" variant-color="pink" />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Size
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpAvatar } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpAvatar id="avatar-wtm" name="Dirman" size="sm" variant-color="gray" />
-    <MpAvatar id="avatar-0tn" name="Dirman" size="md" variant-color="gray" />
-    <MpAvatar id="avatar-w3s" name="Dirman Suharno" size="lg" variant-color="gray" />
-    <MpAvatar id="avatar-ri9" name="Dirman Suharno" size="xl" variant-color="gray" />
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatar
-      id="avatar-s7g"
-      name="Dirman"
-      size="sm"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar
-      id="avatar-qdp"
-      name="Dirman"
-      size="md"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar
-      id="avatar-fi0"
-      name="Dirman Suharno"
-      size="lg"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar
-      id="avatar-sqm"
-      name="Dirman Suharno"
-      size="xl"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatar id="avatar-zxc" name="Dirman" size="sm" variant-color="gray" icon="mekari-brand" />
-    <MpAvatar id="avatar-r8d" name="Dirman" size="md" variant-color="gray" icon="mekari-brand" />
-    <MpAvatar
-      id="avatar-ugm"
-      name="Dirman Suharno"
-      size="lg"
-      variant-color="gray"
-      icon="mekari-brand"
-    />
-    <MpAvatar
-      id="avatar-mlp"
-      name="Dirman Suharno"
-      size="xl"
-      variant-color="gray"
-      icon="mekari-brand"
-    />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: With group
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpAvatar, MpAvatarGroup } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpAvatarGroup id="avatar-group-wtm" size="lg">
-      <MpAvatar id="avatar-wtm" name="1" variant-color="gray" />
-      <MpAvatar
-        id="avatar-0tn"
-        name="2"
-        variant-color="gray"
-        src="https://randomuser.me/api/portraits/women/11.jpg"
-      />
-      <MpAvatar id="avatar-w3s" name="3" variant-color="gray" />
-      <MpAvatar
-        id="avatar-ri9"
-        name="4"
-        variant-color="gray"
-        src="https://randomuser.me/api/portraits/men/11.jpg"
-      />
-    </MpAvatarGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatarGroup id="avatar-group-s7g" size="lg" :max="4">
-      <MpAvatar id="avatar-s7g" name="1" variant-color="gray" />
-      <MpAvatar id="avatar-qdp" name="2" variant-color="gray" />
-      <MpAvatar id="avatar-fi0" name="3" variant-color="gray" />
-      <MpAvatar id="avatar-sqm" name="4" variant-color="gray" />
-    </MpAvatarGroup>
-  </MpFlex>
-</template>
-
-```
-
-### Usage: With icon
-
-```vue
-<script setup lang="ts">
-  import { MpAvatar } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpAvatar
-    id="avatar-with-icon"
-    size="md"
-    icon-variant="fill"
-    icon-color="icon.inverse"
-    icon="employee"
-    variant-color="stone"
-  />
-</template>
 
 ```
 
@@ -1817,7 +1688,7 @@ Selecting items in a list from a text input.
 
     <MpText style="margin-top: 16px">
       Value (Raw) :
-      <code> {{ selected2 }} </code>
+      <code> {{ selected }} </code>
     </MpText>
   </div>
 
@@ -1858,9 +1729,248 @@ Selecting items in a list from a text input.
 
     <MpText style="margin-top: 16px">
       Value :
-      <code> {{ selected }} </code>
+      <code> {{ selected2 }} </code>
     </MpText>
   </Pixel.div>
+</template>
+
+```
+
+# Avatar
+
+Used to display profile image, initial or fallback icon.
+
+### MpAvatar
+
+#### MpAvatar Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of avatar. |
+| `name` | `-` | `-` | Name of avatar. |
+| `variant` | `-` | `-` | Variant of avatar. |
+| `variant-color` | `-` | `-` | Variant color of avatar. Not set will be get random color. |
+| `size` | `-` | `-` | Size of avatar. |
+| `has-border` | `-` | `-` | If true, avatar border will be displayed. |
+| `border-color` | `-` | `-` | Border color of avatar. |
+| `src` | `-` | `-` | Image url of avatar. |
+| `icon` | `-` | `-` | Icon of avatar. |
+| `icon-variant` | `-` | `-` | Icon variant of avatar. |
+| `icon-color` | `-` | `-` | Icon color of avatar. |
+| `spacing` | `-` | `-` | Spacing of avatar. |
+
+#### MpAvatar Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+| `load` | `-` | `-` | Function for handling load image. |
+| `error` | `-` | `-` | Function for handling error image. |
+
+#### MpAvatar Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Avatar slot. |
+
+### MpAvatarGroup
+
+#### MpAvatarGroup Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of avatar group. |
+| `size` | `-` | `-` | Size of avatar in group. |
+| `max` | `-` | `-` | Displayed maximum avatar. |
+| `spacing` | `-` | `-` | Space between each avatar in group. |
+| `border-color` | `-` | `-` | Border color of avatar. |
+
+#### MpAvatarGroup Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+
+#### MpAvatarGroup Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Avatar group slot. |
+
+### Usage: Variant
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpAvatar } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpAvatar id="avatar-wtm" name="Initial" variant-color="gray" />
+    <MpAvatar
+      id="avatar-0tn"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar id="avatar-w3s" variant-color="gray" icon="mekari-brand" />
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatar id="avatar-ri9" name="Initial" variant="square" variant-color="gray" />
+    <MpAvatar
+      id="avatar-s7g"
+      variant="square"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar id="avatar-qdp" variant="square" variant-color="gray" icon="mekari-brand" />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Variant color
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpAvatar } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpAvatar id="avatar-wtm" name="Gray" variant-color="gray" />
+    <MpAvatar id="avatar-0tn" name="Sky" variant-color="sky" />
+    <MpAvatar id="avatar-w3s" name="Teal" variant-color="teal" />
+    <MpAvatar id="avatar-ri9" name="Violet" variant-color="violet" />
+    <MpAvatar id="avatar-s7g" name="Amber" variant-color="amber" />
+    <MpAvatar id="avatar-qdp" name="Rose" variant-color="rose" />
+    <MpAvatar id="avatar-fi0" name="Stone" variant-color="stone" />
+    <MpAvatar id="avatar-sqm" name="Lime" variant-color="lime" />
+    <MpAvatar id="avatar-zxc" name="Pink" variant-color="pink" />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Size
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpAvatar } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpAvatar id="avatar-wtm" name="Dirman" size="sm" variant-color="gray" />
+    <MpAvatar id="avatar-0tn" name="Dirman" size="md" variant-color="gray" />
+    <MpAvatar id="avatar-w3s" name="Dirman Suharno" size="lg" variant-color="gray" />
+    <MpAvatar id="avatar-ri9" name="Dirman Suharno" size="xl" variant-color="gray" />
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatar
+      id="avatar-s7g"
+      name="Dirman"
+      size="sm"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar
+      id="avatar-qdp"
+      name="Dirman"
+      size="md"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar
+      id="avatar-fi0"
+      name="Dirman Suharno"
+      size="lg"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar
+      id="avatar-sqm"
+      name="Dirman Suharno"
+      size="xl"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatar id="avatar-zxc" name="Dirman" size="sm" variant-color="gray" icon="mekari-brand" />
+    <MpAvatar id="avatar-r8d" name="Dirman" size="md" variant-color="gray" icon="mekari-brand" />
+    <MpAvatar
+      id="avatar-ugm"
+      name="Dirman Suharno"
+      size="lg"
+      variant-color="gray"
+      icon="mekari-brand"
+    />
+    <MpAvatar
+      id="avatar-mlp"
+      name="Dirman Suharno"
+      size="xl"
+      variant-color="gray"
+      icon="mekari-brand"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: With group
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpAvatar, MpAvatarGroup } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpAvatarGroup id="avatar-group-wtm" size="lg">
+      <MpAvatar id="avatar-wtm" name="1" variant-color="gray" />
+      <MpAvatar
+        id="avatar-0tn"
+        name="2"
+        variant-color="gray"
+        src="https://randomuser.me/api/portraits/women/11.jpg"
+      />
+      <MpAvatar id="avatar-w3s" name="3" variant-color="gray" />
+      <MpAvatar
+        id="avatar-ri9"
+        name="4"
+        variant-color="gray"
+        src="https://randomuser.me/api/portraits/men/11.jpg"
+      />
+    </MpAvatarGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatarGroup id="avatar-group-s7g" size="lg" :max="4">
+      <MpAvatar id="avatar-s7g" name="1" variant-color="gray" />
+      <MpAvatar id="avatar-qdp" name="2" variant-color="gray" />
+      <MpAvatar id="avatar-fi0" name="3" variant-color="gray" />
+      <MpAvatar id="avatar-sqm" name="4" variant-color="gray" />
+    </MpAvatarGroup>
+  </MpFlex>
+</template>
+
+```
+
+### Usage: With icon
+
+```vue
+<script setup lang="ts">
+  import { MpAvatar } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpAvatar
+    id="avatar-with-icon"
+    size="md"
+    icon-variant="fill"
+    icon-color="icon.inverse"
+    icon="employee"
+    variant-color="stone"
+  />
 </template>
 
 ```
@@ -2750,6 +2860,7 @@ Chart visualizes data in an application. The type of chart you use will depend o
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `default` | `-` | `-` | Slot to render elements inside chart. |
+| `header` | `-` | `-` | Slot to render elements for header chart. |
 | `legend` | `-` | `-` | Slot to render elements for custom legend. |
 | `action` | `-` | `-` | Slot to render elements for action button. |
 
@@ -4628,6 +4739,36 @@ Allows user to toggle between checked, unchecked, and indeterminate states.
 
 ```
 
+# Collapse
+
+Used to create regions of content that can expand/collapse with a basic animation. It helps to hide content that's not immediately relevant to user.
+
+### MpCollapse
+
+#### MpCollapse Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `is-open` | `-` | `-` | If true, content will be visible |
+| `duration` | `-` | `-` | Animation duration of collapse. |
+| `is-animate-opacity` | `-` | `-` | If true, content will be animated. |
+| `easing` | `-` | `-` | Animation type of collapse. |
+| `starting-height` | `-` | `-` | Height of closed collapse. |
+| `ending-height` | `-` | `-` | Content height of open collapse. |
+
+#### MpCollapse Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `enter` | `-` | `-` | Function for handling enter event. |
+| `leave` | `-` | `-` | Function for handling leave event. |
+
+#### MpCollapse Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Collapse slot |
+
 # Color Picker
 
 Color picker let the user select a color
@@ -4719,6 +4860,7 @@ Color picker let the user select a color
       :preset="preset"
       variant="basic"
       placement="bottom-start"
+      :is-show-popover="true"
       :is-show-preset="true"
       :is-show-input="false"
       @change="handleChange"
@@ -4752,36 +4894,6 @@ Color picker let the user select a color
 </script>
 
 ```
-
-# Collapse
-
-Used to create regions of content that can expand/collapse with a basic animation. It helps to hide content that's not immediately relevant to user.
-
-### MpCollapse
-
-#### MpCollapse Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `is-open` | `-` | `-` | If true, content will be visible |
-| `duration` | `-` | `-` | Animation duration of collapse. |
-| `is-animate-opacity` | `-` | `-` | If true, content will be animated. |
-| `easing` | `-` | `-` | Animation type of collapse. |
-| `starting-height` | `-` | `-` | Height of closed collapse. |
-| `ending-height` | `-` | `-` | Content height of open collapse. |
-
-#### MpCollapse Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `enter` | `-` | `-` | Function for handling enter event. |
-| `leave` | `-` | `-` | Function for handling leave event. |
-
-#### MpCollapse Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Collapse slot |
 
 # Date Picker
 
@@ -4933,7 +5045,6 @@ The Drawer component is a panel that slides out from the edge of the screen. It 
 | `is-close-on-esc` | `-` | `-` | If true, pressing esc key drawer will close. |
 | `is-close-on-overlay-click` | `-` | `-` | If true, when overlay clicked drawer will close. |
 | `is-keep-alive` | `-` | `-` | If true, drawer will be hidden using CSS instead of destroying DOM. |
-| `is-full-height` | `-` | `-` | If true and placement is set to top or bottom, drawer fills the height of the viewport. |
 | `placement` | `-` | `-` | Placement of drawer. |
 | `size` | `-` | `-` | Size of drawer. |
 
@@ -5023,6 +5134,7 @@ The Drawer component is a panel that slides out from the edge of the screen. It 
       @open="onOpen"
       @close="onClose"
       :is-keep-alive="true"
+      :is-block-scroll-on-mount="true"
       placement="right"
     >
       <MpDrawerContent>
@@ -5031,7 +5143,64 @@ The Drawer component is a panel that slides out from the edge of the screen. It 
 
           <MpDrawerCloseButton />
         </MpDrawerHeader>
-        <MpDrawerBody> Drawer Content </MpDrawerBody>
+        <MpDrawerBody>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt officia
+          incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat exercitationem
+          hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint necessitatibus
+          odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi consequatur
+          officiis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt
+          officia incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat
+          exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+          necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+          consequatur officiis!
+          <br />
+          <br />
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt officia
+          incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat exercitationem
+          hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint necessitatibus
+          odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi consequatur
+          officiis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt
+          officia incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat
+          exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+          necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+          consequatur officiis!
+          <br />
+          <br />
+          <br />
+          <br />
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt officia
+          incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat exercitationem
+          hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint necessitatibus
+          odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi consequatur
+          officiis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt
+          officia incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat
+          exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+          necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+          consequatur officiis!
+          <br />
+          <br />
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt officia
+          incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat exercitationem
+          hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint necessitatibus
+          odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi consequatur
+          officiis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt
+          officia incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat
+          exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+          necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+          consequatur officiis!
+          <br />
+          <br />
+          <br />
+          <br />
+        </MpDrawerBody>
         <MpDrawerFooter>
           <!-- Only need class vp-raw in Pixel docs -->
           <MpButtonGroup class="vp-raw">
@@ -6770,24 +6939,14 @@ Dialog that focuses user attention exclusively on an information via a window th
     MpModalContent,
     MpModalFooter,
     MpModalHeader,
-    MpModalOverlay,
-    MpFlex,
-    css
+    MpModalOverlay
   } from '@mekari/pixel3'
-  import { nextTick, ref } from 'vue'
+  import { ref } from 'vue'
 
   const isOpen = ref(false)
 
   function onOpen() {
     console.log('onOpen =>', true)
-
-    nextTick(() => {
-      setTimeout(() => {
-        document.getElementById('content-end')?.scrollIntoView({
-          behavior: 'smooth'
-        })
-      }, 500)
-    })
   }
 
   function onClose() {
@@ -6808,7 +6967,7 @@ Dialog that focuses user attention exclusively on an information via a window th
       @open="onOpen"
       @close="onClose"
       :is-keep-alive="false"
-      scroll-behavior="auto"
+      scroll-behavior="inside"
     >
       <MpModalContent>
         <MpModalHeader>
@@ -6823,9 +6982,35 @@ Dialog that focuses user attention exclusively on an information via a window th
             utilizing deep insight on people performance. Recruit the best talent online, fast,
             without bias! A data-driven online recruitment and assessment platform to help you
             recruit, screen and assess the most suitable talent for any job, every time.
+            <br />
+            <br />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt officia
+            incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid placeat
+            exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum dolor
+            sit amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+            necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+            consequatur officiis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+            deserunt officia incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid
+            placeat exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+            necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+            consequatur officiis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+            deserunt officia incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid
+            placeat exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+            necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+            consequatur officiis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+            deserunt officia incidunt optio pariatur rem, repellendus enim. Eum ex ipsam aliquid
+            placeat exercitationem hic, impedit similique atque numquam nobis corporis! Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Hic quia doloribus eius porro impedit sint
+            necessitatibus odio quod repellat amet! Rerum est dolore laborum at neque ducimus animi
+            consequatur officiis!
+            <br />
+            <br />
+            <br />
+            <br />
+            Mekari © 2024
           </MpText>
-          <MpFlex height="1000px"></MpFlex>
-          <MpText id="content-end"> Mekari © 2024 </MpText>
         </MpModalBody>
         <MpModalFooter>
           <!-- Only need class vp-raw in Pixel docs -->
@@ -6912,7 +7097,7 @@ Dialog that focuses user attention exclusively on an information via a window th
       @close="onClose"
       :size="modalSize"
       :is-keep-alive="true"
-      scroll-behavior="auto"
+      :scroll-behavior="modalSize === '2xl' ? 'outside' : 'auto'"
     >
       <MpModalContent>
         <MpModalHeader>
@@ -6925,6 +7110,97 @@ Dialog that focuses user attention exclusively on an information via a window th
             >Once approved, we will send notification & payment link to
             rizalchandra@mekari.com</MpText
           >
+          <MpText v-if="modalSize === 'full' || modalSize === '2xl'">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat.
+            Consequuntur sint consectetur repudiandae, molestiae provident asperiores labore porro
+            totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit
+            amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur
+            repudiandae, molestiae provident asperiores labore porro totam deleniti earum sunt
+            maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ex
+            unde placeat. Consequuntur sint consectetur repudiandae, molestiae provident asperiores
+            labore porro totam deleniti earum sunt maiores itaque corrupti laudantium ut? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Qui ex unde placeat. Consequuntur
+            sint consectetur repudiandae, molestiae provident asperiores labore porro totam deleniti
+            earum sunt maiores itaque corrupti laudantium ut? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Qui ex unde placeat. Consequuntur sint consectetur repudiandae,
+            molestiae provident asperiores labore porro totam deleniti earum sunt maiores itaque
+            corrupti laudantium ut? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima
+            nemo minus nam consectetur voluptatum illo possimus ad repellendus, repudiandae debitis
+            sunt aliquid, numquam laboriosam dolor fugiat blanditiis ipsam molestiae adipisci. Lorem
+            ipsum dolor sit, amet consectetur adipisicing elit. Minima nemo minus nam consectetur
+            voluptatum illo possimus ad repellendus, repudiandae debitis sunt aliquid, numquam
+            laboriosam dolor fugiat blanditiis ipsam molestiae adipisci. Lorem ipsum dolor sit, amet
+            consectetur adipisicing elit. Minima nemo minus nam consectetur voluptatum illo possimus
+            ad repellendus, repudiandae debitis sunt aliquid, numquam laboriosam dolor fugiat
+            blanditiis ipsam molestiae adipisci.
+          </MpText>
         </MpModalBody>
         <MpModalFooter>
           <!-- Only need class vp-raw in Pixel docs -->
@@ -7829,6 +8105,115 @@ Represents a single option in a mutually exclusive list.
 
 ```
 
+# Rating
+
+Rating provide insight regarding others opinions and experiences component.
+
+### MpRating
+
+#### MpRating Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of rating. |
+| `model-value` | `-` | `-` | modelValue of rating, use for v-model. |
+| `max-value` | `-` | `-` | max of rating, |
+| `variant` | `-` | `-` | Variant of rating. |
+| `color` | `-` | `-` | Color of rating. |
+| `is-show-value` | `-` | `-` | If true, show rating value as description. |
+| `is-read-only` | `-` | `-` | If true, rating only show as display. |
+
+#### MpRating Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click-rating` | `-` | `-` | Function for handling click event. |
+| `hover-rating` | `-` | `-` | Function for handling click event. |
+| `update:modelValue` | `-` | `-` | Function for handling v-model. |
+
+#### MpRating Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render custom value element. |
+
+### Usage: Basic
+
+```vue
+<template>
+  <MpFlex direction="column" gap="1.5">
+    <MpRating id="rating-star" :model-value="2" :is-show-value="true" :is-read-only="true" />
+    <MpRating
+      id="rating-heart"
+      variant="heart"
+      :model-value="5"
+      :max-value="10"
+      :is-show-value="true"
+      :is-read-only="true"
+    />
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpFlex, MpRating } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Advance
+
+```vue
+<template>
+  <MpRating
+    id="rating-advacnce"
+    v-model="rating"
+    variant="heart"
+    color="icon.brand"
+    :is-show-value="true"
+    @click-rating="onClickRating"
+    @hover-rating="onHoverRating"
+  >
+    <MpText weight="semiBold" :color="rating === 5 ? 'icon.brand' : 'text.secondary'">
+      {{ ratingDescription }}
+    </MpText>
+  </MpRating>
+</template>
+
+<script setup lang="ts">
+  import { MpRating, MpText } from '@mekari/pixel3'
+  import { ref } from 'vue'
+
+  const rating = ref(0)
+  const ratingDescription = ref('No review yet')
+
+  setTimeout(() => {
+    rating.value = 3.6
+    updateRatingDescription(rating.value)
+  }, 2000)
+
+  function updateRatingDescription(value: number) {
+    if (value === 5) {
+      ratingDescription.value = 'Awesome experience'
+    } else if (value >= 3) {
+      ratingDescription.value = 'Good vibe'
+    } else if (value > 0) {
+      ratingDescription.value = 'Not good enough'
+    } else {
+      ratingDescription.value = 'No review yet'
+    }
+  }
+
+  function onClickRating(value: number) {
+    console.log('click', value)
+  }
+
+  function onHoverRating(value: number) {
+    updateRatingDescription(value)
+  }
+</script>
+
+```
+
 # Rich text editor
 
 Used to content editor based Tiptap.js
@@ -7862,6 +8247,96 @@ Used to content editor based Tiptap.js
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `id` | `-` | `-` | Id of RTE style provider. |
+
+# Segmented control
+
+Used to alternative to radio group component.
+
+### Usage: **Data prop**
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-2')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-ashTy"
+      v-model="check"
+      :data="[
+        {
+          id: 'ezsCsI',
+          label: 'All resign category',
+          value: 'option-1',
+          icon: 'table-view-column'
+        },
+        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2', icon: 'table-view-field' },
+        { id: 'llpHcs', label: 'Involuntary', value: 'option-3', icon: 'table-view-filter' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Without icon
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-2')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-ccJks"
+      v-model="check"
+      :data="[
+        { id: 'ezsCsI', label: 'All resign category', value: 'option-1' },
+        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2' },
+        { id: 'llpHcs', label: 'Involuntary', value: 'option-3' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Icon only
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-1')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-hdjDf"
+      v-model="check"
+      :data="[
+        { id: 'ezsCsI', value: 'option-1', icon: 'table-view-column' },
+        { id: 'jjsCgt', value: 'option-2', icon: 'table-view-field' },
+        { id: 'llpHcs', value: 'option-3', icon: 'table-view-filter' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
 
 # Scrollbar
 
@@ -7963,96 +8438,6 @@ Custom scrollbar component.
     })
   }
 </script>
-
-```
-
-# Segmented control
-
-Used to alternative to radio group component.
-
-### Usage: **Data prop**
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-2')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-ashTy"
-      v-model="check"
-      :data="[
-        {
-          id: 'ezsCsI',
-          label: 'All resign category',
-          value: 'option-1',
-          icon: 'table-view-column'
-        },
-        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2', icon: 'table-view-field' },
-        { id: 'llpHcs', label: 'Involuntary', value: 'option-3', icon: 'table-view-filter' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Without icon
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-2')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-ccJks"
-      v-model="check"
-      :data="[
-        { id: 'ezsCsI', label: 'All resign category', value: 'option-1' },
-        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2' },
-        { id: 'llpHcs', label: 'Involuntary', value: 'option-3' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Icon only
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-1')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-hdjDf"
-      v-model="check"
-      :data="[
-        { id: 'ezsCsI', value: 'option-1', icon: 'table-view-column' },
-        { id: 'jjsCgt', value: 'option-2', icon: 'table-view-field' },
-        { id: 'llpHcs', value: 'option-3', icon: 'table-view-filter' }
-      ]"
-    />
-  </MpFlex>
-</template>
 
 ```
 
@@ -8189,6 +8574,7 @@ Allows user to select a range of related values.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `id` | `-` | `-` | Id of slider. |
+| `label` | `-` | `-` | Label of slider. |
 | `value` | `-` | `-` | Value of slider. |
 | `min` | `-` | `-` | Minimum value of slider. |
 | `max` | `-` | `-` | Maximum value of slider. |

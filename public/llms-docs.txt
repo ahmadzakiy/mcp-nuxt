@@ -64,6 +64,7 @@ Design tokens `2.4`, introduced in `@mekari/pixel3` v1.0.0, includes significant
 - Maintains backward compatibility with version `2.1`
 
 For new projects, we recommend using design token version `2.4` to take advantage of:
+
 - Modern theming capabilities
 - Simplified theme management
 - Latest design improvements
@@ -114,6 +115,7 @@ All approaches support:
 - Design token values (e.g., `brand.mekari` or `red.400`). Ref: [📚 Design Token](/docs/design-token-v2-4.html)
 
 For more detailed information, visit:
+
 - [CSS Function Guide](/docs/guides/css-function.html)
 - [CSS Props Guide](/docs/guides/css-props.html)
 - [Dynamic Styles Guide](/docs/guides/dynamic-styles.html)
@@ -302,6 +304,82 @@ app.mount('#app')
 
 
 ```
+
+## 2. `v-mask`
+
+### Automatically Register directive
+
+You can register the mask directive automatically by setting `maskDirective: true` in the plugin options (defaults to `false`). For better type safety, we recommend importing the `PixelPluginConfig` type from `@mekari/pixel3` when configuring the plugin options.
+
+```js{3,7}
+// main.{ts|js}
+import { createApp } from 'vue'
+import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(PixelPlugin, { maskDirective: true } as PixelPluginConfig)
+app.mount('#app')
+```
+
+### Manually Register directive
+
+```ts:line-numbers{4,7}
+import { createApp } from 'vue'
+import './pixel.css'
+import App from './App.vue'
+import { vMask } from '@mekari/pixel3'
+
+const app = createApp(App)
+app.directive('mask', vMask)
+app.mount('#app')
+```
+
+### How to use
+
+The `v-mask` directive is used to format input values automatically. You can provide a mask pattern directly as a string.
+
+```vue
+
+
+<template>
+  <div :class="css({
+    display: 'grid',
+    gap: '16px',
+    gridTemplateColumns: '4'
+  })">
+    <MpFormControl>
+      <MpFormLabel>
+        Number (#####)
+      </MpFormLabel>
+      <MpInput v-mask="'#####'" placeholder="12345" />
+    </MpFormControl>
+
+    <MpFormControl>
+      <MpFormLabel>
+        Letter uppercase and lowercase (SSSSS)
+      </MpFormLabel>
+      <MpInput v-mask="'SSSSS'" placeholder="Hello" />
+    </MpFormControl>
+
+    <MpFormControl>
+      <MpFormLabel>
+        Letter uppercase only (AAAAA)
+      </MpFormLabel>
+      <MpInput v-mask="'AAAAA'" placeholder="HELLO" />
+    </MpFormControl>
+
+    <MpFormControl>
+      <MpFormLabel>
+        Letter lowercase only (aaaaa)
+      </MpFormLabel>
+      <MpInput v-mask="'aaaaa'" placeholder="hello" />
+    </MpFormControl>
+  </div>
+</template>
+```
+
+For more details on `v-mask` and its options, please refer to our [detailed guide](/docs/directives/v-mask).
 
 # Add Font
 
@@ -555,6 +633,343 @@ function token(name, fallback) {
 ## Links
 
 - Read more about dynamic styles in Panda this [docs](https://panda-css.com/docs/guides/dynamic-styling)
+
+# MCP Server for Pixel3
+
+The Pixel3 MCP (Model Context Protocol) server provides AI assistants with powerful access to Mekari Pixel documentation, design tokens, and component generation capabilities.
+
+## What is MCP Server?
+
+The MCP Server is a tool that enables AI assistants (like GitHub Copilot in VS Code, Cursor, Claude, or other MCP-compatible clients) to search through Pixel3 documentation, access design tokens, and convert Figma designs to Pixel3 components using natural language queries.
+
+## Features
+
+- **Semantic Search**: Advanced BM25-indexed search through all Pixel3 documentation
+- **Figma Integration**: Convert Figma designs directly to Pixel3 Vue components
+- **Design Token Access**: Comprehensive access to design tokens (v2.1 and v2.4)
+- **Component Library**: Search through all available Pixel3 components
+- **AI Synthesis**: Optional OpenAI integration for enhanced, ready-to-use answers
+- **Performance Optimized**: Caching system for faster responses
+
+## Setup
+
+### For Developers
+
+Add the MCP server to your editor's MCP configuration. The exact location depends on your editor:
+
+#### VS Code with GitHub Copilot
+
+1. **Install the MCP Extension**: Install the "Model Context Protocol" extension from the VS Code marketplace (if available) or configure manually.
+
+2. **Add Configuration**: Create or edit `.vscode/settings.json` in your workspace, or add to your user settings:
+
+```json
+{
+  "mcp.servers": {
+    "pixel3": {
+      "command": "npx",
+      "args": ["@mekari/pixel3-mcp-server"],
+      "env": {
+        "OPENAI_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+3. **Restart VS Code**: After adding the configuration, restart VS Code.
+
+4. **Use with Copilot**: When chatting with GitHub Copilot, it will automatically have access to Pixel3 documentation. Ask questions like:
+   - "How do I use Pixel3's MpButton component?"
+   - "Show me a Pixel3 form example"
+   - "What are the design tokens for colors?"
+
+**Note**: If your VS Code setup uses a different MCP configuration format, check your extension's documentation for the correct syntax.
+
+#### Cursor
+
+Add to your Cursor settings (usually `~/.cursor/mcp.json` or workspace settings):
+
+```json
+{
+  "mcpServers": {
+    "pixel3": {
+      "command": "npx",
+      "args": ["@mekari/pixel3-mcp-server"],
+      "env": {
+        "OPENAI_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+After adding the configuration, restart Cursor. The MCP server will be available in your AI chat.
+
+#### Other Editors
+
+For other MCP-compatible editors, add similar configuration to your MCP settings file. The server will automatically install when first used via `npx`.
+
+### For Non-Developers (Claude Desktop, etc.)
+
+If you're using Claude Desktop or similar tools:
+
+1. **Install Node.js** (if not already installed): Download from [nodejs.org](https://nodejs.org/)
+
+2. **Configure Claude Desktop**: Add the MCP server to your Claude Desktop configuration file (usually `~/Library/Application Support/Claude/claude_desktop_config.json` on Mac or `%APPDATA%\Claude\claude_desktop_config.json` on Windows):
+
+```json
+{
+  "mcpServers": {
+    "pixel3": {
+      "command": "npx",
+      "args": ["@mekari/pixel3-mcp-server"]
+    }
+  }
+}
+```
+
+3. **Restart Claude Desktop**: The MCP server will be available in your Claude conversations.
+
+**Note**: The server will automatically download and install when first used - no manual installation needed!
+
+## How to Use
+
+### For Developers
+
+Simply ask your AI assistant (in VS Code with Copilot, Cursor, etc.) questions about Pixel3:
+
+**Example Questions for VS Code/Copilot:**
+
+- "How do I create a Pixel3 button component?"
+- "Show me a Pixel3 form with validation"
+- "What are the props for MpDatePicker in Pixel3?"
+- "How to use Pixel3 spacing tokens?"
+- "Create a modal using Pixel3 components"
+- "List all available Pixel3 components"
+
+**Example Questions for Cursor:**
+
+- "How do I create a button component?"
+- "List all available components"
+- "Show me design tokens for colors"
+- "What are the props for MpDatePicker?"
+- "How to use spacing tokens?"
+- "Create a form with validation using Pixel3 components"
+
+The AI will automatically use the MCP server to find the relevant documentation and provide you with code examples and explanations.
+
+### For Non-Developers
+
+Ask Claude (or your AI assistant) questions about Pixel3 components and design:
+
+**Example Questions:**
+
+- "What components are available in Pixel3?"
+- "Show me examples of buttons in Pixel3"
+- "What design tokens can I use for colors?"
+- "How do I use the date picker component?"
+- "What are the spacing options available?"
+
+Claude will search the Pixel3 documentation and provide you with clear explanations, examples, and links to the official documentation.
+
+### Figma to Code Conversion
+
+If you have Figma designs and want to convert them to Pixel3 components:
+
+1. Make sure you have the Figma MCP server configured
+2. Ask your AI assistant: "Convert this Figma design to Pixel3 Vue component"
+3. Provide the Figma node data when prompted
+4. The AI will generate Pixel3-compatible code automatically
+
+## Optional Configuration
+
+### OpenAI Integration (Optional)
+
+For enhanced AI-powered answers, you can add your OpenAI API key to the MCP server configuration:
+
+**For Developers:**
+```json
+{
+  "mcpServers": {
+    "pixel3": {
+      "command": "npx",
+      "args": ["@mekari/pixel3-mcp-server"],
+      "env": {
+        "OPENAI_API_KEY": "sk-your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+**For Non-Developers:**
+Add the `OPENAI_API_KEY` to your Claude Desktop configuration if you want more detailed AI-generated answers (this is optional - the server works great without it).
+
+**Note**: The OpenAI integration is optional. The MCP server works perfectly without it, providing search results and documentation. The OpenAI key only enables AI synthesis for more detailed, ready-to-use answers.
+
+## What You Can Ask
+
+The MCP server can answer questions about:
+
+### Component Documentation
+- Component usage and examples
+- Available props and events
+- Best practices and patterns
+- Code snippets ready to use
+
+### Design Tokens
+- Color tokens (v2.1 and v2.4)
+- Spacing, typography, and sizing
+- How to use tokens in your code
+- Token naming conventions
+
+### Implementation Help
+- How to build specific UI patterns
+- Form validation examples
+- Component composition
+- Styling and theming
+
+### Figma Integration
+- Convert Figma designs to Pixel3 components
+- Automatic component mapping
+- Style preservation
+
+## Example Conversations
+
+### Developer Example (VS Code/Copilot)
+
+**You in Copilot Chat:** "How do I create a Pixel3 button with an icon and loading state?"
+
+**Copilot (using MCP):** *Searches Pixel3 docs and provides:*
+```vue
+<template>
+  <MpButton 
+    :loading="isLoading" 
+    icon="plus"
+    @click="handleClick"
+  >
+    Add Item
+  </MpButton>
+</template>
+
+
+```
+
+**You in Copilot Chat:** "Show me a complete Pixel3 form with validation"
+
+**Copilot (using MCP):** *Provides a complete form example with Pixel3 components, validation, and error handling.*
+
+### Developer Example (Cursor)
+
+**You:** "How do I create a button with an icon and loading state?"
+
+**AI (using MCP):** *Searches Pixel3 docs and provides:*
+```vue
+<template>
+  <MpButton 
+    :loading="isLoading" 
+    icon="plus"
+    @click="handleClick"
+  >
+    Add Item
+  </MpButton>
+</template>
+
+
+```
+
+### Non-Developer Example
+
+**You:** "What date picker options are available in Pixel3?"
+
+**AI (using MCP):** *Searches Pixel3 docs and explains:*
+- Date picker supports single date, date range, and custom formats
+- Can be configured with min/max dates
+- Supports different display formats
+- Includes validation and error handling
+- [Link to full documentation]
+
+## Troubleshooting
+
+### MCP Server Not Working
+
+1. **Check Node.js is installed**: The server requires Node.js. Verify with `node --version` in your terminal.
+
+2. **Restart your editor/application**: After adding the MCP configuration, restart VS Code, Cursor, Claude Desktop, or your MCP client.
+
+3. **Check configuration syntax**: Make sure your JSON configuration is valid (no trailing commas, proper quotes).
+
+4. **First-time setup**: The first time you use the server, it will download automatically via `npx`. This may take a minute.
+
+### Server Not Responding
+
+- Wait a few seconds and try again (the server may be starting up)
+- Check your internet connection (needed for first-time download)
+- Verify the MCP server name in your configuration matches exactly
+
+### Getting Generic Answers
+
+If the AI isn't using Pixel3-specific information:
+- Make your questions more specific: "How do I use Pixel3's MpButton component?"
+- Mention "Pixel3" or "Mekari Pixel" in your question
+- Ask for "Pixel3 documentation" or "Mekari Pixel components"
+
+## Tips for Best Results
+
+### For Developers
+
+1. **Be Specific**: More specific questions get better answers
+   - ✅ "How to create a button with icon and loading state in Pixel3"
+   - ❌ "button"
+
+2. **Mention Pixel3**: Help the AI know you want Pixel3-specific information
+   - ✅ "What are the props for Pixel3's date picker?"
+   - ❌ "datepicker props"
+
+3. **Ask for Code**: Request code examples directly
+   - ✅ "Show me a Pixel3 form with validation"
+   - ❌ "form"
+
+### For Non-Developers
+
+1. **Ask in Plain Language**: Use natural questions
+   - ✅ "What components can I use for forms?"
+   - ✅ "Show me color options in Pixel3"
+   - ✅ "How do date pickers work?"
+
+2. **Request Examples**: Ask to see examples
+   - ✅ "Show me examples of buttons"
+   - ✅ "What does a modal look like?"
+
+3. **Ask for Explanations**: Don't hesitate to ask "what does this mean?" or "can you explain this?"
+
+## What Information is Available?
+
+The MCP server has access to:
+
+- **All Pixel3 Components**: Complete documentation for every component
+- **Design Tokens**: Color, spacing, typography, and more (v2.1 and v2.4)
+- **Guides & Tutorials**: Getting started, best practices, and how-tos
+- **Component APIs**: Props, events, methods, and usage patterns
+- **Design Patterns**: Common UI patterns and examples
+
+## Need Help?
+
+If you're having issues:
+
+1. **Verify Configuration**: Make sure your MCP configuration JSON is valid
+2. **Restart Application**: Restart VS Code, Cursor, Claude Desktop, or your MCP client
+3. **Check Node.js**: Ensure Node.js is installed (`node --version`)
+4. **Try Again**: The server auto-downloads on first use - wait a moment and try again
+
+For technical support or questions about Pixel3 itself, refer to the [Getting Started guide](/docs/getting-started) or other documentation pages.
+
+## Related Documentation
+
+- [Getting Started](/docs/getting-started) - Pixel3 setup guide
+- [Design Tokens](/docs/design-token) - Design token documentation
+- [Design Tokens v2.4](/docs/design-token-v2-4) - Latest design tokens
 
 # Pixel Theme
 

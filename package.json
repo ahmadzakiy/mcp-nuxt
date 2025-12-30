@@ -8,18 +8,28 @@
     "preview": "nuxi preview",
     "start": "node .output/server/index.mjs",
     "generate": "nuxi generate",
-    "postinstall": "nuxi prepare"
+    "postinstall": "nuxi prepare",
+    "eval": "evalite",
+    "eval:ui": "evalite watch"
   },
   "dependencies": {
     "@mekari/pixel3": "^1.0.8",
     "@mekari/pixel3-postcss": "^1.0.8",
     "@nuxtjs/mcp-toolkit": "0.6.0",
+    "marked": "^17.0.1",
     "nuxt": "^4.2.2",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3",
     "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@types/node": "^25.0.2"
+    "@ai-sdk/mcp": "^1.0.1",
+    "@ai-sdk/vue": "^3.0.3",
+    "@modelcontextprotocol/sdk": "^1.25.1",
+    "@types/node": "^25.0.2",
+    "ai": "^6.0.3",
+    "better-sqlite3": "^12.5.0",
+    "evalite": "^0.19.0",
+    "vitest": "^4.0.16"
   }
 }

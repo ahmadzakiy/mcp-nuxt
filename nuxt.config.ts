@@ -1,12 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: true,
+  ssr: false,
   compatibilityDate: '2025-07-15',
   devtools: {
     enabled: process.env.NODE_ENV === "development",
   },
   runtimeConfig: {
+    // Server-only keys (secure, not exposed to client)
+    aiGatewayApiKey: process.env.AI_GATEWAY_API_KEY || '',
     pixelMcpBaseUrl: process.env.NODE_ENV === "development" ? 'http://localhost:3200' : 'https://pixel-mcp.netlify.app',
+    public: {
+      // Public keys (exposed to client - only use for non-sensitive data)
+      // WARNING: Don't put API keys here!
+      apiSecret: '123',
+    }
   },
   modules: ['@nuxtjs/mcp-toolkit'],
   css: [

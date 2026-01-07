@@ -1,5 +1,5 @@
 {
-  "name": "mcp-nuxt",
+  "name": "mcp-server",
   "type": "module",
   "private": true,
   "scripts": {

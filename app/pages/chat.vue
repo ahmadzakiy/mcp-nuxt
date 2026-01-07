@@ -1,7 +1,19 @@
 <template>
   <MpFlex direction="column" height="100vh" bg="background.airene">
-    <MpFlex p="4" borderBottomWidth="1px" borderColor="border.default">
-      <MpText size="h1">Chat with Pixel Airene</MpText>
+    <MpFlex
+      gap="2"
+      alignItems="center"
+      p="4"
+      borderBottomWidth="1px"
+      borderColor="border.default"
+    >
+      <MpButton
+        left-icon="arrows-left"
+        variant="ghost"
+        size="sm"
+        @click="navigateTo('/')"
+      />
+      <MpText size="h1">Chat with Pixel MCP</MpText>
     </MpFlex>
 
     <MpFlex flex="1" direction="column" gap="4" overflow="hidden" p="4" mb="10">
@@ -9,7 +21,7 @@
         bg="background.neutral"
         direction="column"
         borderWidth="1px"
-        borderColor="border.brand"
+        borderColor="border.default"
         borderRadius="xl"
         p="4"
         gap="4"
@@ -39,7 +51,7 @@
       <MpAireneChatInput
         id="chat-input"
         v-model="input"
-        placeholder="Say something..."
+        placeholder="Ask something..."
         @send="handleSendMessage"
         @keydown="handleKeydown"
       />
@@ -54,6 +66,7 @@ import {
   MpAireneChatBubble,
   MpFlex,
   MpText,
+  MpButton,
 } from "@mekari/pixel3";
 import MarkdownRenderer from "~/components/MarkdownRenderer.vue";
 

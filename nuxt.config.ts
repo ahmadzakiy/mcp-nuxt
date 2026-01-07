@@ -37,6 +37,6 @@ export default defineNuxtConfig({
     name: 'pixel3-mcp-server',
     route: '/mcp', // Default route for the MCP server
     dir: 'mcp', // Base directory for MCP definitions (relative to server/)
-    browserRedirect: '/docs', // Redirect root MCP server route to docs page
+    browserRedirect: '/', // Redirect root MCP server route to docs page
   },
 })

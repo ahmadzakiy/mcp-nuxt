@@ -3,16 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import { marked } from 'marked';
+import { marked } from "marked";
 
 const props = defineProps<{
-  text: string
+  text: string;
 }>();
 
 const renderedHtml = computed(() => {
-  return marked.parse(props.text, { 
-    breaks: true,  // Convert line breaks to <br>
-    gfm: true      // GitHub Flavored Markdown
+  return marked.parse(props.text, {
+    breaks: true, // Convert line breaks to <br>
+    gfm: true, // GitHub Flavored Markdown
   });
 });
 </script>
@@ -29,7 +29,7 @@ const renderedHtml = computed(() => {
   font-style: italic;
 }
 .markdown-content code {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 0.2em 0.4em;
   border-radius: 3px;
 }

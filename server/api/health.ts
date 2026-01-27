@@ -1,8 +1,8 @@
 export default defineEventHandler(() => {
-  const config = useRuntimeConfig()
-  
+  const config = useRuntimeConfig();
+
   return {
     isHealthy: true,
     config,
-  }
-})
+  };
+});

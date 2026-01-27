@@ -1,12 +1,17 @@
-import { PixelPlugin, type PixelPluginConfig, usePixelTheme } from '@mekari/pixel3'
+import {
+  PixelPlugin,
+  type PixelPluginConfig,
+  usePixelTheme,
+} from "@mekari/pixel3";
+
+const { setNextTheme, setDarkMode, setProductTheme } = usePixelTheme();
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // Register Pixel plugin
   nuxtApp.vueApp.use(PixelPlugin, {
-    pixelTheme: true // Enable pixel theme watcher
-  } as PixelPluginConfig)
+    pixelTheme: true, // Enable pixel theme watcher
+  } as PixelPluginConfig);
 
-  // Enable Design Token 2.4
-  const { setNextTheme } = usePixelTheme()
-  setNextTheme(true) // Enable Design Token v2.4
-})
+  setNextTheme(true); // Enable Design Token v2.4
+  setDarkMode(false); // Set dark mode to false
+  setProductTheme("enterprise"); // Set product theme to enterprise
+});

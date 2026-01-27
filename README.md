@@ -13,22 +13,26 @@ A **Nuxt 4 application** with **Mekari Pixel 3 design system** and an integrated
 ## Features
 
 ### Nuxt 4 Application
+
 - Modern Vue 3 framework with auto-routing
 - Server-side API endpoints
 - Type-safe development with TypeScript
 
 ### Pixel 3 Integration
+
 - Pre-configured Pixel 3 design system with Design Token 2.4
 - Vue 3 Composition API with `<script setup>`
 - CSS Props and CSS Function styling support
 - Comprehensive component library
 
 ### MCP Server Integration
+
 - Custom tools for Pixel component documentation
 - Resources for design tokens and implementation guides
 - Prompts for Figma-to-Pixel conversion workflow
 
 ### Application Pages
+
 - `/` - Home page
 - `/chat` - Interactive chat interface
 - `/docs` - Documentation viewer
@@ -37,42 +41,53 @@ A **Nuxt 4 application** with **Mekari Pixel 3 design system** and an integrated
 ### MCP Tools for AI Assistants
 
 #### `get-component`
+
 Retrieves Pixel component documentation from `llms-components.txt`.
 
 **Parameters:**
+
 - `componentName` (string): Component name (e.g., "Button", "MpButton", "mp-button")
 
 **Example:**
+
 ```json
 { "componentName": "Button" }
 ```
 
 #### `get-docs`
+
 Retrieves Pixel documentation, answers questions about setup, design tokens, and usage.
 
 **Parameters:**
+
 - `query` (string): Search query (e.g., "how to setup Pixel", "dark mode", "token 2.4")
 
 **Example:**
+
 ```json
 { "query": "difference between token 2.1 and 2.4" }
 ```
 
 #### `get-weather`
+
 Example tool for testing MCP integration (gets current weather for a city).
 
 **Parameters:**
+
 - `city` (string): City name
 
 #### `hello-pixel`
+
 Simple test tool to verify MCP connection.
 
 **Parameters:**
+
 - `name` (string): Name to greet
 
 ### MCP Resources
 
 Documentation files in `public/`:
+
 - `llms-components.txt` - Pixel component documentation
 - `llms-design-tokens-21.txt` - Design Token 2.1 reference
 - `llms-design-tokens-24.txt` - Design Token 2.4 reference
@@ -81,6 +96,7 @@ Documentation files in `public/`:
 ### MCP Prompts
 
 Guided workflows in `server/mcp/prompts/`:
+
 - `implement-figma-to-pixel.ts` - Step-by-step Figma design implementation
 
 ## Project Structure
@@ -142,6 +158,7 @@ pnpm dev
 ```
 
 The application will be available at:
+
 - Frontend: `http://localhost:3200`
 - API endpoints: `http://localhost:3200/api/*`
 - MCP server: integrated with the Nuxt server
@@ -171,6 +188,7 @@ This project is configured for deployment on Netlify with the Nitro Netlify pres
 3. Netlify will automatically detect the configuration from `netlify.toml` and deploy your application
 
 Netlify will:
+
 - Use the build command: `pnpm build`
 - Deploy static assets from `dist/`
 - Deploy serverless functions from `.netlify/functions-internal/` (including MCP endpoints)
@@ -190,6 +208,7 @@ This MCP server can be used with AI assistants (like GitHub Copilot, Claude) to:
 ## Documentation
 
 See [AGENTS.md](AGENTS.md) for comprehensive guides:
+
 - **Application Overview** - Project structure and development workflow
 - **Mekari Pixel Implementation Guide** - Step-by-step guide for implementing Figma designs with Pixel components
 
@@ -197,4 +216,3 @@ See [AGENTS.md](AGENTS.md) for comprehensive guides:
 
 - `POST /api/chat` - Chat functionality
 - `GET /api/health` - Health check endpoint
-

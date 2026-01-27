@@ -13,16 +13,20 @@
  * normalizeComponentName('Accordion') // 'Accordion'
  */
 export function normalizeComponentName(componentName: string): string {
-  let normalizedName = componentName
+  let normalizedName = componentName;
 
   // Check if starts with 'Mp' followed by an uppercase letter (indicating PascalCase like MpButton)
-  if (normalizedName.startsWith('Mp') && normalizedName.length > 2 && normalizedName[2] === normalizedName[2]?.toUpperCase()) {
-    normalizedName = normalizedName.slice(2)
+  if (
+    normalizedName.startsWith("Mp") &&
+    normalizedName.length > 2 &&
+    normalizedName[2] === normalizedName[2]?.toUpperCase()
+  ) {
+    normalizedName = normalizedName.slice(2);
 
     // Handle mp-button -> button, mp-accordion -> accordion (kebab-case with mp- prefix)
-  } else if (normalizedName.toLowerCase().startsWith('mp-')) {
-    normalizedName = normalizedName.slice(3)
+  } else if (normalizedName.toLowerCase().startsWith("mp-")) {
+    normalizedName = normalizedName.slice(3);
   }
 
-  return normalizedName
+  return normalizedName;
 }

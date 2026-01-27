@@ -13,8 +13,8 @@
     "eval:ui": "evalite watch"
   },
   "dependencies": {
-    "@mekari/pixel3": "^1.0.8",
-    "@mekari/pixel3-postcss": "^1.0.8",
+    "@mekari/pixel3": "1.0.9-dev.1",
+    "@mekari/pixel3-postcss": "1.0.9-dev.1",
     "@nuxtjs/mcp-toolkit": "0.6.0",
     "marked": "^17.0.1",
     "nuxt": "^4.2.2",

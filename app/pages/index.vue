@@ -1,22 +1,9 @@
-<script setup lang="ts">
-import { css, MpText, MpFlex, MpButton, MpButtonGroup } from "@mekari/pixel3";
-
-const headingMargin = css({ mb: "4" });
-const codeBlockStyle = css({
-  background: "#f5f5f5",
-  padding: "4",
-  borderRadius: "2",
-  fontFamily: "monospace",
-  fontSize: "14px",
-});
-</script>
-
 <template>
   <div
     :class="
       css({
         minHeight: '100vh',
-        background: 'background.airene',
+        background: 'background.surface',
         padding: '4',
       })
     "
@@ -61,8 +48,8 @@ const codeBlockStyle = css({
         maxWidth="1200px"
         width="100%"
         padding="8"
-        background="white"
-        borderRadius="12px"
+        background="background.neutral"
+        borderRadius="lg"
         boxShadow="lg"
         mb="6"
       >
@@ -86,8 +73,8 @@ const codeBlockStyle = css({
         maxWidth="1200px"
         width="100%"
         padding="8"
-        background="white"
-        borderRadius="12px"
+        background="background.neutral"
+        borderRadius="lg"
         boxShadow="lg"
       >
         <MpText as="h2" size="h2" weight="semiBold">
@@ -102,46 +89,60 @@ const codeBlockStyle = css({
               Create or edit <code>.vscode/mcp.json</code> in your project:
             </MpText>
             <MpFlex direction="column" :class="codeBlockStyle">
-              <MpText size="body-small" :style="{ fontFamily: 'monospace' }">
+              <MpText
+                size="body-small"
+                color="text.inverse"
+                :style="{ fontFamily: 'monospace' }"
+              >
                 {
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '16px' }"
               >
                 "servers": {
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '32px' }"
               >
                 "pixel3": {
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '48px' }"
               >
                 "type": "http",
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '48px' }"
               >
                 "url": "https://pixel-mcp.netlify.app/mcp"
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '32px' }"
               >
                 }
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '16px' }"
               >
                 }
               </MpText>
-              <MpText size="body-small" :style="{ fontFamily: 'monospace' }">
+              <MpText
+                size="body-small"
+                color="text.inverse"
+                :style="{ fontFamily: 'monospace' }"
+              >
                 }
               </MpText>
             </MpFlex>
@@ -155,46 +156,60 @@ const codeBlockStyle = css({
               root:
             </MpText>
             <MpFlex direction="column" :class="codeBlockStyle">
-              <MpText size="body-small" :style="{ fontFamily: 'monospace' }">
+              <MpText
+                size="body-small"
+                color="text.inverse"
+                :style="{ fontFamily: 'monospace' }"
+              >
                 {
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '16px' }"
               >
                 "mcpServers": {
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '32px' }"
               >
                 "pixel3": {
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '48px' }"
               >
                 "type": "http",
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '48px' }"
               >
                 "url": "https://pixel-mcp.netlify.app/mcp"
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '32px' }"
               >
                 }
               </MpText>
               <MpText
                 size="body-small"
+                color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '16px' }"
               >
                 }
               </MpText>
-              <MpText size="body-small" :style="{ fontFamily: 'monospace' }">
+              <MpText
+                size="body-small"
+                color="text.inverse"
+                :style="{ fontFamily: 'monospace' }"
+              >
                 }
               </MpText>
             </MpFlex>
@@ -209,11 +224,11 @@ const codeBlockStyle = css({
         maxWidth="1200px"
         width="100%"
         padding="8"
-        background="white"
-        borderRadius="12px"
+        background="background.neutral"
+        borderRadius="lg"
         boxShadow="lg"
       >
-        <MpText as="h2" size="h2" weight="semiBold" :class="headingMargin">
+        <MpText as="h2" size="h2" weight="semiBold">
           Available MCP Tools
         </MpText>
 
@@ -222,7 +237,7 @@ const codeBlockStyle = css({
           <MpFlex direction="column" gap="2">
             <MpFlex align="center" gap="2">
               <MpText size="body" weight="semiBold" color="text.highlight">
-                get-component
+                #get-component
               </MpText>
             </MpFlex>
             <MpText size="body" color="text.secondary">
@@ -238,7 +253,7 @@ const codeBlockStyle = css({
           <MpFlex direction="column" gap="2">
             <MpFlex align="center" gap="2">
               <MpText size="body" weight="semiBold" color="text.highlight">
-                get-docs
+                #get-docs
               </MpText>
             </MpFlex>
             <MpText size="body" color="text.secondary">
@@ -255,7 +270,7 @@ const codeBlockStyle = css({
           <MpFlex direction="column" gap="2">
             <MpFlex align="center" gap="2">
               <MpText size="body" weight="semiBold" color="text.highlight">
-                hello-pixel
+                #hello-pixel
               </MpText>
             </MpFlex>
             <MpText size="body" color="text.secondary">
@@ -288,7 +303,7 @@ const codeBlockStyle = css({
           <MpFlex direction="column" gap="2">
             <MpFlex align="center" gap="2">
               <MpText size="body" weight="semiBold" color="text.highlight">
-                implement-figma-to-pixel
+                /implement-figma-to-pixel
               </MpText>
             </MpFlex>
             <MpText size="body" color="text.secondary">
@@ -298,7 +313,7 @@ const codeBlockStyle = css({
               hierarchy, and best practices.
             </MpText>
             <MpText size="body-small" color="text.warning">
-              Example: /implement-figma-to-pixel
+              Example: /implement-figma-to-pixel https:figma.com/file/xyz123
             </MpText>
           </MpFlex>
         </MpFlex>
@@ -311,8 +326,8 @@ const codeBlockStyle = css({
         maxWidth="1200px"
         width="100%"
         padding="8"
-        background="white"
-        borderRadius="12px"
+        background="background.neutral"
+        borderRadius="md"
         boxShadow="lg"
       >
         <MpText as="h2" size="h2" weight="semiBold" :class="headingMargin">
@@ -348,13 +363,24 @@ const codeBlockStyle = css({
 
       <!-- Footer -->
       <MpFlex mt="12" textAlign="center">
-        <MpText
-          size="body-small"
-          :style="{ color: 'rgba(255, 255, 255, 0.8)' }"
-        >
+        <MpText size="body-small" color="text.secondary">
           Built with ❤️ using Mekari Pixel Design System
         </MpText>
       </MpFlex>
     </MpFlex>
   </div>
 </template>
+
+<script setup lang="ts">
+import { css, MpText, MpFlex, MpButton, MpButtonGroup } from "@mekari/pixel3";
+
+const headingMargin = css({ mb: "4" });
+const codeBlockStyle = css({
+  background: "background.inverse",
+  color: "text.inverse",
+  padding: "4",
+  borderRadius: "md",
+  fontFamily: "monospace",
+  fontSize: "body-small",
+});
+</script>

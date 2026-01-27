@@ -13,5 +13,5 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   setNextTheme(true); // Enable Design Token v2.4
   setDarkMode(false); // Set dark mode to false
-  setProductTheme("enterprise"); // Set product theme to enterprise
+  setProductTheme(""); // Set product theme to enterprise
 });

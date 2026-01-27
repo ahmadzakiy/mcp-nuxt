@@ -1,19 +1,13 @@
 <template>
   <MpFlex direction="column" height="100vh" bg="background.airene">
-    <MpFlex
-      gap="2"
-      alignItems="center"
-      p="4"
-      borderBottomWidth="1px"
-      borderColor="border.default"
-    >
+    <MpFlex gap="2" alignItems="center" p="4" pb="0">
       <MpButton
         left-icon="arrows-left"
         variant="ghost"
         size="sm"
         @click="navigateTo('/')"
       />
-      <MpText size="h1">Chat with Pixel MCP</MpText>
+      <MpText size="h3">Chat with Pixel MCP</MpText>
     </MpFlex>
 
     <MpFlex flex="1" direction="column" gap="4" overflow="hidden" p="4" mb="10">

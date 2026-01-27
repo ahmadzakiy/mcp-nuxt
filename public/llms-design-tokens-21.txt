@@ -12,6 +12,7 @@
 | `debug` | `blue` | `var(--mp-colors-debug)` |
 | `lightPurple` | `radial-gradient(108.28% 139.29% at 0% 0%, #E9F1FD 0%, #F4F0FF 100%)` | `var(--mp-colors-lightPurple)` |
 | `overlay` | `rgba(22, 26, 32, 0.8)` | `var(--mp-colors-overlay)` |
+| `transparent` | `transparent` | `var(--mp-colors-transparent)` |
 | `vibrantPurple` | `linear-gradient(98deg, #F8F9FB 0%, #B5A2EC 50.01%, #4B61DD 100%)` | `var(--mp-colors-vibrantPurple)` |
 | `white` | `#FFFFFF` | `var(--mp-colors-white)` |
 | `brand.capital` | `#2F5573` | `var(--mp--brand-capital)` |

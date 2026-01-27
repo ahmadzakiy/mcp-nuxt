@@ -973,91 +973,146 @@ For technical support or questions about Pixel3 itself, refer to the [Getting St
 
 # Pixel Theme
 
-Starting in v1.0.0, we've introduced Design Token v2.4, bringing built-in light/dark mode capabilities and an enhanced usePixelTheme composable for seamless theme management.
+Starting in v1, Mekari Pixel introduced Design Token v2.4 with built-in light/dark mode capabilities and new `usePixelTheme` composable function for seamless theme management.
 
-While you can manually handle HTML attributes for theming, we strongly recommend using usePixelTheme for its key benefits:
+We strongly recommend using the `usePixelTheme` composable for managing themes. It handles all the complexity for you with:
 
-✅ Automatic Theme Handling – No need to manually set HTML attributes.
+- **Automatic Theme Handling** – No need to manually set HTML attributes
+- **Full Compatibility** – Switch seamlessly between Design Token v2.1 and v2.4
+- **Persistent User Preferences** – Theme settings saved in `localStorage`
+- **Multi-Tab Support** – Proper storage mechanisms for cross-tab synchronization
 
-✅ Full Compatibility – Effortlessly switch between Design Token v2.1 and Design Token v2.4.
+## Prequisites
 
-✅ Persistent User Preferences – Theme settings are saved in local storage.
+Ensure you have installed and configured `pixelPlugin` in your project. Refer to [Getting Started - Vue 3](/docs/getting-started.html#install-pixel-vue-3) if needed.
 
-✅ Clean & Type-Safe API – Simplifies theme management with intuitive methods.
+## Design Token v2.1 vs v2.4
 
+Pixel offers two design token versions. Choose based on your project needs:
 
+| Feature                    | Token v2.1        | Token v2.4                     |
+| -------------------------- | ----------------- | ------------------------------ |
+| **Token System**           | Legacy tokens     | Enhanced new tokens            |
+| **Semantic Token**         | Not supported     | Built-in semantic token system |
+| **Dark Mode**              | Not supported     | Built-in dark mode support     |
+| **Theming System**         | Not supported     | Default & Enterprise           |
+| **Default Recommendation** | Existing projects | New / Migration project        |
 
-## 📌 Prerequisites
-Before proceeding, ensure that you have installed and configured PixelPlugin in your project.
-If you haven't done so, please refer to the [Getting Started - Vue 3](/docs/getting-started.html#install-pixel-vue-3).
+**Migration Tip:** You can gradually migrate to Token v2.4 per page (see [Gradually Apply Token v2.4](#gradually-apply-token-2-4) section).
 
+## Managing Pixel Theme
 
-## 🌟 Enabling Design Token 2.4
-By default, Token 2.1 is applied. To enable Token 2.4, use the following API:
+### Enabling Design Token v2.4
 
-```ts
+By default, Token v2.1 is active. Enable Token v2.4 using the `usePixelTheme` composable:
+
+```ts{5}
 import { usePixelTheme } from '@mekari/pixel3'
 
-const { isNextTheme, setNextTheme } = usePixelTheme()
+const { setNextTheme, isNextTheme } = usePixelTheme()
 
-setNextTheme(true)  // Enable Design Token v2.4
-setNextTheme(false) // Revert to Design Token v2.1
-
+setNextTheme(true) // Enable Design Token v2.4
 ```
 
+**API Reference:**
 
-🔹 API Reference
-- `isNextTheme` → A boolean indicating whether Token 2.4 is active.
-  - `true` → The theme uses Design Token v2.4.
-  - `false` → The theme remains on Design Token v2.1.
-- `setNextTheme(value: boolean)` → A function to toggle between Token 2.1 and Token 2.4.
+- `setNextTheme(value: boolean)` → Toggle between Token versions
+- `isNextTheme` – Boolean indicating whether Token v2.4 is active
+  - `true` → Uses Design Token v2.4
+  - `false` → Uses Design Token v2.1
 
+---
 
+### Managing Dark & Light Mode
 
- ## 🌕 Managing Dark & Light Mode
-Mekari Pixel provides a built-in dark mode system, allowing you to toggle between light and dark themes effortlessly.
+Design Token v2.4 provides built-in light/dark mode support. Toggle modes effortlessly:
 
-🔹 Usage
-```ts
+```ts{6}
 import { usePixelTheme } from '@mekari/pixel3'
 
-const { isDark, setDarkMode } = usePixelTheme()
+const { setNextTheme, setDarkMode, isDark } = usePixelTheme()
 
-setDarkMode(true)  // Enable Dark Mode
-setDarkMode(false) // Enable Light Mode
+setNextTheme(true) // Must Enable Design Token 2.4 first
+setDarkMode(true) // Enable Dark Mode
 ```
-🔹 API Reference
 
-- `isDark` → A boolean indicating whether dark mode is active.
-- `setDarkMode(value: boolean)` → A function to toggle light/dark mode dynamically.
+**API Reference:**
 
-Pro Tip: You can combine Token 2.4 with dark mode for an adaptive UI experience.
+- `setDarkMode(value: boolean)` – Toggle light/dark mode dynamically
+- `isDark` – Boolean indicating if dark mode is active
 
+---
 
+### Setting Product Theme (Enterprise)
 
-## 💻 Implementations  
+By default, Design Token v2.4 don't use product-specific themes, but if you want to add product themes like **"enterprise"** for different visual identities. Set your product theme as follows:
 
-### 🌍 Globally Apply Token 2.4
+```ts{6}
+import { usePixelTheme } from '@mekari/pixel3'
 
-By default, Token 2.1 is active. You can globally enable Token 2.4 and toggle dark mode using the `usePixelTheme` composable.
+const { setNextTheme, setProductTheme, getProductTheme } = usePixelTheme()
+
+setNextTheme(true) // Must Enable Design Token v2.4 first
+setProductTheme('enterprise') // Set enterprise theme
+```
+
+**API Reference:**
+
+- `setProductTheme(product: 'enterprise' | '')` – Set the product theme variant
+- `getProductTheme()` – Returns the current product theme identifier
+
+## Implementation Examples
+
+### Globally Apply Token v2.4
+
+Enable Token v2.4 globally and toggle dark mode using the `usePixelTheme` composable:
 
 
 
 ### ExamplePixelThemeUsage
 
 ```vue
+<template>
+  <MpFlex direction="column" gap="2">
+    <MpFlex
+      direction="column"
+      gap="2"
+      p="2"
+      borderWidth="1"
+      borderColor="border.default"
+      rounded="md"
+    >
+      <MpText>
+        <strong>isNextTheme:</strong> <code>{{ isNextTheme }}</code>
+      </MpText>
+      <MpText>
+        <strong>isDark:</strong> <code>{{ isDark }}</code>
+      </MpText>
+    </MpFlex>
+
+    <div style="display: flex; gap: 8px; margin-top: 16px">
+      <MpButton
+        :variant="isNextTheme ? 'danger' : 'primary'"
+        @click="toggleNextTheme(!isNextTheme)"
+      >
+        {{ isNextTheme ? 'Disable' : 'Enable' }} Next Theme
+      </MpButton>
+      <MpButton :variant="isDark ? 'secondary' : 'tertiary'" @click="toggleDarkMode(!isDark)">
+        {{ isDark ? 'Disable' : 'Enable' }} Dark Mode
+      </MpButton>
+    </div>
+  </MpFlex>
+</template>
+
 <script setup lang="ts">
-  import { MpButton } from '@mekari/pixel3'
+  import { MpFlex, MpText, MpButton } from '@mekari/pixel3'
   import { usePixelTheme } from '@mekari/pixel3-utils'
 
   const { isNextTheme, isDark, setNextTheme, setDarkMode } = usePixelTheme()
 
   function toggleDarkMode(value: boolean) {
     if (value) {
-      /** 
-       * Make sure next theme is enabled if dark mode is enabled.
-       * Since dark mode is only available in next theme (Design Token v2.4).
-       */
+      // Design token 2.4 is required for dark mode
       if (!isNextTheme.value) setNextTheme(true)
 
       setDarkMode(true)
@@ -1070,81 +1125,46 @@ By default, Token 2.1 is active. You can globally enable Token 2.4 and toggle da
     if (value) {
       setNextTheme(true)
     } else {
-      /** 
-       * Make sure dark mode is disabled if next theme is disabled.
-       * Since dark mode is only available in next theme (Design Token v2.4).
-       */
+      // Dark mode requires next theme, so disable it when disabling next theme
       if (isDark.value) setDarkMode(false)
       setNextTheme(false)
     }
   }
 </script>
 
-<template>
-  <div>
-    <div style="display: flex; flex-direction: column">
-      <strong>Current state: </strong>
-      <code>isNextTheme: {{ isNextTheme }}</code>
-      <code>isDark: {{ isDark }}</code>
-    </div>
-
-    <div style="display: flex; gap: 8px; margin-top: 16px">
-      <MpButton :variant="isNextTheme ? 'danger' : 'primary'" @click="toggleNextTheme(!isNextTheme)">
-        {{ isNextTheme ? 'Disable' : 'Enable' }} Next Theme
-      </MpButton>
-      <MpButton :variant="isDark ? 'danger' : 'primary'" @click="toggleDarkMode(!isDark)">
-        {{ isDark ? 'Disable' : 'Enable' }} Dark Mode
-      </MpButton>
-    </div>
-  </div>
-</template>
-
 ```
 
 
+### Gradually Apply Token v2.4
 
-### ⚡ Gradually Apply Token 2.4
-
-You can enable Token 2.4 only for specific pages or components instead of applying it globally.
-
-🔹 Example: Enable Token 2.4 only on /inbox page
+Migrate to Token v2.4 incrementally by enabling it only on specific pages or components:
 
 ```ts
-import { usePixelTheme } from "@mekari/pixel3-utils"; // Ensure the package is installed
-const { setNextTheme, setDarkMode } = usePixelTheme();
+import { usePixelTheme } from '@mekari/pixel3'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const { setNextTheme, setDarkMode } = usePixelTheme()
+
 watchEffect(() => {
-  // Apply next theme (Design Token v2.4) only for path inbox.
-  setNextTheme(route.path === "/inbox");
-  setDarkMode(false);
-});
-
+  // Enable Token v2.4 only on /inbox page
+  setNextTheme(route.path === '/inbox')
+  setDarkMode(false)
+})
 ```
 
-### 🔧 Manually Handle Theme Changes
+### Manually Apply Token v2.4
 
-While we recommend using the usePixelTheme composable for seamless theme management, manual handling is also possible.
-
-1. Disable Built-in Theme Management:
-
-```ts{4}
-import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
-
-const app = createApp(App)
-app.use(PixelPlugin, { pixelTheme: false } as PixelPluginConfig)
-app.mount('#app')
-```
-2. Implement Custom Theme Handling
+While we recommend using `usePixelTheme`, you can also perform manual DOM manipulation:
 
 ::: warning
-⚠ Important: Always keep isNextTheme in sync when handling themes manually.
-- `isNextTheme = true` when data-panda-theme="next" is set.
-- `isNextTheme = false` when data-panda-theme="next" is not set.
-- **Mismatched states may result in incorrect component styling.**
+Always keep `isNextTheme` in sync when handling themes manually.
 
+- Set `isNextTheme = true` when `data-panda-theme="next"` is applied
+- Set `isNextTheme = false` when `data-panda-theme="next"` is removed
+
+Mismatched states may result in incorrect component's styling.
 :::
-
-**Example: Manually Setting Themes**
-
 
 ```ts{16,21}
 import { usePixelTheme } from '@mekari/pixel3'
@@ -1169,7 +1189,28 @@ function removeNextTheme() {
 
   setNextTheme(false)
 }
+
+onMounted(() => {
+  // Manual apply
+  applyNextTheme()
+  showLightMode()
+})
 ```
+
+## usePixelTheme API
+
+You can use the following APIs from the `usePixelTheme` composable:
+
+| Task              | API                         | Example                                    |
+| ----------------- | --------------------------- | ------------------------------------------ |
+| Set Token v2.4    | `setNextTheme(boolean)`     | `setNextTheme(true)`                       |
+| Get Token Version | `isNextTheme`               | `const isUseNextTheme = isNextTheme.value` |
+| Set Dark Mode     | `setDarkMode(boolean)`      | `setDarkMode(true)`                        |
+| Get Dark Version  | `isDark`                    | `const isDarkMode = isDark.value`          |
+| Set Product Theme | `setProductTheme(string)`   | `setProductTheme('enterprise')`            |
+| Get Product Theme | `getProductTheme()`         | `const theme = getProductTheme()`          |
+| Activate Watcher  | `activePixelThemeWatcher()` | Called automatically by `pixelPlugin`      |
+| Stop Watcher      | `stopPixelThemeWatcher()`   | `stopPixelThemeWatcher()`                  |
 
 # Responsive Design
 
@@ -1471,7 +1512,7 @@ Use components from `@mekari/pixel3` package in your code and Pixel will extract
 
 # Utility Props
 
-List of style properties that can be used in CSS function or CSS props.
+List of style properties that can be used in [CSS function](/docs/guides/css-function.html) or [CSS props](/docs/guides/css-props.html).
 
 ## Background
 

@@ -1,5 +1,5 @@
 <template>
-  <MpFlex direction="column" height="100vh" bg="background.airene">
+  <MpFlex direction="column" height="calc(100vh - 71px)" bg="background.airene">
     <MpFlex gap="2" alignItems="center" p="4" pb="0">
       <MpButton
         left-icon="arrows-left"
@@ -13,13 +13,13 @@
     <MpFlex flex="1" direction="column" gap="4" overflow="hidden" p="4" mb="10">
       <MpFlex
         bg="background.neutral"
+        flex="1"
+        gap="4"
         direction="column"
+        p="4"
         borderWidth="1px"
         borderColor="border.default"
         borderRadius="xl"
-        p="4"
-        gap="4"
-        flex="1"
         overflow="auto"
         minHeight="0"
       >
@@ -60,7 +60,7 @@ import {
   MpAireneChatBubble,
   MpFlex,
   MpText,
-  MpButton,
+  MpButton
 } from "@mekari/pixel3";
 import MarkdownRenderer from "~/components/MarkdownRenderer.vue";
 

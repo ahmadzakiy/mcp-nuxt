@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   compatibilityDate: "2025-07-15",
   devtools: {
-    enabled: process.env.NODE_ENV === "development",
+    enabled: process.env.NODE_ENV === "development"
   },
   runtimeConfig: {
     // Server-only keys (secure, not exposed to client)
@@ -15,8 +15,8 @@ export default defineNuxtConfig({
     public: {
       // Public keys (exposed to client - only use for non-sensitive data)
       // WARNING: Don't put API keys here!
-      apiSecret: "123",
-    },
+      apiSecret: "123"
+    }
   },
   modules: ["@nuxtjs/mcp-toolkit"],
   css: ["~/assets/css/pixel.css"],
@@ -24,20 +24,20 @@ export default defineNuxtConfig({
     plugins: {
       "@mekari/pixel3-postcss": {
         include: [
-          "./app/**/*.{js,jsx,ts,tsx,vue}", // Nuxt 4 app directory
-        ],
-      },
-    },
+          "./app/**/*.{js,jsx,ts,tsx,vue}" // Nuxt 4 app directory
+        ]
+      }
+    }
   },
   nitro: {
     // Nuxt 4 still uses Nitro. Use the Netlify preset:
-    preset: "netlify",
+    preset: "netlify"
   },
   mcp: {
     version: "0.0.1",
     name: "pixel3-mcp-server",
     route: "/mcp", // Default route for the MCP server
     dir: "mcp", // Base directory for MCP definitions (relative to server/)
-    browserRedirect: "/", // Redirect root MCP server route to docs page
-  },
+    browserRedirect: "/" // Redirect root MCP server route to docs page
+  }
 });

@@ -1,6 +1,7 @@
 {
-  "name": "mcp-server",
+  "name": "remote-mcp-server",
   "type": "module",
+  "author": "Ahmad Zakiy <in.zakiy@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "nuxi dev --port 3200",

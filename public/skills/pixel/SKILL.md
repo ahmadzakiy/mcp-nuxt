@@ -3,7 +3,7 @@ name: pixel
 description: Implement designs using Mekari Pixel 3 design system with Vue 3 and Nuxt. Use when translating Figma designs to production code, working with Pixel components, or implementing design tokens.
 metadata:
   author: Mekari Design System Team
-  version: "3.x"
+  version: "1.0.8"
   source: https://docs.mekari.design/
 ---
 

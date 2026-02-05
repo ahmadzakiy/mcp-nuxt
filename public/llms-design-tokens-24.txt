@@ -186,185 +186,147 @@
 
 ### Semantic Colors
 
-| Key | Value | CSS Variable |
-|-----|-------|---------------|
-| `currentcolor` | `currentcolor` | `--var(--mp-colors-currentcolor)` |
-| `dark` | `#161A1D` | `--var(--mp-colors-dark)` |
-| `debug` | `red` | `--var(--mp-colors-debug)` |
-| `lightPurple` | `radial-gradient(108.28% 139.29% at 0% 0%, {colors.background.brand} 0%, {colors.background.highlight} 100%)` | `--var(--mp-colors-lightPurple)` |
-| `transparent` | `#FFFFFF00` | `--var(--mp-colors-transparent)` |
-| `vibrantPurple` | `linear-gradient(98deg, #F8F9FB 0%, #B5A2EC 50.01%, #4B61DD 100%)` | `--var(--mp-colors-vibrantPurple)` |
-| `white` | `#FFFFFF` | `--var(--mp-colors-white)` |
-| `brand.capital` | `#2F5573` | `--var(--mp-colors-brand-capital)` |
-| `brand.esign` | `#00C853` | `--var(--mp-colors-brand-esign)` |
-| `brand.expense` | `#183883` | `--var(--mp-colors-brand-expense)` |
-| `brand.flex` | `#7C4DFF` | `--var(--mp-colors-brand-flex)` |
-| `brand.jurnal` | `#40C3FF` | `--var(--mp-colors-brand-jurnal)` |
-| `brand.klikpajak` | `#FF9100` | `--var(--mp-colors-brand-klikpajak)` |
-| `brand.mekari` | `#651FFF` | `--var(--mp-colors-brand-mekari)` |
-| `brand.qontak` | `#2979FF` | `--var(--mp-colors-brand-qontak)` |
-| `brand.talenta` | `#F22929` | `--var(--mp-colors-brand-talenta)` |
-| `brand.university` | `#448AFF` | `--var(--mp-colors-brand-university)` |
-| `dark.100a` | `#bcd6f00a` | `--var(--mp-colors-dark-100a)` |
-| `dark.200a` | `#a1bdd914` | `--var(--mp-colors-dark-200a)` |
-| `dark.250a` | `#c8e1f91f` | `--var(--mp-colors-dark-250a)` |
-| `dark.300a` | `#a6c5e229` | `--var(--mp-colors-dark-300a)` |
-| `dark.350a` | `#c3defe33` | `--var(--mp-colors-dark-350a)` |
-| `dark.400a` | `#bfdbf847` | `--var(--mp-colors-dark-400a)` |
-| `dark.500a` | `#9bb4ca85` | `--var(--mp-colors-dark-500a)` |
-| `neutral.100a` | `#1d1f240a` | `--var(--mp-colors-neutral-100a)` |
-| `neutral.200a` | `#1d1f2414` | `--var(--mp-colors-neutral-200a)` |
-| `neutral.300a` | `#1d1f2429` | `--var(--mp-colors-neutral-300a)` |
-| `neutral.400a` | `#1d1f2452` | `--var(--mp-colors-neutral-400a)` |
-| `neutral.500a` | `#1d1f247a` | `--var(--mp-colors-neutral-500a)` |
-| `slate.100a` | `#1d1f240a` | `--var(--mp-colors-slate-100a)` |
-| `slate.200a` | `#1d1f2414` | `--var(--mp-colors-slate-200a)` |
-| `slate.300a` | `#1d1f2429` | `--var(--mp-colors-slate-300a)` |
-| `slate.400a` | `#1d1f2452` | `--var(--mp-colors-slate-400a)` |
-| `slate.500a` | `#1d1f247a` | `--var(--mp-colors-slate-500a)` |
-| `blue.100` | `#ECF3FE` | `--var(--mp-colors-blue-100)` |
-| `blue.200` | `#CEE0FD` | `--var(--mp-colors-blue-200)` |
-| `blue.300` | `#8EB7FA` | `--var(--mp-colors-blue-300)` |
-| `blue.400` | `#649CF8` | `--var(--mp-colors-blue-400)` |
-| `blue.500` | `#488BF7` | `--var(--mp-colors-blue-500)` |
-| `blue.600` | `#387CEB` | `--var(--mp-colors-blue-600)` |
-| `blue.700` | `#306AC8` | `--var(--mp-colors-blue-700)` |
-| `blue.800` | `#295AAA` | `--var(--mp-colors-blue-800)` |
-| `blue.900` | `#173361` | `--var(--mp-colors-blue-900)` |
-| `blue.1000` | `#132A4F` | `--var(--mp-colors-blue-1000)` |
-| `dark.-100` | `#101214` | `--var(--mp-colors-dark--100)` |
-| `dark.100` | `#1D2125` | `--var(--mp-colors-dark-100)` |
-| `dark.200` | `#22272B` | `--var(--mp-colors-dark-200)` |
-| `dark.250` | `#282E33` | `--var(--mp-colors-dark-250)` |
-| `dark.300` | `#2C333A` | `--var(--mp-colors-dark-300)` |
-| `dark.350` | `#38414A` | `--var(--mp-colors-dark-350)` |
-| `dark.400` | `#454F59` | `--var(--mp-colors-dark-400)` |
-| `dark.500` | `#596773` | `--var(--mp-colors-dark-500)` |
-| `dark.600` | `#738496` | `--var(--mp-colors-dark-600)` |
-| `dark.700` | `#8C9BAB` | `--var(--mp-colors-dark-700)` |
-| `dark.800` | `#9FADBC` | `--var(--mp-colors-dark-800)` |
-| `dark.900` | `#B6C2CF` | `--var(--mp-colors-dark-900)` |
-| `dark.1000` | `#C7D1DB` | `--var(--mp-colors-dark-1000)` |
-| `emerald.100` | `#F0FBF7` | `--var(--mp-colors-emerald-100)` |
-| `emerald.200` | `#D6F4E9` | `--var(--mp-colors-emerald-200)` |
-| `emerald.300` | `#B7E9D8` | `--var(--mp-colors-emerald-300)` |
-| `emerald.400` | `#7EDAC0` | `--var(--mp-colors-emerald-400)` |
-| `emerald.500` | `#41C6A0` | `--var(--mp-colors-emerald-500)` |
-| `emerald.600` | `#1FB088` | `--var(--mp-colors-emerald-600)` |
-| `emerald.700` | `#029861` | `--var(--mp-colors-emerald-700)` |
-| `emerald.800` | `#0F6D4D` | `--var(--mp-colors-emerald-800)` |
-| `emerald.900` | `#0E4F3A` | `--var(--mp-colors-emerald-900)` |
-| `emerald.1000` | `#142D26` | `--var(--mp-colors-emerald-1000)` |
-| `fuchsia.100` | `#FBEEFE` | `--var(--mp-colors-fuchsia-100)` |
-| `fuchsia.200` | `#F6D1FB` | `--var(--mp-colors-fuchsia-200)` |
-| `fuchsia.300` | `#EA98F6` | `--var(--mp-colors-fuchsia-300)` |
-| `fuchsia.400` | `#E16CF2` | `--var(--mp-colors-fuchsia-400)` |
-| `fuchsia.500` | `#DA4DF0` | `--var(--mp-colors-fuchsia-500)` |
-| `fuchsia.600` | `#C841DC` | `--var(--mp-colors-fuchsia-600)` |
-| `fuchsia.700` | `#AC37BD` | `--var(--mp-colors-fuchsia-700)` |
-| `fuchsia.800` | `#932FA2` | `--var(--mp-colors-fuchsia-800)` |
-| `fuchsia.900` | `#531B5C` | `--var(--mp-colors-fuchsia-900)` |
-| `fuchsia.1000` | `#45164C` | `--var(--mp-colors-fuchsia-1000)` |
-| `green.100` | `#F2F9F6` | `--var(--mp-colors-green-100)` |
-| `green.200` | `#D2EBE1` | `--var(--mp-colors-green-200)` |
-| `green.300` | `#A7D9C4` | `--var(--mp-colors-green-300)` |
-| `green.400` | `#7DC7A8` | `--var(--mp-colors-green-400)` |
-| `green.500` | `#56B78E` | `--var(--mp-colors-green-500)` |
-| `green.600` | `#23A06B` | `--var(--mp-colors-green-600)` |
-| `green.700` | `#1C8459` | `--var(--mp-colors-green-700)` |
-| `green.800` | `#186F4A` | `--var(--mp-colors-green-800)` |
-| `green.900` | `#104B32` | `--var(--mp-colors-green-900)` |
-| `green.1000` | `#0B3524` | `--var(--mp-colors-green-1000)` |
-| `indigo.100` | `#EEF0FC` | `--var(--mp-colors-indigo-100)` |
-| `indigo.200` | `#D6DBF7` | `--var(--mp-colors-indigo-200)` |
-| `indigo.300` | `#A8B2EF` | `--var(--mp-colors-indigo-300)` |
-| `indigo.400` | `#8997E9` | `--var(--mp-colors-indigo-400)` |
-| `indigo.500` | `#7586E5` | `--var(--mp-colors-indigo-500)` |
-| `indigo.600` | `#6577E2` | `--var(--mp-colors-indigo-600)` |
-| `indigo.700` | `#4B61DC` | `--var(--mp-colors-indigo-700)` |
-| `indigo.800` | `#4053BC` | `--var(--mp-colors-indigo-800)` |
-| `indigo.900` | `#242F6A` | `--var(--mp-colors-indigo-900)` |
-| `indigo.1000` | `#1D2656` | `--var(--mp-colors-indigo-1000)` |
-| `lime.100` | `#F4FAEA` | `--var(--mp-colors-lime-100)` |
-| `lime.200` | `#D8EFB5` | `--var(--mp-colors-lime-200)` |
-| `lime.300` | `#B1DF6B` | `--var(--mp-colors-lime-300)` |
-| `lime.400` | `#83CA16` | `--var(--mp-colors-lime-400)` |
-| `lime.500` | `#77B814` | `--var(--mp-colors-lime-500)` |
-| `lime.600` | `#649B11` | `--var(--mp-colors-lime-600)` |
-| `lime.700` | `#53800E` | `--var(--mp-colors-lime-700)` |
-| `lime.800` | `#466C0C` | `--var(--mp-colors-lime-800)` |
-| `lime.900` | `#304A08` | `--var(--mp-colors-lime-900)` |
-| `lime.1000` | `#213306` | `--var(--mp-colors-lime-1000)` |
-| `neutral.100` | `#F7F8F9` | `--var(--mp-colors-neutral-100)` |
-| `neutral.200` | `#F0F1F3` | `--var(--mp-colors-neutral-200)` |
-| `neutral.300` | `#DCDFE4` | `--var(--mp-colors-neutral-300)` |
-| `neutral.400` | `#B2B9C4` | `--var(--mp-colors-neutral-400)` |
-| `neutral.500` | `#8690A2` | `--var(--mp-colors-neutral-500)` |
-| `neutral.600` | `#758195` | `--var(--mp-colors-neutral-600)` |
-| `neutral.700` | `#656F80` | `--var(--mp-colors-neutral-700)` |
-| `neutral.800` | `#4C5460` | `--var(--mp-colors-neutral-800)` |
-| `neutral.900` | `#383E48` | `--var(--mp-colors-neutral-900)` |
-| `neutral.1000` | `#272B32` | `--var(--mp-colors-neutral-1000)` |
-| `orange.100` | `#FDF3EC` | `--var(--mp-colors-orange-100)` |
-| `orange.200` | `#F9DECB` | `--var(--mp-colors-orange-200)` |
-| `orange.300` | `#F5C39F` | `--var(--mp-colors-orange-300)` |
-| `orange.400` | `#F0A875` | `--var(--mp-colors-orange-400)` |
-| `orange.500` | `#EB8E4B` | `--var(--mp-colors-orange-500)` |
-| `orange.600` | `#E46910` | `--var(--mp-colors-orange-600)` |
-| `orange.700` | `#BC560D` | `--var(--mp-colors-orange-700)` |
-| `orange.800` | `#A14A0B` | `--var(--mp-colors-orange-800)` |
-| `orange.900` | `#6B3108` | `--var(--mp-colors-orange-900)` |
-| `orange.1000` | `#492105` | `--var(--mp-colors-orange-1000)` |
-| `red.100` | `#FCEEED` | `--var(--mp-colors-red-100)` |
-| `red.200` | `#F9D7D5` | `--var(--mp-colors-red-200)` |
-| `red.300` | `#F09E99` | `--var(--mp-colors-red-300)` |
-| `red.400` | `#EA7A72` | `--var(--mp-colors-red-400)` |
-| `red.500` | `#E6645B` | `--var(--mp-colors-red-500)` |
-| `red.600` | `#E2483D` | `--var(--mp-colors-red-600)` |
-| `red.700` | `#C33E35` | `--var(--mp-colors-red-700)` |
-| `red.800` | `#A8352D` | `--var(--mp-colors-red-800)` |
-| `red.900` | `#5E1E19` | `--var(--mp-colors-red-900)` |
-| `red.1000` | `#4E1915` | `--var(--mp-colors-red-1000)` |
-| `slate.100` | `#F8F9F9` | `--var(--mp-colors-slate-100)` |
-| `slate.200` | `#EBF0F1` | `--var(--mp-colors-slate-200)` |
-| `slate.300` | `#E3E7E9` | `--var(--mp-colors-slate-300)` |
-| `slate.400` | `#8C9596` | `--var(--mp-colors-slate-400)` |
-| `slate.500` | `#6E7A7C` | `--var(--mp-colors-slate-500)` |
-| `slate.600` | `#536062` | `--var(--mp-colors-slate-600)` |
-| `slate.700` | `#3A4749` | `--var(--mp-colors-slate-700)` |
-| `slate.800` | `#243032` | `--var(--mp-colors-slate-800)` |
-| `slate.900` | `#121C1E` | `--var(--mp-colors-slate-900)` |
-| `slate.1000` | `#080D0E` | `--var(--mp-colors-slate-1000)` |
-| `teal.100` | `#EAF9F7` | `--var(--mp-colors-teal-100)` |
-| `teal.200` | `#C4EDE9` | `--var(--mp-colors-teal-200)` |
-| `teal.300` | `#92DED6` | `--var(--mp-colors-teal-300)` |
-| `teal.400` | `#4FCABC` | `--var(--mp-colors-teal-400)` |
-| `teal.500` | `#19B9A8` | `--var(--mp-colors-teal-500)` |
-| `teal.600` | `#119E8F` | `--var(--mp-colors-teal-600)` |
-| `teal.700` | `#0E8275` | `--var(--mp-colors-teal-700)` |
-| `teal.800` | `#0C6E63` | `--var(--mp-colors-teal-800)` |
-| `teal.900` | `#084841` | `--var(--mp-colors-teal-900)` |
-| `teal.1000` | `#06342F` | `--var(--mp-colors-teal-1000)` |
-| `violet.100` | `#F3F1FC` | `--var(--mp-colors-violet-100)` |
-| `violet.200` | `#DEDAF6` | `--var(--mp-colors-violet-200)` |
-| `violet.300` | `#B8AEEB` | `--var(--mp-colors-violet-300)` |
-| `violet.400` | `#9F91E3` | `--var(--mp-colors-violet-400)` |
-| `violet.500` | `#8F7FDF` | `--var(--mp-colors-violet-500)` |
-| `violet.600` | `#8270DB` | `--var(--mp-colors-violet-600)` |
-| `violet.700` | `#6F5FBA` | `--var(--mp-colors-violet-700)` |
-| `violet.800` | `#5F519F` | `--var(--mp-colors-violet-800)` |
-| `violet.900` | `#352E5A` | `--var(--mp-colors-violet-900)` |
-| `violet.1000` | `#2B2549` | `--var(--mp-colors-violet-1000)` |
-| `yellow.100` | `#FDF6DD` | `--var(--mp-colors-yellow-100)` |
-| `yellow.200` | `#F9E399` | `--var(--mp-colors-yellow-200)` |
-| `yellow.300` | `#F5CD47` | `--var(--mp-colors-yellow-300)` |
-| `yellow.400` | `#D8B53F` | `--var(--mp-colors-yellow-400)` |
-| `yellow.500` | `#C2A338` | `--var(--mp-colors-yellow-500)` |
-| `yellow.600` | `#A68A30` | `--var(--mp-colors-yellow-600)` |
-| `yellow.700` | `#897228` | `--var(--mp-colors-yellow-700)` |
-| `yellow.800` | `#766222` | `--var(--mp-colors-yellow-800)` |
-| `yellow.900` | `#4D4016` | `--var(--mp-colors-yellow-900)` |
-| `yellow.1000` | `#362D10` | `--var(--mp-colors-yellow-1000)` |
+| Key | Light | Dark | Enterprise | CSS Variable |
+|-----|-------|------|------------|---------------|
+| `background.surface` | `#F1F5F9` | `#161A1D` | `#F8F9F9` | `var(--mp-background-surface)` |
+| `background.surface.bold` | `#272B32` | `#F7F8F9` | `#142D26` | `var(--mp-background-surface-bold)` |
+| `background.information` | `#EEF0FC` | `#1D2656` | `#EEF0FC` | `var(--mp-background-information)` |
+| `background.information.bold` | `#4B61DC` | `#8997E9` | `#4B61DC` | `var(--mp-background-information-bold)` |
+| `background.stage` | `#FFFFFF` | `#1D2125` | `#FFFFFF` | `var(--mp-background-stage)` |
+| `background.overlay` | `#232933CC` | `#657F9980` | `#222222CC` | `var(--mp-background-overlay)` |
+| `background.disabled` | `#1d1f240a` | `#bcd6f00a` | `#F8F9F9` | `var(--mp-background-disabled)` |
+| `background.inverse` | `#1D2125` | `#FFFFFF` | `#1D2125` | `var(--mp-background-inverse)` |
+| `background.shadow` | `#1D1F2429` | `#161A1D` | `#1D1F2429` | `var(--mp-background-shadow)` |
+| `background.neutral` | `#FFFFFF` | `#22272B` | `#FFFFFF` | `var(--mp-background-neutral)` |
+| `background.neutral.hovered` | `#F7F8F9` | `#282E33` | `#F8F9F9` | `var(--mp-background-neutral-hovered)` |
+| `background.neutral.pressed` | `#F0F1F3` | `#2C333A` | `#EBF0F1` | `var(--mp-background-neutral-pressed)` |
+| `background.neutral.selected` | `#F7F8F9` | `#282E33` | `#F8F9F9` | `var(--mp-background-neutral-selected)` |
+| `background.neutral.subtle` | `#F0F1F3` | `#2C333A` | `#F8F9F9` | `var(--mp-background-neutral-subtle)` |
+| `background.neutral.subtle.hovered` | `#DCDFE4` | `#38414A` | `#EBF0F1` | `var(--mp-background-neutral-subtle-hovered)` |
+| `background.neutral.subtle.pressed` | `#B2B9C4` | `#454F59` | `#E3E7E9` | `var(--mp-background-neutral-subtle-pressed)` |
+| `background.neutral.subtle.selected` | `#DCDFE4` | `#38414A` | `#EBF0F1` | `var(--mp-background-neutral-subtle-selected)` |
+| `background.neutral.bold` | `#4C5460` | `#9FADBC` | `#243032` | `var(--mp-background-neutral-bold)` |
+| `background.neutral.bold.hovered` | `#383E48` | `#B6C2CF` | `#121C1E` | `var(--mp-background-neutral-bold-hovered)` |
+| `background.neutral.bold.pressed` | `#272B32` | `#C7D1DB` | `#080D0E` | `var(--mp-background-neutral-bold-pressed)` |
+| `background.neutral.bold.selected` | `#383E48` | `#B6C2CF` | `#121C1E` | `var(--mp-background-neutral-bold-selected)` |
+| `background.brand` | `#EEF0FC` | `#1D2656` | `#F0FBF7` | `var(--mp-background-brand)` |
+| `background.brand.hovered` | `#D6DBF7` | `#242F6A` | `#D6F4E9` | `var(--mp-background-brand-hovered)` |
+| `background.brand.pressed` | `#A8B2EF` | `#4053BC` | `#B7E9D8` | `var(--mp-background-brand-pressed)` |
+| `background.brand.selected` | `#D6DBF7` | `#242F6A` | `#D6F4E9` | `var(--mp-background-brand-selected)` |
+| `background.brand.bold` | `#4B61DC` | `#8997E9` | `#029861` | `var(--mp-background-brand-bold)` |
+| `background.brand.bold.hovered` | `#4053BC` | `#A8B2EF` | `#0F6D4D` | `var(--mp-background-brand-bold-hovered)` |
+| `background.brand.bold.pressed` | `#242F6A` | `#D6DBF7` | `#0E4F3A` | `var(--mp-background-brand-bold-pressed)` |
+| `background.brand.bold.selected` | `#4053BC` | `#A8B2EF` | `#0F6D4D` | `var(--mp-background-brand-bold-selected)` |
+| `background.brand.bold.selected.disabled` | `#D6DBF7` | `#242F6A` | `#D6F4E9` | `var(--mp-background-brand-bold-selected-disabled)` |
+| `background.tertiary` | `#22272B` | `#22272B` | `#282E33` | `var(--mp-background-tertiary)` |
+| `background.tertiary.hovered` | `#2C333A` | `#2C333A` | `#2C333A` | `var(--mp-background-tertiary-hovered)` |
+| `background.tertiary.pressed` | `#454F59` | `#454F59` | `#454F59` | `var(--mp-background-tertiary-pressed)` |
+| `background.danger` | `#FCEEED` | `#4E1915` | `#FCEEED` | `var(--mp-background-danger)` |
+| `background.danger.hovered` | `#F9D7D5` | `#5E1E19` | `#F9D7D5` | `var(--mp-background-danger-hovered)` |
+| `background.danger.pressed` | `#F09E99` | `#A8352D` | `#F09E99` | `var(--mp-background-danger-pressed)` |
+| `background.danger.selected` | `#F9D7D5` | `#5E1E19` | `#F9D7D5` | `var(--mp-background-danger-selected)` |
+| `background.danger.bold` | `#C33E35` | `#EA7A72` | `#C33E35` | `var(--mp-background-danger-bold)` |
+| `background.danger.bold.hovered` | `#A8352D` | `#F09E99` | `#A8352D` | `var(--mp-background-danger-bold-hovered)` |
+| `background.danger.bold.pressed` | `#5E1E19` | `#F9D7D5` | `#5E1E19` | `var(--mp-background-danger-bold-pressed)` |
+| `background.danger.bold.selected` | `#A8352D` | `#F09E99` | `#A8352D` | `var(--mp-background-danger-bold-selected)` |
+| `background.warning` | `#FDF6DD` | `#362D10` | `#FDF6DD` | `var(--mp-background-warning)` |
+| `background.warning.hovered` | `#F9E399` | `#4D4016` | `#F9E399` | `var(--mp-background-warning-hovered)` |
+| `background.warning.pressed` | `#F5CD47` | `#766222` | `#F5CD47` | `var(--mp-background-warning-pressed)` |
+| `background.warning.selected` | `#F9E399` | `#4D4016` | `#F9E399` | `var(--mp-background-warning-selected)` |
+| `background.warning.bold` | `#F5CD47` | `#F5CD47` | `#F5CD47` | `var(--mp-background-warning-bold)` |
+| `background.warning.bold.hovered` | `#D8B53F` | `#D8B53F` | `#D8B53F` | `var(--mp-background-warning-bold-hovered)` |
+| `background.warning.bold.pressed` | `#C2A338` | `#C2A338` | `#C2A338` | `var(--mp-background-warning-bold-pressed)` |
+| `background.warning.bold.selected` | `#D8B53F` | `#D8B53F` | `#D8B53F` | `var(--mp-background-warning-bold-selected)` |
+| `background.success` | `#F2F9F6` | `#0B3524` | `#F2F9F6` | `var(--mp-background-success)` |
+| `background.success.hovered` | `#D2EBE1` | `#104B32` | `#D2EBE1` | `var(--mp-background-success-hovered)` |
+| `background.success.pressed` | `#A7D9C4` | `#186F4A` | `#A7D9C4` | `var(--mp-background-success-pressed)` |
+| `background.success.selected` | `#D2EBE1` | `#104B32` | `#D2EBE1` | `var(--mp-background-success-selected)` |
+| `background.success.bold` | `#1C8459` | `#7DC7A8` | `#1C8459` | `var(--mp-background-success-bold)` |
+| `background.success.bold.hovered` | `#186F4A` | `#A7D9C4` | `#186F4A` | `var(--mp-background-success-bold-hovered)` |
+| `background.success.bold.pressed` | `#104B32` | `#D2EBE1` | `#104B32` | `var(--mp-background-success-bold-pressed)` |
+| `background.success.bold.selected` | `#186F4A` | `#7DC7A8` | `#186F4A` | `var(--mp-background-success-bold-selected)` |
+| `background.highlight` | `#F3F1FC` | `#2B2549` | `#F3F1FC` | `var(--mp-background-highlight)` |
+| `background.highlight.hovered` | `#DEDAF6` | `#352E5A` | `#DEDAF6` | `var(--mp-background-highlight-hovered)` |
+| `background.highlight.pressed` | `#B8AEEB` | `#5F519F` | `#B8AEEB` | `var(--mp-background-highlight-pressed)` |
+| `background.highlight.selected` | `#DEDAF6` | `#352E5A` | `#DEDAF6` | `var(--mp-background-highlight-selected)` |
+| `background.highlight.bold` | `#6F5FBA` | `#9F91E3` | `#6F5FBA` | `var(--mp-background-highlight-bold)` |
+| `background.highlight.bold.hovered` | `#5F519F` | `#B8AEEB` | `#5F519F` | `var(--mp-background-highlight-bold-hovered)` |
+| `background.highlight.bold.pressed` | `#352E5A` | `#DEDAF6` | `#352E5A` | `var(--mp-background-highlight-bold-pressed)` |
+| `background.highlight.bold.selected` | `#5F519F` | `#B8AEEB` | `#5F519F` | `var(--mp-background-highlight-bold-selected)` |
+| `background.nav.parent` | `#E7EDF5` | `#1D2125` | `#142D26` | `var(--mp-background-nav-parent)` |
+| `background.nav.stack` | `#F7F8F9` | `#161A1D` | `#F7F8F9` | `var(--mp-background-nav-stack)` |
+| `background.nav.stack.hovered` | `#E7EDF5` | `#1D2125` | `#D6F4E9` | `var(--mp-background-nav-stack-hovered)` |
+| `background.header` | `#FFFFFF` | `#1D2125` | `#142D26` | `var(--mp-background-header)` |
+| `background.header.menu.hovered` | `#FFFFFF00` | `#FFFFFF00` | `#265C5880` | `var(--mp-background-header-menu-hovered)` |
+| `background.header.menu.selected` | `#FFFFFF00` | `#FFFFFF00` | `#B1DF6B` | `var(--mp-background-header-menu-selected)` |
+| `background.airene` | `radial-gradient(108.28% 139.29% at 0% 0%, #EEF0FC 0%, #F3F1FC 100%)` | `radial-gradient(108.28% 139.29% at 0% 0%, #1D2656 0%, #2B2549 100%)` | `radial-gradient(108.28% 139.29% at 0% 0%, #EEF0FC 0%, #F3F1FC 100%)` | `var(--mp-background-airene)` |
+| `nav.parent` | `#E7EDF5` | `#1D2125` | `#142D26` | `var(--mp-nav-parent)` |
+| `nav.stack` | `#F7F8F9` | `#161A1D` | `#F7F8F9` | `var(--mp-nav-stack)` |
+| `nav.stack.hovered` | `#E7EDF5` | `#1D2125` | `#D6F4E9` | `var(--mp-nav-stack-hovered)` |
+| `text.default` | `#272B32` | `#B6C2CF` | `#080D0E` | `var(--mp-text-default)` |
+| `text.default.static` | `#272B32` | `#272B32` | `#1D2125` | `var(--mp-text-default-static)` |
+| `text.secondary` | `#656F80` | `#8C9BAB` | `#3A4749` | `var(--mp-text-secondary)` |
+| `text.secondary.pressed` | `#4C5460` | `#9FADBC` | `#243032` | `var(--mp-text-secondary-pressed)` |
+| `text.placeholder` | `#758195` | `#738496` | `#6E7A7C` | `var(--mp-text-placeholder)` |
+| `text.disabled` | `#1d1f2452` | `#bfdbf847` | `#8C9596` | `var(--mp-text-disabled)` |
+| `text.inverse` | `#FFFFFF` | `#1D2125` | `#FFFFFF` | `var(--mp-text-inverse)` |
+| `text.inverse.static` | `#FFFFFF` | `#FFFFFF` | `#FFFFFF` | `var(--mp-text-inverse-static)` |
+| `text.selected` | `#4B61DC` | `#8997E9` | `#0F6D4D` | `var(--mp-text-selected)` |
+| `text.danger` | `#A8352D` | `#F09E99` | `#A8352D` | `var(--mp-text-danger)` |
+| `text.danger.pressed` | `#5E1E19` | `#F9D7D5` | `#5E1E19` | `var(--mp-text-danger-pressed)` |
+| `text.warning` | `#A14A0B` | `#F5CD47` | `#A14A0B` | `var(--mp-text-warning)` |
+| `text.warning.inverse` | `#272B32` | `#272B32` | `#080D0E` | `var(--mp-text-warning-inverse)` |
+| `text.success` | `#186F4A` | `#A7D9C4` | `#0F6D4D` | `var(--mp-text-success)` |
+| `text.highlight` | `#5F519F` | `#B8AEEB` | `#5F519F` | `var(--mp-text-highlight)` |
+| `text.information` | `#4053BC` | `#A8B2EF` | `#4B61DC` | `var(--mp-text-information)` |
+| `text.link` | `#4B61DC` | `#8997E9` | `#165082` | `var(--mp-text-link)` |
+| `text.link.pressed` | `#4053BC` | `#A8B2EF` | `#0D4372` | `var(--mp-text-link-pressed)` |
+| `icon.default` | `#758195` | `#738496` | `#536062` | `var(--mp-icon-default)` |
+| `icon.disabled` | `#B2B9C4` | `#454F59` | `#B2B9C4` | `var(--mp-icon-disabled)` |
+| `icon.inverse` | `#FFFFFF` | `#1D2125` | `#F0FBF7` | `var(--mp-icon-inverse)` |
+| `icon.inverse.static` | `#FFFFFF` | `#FFFFFF` | `#FFFFFF` | `var(--mp-icon-inverse-static)` |
+| `icon.selected` | `#4B61DC` | `#8997E9` | `#029861` | `var(--mp-icon-selected)` |
+| `icon.brand` | `#4B61DC` | `#8997E9` | `#029861` | `var(--mp-icon-brand)` |
+| `icon.danger` | `#C33E35` | `#EA7A72` | `#C33E35` | `var(--mp-icon-danger)` |
+| `icon.warning` | `#BC560D` | `#F5CD47` | `#BC560D` | `var(--mp-icon-warning)` |
+| `icon.warning.inverse` | `#272B32` | `#1D2125` | `#080D0E` | `var(--mp-icon-warning-inverse)` |
+| `icon.success` | `#1C8459` | `#7DC7A8` | `#1FB088` | `var(--mp-icon-success)` |
+| `icon.highlight` | `#6F5FBA` | `#9F91E3` | `#BC560D` | `var(--mp-icon-highlight)` |
+| `icon.information` | `#4B61DC` | `#8997E9` | `#6577E2` | `var(--mp-icon-information)` |
+| `icon.subtle` | `#DCDFE4` | `#2C333A` | `#E3E7E9` | `var(--mp-icon-subtle)` |
+| `icon.logo` | `#000000` | `#FFFFFF` | `#000000` | `var(--mp-icon-logo)` |
+| `border.default` | `#DCDFE4` | `#2C333A` | `#E3E7E9` | `var(--mp-border-default)` |
+| `border.default.subtle` | `#F0F1F3` | `#22272B` | `#EBF0F1` | `var(--mp-border-default-subtle)` |
+| `border.bold` | `#758195` | `#738496` | `#8C9596` | `var(--mp-border-bold)` |
+| `border.disabled` | `#1d1f2414` | `#a1bdd914` | `#EBF0F1` | `var(--mp-border-disabled)` |
+| `border.form` | `#1d1f2429` | `#a6c5e229` | `#1d1f2429` | `var(--mp-border-form)` |
+| `border.focused` | `#7586E5` | `#A8B2EF` | `#41C6A0` | `var(--mp-border-focused)` |
+| `border.inverse` | `#FFFFFF` | `#1D2125` | `#FFFFFF` | `var(--mp-border-inverse)` |
+| `border.selected` | `#4B61DC` | `#8997E9` | `#029861` | `var(--mp-border-selected)` |
+| `border.selected.hovered` | `#4053BC` | `#A8B2EF` | `#0F6D4D` | `var(--mp-border-selected-hovered)` |
+| `border.selected.disabled` | `#D6DBF7` | `#242F6A` | `#D6F4E9` | `var(--mp-border-selected-disabled)` |
+| `border.brand` | `#4B61DC` | `#8997E9` | `#0F6D4D` | `var(--mp-border-brand)` |
+| `border.danger` | `#C33E35` | `#EA7A72` | `#E2483D` | `var(--mp-border-danger)` |
+| `border.warning` | `#F5CD47` | `#F5CD47` | `#F5CD47` | `var(--mp-border-warning)` |
+| `border.success` | `#1C8459` | `#7DC7A8` | `#029861` | `var(--mp-border-success)` |
+| `border.highlight` | `#6F5FBA` | `#9F91E3` | `#BC560D` | `var(--mp-border-highlight)` |
+| `border.information` | `#4B61DC` | `#8997E9` | `#6577E2` | `var(--mp-border-information)` |
+| `chart.cat01` | `#649CF8` | `#8EB7FA` | `#649CF8` | `var(--mp-chart-cat01)` |
+| `chart.cat01.bold` | `#387CEB` | `#488BF7` | `#387CEB` | `var(--mp-chart-cat01-bold)` |
+| `chart.cat02` | `#4FCABC` | `#92DED6` | `#4FCABC` | `var(--mp-chart-cat02)` |
+| `chart.cat02.bold` | `#119E8F` | `#19B9A8` | `#119E8F` | `var(--mp-chart-cat02-bold)` |
+| `chart.cat03` | `#9F91E3` | `#B8AEEB` | `#9F91E3` | `var(--mp-chart-cat03)` |
+| `chart.cat03.bold` | `#8270DB` | `#8F7FDF` | `#8270DB` | `var(--mp-chart-cat03-bold)` |
+| `chart.cat04` | `#F0A875` | `#F5C39F` | `#F0A875` | `var(--mp-chart-cat04)` |
+| `chart.cat04.bold` | `#E46910` | `#EB8E4B` | `#E46910` | `var(--mp-chart-cat04-bold)` |
+| `chart.cat05` | `#B2B9C4` | `#DCDFE4` | `#B2B9C4` | `var(--mp-chart-cat05)` |
+| `chart.cat05.bold` | `#758195` | `#8690A2` | `#536062` | `var(--mp-chart-cat05-bold)` |
+| `chart.cat06` | `#EA7A72` | `#F09E99` | `#EA7A72` | `var(--mp-chart-cat06)` |
+| `chart.cat06.bold` | `#E2483D` | `#E6645B` | `#E2483D` | `var(--mp-chart-cat06-bold)` |
+| `chart.cat07` | `#83CA16` | `#B1DF6B` | `#83CA16` | `var(--mp-chart-cat07)` |
+| `chart.cat07.bold` | `#649B11` | `#77B814` | `#649B11` | `var(--mp-chart-cat07-bold)` |
+| `chart.cat08` | `#E16CF2` | `#EA98F6` | `#E16CF2` | `var(--mp-chart-cat08)` |
+| `chart.cat08.bold` | `#C841DC` | `#DA4DF0` | `#C841DC` | `var(--mp-chart-cat08-bold)` |
 
 ## Typography
 

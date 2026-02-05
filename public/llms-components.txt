@@ -509,6 +509,51 @@ Divide content into collapsible sections.
 
 ```
 
+# Airene Button
+
+Button component for Mekari Airene product.
+
+### MpAireneButton
+
+#### MpAireneButton Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of button. |
+| `as` | `-` | `-` | Rendered tag of button. |
+| `type` | `-` | `-` | Type of button. |
+| `is-active` | `-` | `-` | If true, button will be active. |
+| `is-disabled` | `-` | `-` | If true, button will be disable. |
+| `is-show-badge` | `-` | `-` | If true, badge on button will be displayed. |
+
+#### MpAireneButton Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+
+#### MpAireneButton Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Button slot. |
+
+### Usage: Variant
+
+```vue
+<template>
+  <MpFlex gap="4">
+    <MpAireneButton id="airene-button-wtm" isShowBadge> Get summary </MpAireneButton>
+    <MpAireneButton id="airene-button-0tn"> Ask Airene </MpAireneButton>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpAireneButton, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
 # Airene Chat Input
 
 Chat Input component for Airene.
@@ -771,228 +816,242 @@ Chat Input component for Airene.
 
 ```
 
-# Airene Chat Bubble
+# Avatar
 
-Chat Bubble component for Airene.
+Used to display profile image, initial or fallback icon.
 
-### MpAireneChatBubble
+### MpAvatar
 
-#### MpAireneChatBubble Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of chat bubble. |
-| `title` | `-` | `-` | Title of chat bubble. |
-| `variant` | `-` | `-` | Variant of chat bubble. |
-| `avatar-src` | `-` | `-` | Source link for avatar of chat bubble. |
-| `full-screen-label` | `-` | `-` | Label tooltip for button full screen of chat bubble. |
-| `is-loading` | `-` | `-` | If true, chat bubble will show slot for loading. |
-| `is-show-full-screen` | `-` | `-` | If true, show button full screen. |
-
-#### MpAireneChatBubble Events
+#### MpAvatar Props
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `click-full-screen` | `-` | `-` | Function for handling click button full screen. |
+| `id` | `-` | `-` | Id of avatar. |
+| `name` | `-` | `-` | Name of avatar. |
+| `variant` | `-` | `-` | Variant of avatar. |
+| `variant-color` | `-` | `-` | Variant color of avatar. Not set will be get random color. |
+| `size` | `-` | `-` | Size of avatar. |
+| `has-border` | `-` | `-` | If true, avatar border will be displayed. |
+| `border-color` | `-` | `-` | Border color of avatar. |
+| `src` | `-` | `-` | Image url of avatar. |
+| `icon` | `-` | `-` | Icon of avatar. |
+| `icon-variant` | `-` | `-` | Icon variant of avatar. |
+| `icon-color` | `-` | `-` | Icon color of avatar. |
+| `spacing` | `-` | `-` | Spacing of avatar. |
 
-#### MpAireneChatBubble Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `loading` | `-` | `-` | Slot to render loading element. |
-| `text` | `-` | `-` | Slot to render content chat element. |
-| `data` | `-` | `-` | Slot to render content data element. |
-| `footer` | `-` | `-` | Slot to render footter element. |
-| `source` | `-` | `-` | Slot to render source element. |
-
-### Usage: Basic
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <MpAireneChatBubble
-      id="airene-question-1"
-      variant="question"
-      title="Anda"
-      avatar-src="https://randomuser.me/api/portraits/women/11.jpg"
-    >
-      <template #text> Jelaskan faktor yang mempengaruhi arus kas bulain ini ? </template>
-    </MpAireneChatBubble>
-    <MpAireneChatBubble id="airene-answer-1" variant="answer">
-      <template #text>
-        Faktor terbesar yang mempengaruhi arus kas bulan ini adalah peningkatan pengeluaran
-        operasional, terutama pada biaya pembelian bahan baku dan pembayaran gaji karyawan.
-        Pembelian bahan baku meningkat 15% dibandingkan bulan lalu, yang disebabkan oleh kenaikan
-        harga supplier.
-        <b
-          >Pengeluaran gaji karyawan mengalami kenaikan 10% karena adanya bonus dan insentif
-          tambahan di akhir kuartal </b
-        >.
-      </template>
-    </MpAireneChatBubble>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpAireneChatBubble, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Advance
-
-```vue
-<template>
-  <MpAireneChatBubble
-    id="airene-chat-bubble-advance"
-    :is-loading="isLoading"
-    :is-show-full-screen="true"
-    @click-full-screen="handleAlert('click full screen button')"
-  >
-    <template #loading>
-      <MpSkeleton color="purple" width="full" height="3" rounded="full" />
-      <MpSkeleton color="purple" width="50%" height="3" rounded="full" />
-      <MpSkeleton color="purple" width="75%" height="3" rounded="full" />
-    </template>
-    <template #text> Text with table or chart </template>
-    <template #data>
-      <MpFlex
-        justify="center"
-        alignItems="center"
-        height="300px"
-        :bg="isNextTheme ? 'background.neutral' : 'white'"
-        p="xs"
-        rounded="md"
-        borderWidth="1px"
-        :borderColor="isNextTheme ? 'border.default' : 'gray.100'"
-      >
-        <MpText>Replace with your table/chart</MpText>
-      </MpFlex>
-    </template>
-    <template #footer>
-      <MpFlex justify="space-between" alignItems="center">
-        <MpTextlink @click="handleAlert('click copy button')">
-          <MpIcon name="copy" variant="outline" color="icon.link" />
-          Copy text
-        </MpTextlink>
-        <MpFlex gap="2">
-          <MpButton
-            left-icon="like"
-            size="sm"
-            variant="ghost"
-            @click="handleAlert('click like button')"
-          />
-          <MpButton
-            left-icon="dislike"
-            size="sm"
-            variant="ghost"
-            @click="handleAlert('click dislike button')"
-          />
-        </MpFlex>
-      </MpFlex>
-    </template>
-    <template #source>
-      <MpFlex
-        justify="space-between"
-        alignItems="center"
-        cursor="pointer"
-        @click="isSourceOpen = !isSourceOpen"
-      >
-        <MpText
-          :color="isNextTheme ? 'text.secondary' : 'gray.400'"
-          size="label-small"
-          weight="semiBold"
-        >
-          Answer sources
-        </MpText>
-        <MpIcon name="chevrons-down" />
-      </MpFlex>
-      <MpCollapse :is-open="isSourceOpen">
-        <MpFlex direction="column" gap="xs">
-          <MpTextlink variant="secondary" left-icon="text-editor-link">Source 1</MpTextlink>
-          <MpTextlink variant="secondary" left-icon="text-editor-link">Source 2</MpTextlink>
-          <MpTextlink variant="secondary" left-icon="text-editor-link">Source 3</MpTextlink>
-          <MpTextlink>See all</MpTextlink>
-        </MpFlex>
-      </MpCollapse>
-    </template>
-  </MpAireneChatBubble>
-</template>
-
-<script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import {
-    MpAireneChatBubble,
-    MpSkeleton,
-    MpFlex,
-    MpIcon,
-    MpText,
-    MpTextlink,
-    MpButton,
-    MpCollapse
-  } from '@mekari/pixel3'
-
-  import { usePixelTheme } from '@mekari/pixel3-utils'
-
-  const { isNextTheme } = usePixelTheme()
-  const isLoading = ref(true)
-  const isSourceOpen = ref(false)
-
-  onMounted(() => {
-    setTimeout(() => {
-      isLoading.value = false
-    }, 4000)
-  })
-
-  function handleAlert(message: string) {
-    alert(message)
-  }
-</script>
-
-```
-
-# Airene Button
-
-Button component for Mekari Airene product.
-
-### MpAireneButton
-
-#### MpAireneButton Props
+#### MpAvatar Events
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `id` | `-` | `-` | Id of button. |
-| `as` | `-` | `-` | Rendered tag of button. |
-| `type` | `-` | `-` | Type of button. |
-| `is-active` | `-` | `-` | If true, button will be active. |
-| `is-disabled` | `-` | `-` | If true, button will be disable. |
-| `is-show-badge` | `-` | `-` | If true, badge on button will be displayed. |
+| `click` | `-` | `-` | Function for handling click event. |
+| `load` | `-` | `-` | Function for handling load image. |
+| `error` | `-` | `-` | Function for handling error image. |
 
-#### MpAireneButton Events
+#### MpAvatar Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Avatar slot. |
+
+### MpAvatarGroup
+
+#### MpAvatarGroup Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of avatar group. |
+| `size` | `-` | `-` | Size of avatar in group. |
+| `max` | `-` | `-` | Displayed maximum avatar. |
+| `spacing` | `-` | `-` | Space between each avatar in group. |
+| `border-color` | `-` | `-` | Border color of avatar. |
+
+#### MpAvatarGroup Events
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `click` | `-` | `-` | Function for handling click event. |
 
-#### MpAireneButton Slots
+#### MpAvatarGroup Slots
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `default` | `-` | `-` | Button slot. |
+| `default` | `-` | `-` | Avatar group slot. |
 
 ### Usage: Variant
 
 ```vue
+<script setup lang="ts">
+  import { MpFlex, MpAvatar } from '@mekari/pixel3'
+</script>
+
 <template>
-  <MpFlex gap="4">
-    <MpAireneButton id="airene-button-wtm" isShowBadge> Get summary </MpAireneButton>
-    <MpAireneButton id="airene-button-0tn"> Ask Airene </MpAireneButton>
+  <MpFlex gap="2">
+    <MpAvatar id="avatar-wtm" name="Initial" variant-color="gray" />
+    <MpAvatar
+      id="avatar-0tn"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar id="avatar-w3s" variant-color="gray" icon="mekari-brand" />
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatar id="avatar-ri9" name="Initial" variant="square" variant-color="gray" />
+    <MpAvatar
+      id="avatar-s7g"
+      variant="square"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar id="avatar-qdp" variant="square" variant-color="gray" icon="mekari-brand" />
   </MpFlex>
 </template>
 
+```
+
+### Usage: Variant color
+
+```vue
 <script setup lang="ts">
-  import { MpAireneButton, MpFlex } from '@mekari/pixel3'
+  import { MpFlex, MpAvatar } from '@mekari/pixel3'
 </script>
+
+<template>
+  <MpFlex gap="2">
+    <MpAvatar id="avatar-wtm" name="Gray" variant-color="gray" />
+    <MpAvatar id="avatar-0tn" name="Sky" variant-color="sky" />
+    <MpAvatar id="avatar-w3s" name="Teal" variant-color="teal" />
+    <MpAvatar id="avatar-ri9" name="Violet" variant-color="violet" />
+    <MpAvatar id="avatar-s7g" name="Amber" variant-color="amber" />
+    <MpAvatar id="avatar-qdp" name="Rose" variant-color="rose" />
+    <MpAvatar id="avatar-fi0" name="Stone" variant-color="stone" />
+    <MpAvatar id="avatar-sqm" name="Lime" variant-color="lime" />
+    <MpAvatar id="avatar-zxc" name="Pink" variant-color="pink" />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Size
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpAvatar } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpAvatar id="avatar-wtm" name="Dirman" size="sm" variant-color="gray" />
+    <MpAvatar id="avatar-0tn" name="Dirman" size="md" variant-color="gray" />
+    <MpAvatar id="avatar-w3s" name="Dirman Suharno" size="lg" variant-color="gray" />
+    <MpAvatar id="avatar-ri9" name="Dirman Suharno" size="xl" variant-color="gray" />
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatar
+      id="avatar-s7g"
+      name="Dirman"
+      size="sm"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar
+      id="avatar-qdp"
+      name="Dirman"
+      size="md"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar
+      id="avatar-fi0"
+      name="Dirman Suharno"
+      size="lg"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+    <MpAvatar
+      id="avatar-sqm"
+      name="Dirman Suharno"
+      size="xl"
+      variant-color="gray"
+      src="https://randomuser.me/api/portraits/women/11.jpg"
+    />
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatar id="avatar-zxc" name="Dirman" size="sm" variant-color="gray" icon="mekari-brand" />
+    <MpAvatar id="avatar-r8d" name="Dirman" size="md" variant-color="gray" icon="mekari-brand" />
+    <MpAvatar
+      id="avatar-ugm"
+      name="Dirman Suharno"
+      size="lg"
+      variant-color="gray"
+      icon="mekari-brand"
+    />
+    <MpAvatar
+      id="avatar-mlp"
+      name="Dirman Suharno"
+      size="xl"
+      variant-color="gray"
+      icon="mekari-brand"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: With group
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpAvatar, MpAvatarGroup } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpAvatarGroup id="avatar-group-wtm" size="lg">
+      <MpAvatar id="avatar-wtm" name="1" variant-color="gray" />
+      <MpAvatar
+        id="avatar-0tn"
+        name="2"
+        variant-color="gray"
+        src="https://randomuser.me/api/portraits/women/11.jpg"
+      />
+      <MpAvatar id="avatar-w3s" name="3" variant-color="gray" />
+      <MpAvatar
+        id="avatar-ri9"
+        name="4"
+        variant-color="gray"
+        src="https://randomuser.me/api/portraits/men/11.jpg"
+      />
+    </MpAvatarGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpAvatarGroup id="avatar-group-s7g" size="lg" :max="4">
+      <MpAvatar id="avatar-s7g" name="1" variant-color="gray" />
+      <MpAvatar id="avatar-qdp" name="2" variant-color="gray" />
+      <MpAvatar id="avatar-fi0" name="3" variant-color="gray" />
+      <MpAvatar id="avatar-sqm" name="4" variant-color="gray" />
+    </MpAvatarGroup>
+  </MpFlex>
+</template>
+
+```
+
+### Usage: With icon
+
+```vue
+<script setup lang="ts">
+  import { MpAvatar } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpAvatar
+    id="avatar-with-icon"
+    size="md"
+    icon-variant="fill"
+    icon-color="icon.inverse"
+    icon="employee"
+    variant-color="stone"
+  />
+</template>
 
 ```
 
@@ -1905,6 +1964,186 @@ Selecting items in a list from a text input.
 
 ```
 
+# Airene Chat Bubble
+
+Chat Bubble component for Airene.
+
+### MpAireneChatBubble
+
+#### MpAireneChatBubble Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of chat bubble. |
+| `title` | `-` | `-` | Title of chat bubble. |
+| `variant` | `-` | `-` | Variant of chat bubble. |
+| `avatar-src` | `-` | `-` | Source link for avatar of chat bubble. |
+| `full-screen-label` | `-` | `-` | Label tooltip for button full screen of chat bubble. |
+| `is-loading` | `-` | `-` | If true, chat bubble will show slot for loading. |
+| `is-show-full-screen` | `-` | `-` | If true, show button full screen. |
+
+#### MpAireneChatBubble Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click-full-screen` | `-` | `-` | Function for handling click button full screen. |
+
+#### MpAireneChatBubble Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `loading` | `-` | `-` | Slot to render loading element. |
+| `text` | `-` | `-` | Slot to render content chat element. |
+| `data` | `-` | `-` | Slot to render content data element. |
+| `footer` | `-` | `-` | Slot to render footter element. |
+| `source` | `-` | `-` | Slot to render source element. |
+
+### Usage: Basic
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <MpAireneChatBubble
+      id="airene-question-1"
+      variant="question"
+      title="Anda"
+      avatar-src="https://randomuser.me/api/portraits/women/11.jpg"
+    >
+      <template #text> Jelaskan faktor yang mempengaruhi arus kas bulain ini ? </template>
+    </MpAireneChatBubble>
+    <MpAireneChatBubble id="airene-answer-1" variant="answer">
+      <template #text>
+        Faktor terbesar yang mempengaruhi arus kas bulan ini adalah peningkatan pengeluaran
+        operasional, terutama pada biaya pembelian bahan baku dan pembayaran gaji karyawan.
+        Pembelian bahan baku meningkat 15% dibandingkan bulan lalu, yang disebabkan oleh kenaikan
+        harga supplier.
+        <b
+          >Pengeluaran gaji karyawan mengalami kenaikan 10% karena adanya bonus dan insentif
+          tambahan di akhir kuartal </b
+        >.
+      </template>
+    </MpAireneChatBubble>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpAireneChatBubble, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Advance
+
+```vue
+<template>
+  <MpAireneChatBubble
+    id="airene-chat-bubble-advance"
+    :is-loading="isLoading"
+    :is-show-full-screen="true"
+    @click-full-screen="handleAlert('click full screen button')"
+  >
+    <template #loading>
+      <MpSkeleton color="purple" width="full" height="3" rounded="full" />
+      <MpSkeleton color="purple" width="50%" height="3" rounded="full" />
+      <MpSkeleton color="purple" width="75%" height="3" rounded="full" />
+    </template>
+    <template #text> Text with table or chart </template>
+    <template #data>
+      <MpFlex
+        justify="center"
+        alignItems="center"
+        height="300px"
+        :bg="isNextTheme ? 'background.neutral' : 'white'"
+        p="xs"
+        rounded="md"
+        borderWidth="1px"
+        :borderColor="isNextTheme ? 'border.default' : 'gray.100'"
+      >
+        <MpText>Replace with your table/chart</MpText>
+      </MpFlex>
+    </template>
+    <template #footer>
+      <MpFlex justify="space-between" alignItems="center">
+        <MpTextlink @click="handleAlert('click copy button')">
+          <MpIcon name="copy" variant="outline" color="icon.link" />
+          Copy text
+        </MpTextlink>
+        <MpFlex gap="2">
+          <MpButton
+            left-icon="like"
+            size="sm"
+            variant="ghost"
+            @click="handleAlert('click like button')"
+          />
+          <MpButton
+            left-icon="dislike"
+            size="sm"
+            variant="ghost"
+            @click="handleAlert('click dislike button')"
+          />
+        </MpFlex>
+      </MpFlex>
+    </template>
+    <template #source>
+      <MpFlex
+        justify="space-between"
+        alignItems="center"
+        cursor="pointer"
+        @click="isSourceOpen = !isSourceOpen"
+      >
+        <MpText
+          :color="isNextTheme ? 'text.secondary' : 'gray.400'"
+          size="label-small"
+          weight="semiBold"
+        >
+          Answer sources
+        </MpText>
+        <MpIcon name="chevrons-down" />
+      </MpFlex>
+      <MpCollapse :is-open="isSourceOpen">
+        <MpFlex direction="column" gap="xs">
+          <MpTextlink variant="secondary" left-icon="text-editor-link">Source 1</MpTextlink>
+          <MpTextlink variant="secondary" left-icon="text-editor-link">Source 2</MpTextlink>
+          <MpTextlink variant="secondary" left-icon="text-editor-link">Source 3</MpTextlink>
+          <MpTextlink>See all</MpTextlink>
+        </MpFlex>
+      </MpCollapse>
+    </template>
+  </MpAireneChatBubble>
+</template>
+
+<script setup lang="ts">
+  import { ref, onMounted } from 'vue'
+  import {
+    MpAireneChatBubble,
+    MpSkeleton,
+    MpFlex,
+    MpIcon,
+    MpText,
+    MpTextlink,
+    MpButton,
+    MpCollapse
+  } from '@mekari/pixel3'
+
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme } = usePixelTheme()
+  const isLoading = ref(true)
+  const isSourceOpen = ref(false)
+
+  onMounted(() => {
+    setTimeout(() => {
+      isLoading.value = false
+    }, 4000)
+  })
+
+  function handleAlert(message: string) {
+    alert(message)
+  }
+</script>
+
+```
+
 # Banner
 
 Used to display a prominent message and related optional actions.
@@ -2225,242 +2464,481 @@ Used to display a prominent message and related optional actions.
 
 ```
 
-# Avatar
+# Broadcast
 
-Used to display profile image, initial or fallback icon.
+Used to global information for users in the app.
 
-### MpAvatar
+### MpBroadcast
 
-#### MpAvatar Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of avatar. |
-| `name` | `-` | `-` | Name of avatar. |
-| `variant` | `-` | `-` | Variant of avatar. |
-| `variant-color` | `-` | `-` | Variant color of avatar. Not set will be get random color. |
-| `size` | `-` | `-` | Size of avatar. |
-| `has-border` | `-` | `-` | If true, avatar border will be displayed. |
-| `border-color` | `-` | `-` | Border color of avatar. |
-| `src` | `-` | `-` | Image url of avatar. |
-| `icon` | `-` | `-` | Icon of avatar. |
-| `icon-variant` | `-` | `-` | Icon variant of avatar. |
-| `icon-color` | `-` | `-` | Icon color of avatar. |
-| `spacing` | `-` | `-` | Spacing of avatar. |
-
-#### MpAvatar Events
+#### MpBroadcast Props
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-| `load` | `-` | `-` | Function for handling load image. |
-| `error` | `-` | `-` | Function for handling error image. |
+| `id` | `-` | `-` | Id of broadcast. |
+| `label` | `-` | `-` | Label of broadcast. |
+| `variant` | `-` | `-` | Variant of broadcast. |
+| `text-link` | `-` | `-` | Text of broadcast link. |
+| `text-link-href` | `-` | `-` | Href of broadcast link. |
+| `icon-name` | `-` | `-` | Name of broadcast icon. |
+| `text-additional-action` | `-` | `-` | Text of broadcast additional action. |
+| `has-additional-action` | `-` | `-` | If true, broadcast additional action will showed. |
+| `is-closable` | `-` | `-` | If true, broadcast close button will showed. |
 
-#### MpAvatar Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Avatar slot. |
-
-### MpAvatarGroup
-
-#### MpAvatarGroup Props
+#### MpBroadcast Events
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `id` | `-` | `-` | Id of avatar group. |
-| `size` | `-` | `-` | Size of avatar in group. |
-| `max` | `-` | `-` | Displayed maximum avatar. |
-| `spacing` | `-` | `-` | Space between each avatar in group. |
-| `border-color` | `-` | `-` | Border color of avatar. |
-
-#### MpAvatarGroup Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-
-#### MpAvatarGroup Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Avatar group slot. |
+| `click-additional-action` | `-` | `-` | Function for handling additional action event. |
+| `click-text-link` | `-` | `-` | Function for handling text link event. |
+| `click-close-button` | `-` | `-` | Function for handling close button event. |
 
 ### Usage: Variant
 
 ```vue
 <script setup lang="ts">
-  import { MpFlex, MpAvatar } from '@mekari/pixel3'
+  import { MpBroadcast, MpFlex } from '@mekari/pixel3'
 </script>
 
 <template>
-  <MpFlex gap="2">
-    <MpAvatar id="avatar-wtm" name="Initial" variant-color="gray" />
-    <MpAvatar
-      id="avatar-0tn"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
+  <MpFlex gap="4" direction="column">
+    <MpBroadcast
+      id="broadcast-w3s"
+      variant="announcement"
+      label="Currently Journal system is experiencing it. Our team is working on it and will know the progress periodically in the next hour."
+      text-link="Learn more"
+      text-link-href="https://mekari.com"
+      is-closable
     />
-    <MpAvatar id="avatar-w3s" variant-color="gray" icon="mekari-brand" />
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatar id="avatar-ri9" name="Initial" variant="square" variant-color="gray" />
-    <MpAvatar
-      id="avatar-s7g"
-      variant="square"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
+    <MpBroadcast
+      id="broadcast-wtm"
+      variant="important"
+      icon-name="warning-triangle"
+      label="Your trial has expired. Please subscribe to continue."
+      text-link="Move to subscription"
+      text-link-href="https://mekari.com"
+      text-additional-action="Contact Us"
+      has-additional-action
     />
-    <MpAvatar id="avatar-qdp" variant="square" variant-color="gray" icon="mekari-brand" />
+    <MpBroadcast
+      id="broadcast-0tn"
+      variant="information"
+      icon-name="broadcast"
+      label="Big news! We're excited to announce a new feature product."
+      text-link="Explore now -->"
+      text-link-href="https://mekari.com"
+      text-additional-action="Learn More"
+      has-additional-action
+      is-closable
+    />
+    <MpBroadcast
+      id="broadcast-h7s"
+      variant="critical"
+      icon-name="warning-triangle"
+      label="We're aware of server issues impacting performance on some pages. Our team is actively addressing this to restore optimal service."
+      is-closable
+    />
   </MpFlex>
 </template>
 
 ```
 
-### Usage: Variant color
+# Button
+
+Trigger actions when clicked.
+
+### MpButton
+
+#### MpButton Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `-` | `-` | Rendered tag of button. |
+| `size` | `-` | `-` | Size of button. |
+| `variant` | `-` | `-` | Variant of button. |
+| `is-disabled` | `-` | `-` | If true, button will be disable. |
+| `is-loading` | `-` | `-` | If true, button will be show loading state. |
+| `left-icon` | `-` | `-` | Show icon on the left or create button icon. |
+| `right-icon` | `-` | `-` | Show icon on the right or create button icon. |
+| `is-full-width` | `-` | `-` | If true, button will have full width. |
+| `is-rounded` | `-` | `-` | If true, button will have rounded corners. |
+
+#### MpButton Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+
+#### MpButton Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### MpButtonGroup
+
+#### MpButtonGroup Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `spacing` | `-` | `-` | Spacing of button in group. |
+| `is-split` | `-` | `-` | Visual state of split button in group. |
+
+#### MpButtonGroup Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### Usage: Variant
 
 ```vue
-<script setup lang="ts">
-  import { MpFlex, MpAvatar } from '@mekari/pixel3'
-</script>
-
 <template>
-  <MpFlex gap="2">
-    <MpAvatar id="avatar-wtm" name="Gray" variant-color="gray" />
-    <MpAvatar id="avatar-0tn" name="Sky" variant-color="sky" />
-    <MpAvatar id="avatar-w3s" name="Teal" variant-color="teal" />
-    <MpAvatar id="avatar-ri9" name="Violet" variant-color="violet" />
-    <MpAvatar id="avatar-s7g" name="Amber" variant-color="amber" />
-    <MpAvatar id="avatar-qdp" name="Rose" variant-color="rose" />
-    <MpAvatar id="avatar-fi0" name="Stone" variant-color="stone" />
-    <MpAvatar id="avatar-sqm" name="Lime" variant-color="lime" />
-    <MpAvatar id="avatar-zxc" name="Pink" variant-color="pink" />
+  <MpFlex gap="4">
+    <MpButton variant="primary">Submit</MpButton>
+    <MpButton variant="secondary">Download</MpButton>
+    <MpButton variant="ghost">Cancel</MpButton>
+    <MpButton variant="danger">Delete</MpButton>
+    <MpButton variant="tertiary">Label</MpButton>
+    <MpButton variant="textLink" as="a" href="https://mekari.com" target="_blank"> Link </MpButton>
   </MpFlex>
 </template>
+
+<script setup lang="ts">
+  import { MpButton, MpFlex } from '@mekari/pixel3'
+</script>
 
 ```
 
 ### Usage: Size
 
 ```vue
-<script setup lang="ts">
-  import { MpFlex, MpAvatar } from '@mekari/pixel3'
-</script>
-
 <template>
-  <MpFlex gap="2">
-    <MpAvatar id="avatar-wtm" name="Dirman" size="sm" variant-color="gray" />
-    <MpAvatar id="avatar-0tn" name="Dirman" size="md" variant-color="gray" />
-    <MpAvatar id="avatar-w3s" name="Dirman Suharno" size="lg" variant-color="gray" />
-    <MpAvatar id="avatar-ri9" name="Dirman Suharno" size="xl" variant-color="gray" />
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatar
-      id="avatar-s7g"
-      name="Dirman"
-      size="sm"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar
-      id="avatar-qdp"
-      name="Dirman"
-      size="md"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar
-      id="avatar-fi0"
-      name="Dirman Suharno"
-      size="lg"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-    <MpAvatar
-      id="avatar-sqm"
-      name="Dirman Suharno"
-      size="xl"
-      variant-color="gray"
-      src="https://randomuser.me/api/portraits/women/11.jpg"
-    />
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatar id="avatar-zxc" name="Dirman" size="sm" variant-color="gray" icon="mekari-brand" />
-    <MpAvatar id="avatar-r8d" name="Dirman" size="md" variant-color="gray" icon="mekari-brand" />
-    <MpAvatar
-      id="avatar-ugm"
-      name="Dirman Suharno"
-      size="lg"
-      variant-color="gray"
-      icon="mekari-brand"
-    />
-    <MpAvatar
-      id="avatar-mlp"
-      name="Dirman Suharno"
-      size="xl"
-      variant-color="gray"
-      icon="mekari-brand"
-    />
+  <MpFlex gap="4">
+    <MpButton size="md">Submit</MpButton>
+    <MpButton size="sm">Submit</MpButton>
   </MpFlex>
 </template>
+
+<script setup lang="ts">
+  import { MpButton, MpFlex } from '@mekari/pixel3'
+</script>
 
 ```
 
-### Usage: With group
+### Usage: With Icon
 
 ```vue
-<script setup lang="ts">
-  import { MpFlex, MpAvatar, MpAvatarGroup } from '@mekari/pixel3'
-</script>
-
 <template>
-  <MpFlex gap="2">
-    <MpAvatarGroup id="avatar-group-wtm" size="lg">
-      <MpAvatar id="avatar-wtm" name="1" variant-color="gray" />
-      <MpAvatar
-        id="avatar-0tn"
-        name="2"
-        variant-color="gray"
-        src="https://randomuser.me/api/portraits/women/11.jpg"
-      />
-      <MpAvatar id="avatar-w3s" name="3" variant-color="gray" />
-      <MpAvatar
-        id="avatar-ri9"
-        name="4"
-        variant-color="gray"
-        src="https://randomuser.me/api/portraits/men/11.jpg"
-      />
-    </MpAvatarGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpAvatarGroup id="avatar-group-s7g" size="lg" :max="4">
-      <MpAvatar id="avatar-s7g" name="1" variant-color="gray" />
-      <MpAvatar id="avatar-qdp" name="2" variant-color="gray" />
-      <MpAvatar id="avatar-fi0" name="3" variant-color="gray" />
-      <MpAvatar id="avatar-sqm" name="4" variant-color="gray" />
-    </MpAvatarGroup>
+  <MpFlex gap="4">
+    <MpButton left-icon="add-circular">Label</MpButton>
+    <MpButton variant="secondary" left-icon="add-circular">Label</MpButton>
+    <MpButton variant="ghost" right-icon="chevrons-down">Dropdown</MpButton>
+    <MpButton variant="danger" left-icon="delete">Delete</MpButton>
+    <MpButton variant="tertiary" left-icon="add">Label</MpButton>
+    <MpButton variant="textLink" left-icon="add-circular">Label</MpButton>
   </MpFlex>
 </template>
+
+<script setup lang="ts">
+  import { MpButton, MpFlex } from '@mekari/pixel3'
+</script>
 
 ```
 
-### Usage: With icon
+### Usage: Button Icon
 
 ```vue
+<template>
+  <MpFlex gap="4">
+    <MpButton
+      aria-label="edit dropdown button"
+      left-icon="edit"
+      right-icon="chevrons-down"
+      variant="secondary"
+    />
+    <MpButton aria-label="edit button" left-icon="edit" variant="ghost" />
+    <MpButton aria-label="edit button" left-icon="edit" variant="ghost" size="sm" />
+  </MpFlex>
+</template>
+
 <script setup lang="ts">
-  import { MpAvatar } from '@mekari/pixel3'
+  import { MpButton, MpFlex } from '@mekari/pixel3'
 </script>
 
+```
+
+### Usage: Button Group
+
+```vue
 <template>
-  <MpAvatar
-    id="avatar-with-icon"
-    size="md"
-    icon-variant="fill"
-    icon-color="icon.inverse"
-    icon="employee"
-    variant-color="stone"
-  />
+  <MpFlex direction="column" gap="4">
+    <MpButtonGroup spacing="4">
+      <MpButton>Save</MpButton>
+      <MpButton variant="danger">Delete</MpButton>
+    </MpButtonGroup>
+    <MpButtonGroup is-split>
+      <MpButton variant="secondary">Save</MpButton>
+      <MpPopover id="split-button-popover">
+        <MpPopoverTrigger>
+          <MpButton aria-label="dropdown button" right-icon="chevrons-down" variant="secondary" />
+        </MpPopoverTrigger>
+
+        <MpPopoverContent>
+          <MpPopoverList>
+            <MpPopoverListItem v-for="index in 3" :key="index">
+              Option {{ index }}
+            </MpPopoverListItem>
+          </MpPopoverList>
+        </MpPopoverContent>
+      </MpPopover>
+    </MpButtonGroup>
+  </MpFlex>
 </template>
+
+<script setup lang="ts">
+  import {
+    MpButton,
+    MpButtonGroup,
+    MpFlex,
+    MpPopover,
+    MpPopoverTrigger,
+    MpPopoverContent,
+    MpPopoverList,
+    MpPopoverListItem
+  } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Button Rounded
+
+```vue
+<template>
+  <MpFlex gap="4" wrap="wrap">
+    <MpButton is-rounded>Label</MpButton>
+    <MpButtonGroup is-split>
+      <MpButton variant="secondary" is-rounded>Save</MpButton>
+      <MpButton
+        aria-label="dropdown button"
+        right-icon="chevrons-down"
+        variant="secondary"
+        is-rounded
+      />
+    </MpButtonGroup>
+    <MpButton variant="ghost" left-icon="add" is-rounded>Add</MpButton>
+    <MpButton variant="danger" is-loading is-rounded>Loading</MpButton>
+    <MpButton variant="tertiary" aria-label="edit button" left-icon="edit" is-rounded />
+    <MpButton variant="tertiary" aria-label="edit button" left-icon="edit" is-loading is-rounded />
+    <MpButton is-disabled is-rounded>Cancel</MpButton>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpFlex, MpButton, MpButtonGroup } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Other
+
+```vue
+<template>
+  <MpFlex gap="4" wrap="wrap">
+    <MpButton is-loading>Loading</MpButton>
+    <MpButton aria-label="edit button" left-icon="edit" variant="secondary" is-loading />
+    <MpButton variant="textLink" is-loading>Link</MpButton>
+    <MpButton variant="secondary" is-disabled>Cancel</MpButton>
+    <MpButton left-icon="download" is-disabled>Download</MpButton>
+    <MpButton aria-label="edit button" left-icon="edit" is-disabled />
+    <MpButton variant="textLink" is-disabled>Link</MpButton>
+    <MpButton is-full-width>Full Width</MpButton>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpButton, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+# Carousel
+
+Loop a series of images or texts in a limited space.
+
+### MpCarousel
+
+#### MpCarousel Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of carousel. |
+| `active` | `-` | `-` | Active index of carousel. start with 0. |
+| `auto-play-timeout` | `-` | `-` | Set timeout when carousel slides. |
+| `is-auto-play` | `-` | `-` | If true, carousel start play. |
+| `indicator-position` | `-` | `-` | Set position of carousel indicator. |
+| `indicator-variant` | `-` | `-` | Set variant of carousel indicator. |
+| `indicator-active-color` | `-` | `-` | Set active color of carousel indicator. |
+| `indicator-base-color` | `-` | `-` | Set base color of carousel indicator. |
+| `is-show-indicator` | `-` | `-` | If true, carousel show indicator. |
+| `is-show-button-nav` | `-` | `-` | If true, carousel show button navigation. |
+| `is-loop` | `-` | `-` | If true, carousel start looping. |
+
+#### MpCarousel Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `change` | `-` | `-` | Function for handling change item. |
+
+#### MpCarousel Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render MpCarouselItem elements. |
+
+### Usage: With Image
+
+```vue
+<template>
+  <MpCarousel :is-auto-play="false" :class="css({ width: '600px' })">
+    <MpCarouselItem v-for="(item, index) in data" :key="index">
+      <div
+        :class="
+          css({
+            display: 'flex',
+            flexDirection: 'row',
+            width: '600px'
+          })
+        "
+      >
+        <img src="https://placehold.co/200x200/D0D6DD/FFFFFF" alt="alt" />
+        <div
+          :class="
+            css({
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2',
+              p: '4'
+            })
+          "
+        >
+          <MpText size="h1">
+            {{ item.title }}
+          </MpText>
+          <MpText>
+            {{ item.desc }}
+          </MpText>
+          <MpButton variant="textLink"> Action button </MpButton>
+        </div>
+      </div>
+    </MpCarouselItem>
+  </MpCarousel>
+</template>
+
+<script setup lang="ts">
+  import { MpCarousel, MpCarouselItem, MpText, MpButton, css } from '@mekari/pixel3'
+
+  const data = [
+    {
+      title: 'Aplikasi pajak #1 di Indonesia',
+      desc: 'Kelola pajakmu dengan lebih praktis'
+    },
+    {
+      title: 'Aplikasi HR #1 di Indonesia',
+      desc: 'Survei & pengumpulan data karyawan lebih praktis dengan Talenta Forms'
+    },
+    {
+      title: 'Monitoring gejala COVID-19',
+      desc: 'Ayo kenali gejalanya dan laporkan kondisi Anda ke perusahaan.'
+    }
+  ]
+</script>
+
+```
+
+### Usage: With Manual
+
+```vue
+<template>
+  <MpCarousel
+    indicator-variant="dot"
+    indicator-position="center"
+    indicator-active-color="dark"
+    :active="activeItem"
+    :is-auto-play="false"
+    :is-loop="false"
+    :is-show-button-nav="true"
+    :class="
+      css({
+        height: '400px',
+        border: 'none',
+        borderRadius: 'xl'
+      })
+    "
+    @change="handleChange"
+  >
+    <MpCarouselItem
+      v-for="(item, index) in data"
+      :key="index"
+      :class="
+        css({
+          width: 'full',
+          height: '400px',
+          p: '8'
+        })
+      "
+      :style="{
+        // @ts-ignore
+        background: token.var(`colors.${item.color}`)
+      }"
+    >
+      <MpText size="h1" color="white"> {{ item.name }} </MpText>
+    </MpCarouselItem>
+  </MpCarousel>
+  <MpText
+    size="h2"
+    :class="
+      css({
+        mt: '4'
+      })
+    "
+    >Active Index: {{ activeItem }}
+  </MpText>
+  <div
+    :class="
+      css({
+        display: 'flex',
+        gap: '4',
+        mt: '2'
+      })
+    "
+  >
+    <MpButton :is-disabled="activeItem === 0" @click="activeItem -= 1"> Prev </MpButton>
+    <MpButton :is-disabled="activeItem === data.length - 1" @click="activeItem += 1">
+      Next
+    </MpButton>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpCarousel, MpCarouselItem, MpText, MpButton, css, token } from '@mekari/pixel3'
+
+  const data = [
+    { name: 'Mekari', color: 'brand.mekari' },
+    { name: 'Talenta', color: 'brand.talenta' },
+    { name: 'Jurnal', color: 'brand.jurnal' },
+    { name: 'KlikPajak', color: 'brand.klikpajak' },
+    { name: 'Qontak', color: 'brand.qontak' },
+    { name: 'Flex', color: 'brand.flex' },
+    { name: 'E-sign', color: 'brand.esign' }
+  ]
+
+  const activeItem = ref(0)
+
+  function handleChange(index: number) {
+    activeItem.value = index
+  }
+</script>
 
 ```
 
@@ -4285,514 +4763,6 @@ Chart visualizes data in an application. The type of chart you use will depend o
 
 ```
 
-# Button
-
-Trigger actions when clicked.
-
-### MpButton
-
-#### MpButton Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `-` | `-` | Rendered tag of button. |
-| `size` | `-` | `-` | Size of button. |
-| `variant` | `-` | `-` | Variant of button. |
-| `is-disabled` | `-` | `-` | If true, button will be disable. |
-| `is-loading` | `-` | `-` | If true, button will be show loading state. |
-| `left-icon` | `-` | `-` | Show icon on the left or create button icon. |
-| `right-icon` | `-` | `-` | Show icon on the right or create button icon. |
-| `is-full-width` | `-` | `-` | If true, button will have full width. |
-| `is-rounded` | `-` | `-` | If true, button will have rounded corners. |
-
-#### MpButton Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-
-#### MpButton Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### MpButtonGroup
-
-#### MpButtonGroup Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `spacing` | `-` | `-` | Spacing of button in group. |
-| `is-split` | `-` | `-` | Visual state of split button in group. |
-
-#### MpButtonGroup Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### Usage: Variant
-
-```vue
-<template>
-  <MpFlex gap="4">
-    <MpButton variant="primary">Submit</MpButton>
-    <MpButton variant="secondary">Download</MpButton>
-    <MpButton variant="ghost">Cancel</MpButton>
-    <MpButton variant="danger">Delete</MpButton>
-    <MpButton variant="tertiary">Label</MpButton>
-    <MpButton variant="textLink" as="a" href="https://mekari.com" target="_blank"> Link </MpButton>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpButton, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Size
-
-```vue
-<template>
-  <MpFlex gap="4">
-    <MpButton size="md">Submit</MpButton>
-    <MpButton size="sm">Submit</MpButton>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpButton, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: With Icon
-
-```vue
-<template>
-  <MpFlex gap="4">
-    <MpButton left-icon="add-circular">Label</MpButton>
-    <MpButton variant="secondary" left-icon="add-circular">Label</MpButton>
-    <MpButton variant="ghost" right-icon="chevrons-down">Dropdown</MpButton>
-    <MpButton variant="danger" left-icon="delete">Delete</MpButton>
-    <MpButton variant="tertiary" left-icon="add">Label</MpButton>
-    <MpButton variant="textLink" left-icon="add-circular">Label</MpButton>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpButton, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Button Icon
-
-```vue
-<template>
-  <MpFlex gap="4">
-    <MpButton
-      aria-label="edit dropdown button"
-      left-icon="edit"
-      right-icon="chevrons-down"
-      variant="secondary"
-    />
-    <MpButton aria-label="edit button" left-icon="edit" variant="ghost" />
-    <MpButton aria-label="edit button" left-icon="edit" variant="ghost" size="sm" />
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpButton, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Button Group
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <MpButtonGroup spacing="4">
-      <MpButton>Save</MpButton>
-      <MpButton variant="danger">Delete</MpButton>
-    </MpButtonGroup>
-    <MpButtonGroup is-split>
-      <MpButton variant="secondary">Save</MpButton>
-      <MpPopover id="split-button-popover">
-        <MpPopoverTrigger>
-          <MpButton aria-label="dropdown button" right-icon="chevrons-down" variant="secondary" />
-        </MpPopoverTrigger>
-
-        <MpPopoverContent>
-          <MpPopoverList>
-            <MpPopoverListItem v-for="index in 3" :key="index">
-              Option {{ index }}
-            </MpPopoverListItem>
-          </MpPopoverList>
-        </MpPopoverContent>
-      </MpPopover>
-    </MpButtonGroup>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import {
-    MpButton,
-    MpButtonGroup,
-    MpFlex,
-    MpPopover,
-    MpPopoverTrigger,
-    MpPopoverContent,
-    MpPopoverList,
-    MpPopoverListItem
-  } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Button Rounded
-
-```vue
-<template>
-  <MpFlex gap="4" wrap="wrap">
-    <MpButton is-rounded>Label</MpButton>
-    <MpButtonGroup is-split>
-      <MpButton variant="secondary" is-rounded>Save</MpButton>
-      <MpButton
-        aria-label="dropdown button"
-        right-icon="chevrons-down"
-        variant="secondary"
-        is-rounded
-      />
-    </MpButtonGroup>
-    <MpButton variant="ghost" left-icon="add" is-rounded>Add</MpButton>
-    <MpButton variant="danger" is-loading is-rounded>Loading</MpButton>
-    <MpButton variant="tertiary" aria-label="edit button" left-icon="edit" is-rounded />
-    <MpButton variant="tertiary" aria-label="edit button" left-icon="edit" is-loading is-rounded />
-    <MpButton is-disabled is-rounded>Cancel</MpButton>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpFlex, MpButton, MpButtonGroup } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Other
-
-```vue
-<template>
-  <MpFlex gap="4" wrap="wrap">
-    <MpButton is-loading>Loading</MpButton>
-    <MpButton aria-label="edit button" left-icon="edit" variant="secondary" is-loading />
-    <MpButton variant="textLink" is-loading>Link</MpButton>
-    <MpButton variant="secondary" is-disabled>Cancel</MpButton>
-    <MpButton left-icon="download" is-disabled>Download</MpButton>
-    <MpButton aria-label="edit button" left-icon="edit" is-disabled />
-    <MpButton variant="textLink" is-disabled>Link</MpButton>
-    <MpButton is-full-width>Full Width</MpButton>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpButton, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-# Broadcast
-
-Used to global information for users in the app.
-
-### MpBroadcast
-
-#### MpBroadcast Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of broadcast. |
-| `label` | `-` | `-` | Label of broadcast. |
-| `variant` | `-` | `-` | Variant of broadcast. |
-| `text-link` | `-` | `-` | Text of broadcast link. |
-| `text-link-href` | `-` | `-` | Href of broadcast link. |
-| `icon-name` | `-` | `-` | Name of broadcast icon. |
-| `text-additional-action` | `-` | `-` | Text of broadcast additional action. |
-| `has-additional-action` | `-` | `-` | If true, broadcast additional action will showed. |
-| `is-closable` | `-` | `-` | If true, broadcast close button will showed. |
-
-#### MpBroadcast Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click-additional-action` | `-` | `-` | Function for handling additional action event. |
-| `click-text-link` | `-` | `-` | Function for handling text link event. |
-| `click-close-button` | `-` | `-` | Function for handling close button event. |
-
-### Usage: Variant
-
-```vue
-<script setup lang="ts">
-  import { MpBroadcast, MpFlex } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="4" direction="column">
-    <MpBroadcast
-      id="broadcast-w3s"
-      variant="announcement"
-      label="Currently Journal system is experiencing it. Our team is working on it and will know the progress periodically in the next hour."
-      text-link="Learn more"
-      text-link-href="https://mekari.com"
-      is-closable
-    />
-    <MpBroadcast
-      id="broadcast-wtm"
-      variant="important"
-      icon-name="warning-triangle"
-      label="Your trial has expired. Please subscribe to continue."
-      text-link="Move to subscription"
-      text-link-href="https://mekari.com"
-      text-additional-action="Contact Us"
-      has-additional-action
-    />
-    <MpBroadcast
-      id="broadcast-0tn"
-      variant="information"
-      icon-name="broadcast"
-      label="Big news! We're excited to announce a new feature product."
-      text-link="Explore now -->"
-      text-link-href="https://mekari.com"
-      text-additional-action="Learn More"
-      has-additional-action
-      is-closable
-    />
-    <MpBroadcast
-      id="broadcast-h7s"
-      variant="critical"
-      icon-name="warning-triangle"
-      label="We're aware of server issues impacting performance on some pages. Our team is actively addressing this to restore optimal service."
-      is-closable
-    />
-  </MpFlex>
-</template>
-
-```
-
-# Carousel
-
-Loop a series of images or texts in a limited space.
-
-### MpCarousel
-
-#### MpCarousel Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of carousel. |
-| `active` | `-` | `-` | Active index of carousel. start with 0. |
-| `auto-play-timeout` | `-` | `-` | Set timeout when carousel slides. |
-| `is-auto-play` | `-` | `-` | If true, carousel start play. |
-| `indicator-position` | `-` | `-` | Set position of carousel indicator. |
-| `indicator-variant` | `-` | `-` | Set variant of carousel indicator. |
-| `indicator-active-color` | `-` | `-` | Set active color of carousel indicator. |
-| `indicator-base-color` | `-` | `-` | Set base color of carousel indicator. |
-| `is-show-indicator` | `-` | `-` | If true, carousel show indicator. |
-| `is-show-button-nav` | `-` | `-` | If true, carousel show button navigation. |
-| `is-loop` | `-` | `-` | If true, carousel start looping. |
-
-#### MpCarousel Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `change` | `-` | `-` | Function for handling change item. |
-
-#### MpCarousel Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render MpCarouselItem elements. |
-
-### Usage: With Image
-
-```vue
-<template>
-  <MpCarousel :is-auto-play="false" :class="css({ width: '600px' })">
-    <MpCarouselItem v-for="(item, index) in data" :key="index">
-      <div
-        :class="
-          css({
-            display: 'flex',
-            flexDirection: 'row',
-            width: '600px'
-          })
-        "
-      >
-        <img src="https://placehold.co/200x200/D0D6DD/FFFFFF" alt="alt" />
-        <div
-          :class="
-            css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '2',
-              p: '4'
-            })
-          "
-        >
-          <MpText size="h1">
-            {{ item.title }}
-          </MpText>
-          <MpText>
-            {{ item.desc }}
-          </MpText>
-          <MpButton variant="textLink"> Action button </MpButton>
-        </div>
-      </div>
-    </MpCarouselItem>
-  </MpCarousel>
-</template>
-
-<script setup lang="ts">
-  import { MpCarousel, MpCarouselItem, MpText, MpButton, css } from '@mekari/pixel3'
-
-  const data = [
-    {
-      title: 'Aplikasi pajak #1 di Indonesia',
-      desc: 'Kelola pajakmu dengan lebih praktis'
-    },
-    {
-      title: 'Aplikasi HR #1 di Indonesia',
-      desc: 'Survei & pengumpulan data karyawan lebih praktis dengan Talenta Forms'
-    },
-    {
-      title: 'Monitoring gejala COVID-19',
-      desc: 'Ayo kenali gejalanya dan laporkan kondisi Anda ke perusahaan.'
-    }
-  ]
-</script>
-
-```
-
-### Usage: With Manual
-
-```vue
-<template>
-  <MpCarousel
-    indicator-variant="dot"
-    indicator-position="center"
-    indicator-active-color="dark"
-    :active="activeItem"
-    :is-auto-play="false"
-    :is-loop="false"
-    :is-show-button-nav="true"
-    :class="
-      css({
-        height: '400px',
-        border: 'none',
-        borderRadius: 'xl'
-      })
-    "
-    @change="handleChange"
-  >
-    <MpCarouselItem
-      v-for="(item, index) in data"
-      :key="index"
-      :class="
-        css({
-          width: 'full',
-          height: '400px',
-          p: '8'
-        })
-      "
-      :style="{
-        // @ts-ignore
-        background: token.var(`colors.${item.color}`)
-      }"
-    >
-      <MpText size="h1" color="white"> {{ item.name }} </MpText>
-    </MpCarouselItem>
-  </MpCarousel>
-  <MpText
-    size="h2"
-    :class="
-      css({
-        mt: '4'
-      })
-    "
-    >Active Index: {{ activeItem }}
-  </MpText>
-  <div
-    :class="
-      css({
-        display: 'flex',
-        gap: '4',
-        mt: '2'
-      })
-    "
-  >
-    <MpButton :is-disabled="activeItem === 0" @click="activeItem -= 1"> Prev </MpButton>
-    <MpButton :is-disabled="activeItem === data.length - 1" @click="activeItem += 1">
-      Next
-    </MpButton>
-  </div>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpCarousel, MpCarouselItem, MpText, MpButton, css, token } from '@mekari/pixel3'
-
-  const data = [
-    { name: 'Mekari', color: 'brand.mekari' },
-    { name: 'Talenta', color: 'brand.talenta' },
-    { name: 'Jurnal', color: 'brand.jurnal' },
-    { name: 'KlikPajak', color: 'brand.klikpajak' },
-    { name: 'Qontak', color: 'brand.qontak' },
-    { name: 'Flex', color: 'brand.flex' },
-    { name: 'E-sign', color: 'brand.esign' }
-  ]
-
-  const activeItem = ref(0)
-
-  function handleChange(index: number) {
-    activeItem.value = index
-  }
-</script>
-
-```
-
-# Collapse
-
-Used to create regions of content that can expand/collapse with a basic animation. It helps to hide content that's not immediately relevant to user.
-
-### MpCollapse
-
-#### MpCollapse Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `is-open` | `-` | `-` | If true, content will be visible |
-| `duration` | `-` | `-` | Animation duration of collapse. |
-| `is-animate-opacity` | `-` | `-` | If true, content will be animated. |
-| `easing` | `-` | `-` | Animation type of collapse. |
-| `starting-height` | `-` | `-` | Height of closed collapse. |
-| `ending-height` | `-` | `-` | Content height of open collapse. |
-
-#### MpCollapse Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `enter` | `-` | `-` | Function for handling enter event. |
-| `leave` | `-` | `-` | Function for handling leave event. |
-
-#### MpCollapse Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Collapse slot |
-
 # Checkbox
 
 Allows user to toggle between checked, unchecked, and indeterminate states.
@@ -4900,6 +4870,36 @@ Allows user to toggle between checked, unchecked, and indeterminate states.
 </script>
 
 ```
+
+# Collapse
+
+Used to create regions of content that can expand/collapse with a basic animation. It helps to hide content that's not immediately relevant to user.
+
+### MpCollapse
+
+#### MpCollapse Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `is-open` | `-` | `-` | If true, content will be visible |
+| `duration` | `-` | `-` | Animation duration of collapse. |
+| `is-animate-opacity` | `-` | `-` | If true, content will be animated. |
+| `easing` | `-` | `-` | Animation type of collapse. |
+| `starting-height` | `-` | `-` | Height of closed collapse. |
+| `ending-height` | `-` | `-` | Content height of open collapse. |
+
+#### MpCollapse Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `enter` | `-` | `-` | Function for handling enter event. |
+| `leave` | `-` | `-` | Function for handling leave event. |
+
+#### MpCollapse Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Collapse slot |
 
 # Color Picker
 
@@ -5026,6 +5026,64 @@ Color picker let the user select a color
 </script>
 
 ```
+
+# Date Picker
+
+Date pickers let the user select a date.
+
+### MpDatePicker
+
+#### MpDatePicker Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of date picker. |
+| `model-value` | `-` | `-` | The controlled value of the DatePicker. Should be binded-with with v-model. |
+| `type` | `-` | `-` | Type of date picker. |
+| `value-type` | `-` | `-` | Value type of date picker. |
+| `format` | `-` | `-` | Format of date picker. |
+| `range-separator` | `-` | `-` | Range separator of date picker range. |
+| `placeholder` | `-` | `-` | Placeholder of date picker. |
+| `error-message` | `-` | `-` | Error message of date picker. |
+| `disabled-message` | `-` | `-` | Disabled Message of date picker. |
+| `lang` | `-` | `-` | Override locales of date picker. |
+| `input-attr` | `-` | `-` | Input attributes of date picker. |
+| `content-attr` | `-` | `-` | Popover content attributes of date picker. |
+| `hour-step` | `-` | `-` | Hour step of time picker. |
+| `minute-step` | `-` | `-` | Minute step of time picker. |
+| `second-step` | `-` | `-` | Second step of time picker. |
+| `is-range` | `-` | `-` | If true, Date Picker will be range. |
+| `is-read-only` | `-` | `-` | If true, Date Picker will be read only. |
+| `is-disabled` | `-` | `-` | If true, Date Picker will be disabled. |
+| `is-clearable` | `-` | `-` | If true, allow to remove input content with clear icon. |
+| `is-invalid` | `-` | `-` | If true, show error on date picker input. |
+| `use-portal` | `-` | `-` | If true, popover content is rendered with portal. |
+| `is-inline` | `-` | `-` | If true, date picker will be rendered inline. |
+| `is-not-clickable` | `-` | `-` | If true, calendar panel is not clickable. |
+| `is-disable-header` | `-` | `-` | If true, datepicker header is not clickable. |
+| `is-show-shortcut` | `-` | `-` | If true, will show shortcut for Today, This Month, and This Year. |
+| `is-show-hour` | `-` | `-` | If true, will show hour in time picker. |
+| `is-show-minute` | `-` | `-` | If true, will show minute in time picker. |
+| `is-show-second` | `-` | `-` | If true, will show second in time picker. |
+| `is-use-12h` | `-` | `-` | If true, will use 12h in time picker. |
+| `disabled-date` | `-` | `-` | Function for handling disabled date |
+| `disabled-month` | `-` | `-` | Function for handling disabled month |
+| `disable-year` | `-` | `-` | Function for handling disabled year |
+| `disabled-time` | `-` | `-` | Function for handling disabled time |
+| `input-variant` | `-` | `-` | Variant of the input field. |
+
+#### MpDatePicker Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `update:model-value` | `-` | `-` | Event handler called when the value changed |
+| `error` | `-` | `-` | Function for handling error event |
+
+#### MpDatePicker Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Date Picker slot |
 
 # Divider
 
@@ -5487,89 +5545,6 @@ The Drawer component is a panel that slides out from the edge of the screen. It 
 
 ```
 
-# Date Picker
-
-Date pickers let the user select a date.
-
-### MpDatePicker
-
-#### MpDatePicker Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of date picker. |
-| `model-value` | `-` | `-` | The controlled value of the DatePicker. Should be binded-with with v-model. |
-| `type` | `-` | `-` | Type of date picker. |
-| `value-type` | `-` | `-` | Value type of date picker. |
-| `format` | `-` | `-` | Format of date picker. |
-| `range-separator` | `-` | `-` | Range separator of date picker range. |
-| `placeholder` | `-` | `-` | Placeholder of date picker. |
-| `error-message` | `-` | `-` | Error message of date picker. |
-| `disabled-message` | `-` | `-` | Disabled Message of date picker. |
-| `lang` | `-` | `-` | Override locales of date picker. |
-| `input-attr` | `-` | `-` | Input attributes of date picker. |
-| `content-attr` | `-` | `-` | Popover content attributes of date picker. |
-| `hour-step` | `-` | `-` | Hour step of time picker. |
-| `minute-step` | `-` | `-` | Minute step of time picker. |
-| `second-step` | `-` | `-` | Second step of time picker. |
-| `is-range` | `-` | `-` | If true, Date Picker will be range. |
-| `is-read-only` | `-` | `-` | If true, Date Picker will be read only. |
-| `is-disabled` | `-` | `-` | If true, Date Picker will be disabled. |
-| `is-clearable` | `-` | `-` | If true, allow to remove input content with clear icon. |
-| `is-invalid` | `-` | `-` | If true, show error on date picker input. |
-| `use-portal` | `-` | `-` | If true, popover content is rendered with portal. |
-| `is-inline` | `-` | `-` | If true, date picker will be rendered inline. |
-| `is-not-clickable` | `-` | `-` | If true, calendar panel is not clickable. |
-| `is-disable-header` | `-` | `-` | If true, datepicker header is not clickable. |
-| `is-show-shortcut` | `-` | `-` | If true, will show shortcut for Today, This Month, and This Year. |
-| `is-show-hour` | `-` | `-` | If true, will show hour in time picker. |
-| `is-show-minute` | `-` | `-` | If true, will show minute in time picker. |
-| `is-show-second` | `-` | `-` | If true, will show second in time picker. |
-| `is-use-12h` | `-` | `-` | If true, will use 12h in time picker. |
-| `disabled-date` | `-` | `-` | Function for handling disabled date |
-| `disabled-month` | `-` | `-` | Function for handling disabled month |
-| `disable-year` | `-` | `-` | Function for handling disabled year |
-| `disabled-time` | `-` | `-` | Function for handling disabled time |
-| `input-variant` | `-` | `-` | Variant of the input field. |
-
-#### MpDatePicker Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `update:model-value` | `-` | `-` | Event handler called when the value changed |
-| `error` | `-` | `-` | Function for handling error event |
-
-#### MpDatePicker Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Date Picker slot |
-
-# Flex
-
-Used for create one-dimensional layout model.
-
-### MpFlex
-
-#### MpFlex Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `-` | `-` | Rendered tag of flex. |
-| `direction` | `-` | `-` | direction of flex. |
-| `wrap` | `-` | `-` | wrap of flex. |
-| `align` | `-` | `-` | align items of flex. |
-| `justify` | `-` | `-` | justify content of flex. |
-| `basis` | `-` | `-` | basis of flex. |
-| `grow` | `-` | `-` | grow of flex. |
-| `shrink` | `-` | `-` | shrink of flex. |
-
-#### MpFlex Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
 # Dropzone
 
 Dropzone used to upload file within an area.
@@ -5774,219 +5749,30 @@ Dropzone used to upload file within an area.
 
 ```
 
-# Input
+# Flex
 
-Used to get user input in a text field.
+Used for create one-dimensional layout model.
 
-### MpInput
+### MpFlex
 
-#### MpInput Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `-` | `-` | Component used for root node. |
-| `model-value` | `-` | `-` | Value of input. |
-| `id` | `-` | `-` | Id of input. |
-| `variant` | `-` | `-` | Variant of input. |
-| `size` | `-` | `-` | Size of input. |
-| `placeholder` | `-` | `-` | Placeholder of input. |
-| `is-read-only` | `-` | `-` | If true, input be read only. |
-| `is-disabled` | `-` | `-` | If true, input will be disabled. |
-| `is-invalid` | `-` | `-` | If true, input is marked as invalid. |
-| `is-required` | `-` | `-` | If true, input will be required. |
-| `is-full-width` | `-` | `-` | If true, input will span full width of it parent. |
-| `is-clearable` | `-` | `-` | If true, allow to remove input content with clear icon. |
-
-#### MpInput Events
+#### MpFlex Props
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `change` | `-` | `-` | Function for handling change event. |
-| `input` | `-` | `-` | Function for handling input event. |
-| `clear` | `-` | `-` | Function for handling clear event. |
-| `update:model-value` | `-` | `-` | Function for handle update modelValue prop. |
+| `as` | `-` | `-` | Rendered tag of flex. |
+| `direction` | `-` | `-` | direction of flex. |
+| `wrap` | `-` | `-` | wrap of flex. |
+| `align` | `-` | `-` | align items of flex. |
+| `justify` | `-` | `-` | justify content of flex. |
+| `basis` | `-` | `-` | basis of flex. |
+| `grow` | `-` | `-` | grow of flex. |
+| `shrink` | `-` | `-` | shrink of flex. |
 
-#### MpInput Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Input slot. |
-
-### MpInputGroup
-
-#### MpInputGroup Props
+#### MpFlex Slots
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `id` | `-` | `-` | Id of input group. |
-| `size` | `-` | `-` | Size of input in group. |
-
-#### MpInputGroup Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Input group slot. |
-
-### MpInputLeftAddon
-
-#### MpInputLeftAddon Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of input group. |
-| `has-background` | `-` | `-` | If true, input addon has background. |
-
-#### MpInputLeftAddon Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Input addon slot. |
-
-### MpInputRightAddon
-
-#### MpInputRightAddon Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of input group. |
-| `has-background` | `-` | `-` | If true, input addon has background. |
-
-#### MpInputRightAddon Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Input addon slot. |
-
-### Usage: Variant
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpInput } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpInput id="input-wtm" />
-    <MpInput id="input-0tn" variant="unstyled" />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Size
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpInput } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpInput id="input-wtm" size="sm" />
-    <MpInput id="input-0tn" />
-  </MpFlex>
-  <MpFlex gap="2">
-    <MpInput id="input-w3s" variant="unstyled" size="sm" />
-    <MpInput id="input-ri9" variant="unstyled" />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: With group addon
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import {
-    css,
-    MpFlex,
-    MpInput,
-    MpInputGroup,
-    MpInputLeftAddon,
-    MpInputRightAddon,
-    MpText,
-    MpIcon
-  } from '@mekari/pixel3'
-
-  const typeA = ref('')
-  const typeB = ref('')
-  const typeC = ref('')
-  const typeD = ref('')
-  const typeE = ref('')
-  const typeF = ref('')
-  const typeG = ref('')
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpInputGroup id="input-group-wtm" size="md">
-      <MpInputLeftAddon id="input-left-addon-wtm" has-background>
-        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">+62</MpText>
-      </MpInputLeftAddon>
-      <MpInput id="input-wtm" v-model="typeA" is-clearable />
-    </MpInputGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpInputGroup id="input-group-0tn" size="md">
-      <MpInput id="input-0tn" v-model="typeB" is-clearable />
-      <MpInputRightAddon id="input-right-addon-0tn" has-background>
-        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">%</MpText>
-      </MpInputRightAddon>
-    </MpInputGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpInputGroup id="input-group-w3s" size="md">
-      <MpInputLeftAddon id="input-left-addon-w3s" has-background>
-        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">https://</MpText>
-      </MpInputLeftAddon>
-      <MpInput id="input-w3s" v-model="typeC" is-clearable />
-      <MpInputRightAddon id="input-right-addon-w3s" has-background>
-        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">.com</MpText>
-      </MpInputRightAddon>
-    </MpInputGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpInputGroup id="input-group-ri9" size="md">
-      <MpInputLeftAddon id="input-left-addon-ri9">
-        <MpIcon name="search" size="sm" />
-      </MpInputLeftAddon>
-      <MpInput id="input-ri9" v-model="typeD" is-clearable />
-    </MpInputGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpInputGroup id="input-group-s7g" size="md">
-      <MpInput id="input-s7g" v-model="typeE" is-clearable />
-      <MpInputRightAddon id="input-right-addon-s7g">
-        <MpIcon name="show" size="sm" />
-      </MpInputRightAddon>
-    </MpInputGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpInputGroup id="input-group-qdp" size="md">
-      <MpInputLeftAddon id="input-left-addon-qdp">
-        <MpIcon name="search" size="sm" />
-      </MpInputLeftAddon>
-      <MpInput id="input-qdp" v-model="typeF" is-clearable />
-      <MpInputRightAddon id="input-right-addon-qdp">
-        <MpIcon name="show" size="sm" />
-      </MpInputRightAddon>
-    </MpInputGroup>
-  </MpFlex>
-  <MpFlex gap="2" mt="4">
-    <MpInputGroup id="input-group-fi0" size="md">
-      <MpInputLeftAddon id="input-left-addon-fi0">
-        <MpText weight="semiBold">https://</MpText>
-      </MpInputLeftAddon>
-      <MpInput id="input-fi0" v-model="typeG" is-clearable />
-      <MpInputRightAddon id="input-right-addon-fi0">
-        <MpText weight="semiBold">.com</MpText>
-      </MpInputRightAddon>
-    </MpInputGroup>
-  </MpFlex>
-</template>
-
-```
+| `default` | `-` | `-` | Slot to render child element. |
 
 # Form control
 
@@ -6370,6 +6156,188 @@ Render icon inside element with theme colors.
 
 <script setup lang="ts">
   import { MpIcon, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+# Image
+
+Component that render image with many features.
+
+### MpImage
+
+#### MpImage Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of image. |
+| `src` | `-` | `-` | Souce of image. |
+| `alt` | `-` | `-` | Caption of image. |
+| `layout` | `-` | `-` | Layout of image. |
+| `width` | `-` | `-` | Width of the image when rendered. |
+| `height` | `-` | `-` | Height of the image when rendered. |
+| `sizes` | `-` | `-` | Sizes attribute of images. |
+| `src-placeholder` | `-` | `-` | Source placeholder of images. |
+| `srcset` | `-` | `-` | Srcset attributes of images to be rendered. |
+| `type-srcset` | `-` | `-` | Type attributes of images to be rendered. |
+| `media-srcset` | `-` | `-` | Media attributes of image for srcset. |
+| `max-srcset` | `-` | `-` | Max set of image for srcset. |
+| `object-fit` | `-` | `-` | CSS property use with layout fill. |
+| `object-position` | `-` | `-` | CSS property use with layout fill. |
+| `error-text` | `-` | `-` | Text show when image failed to load. |
+| `is-lazy` | `-` | `-` | If true, images will rendered with lazy load. |
+| `is-show-loading` | `-` | `-` | If true, show default spinner when loading. |
+
+#### MpImage Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `intersect` | `-` | `-` | Function for handling intersaction event. |
+| `load` | `-` | `-` | Function for handling load event. |
+| `error` | `-` | `-` | Function for handling error event. |
+
+#### MpImage Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render loading element for changes Spinner. |
+
+### Usage: With Layout
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <div>
+      <MpText weight="semiBold"> Intrinsic Layout </MpText>
+      <MpText>
+        When use intrinsic layout, the image will first render wrapper element accordingly with
+        width and height of image, this useful to achieve zero CLS (cumulative layout shift).
+        <b>don't forget to pass value for props width and height.</b>
+      </MpText>
+      <MpImage
+        id="layout-intrinsic"
+        src="https://placehold.co/600x200"
+        srcset="https://placehold.co/300x100"
+        type-srcset="image/png"
+        media-srcset="(orientation: portrait)"
+        :width="600"
+        :height="200"
+      />
+    </div>
+    <div>
+      <MpText weight="semiBold"> Fixed Layout </MpText>
+      <MpText>
+        When use fixed layout, the image dimensions will not change as the viewport changes (no
+        responsiveness) similar to the native img element.
+        <b>don't forget to pass value for props width and height.</b>
+      </MpText>
+      <MpImage
+        id="layout-fixed"
+        src="https://placehold.co/200x200"
+        layout="fixed"
+        :width="200"
+        :height="200"
+        :is-lazy="false"
+      />
+    </div>
+    <div>
+      <MpText weight="semiBold"> Responsive Layout </MpText>
+      <MpText>
+        When use responsive layout, the image will have auto dimensions based on assets width and
+        height.
+        <b>don't forget to pass value for props width and height.</b>
+      </MpText>
+      <MpImage
+        id="layout-responsive"
+        src="https://placehold.co/1000x200"
+        layout="responsive"
+        :width="1000"
+        :height="200"
+      />
+    </div>
+    <div style="position: relative">
+      <MpText weight="semiBold"> Fill Layout </MpText>
+      <MpText>
+        When use fill layout, the image will stretch both width and height to the dimensions of its
+        parent element, This is usually paired with the objectFit property.
+      </MpText>
+      <MpFlex
+        position="relative"
+        width="400px"
+        height="200px"
+        border-width="1"
+        border-color="gray.400"
+      >
+        <MpImage
+          id="layout-fill"
+          src="https://placehold.co/600x200"
+          layout="fill"
+          object-fit="contain"
+          object-position="right top"
+        />
+      </MpFlex>
+    </div>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpImage, MpText, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: With Various State
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <div>
+      <MpText weight="semiBold"> Custom Loading </MpText>
+      <MpText>
+        By default, MpImage show MpSpinner when image is loading, You can custom visual loading via
+        slot and prop. Change browser network to fast 3G and disable cache to check visual loading.
+      </MpText>
+      <MpImage
+        id="image-custom-loading"
+        src-placeholder="https://placehold.co/1000x200?text=Loading..."
+        src="https://placehold.co/1000x200?text=Loaded"
+        layout="responsive"
+        :width="1000"
+        :height="200"
+        @load="handleLoad"
+        @error="handleError"
+      >
+        <MpLoader />
+      </MpImage>
+    </div>
+    <div>
+      <MpText weight="semiBold"> Error State </MpText>
+      <MpText>
+        By default, MpImage will show error state when failed to load image, You can change error
+        text via prop <b>errorText</b>.
+      </MpText>
+      <MpImage
+        id="image-error"
+        src="###"
+        :width="400"
+        :height="200"
+        error-text="Gagal memuat gambar."
+        @load="handleLoad"
+        @error="handleError"
+      />
+    </div>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpImage, MpText, MpFlex, MpLoader } from '@mekari/pixel3'
+
+  function handleLoad(id: string) {
+    console.log('load', id)
+  }
+  function handleError(id: string) {
+    console.log('error', id)
+  }
 </script>
 
 ```
@@ -6871,185 +6839,256 @@ Allows user to select or create tag from input.
 
 ```
 
-# Image
+# Loader
 
-Component that render image with many features.
+Loading indicator with four animated dots.
 
-### MpImage
+### MpLoader
 
-#### MpImage Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of image. |
-| `src` | `-` | `-` | Souce of image. |
-| `alt` | `-` | `-` | Caption of image. |
-| `layout` | `-` | `-` | Layout of image. |
-| `width` | `-` | `-` | Width of the image when rendered. |
-| `height` | `-` | `-` | Height of the image when rendered. |
-| `sizes` | `-` | `-` | Sizes attribute of images. |
-| `src-placeholder` | `-` | `-` | Source placeholder of images. |
-| `srcset` | `-` | `-` | Srcset attributes of images to be rendered. |
-| `type-srcset` | `-` | `-` | Type attributes of images to be rendered. |
-| `media-srcset` | `-` | `-` | Media attributes of image for srcset. |
-| `max-srcset` | `-` | `-` | Max set of image for srcset. |
-| `object-fit` | `-` | `-` | CSS property use with layout fill. |
-| `object-position` | `-` | `-` | CSS property use with layout fill. |
-| `error-text` | `-` | `-` | Text show when image failed to load. |
-| `is-lazy` | `-` | `-` | If true, images will rendered with lazy load. |
-| `is-show-loading` | `-` | `-` | If true, show default spinner when loading. |
-
-#### MpImage Events
+#### MpLoader Props
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `intersect` | `-` | `-` | Function for handling intersaction event. |
-| `load` | `-` | `-` | Function for handling load event. |
-| `error` | `-` | `-` | Function for handling error event. |
+| `id` | `-` | `-` | Id of loader. |
+| `size` | `-` | `-` | Size of dot (in px). |
+| `spacing` | `-` | `-` | Spacing of dot (in px). |
+| `duration` | `-` | `-` | Duration of animation. |
 
-#### MpImage Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render loading element for changes Spinner. |
-
-### Usage: With Layout
+### Usage: Full page
 
 ```vue
+<script setup lang="ts">
+  import { MpLoader, MpFlex } from '@mekari/pixel3'
+</script>
+
 <template>
-  <MpFlex direction="column" gap="4">
-    <div>
-      <MpText weight="semiBold"> Intrinsic Layout </MpText>
-      <MpText>
-        When use intrinsic layout, the image will first render wrapper element accordingly with
-        width and height of image, this useful to achieve zero CLS (cumulative layout shift).
-        <b>don't forget to pass value for props width and height.</b>
-      </MpText>
-      <MpImage
-        id="layout-intrinsic"
-        src="https://placehold.co/600x200"
-        srcset="https://placehold.co/300x100"
-        type-srcset="image/png"
-        media-srcset="(orientation: portrait)"
-        :width="600"
-        :height="200"
-      />
-    </div>
-    <div>
-      <MpText weight="semiBold"> Fixed Layout </MpText>
-      <MpText>
-        When use fixed layout, the image dimensions will not change as the viewport changes (no
-        responsiveness) similar to the native img element.
-        <b>don't forget to pass value for props width and height.</b>
-      </MpText>
-      <MpImage
-        id="layout-fixed"
-        src="https://placehold.co/200x200"
-        layout="fixed"
-        :width="200"
-        :height="200"
-        :is-lazy="false"
-      />
-    </div>
-    <div>
-      <MpText weight="semiBold"> Responsive Layout </MpText>
-      <MpText>
-        When use responsive layout, the image will have auto dimensions based on assets width and
-        height.
-        <b>don't forget to pass value for props width and height.</b>
-      </MpText>
-      <MpImage
-        id="layout-responsive"
-        src="https://placehold.co/1000x200"
-        layout="responsive"
-        :width="1000"
-        :height="200"
-      />
-    </div>
-    <div style="position: relative">
-      <MpText weight="semiBold"> Fill Layout </MpText>
-      <MpText>
-        When use fill layout, the image will stretch both width and height to the dimensions of its
-        parent element, This is usually paired with the objectFit property.
-      </MpText>
-      <MpFlex
-        position="relative"
-        width="400px"
-        height="200px"
-        border-width="1"
-        border-color="gray.400"
-      >
-        <MpImage
-          id="layout-fill"
-          src="https://placehold.co/600x200"
-          layout="fill"
-          object-fit="contain"
-          object-position="right top"
-        />
-      </MpFlex>
-    </div>
+  <MpFlex
+    align="center"
+    justify="center"
+    bg="background"
+    height="100vh"
+    width="full"
+    :_nextTheme="{
+      background: 'background.stage'
+    }"
+  >
+    <MpLoader />
   </MpFlex>
 </template>
-
-<script setup lang="ts">
-  import { MpImage, MpText, MpFlex } from '@mekari/pixel3'
-</script>
 
 ```
 
-### Usage: With Various State
+# Input
+
+Used to get user input in a text field.
+
+### MpInput
+
+#### MpInput Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `-` | `-` | Component used for root node. |
+| `model-value` | `-` | `-` | Value of input. |
+| `id` | `-` | `-` | Id of input. |
+| `variant` | `-` | `-` | Variant of input. |
+| `size` | `-` | `-` | Size of input. |
+| `placeholder` | `-` | `-` | Placeholder of input. |
+| `is-read-only` | `-` | `-` | If true, input be read only. |
+| `is-disabled` | `-` | `-` | If true, input will be disabled. |
+| `is-invalid` | `-` | `-` | If true, input is marked as invalid. |
+| `is-required` | `-` | `-` | If true, input will be required. |
+| `is-full-width` | `-` | `-` | If true, input will span full width of it parent. |
+| `is-clearable` | `-` | `-` | If true, allow to remove input content with clear icon. |
+
+#### MpInput Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `change` | `-` | `-` | Function for handling change event. |
+| `input` | `-` | `-` | Function for handling input event. |
+| `clear` | `-` | `-` | Function for handling clear event. |
+| `update:model-value` | `-` | `-` | Function for handle update modelValue prop. |
+
+#### MpInput Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Input slot. |
+
+### MpInputGroup
+
+#### MpInputGroup Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of input group. |
+| `size` | `-` | `-` | Size of input in group. |
+
+#### MpInputGroup Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Input group slot. |
+
+### MpInputLeftAddon
+
+#### MpInputLeftAddon Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of input group. |
+| `has-background` | `-` | `-` | If true, input addon has background. |
+
+#### MpInputLeftAddon Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Input addon slot. |
+
+### MpInputRightAddon
+
+#### MpInputRightAddon Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of input group. |
+| `has-background` | `-` | `-` | If true, input addon has background. |
+
+#### MpInputRightAddon Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Input addon slot. |
+
+### Usage: Variant
 
 ```vue
+<script setup lang="ts">
+  import { MpFlex, MpInput } from '@mekari/pixel3'
+</script>
+
 <template>
-  <MpFlex direction="column" gap="4">
-    <div>
-      <MpText weight="semiBold"> Custom Loading </MpText>
-      <MpText>
-        By default, MpImage show MpSpinner when image is loading, You can custom visual loading via
-        slot and prop. Change browser network to fast 3G and disable cache to check visual loading.
-      </MpText>
-      <MpImage
-        id="image-custom-loading"
-        src-placeholder="https://placehold.co/1000x200?text=Loading..."
-        src="https://placehold.co/1000x200?text=Loaded"
-        layout="responsive"
-        :width="1000"
-        :height="200"
-        @load="handleLoad"
-        @error="handleError"
-      >
-        <MpLoader />
-      </MpImage>
-    </div>
-    <div>
-      <MpText weight="semiBold"> Error State </MpText>
-      <MpText>
-        By default, MpImage will show error state when failed to load image, You can change error
-        text via prop <b>errorText</b>.
-      </MpText>
-      <MpImage
-        id="image-error"
-        src="###"
-        :width="400"
-        :height="200"
-        error-text="Gagal memuat gambar."
-        @load="handleLoad"
-        @error="handleError"
-      />
-    </div>
+  <MpFlex gap="2">
+    <MpInput id="input-wtm" />
+    <MpInput id="input-0tn" variant="unstyled" />
   </MpFlex>
 </template>
 
-<script setup lang="ts">
-  import { MpImage, MpText, MpFlex, MpLoader } from '@mekari/pixel3'
+```
 
-  function handleLoad(id: string) {
-    console.log('load', id)
-  }
-  function handleError(id: string) {
-    console.log('error', id)
-  }
+### Usage: Size
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpInput } from '@mekari/pixel3'
 </script>
+
+<template>
+  <MpFlex gap="2">
+    <MpInput id="input-wtm" size="sm" />
+    <MpInput id="input-0tn" />
+  </MpFlex>
+  <MpFlex gap="2">
+    <MpInput id="input-w3s" variant="unstyled" size="sm" />
+    <MpInput id="input-ri9" variant="unstyled" />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: With group addon
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import {
+    css,
+    MpFlex,
+    MpInput,
+    MpInputGroup,
+    MpInputLeftAddon,
+    MpInputRightAddon,
+    MpText,
+    MpIcon
+  } from '@mekari/pixel3'
+
+  const typeA = ref('')
+  const typeB = ref('')
+  const typeC = ref('')
+  const typeD = ref('')
+  const typeE = ref('')
+  const typeF = ref('')
+  const typeG = ref('')
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpInputGroup id="input-group-wtm" size="md">
+      <MpInputLeftAddon id="input-left-addon-wtm" has-background>
+        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">+62</MpText>
+      </MpInputLeftAddon>
+      <MpInput id="input-wtm" v-model="typeA" is-clearable />
+    </MpInputGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpInputGroup id="input-group-0tn" size="md">
+      <MpInput id="input-0tn" v-model="typeB" is-clearable />
+      <MpInputRightAddon id="input-right-addon-0tn" has-background>
+        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">%</MpText>
+      </MpInputRightAddon>
+    </MpInputGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpInputGroup id="input-group-w3s" size="md">
+      <MpInputLeftAddon id="input-left-addon-w3s" has-background>
+        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">https://</MpText>
+      </MpInputLeftAddon>
+      <MpInput id="input-w3s" v-model="typeC" is-clearable />
+      <MpInputRightAddon id="input-right-addon-w3s" has-background>
+        <MpText weight="semiBold" :class="css({ paddingX: '1.5' })">.com</MpText>
+      </MpInputRightAddon>
+    </MpInputGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpInputGroup id="input-group-ri9" size="md">
+      <MpInputLeftAddon id="input-left-addon-ri9">
+        <MpIcon name="search" size="sm" />
+      </MpInputLeftAddon>
+      <MpInput id="input-ri9" v-model="typeD" is-clearable />
+    </MpInputGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpInputGroup id="input-group-s7g" size="md">
+      <MpInput id="input-s7g" v-model="typeE" is-clearable />
+      <MpInputRightAddon id="input-right-addon-s7g">
+        <MpIcon name="show" size="sm" />
+      </MpInputRightAddon>
+    </MpInputGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpInputGroup id="input-group-qdp" size="md">
+      <MpInputLeftAddon id="input-left-addon-qdp">
+        <MpIcon name="search" size="sm" />
+      </MpInputLeftAddon>
+      <MpInput id="input-qdp" v-model="typeF" is-clearable />
+      <MpInputRightAddon id="input-right-addon-qdp">
+        <MpIcon name="show" size="sm" />
+      </MpInputRightAddon>
+    </MpInputGroup>
+  </MpFlex>
+  <MpFlex gap="2" mt="4">
+    <MpInputGroup id="input-group-fi0" size="md">
+      <MpInputLeftAddon id="input-left-addon-fi0">
+        <MpText weight="semiBold">https://</MpText>
+      </MpInputLeftAddon>
+      <MpInput id="input-fi0" v-model="typeG" is-clearable />
+      <MpInputRightAddon id="input-right-addon-fi0">
+        <MpText weight="semiBold">.com</MpText>
+      </MpInputRightAddon>
+    </MpInputGroup>
+  </MpFlex>
+</template>
 
 ```
 
@@ -8141,45 +8180,6 @@ Popovers are used to provide supplemental, useful, unique information about an e
 
 ```
 
-# Loader
-
-Loading indicator with four animated dots.
-
-### MpLoader
-
-#### MpLoader Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of loader. |
-| `size` | `-` | `-` | Size of dot (in px). |
-| `spacing` | `-` | `-` | Spacing of dot (in px). |
-| `duration` | `-` | `-` | Duration of animation. |
-
-### Usage: Full page
-
-```vue
-<script setup lang="ts">
-  import { MpLoader, MpFlex } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex
-    align="center"
-    justify="center"
-    bg="background"
-    height="100vh"
-    width="full"
-    :_nextTheme="{
-      background: 'background.stage'
-    }"
-  >
-    <MpLoader />
-  </MpFlex>
-</template>
-
-```
-
 # Progress
 
 Used to display the progress of some task or value.
@@ -8394,247 +8394,6 @@ Used to content editor based Tiptap.js
 |------|------|---------|-------------|
 | `id` | `-` | `-` | Id of RTE style provider. |
 
-# Radio
-
-Represents a single option in a mutually exclusive list.
-
-### MpRadio
-
-#### MpRadio Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of radio. |
-| `name` | `-` | `-` | Name of radio. |
-| `value` | `-` | `-` | Value of radio. |
-| `model-value` | `-` | `-` | modelValue for group of radio. |
-| `is-checked` | `-` | `-` | If true, radio will be checked. |
-| `is-disabled` | `-` | `-` | If true, radio will be disable. |
-| `is-invalid` | `-` | `-` | If true, radio will be invalid. |
-| `is-read-only` | `-` | `-` | If true, radio will be read only. |
-
-#### MpRadio Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-| `change` | `-` | `-` | Function for handling change event. |
-| `update:model-value` | `-` | `-` | Function for update modelValue prop. |
-| `update:is-checked` | `-` | `-` | Function for update modelValue prop. |
-
-#### MpRadio Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render radio label. |
-| `description` | `-` | `-` | Slot to render radio description. |
-
-### Usage: Radio Group
-
-```vue
-<template>
-  <MpFlex gap="4" mb="4">
-    <MpRadio id="radio-11" value="radio_one" v-model="radioNames"> Radio One </MpRadio>
-    <MpRadio id="radio-12" value="radio_two" v-model="radioNames"> Radio Two </MpRadio>
-    <MpRadio id="radio-13" value="radio_three" v-model="radioNames" is-disabled>
-      Radio Three
-    </MpRadio>
-    <MpRadio id="radio-14" value="radio_four" v-model="radioNames"> Radio Four </MpRadio>
-  </MpFlex>
-  <MpText>Value: {{ radioNames }}</MpText>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpRadio, MpText, MpFlex } from '@mekari/pixel3'
-
-  const radioNames = ref('')
-</script>
-
-```
-
-### Usage: With Description
-
-```vue
-<template>
-  <MpRadio id="radio-2" :is-checked="isChecked" @change="handleChange" @click="handleClick"
-    >Marketing
-    <template #description>
-      Send promotional offers, product announcements, and more to increase awareness and engagement.
-    </template>
-  </MpRadio>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpRadio } from '@mekari/pixel3'
-
-  let isChecked = ref(false)
-
-  function handleChange(val: boolean): void {
-    isChecked.value = val
-  }
-
-  function handleClick(): void {
-    alert('Receive marketing promos')
-  }
-</script>
-
-```
-
-# Skeleton
-
-Used to render a placeholder while the content is loading.
-
-### MpSkeleton
-
-#### MpSkeleton Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `color` | `-` | `-` | Color of skeleton. |
-| `duration` | `-` | `-` | Duration animation of skeleton. |
-| `is-loading` | `-` | `-` | If true, skeleton will be show loading state. |
-
-#### MpSkeleton Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Skeleton slot. |
-
-### Usage: Color
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <MpSkeleton width="100px" height="100px" rounded="full" />
-    <MpSkeleton width="200px" height="50px" color="blue" duration="3s" rounded="md" />
-    <MpSkeleton width="200px" height="200px" color="purple" duration="1s" />
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpFlex, MpSkeleton } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: With Children
-
-```vue
-<template>
-  <MpSkeleton :is-loading="isLoading" data-test="skeleton-with-children" p="2">
-    <MpText>
-      When use MpSkeleton with children, you can use isLoading prop, it will show the skeleton
-      component until the isLoading value is false. This is useful when you want to show the
-      skeleton component while waiting for the data to be fetched.
-    </MpText>
-  </MpSkeleton>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpSkeleton, MpText } from '@mekari/pixel3'
-
-  const isLoading = ref(true)
-
-  setTimeout(() => {
-    isLoading.value = false
-  }, 5000)
-</script>
-
-```
-
-# Segmented control
-
-Used to alternative to radio group component.
-
-### Usage: **Data prop**
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-2')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-ashTy"
-      v-model="check"
-      :data="[
-        {
-          id: 'ezsCsI',
-          label: 'All resign category',
-          value: 'option-1',
-          icon: 'table-view-column'
-        },
-        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2', icon: 'table-view-field' },
-        { id: 'llpHcs', label: 'Involuntary', value: 'option-3', icon: 'table-view-filter' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Without icon
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-2')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-ccJks"
-      v-model="check"
-      :data="[
-        { id: 'ezsCsI', label: 'All resign category', value: 'option-1' },
-        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2' },
-        { id: 'llpHcs', label: 'Involuntary', value: 'option-3' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Icon only
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-1')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-hdjDf"
-      v-model="check"
-      :data="[
-        { id: 'ezsCsI', value: 'option-1', icon: 'table-view-column' },
-        { id: 'jjsCgt', value: 'option-2', icon: 'table-view-field' },
-        { id: 'llpHcs', value: 'option-3', icon: 'table-view-filter' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
 # Scrollbar
 
 Custom scrollbar component.
@@ -8738,6 +8497,184 @@ Custom scrollbar component.
 
 ```
 
+# Radio
+
+Represents a single option in a mutually exclusive list.
+
+### MpRadio
+
+#### MpRadio Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of radio. |
+| `name` | `-` | `-` | Name of radio. |
+| `value` | `-` | `-` | Value of radio. |
+| `model-value` | `-` | `-` | modelValue for group of radio. |
+| `is-checked` | `-` | `-` | If true, radio will be checked. |
+| `is-disabled` | `-` | `-` | If true, radio will be disable. |
+| `is-invalid` | `-` | `-` | If true, radio will be invalid. |
+| `is-read-only` | `-` | `-` | If true, radio will be read only. |
+
+#### MpRadio Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+| `change` | `-` | `-` | Function for handling change event. |
+| `update:model-value` | `-` | `-` | Function for update modelValue prop. |
+| `update:is-checked` | `-` | `-` | Function for update modelValue prop. |
+
+#### MpRadio Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render radio label. |
+| `description` | `-` | `-` | Slot to render radio description. |
+
+### Usage: Radio Group
+
+```vue
+<template>
+  <MpFlex gap="4" mb="4">
+    <MpRadio id="radio-11" value="radio_one" v-model="radioNames"> Radio One </MpRadio>
+    <MpRadio id="radio-12" value="radio_two" v-model="radioNames"> Radio Two </MpRadio>
+    <MpRadio id="radio-13" value="radio_three" v-model="radioNames" is-disabled>
+      Radio Three
+    </MpRadio>
+    <MpRadio id="radio-14" value="radio_four" v-model="radioNames"> Radio Four </MpRadio>
+  </MpFlex>
+  <MpText>Value: {{ radioNames }}</MpText>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpRadio, MpText, MpFlex } from '@mekari/pixel3'
+
+  const radioNames = ref('')
+</script>
+
+```
+
+### Usage: With Description
+
+```vue
+<template>
+  <MpRadio id="radio-2" :is-checked="isChecked" @change="handleChange" @click="handleClick"
+    >Marketing
+    <template #description>
+      Send promotional offers, product announcements, and more to increase awareness and engagement.
+    </template>
+  </MpRadio>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpRadio } from '@mekari/pixel3'
+
+  let isChecked = ref(false)
+
+  function handleChange(val: boolean): void {
+    isChecked.value = val
+  }
+
+  function handleClick(): void {
+    alert('Receive marketing promos')
+  }
+</script>
+
+```
+
+# Segmented control
+
+Used to alternative to radio group component.
+
+### Usage: **Data prop**
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-2')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-ashTy"
+      v-model="check"
+      :data="[
+        {
+          id: 'ezsCsI',
+          label: 'All resign category',
+          value: 'option-1',
+          icon: 'table-view-column'
+        },
+        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2', icon: 'table-view-field' },
+        { id: 'llpHcs', label: 'Involuntary', value: 'option-3', icon: 'table-view-filter' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Without icon
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-2')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-ccJks"
+      v-model="check"
+      :data="[
+        { id: 'ezsCsI', label: 'All resign category', value: 'option-1' },
+        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2' },
+        { id: 'llpHcs', label: 'Involuntary', value: 'option-3' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Icon only
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-1')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-hdjDf"
+      v-model="check"
+      :data="[
+        { id: 'ezsCsI', value: 'option-1', icon: 'table-view-column' },
+        { id: 'jjsCgt', value: 'option-2', icon: 'table-view-field' },
+        { id: 'llpHcs', value: 'option-3', icon: 'table-view-filter' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
+
 # Select
 
 Used to select from many options.
@@ -8794,6 +8731,69 @@ Used to select from many options.
     </MpSelect>
   </MpFlex>
 </template>
+
+```
+
+# Skeleton
+
+Used to render a placeholder while the content is loading.
+
+### MpSkeleton
+
+#### MpSkeleton Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `color` | `-` | `-` | Color of skeleton. |
+| `duration` | `-` | `-` | Duration animation of skeleton. |
+| `is-loading` | `-` | `-` | If true, skeleton will be show loading state. |
+
+#### MpSkeleton Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Skeleton slot. |
+
+### Usage: Color
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <MpSkeleton width="100px" height="100px" rounded="full" />
+    <MpSkeleton width="200px" height="50px" color="blue" duration="3s" rounded="md" />
+    <MpSkeleton width="200px" height="200px" color="purple" duration="1s" />
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpFlex, MpSkeleton } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: With Children
+
+```vue
+<template>
+  <MpSkeleton :is-loading="isLoading" data-test="skeleton-with-children" p="2">
+    <MpText>
+      When use MpSkeleton with children, you can use isLoading prop, it will show the skeleton
+      component until the isLoading value is false. This is useful when you want to show the
+      skeleton component while waiting for the data to be fetched.
+    </MpText>
+  </MpSkeleton>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpSkeleton, MpText } from '@mekari/pixel3'
+
+  const isLoading = ref(true)
+
+  setTimeout(() => {
+    isLoading.value = false
+  }, 5000)
+</script>
 
 ```
 
@@ -8899,385 +8899,6 @@ Allows user to select a range of related values.
 
 ```
 
-# Tabs
-
-Tabs are used to organize content by grouping similar information on the same page.
-
-### MpTabs
-
-#### MpTabs Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `model-value` | `-` | `-` | Value of tabs. |
-| `default-value` | `-` | `-` | Default value of tabs. |
-| `id` | `-` | `-` | Id of tabs. |
-| `variant-color` | `-` | `-` | Variant color of tabs. |
-| `is-manual` | `-` | `-` | If true, index of tabs will be handle manual. |
-| `is-show-border` | `-` | `-` | If true, border will be show. |
-
-#### MpTabs Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `update:model-value` | `-` | `-` | Function for handling modelValue event. |
-| `change` | `-` | `-` | Function for handling change event. |
-
-#### MpTabs Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Tabs slot |
-
-### MpTabList
-
-#### MpTabList Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Tab list slot |
-
-### MpTab
-
-#### MpTab Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of tab. |
-| `is-disabled` | `-` | `-` | If `true`, tab will be disabled. |
-
-#### MpTab Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Tab slot |
-
-### MpTabPanels
-
-#### MpTabPanels Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Tab panels slot |
-
-### MpTabPanel
-
-#### MpTabPanel Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `is-keep-alive` | `-` | `-` | If true, tab panel will be hidden using CSS instead of destroying DOM. |
-
-#### MpTabPanel Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Tab panel slot |
-
-### Usage: With badge
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import {
-    MpTabs,
-    MpTabList,
-    MpTab,
-    MpTabPanels,
-    MpTabPanel,
-    MpBadge,
-    css,
-    MpText
-  } from '@mekari/pixel3'
-
-  const currentTab = ref(2)
-</script>
-
-<template>
-  <div style="display: flex; flex-direction: column; gap: 8">
-    <MpTabs id="tabs-with-badge" v-model="currentTab" is-manual>
-      <MpTabList>
-        <MpTab>
-          Everything else
-
-          <MpBadge
-            for="tableStatus"
-            :type="currentTab === 0 ? 'information' : 'announcement'"
-            :class="css({ marginLeft: 2 })"
-          >
-            99+
-          </MpBadge>
-        </MpTab>
-        <MpTab>
-          Unread
-          <MpBadge
-            for="tableStatus"
-            :type="currentTab === 1 ? 'information' : 'announcement'"
-            :class="css({ marginLeft: 2 })"
-          >
-            99+
-          </MpBadge>
-        </MpTab>
-        <MpTab> Read </MpTab>
-      </MpTabList>
-
-      <MpTabPanels>
-        <MpTabPanel>
-          <MpText>Everything else content</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Unread content</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Read content</MpText>
-        </MpTabPanel>
-      </MpTabPanels>
-    </MpTabs>
-
-    <div style="margin-top: 32px">
-      State :
-      <code style="font-family: monospace">
-        {{ currentTab }}
-      </code>
-    </div>
-  </div>
-</template>
-
-```
-
-### Usage: With icon
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import {
-    MpTabs,
-    MpTabList,
-    MpTab,
-    MpTabPanels,
-    MpTabPanel,
-    MpIcon,
-    css,
-    MpText
-  } from '@mekari/pixel3'
-
-  const currentTab = ref(0)
-</script>
-
-<template>
-  <div style="display: flex; flex-direction: column; gap: 8">
-    <MpTabs id="tabs-with-icon" v-model="currentTab" is-manual>
-      <MpTabList>
-        <MpTab>
-          <MpIcon
-            name="envelope"
-            size="sm"
-            :variant="currentTab === 0 ? 'fill' : 'outline'"
-            :class="css({ marginRight: 2 })"
-          />
-          Inbox
-        </MpTab>
-        <MpTab>
-          <MpIcon
-            name="sent"
-            size="sm"
-            :variant="currentTab === 1 ? 'fill' : 'outline'"
-            :class="css({ marginRight: 2 })"
-          />
-          Sent
-        </MpTab>
-        <MpTab>
-          <MpIcon
-            name="settings"
-            size="sm"
-            :variant="currentTab === 2 ? 'fill' : 'outline'"
-            :class="css({ marginRight: 2 })"
-          />
-          Settings
-        </MpTab>
-      </MpTabList>
-
-      <MpTabPanels>
-        <MpTabPanel>
-          <MpText>Everything else content</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Unread content</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Read content</MpText>
-        </MpTabPanel>
-      </MpTabPanels>
-    </MpTabs>
-
-    <div style="margin-top: 32px">
-      State :
-      <code style="font-family: monospace">
-        {{ currentTab }}
-      </code>
-    </div>
-  </div>
-</template>
-
-```
-
-### Usage: Manual
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpTabs, MpTabList, MpTab, MpTabPanels, MpTabPanel, MpText, css } from '@mekari/pixel3'
-
-  const currentTab = ref(2)
-</script>
-
-<template>
-  <div style="display: flex; flex-direction: column; gap: 8">
-    <MpTabs id="tabs-manual" v-model="currentTab" is-manual>
-      <MpTabList>
-        <MpTab> Tab 1 </MpTab>
-        <MpTab> Tab 2 </MpTab>
-        <MpTab> Tab 3 </MpTab>
-        <MpTab> Tab 4 </MpTab>
-        <MpTab> Tab 5 </MpTab>
-      </MpTabList>
-
-      <MpTabPanels>
-        <MpTabPanel>
-          <MpText>Content 1</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Content 2</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Content 3</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Content 4</MpText>
-        </MpTabPanel>
-        <MpTabPanel>
-          <MpText>Content 5</MpText>
-        </MpTabPanel>
-      </MpTabPanels>
-    </MpTabs>
-
-    <div style="margin-top: 32px">
-      State :
-      <code style="font-family: monospace">
-        <input type="number" v-model.number="currentTab" />
-      </code>
-    </div>
-  </div>
-</template>
-
-```
-
-### Usage: Dynamic
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import {
-    MpTabs,
-    MpTabList,
-    MpTab,
-    MpTabPanels,
-    MpTabPanel,
-    MpInput,
-    css,
-    MpText
-  } from '@mekari/pixel3'
-
-  const value = ref(5)
-</script>
-
-<template>
-  <div :class="css({ display: 'flex', flexDirection: 'column', gap: '4' })">
-    <div :class="css({ display: 'inline-flex' })">
-      <MpInput id="input-dynamic-tabs" v-model.number="value" type="number" />
-    </div>
-
-    <MpTabs id="tabs-dynamic">
-      <MpTabList>
-        <MpTab v-for="i in value" :key="i"> Tab {{ i }} </MpTab>
-      </MpTabList>
-
-      <MpTabPanels>
-        <MpTabPanel v-for="i in value" :key="i">
-          <MpText>Content {{ i }}</MpText>
-        </MpTabPanel>
-      </MpTabPanels>
-    </MpTabs>
-  </div>
-</template>
-
-```
-
-# Tag
-
-Used to display label that can optionally be selected and unselected or removed.
-
-### MpTag
-
-#### MpTag Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `-` | `-` | Component used for root node. |
-| `id` | `-` | `-` | Id of tag. |
-| `size` | `-` | `-` | Size of tag. |
-| `variant` | `-` | `-` | Variant of tag. |
-| `is-closable` | `-` | `-` | If true, close icon displayed on right. |
-
-#### MpTag Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-| `close` | `-` | `-` | Function for handling close event. |
-
-#### MpTag Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Tag slot. |
-
-### Usage: Variant
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpTag } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpTag id="tag-wtm">Gray</MpTag>
-    <MpTag id="tag-0tn" variant="red">Red</MpTag>
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Size
-
-```vue
-<script setup lang="ts">
-  import { MpFlex, MpTag } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex gap="2" align="flex-start">
-    <MpTag id="tag-wtm">Medium</MpTag>
-    <MpTag id="tag-0tn" size="sm">Small</MpTag>
-  </MpFlex>
-  <MpFlex gap="2" align="flex-start" mt="4">
-    <MpTag id="tag-w3s" variant="red">Medium</MpTag>
-    <MpTag id="tag-ri9" variant="red" size="sm">Small</MpTag>
-  </MpFlex>
-</template>
-
-```
-
 # Spinner
 
 Indicate the loading state of a component or page.
@@ -9306,34 +8927,6 @@ Indicate the loading state of a component or page.
 </script>
 
 ```
-
-# Textarea
-
-Enables users to add longer text to a form.
-
-### MpTextarea
-
-#### MpTextarea Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `model-value` | `-` | `-` | The controlled value of the Textarea. Should be binded-with with v-model. |
-| `placeholder` | `-` | `-` | Placeholder of textarea. |
-| `is-read-only` | `-` | `-` | If true, textarea be read only. |
-| `is-disabled` | `-` | `-` | If true, textarea will be disabled. |
-| `is-invalid` | `-` | `-` | If true, textarea is marked as invalid. |
-| `is-required` | `-` | `-` | If true, textarea will be required. |
-| `is-full-width` | `-` | `-` | If true, textarea will span full width of it parent. |
-| `aria-label` | `-` | `-` | Optional prop for accessibility. |
-| `aria-labelled-by` | `-` | `-` | Optional prop for accessibility. |
-
-#### MpTextarea Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `update:model-value` | `-` | `-` | Event handler called when the value changed |
-| `change` | `-` | `-` | Event handler called when the value changed |
-| `input` | `-` | `-` | Event handler called when the value changed |
 
 # Table
 
@@ -9830,6 +9423,762 @@ const employees = [
   }
 ]
 </script>
+
+```
+
+# Tabs
+
+Tabs are used to organize content by grouping similar information on the same page.
+
+### MpTabs
+
+#### MpTabs Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `model-value` | `-` | `-` | Value of tabs. |
+| `default-value` | `-` | `-` | Default value of tabs. |
+| `id` | `-` | `-` | Id of tabs. |
+| `variant-color` | `-` | `-` | Variant color of tabs. |
+| `is-manual` | `-` | `-` | If true, index of tabs will be handle manual. |
+| `is-show-border` | `-` | `-` | If true, border will be show. |
+
+#### MpTabs Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `update:model-value` | `-` | `-` | Function for handling modelValue event. |
+| `change` | `-` | `-` | Function for handling change event. |
+
+#### MpTabs Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Tabs slot |
+
+### MpTabList
+
+#### MpTabList Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Tab list slot |
+
+### MpTab
+
+#### MpTab Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of tab. |
+| `is-disabled` | `-` | `-` | If `true`, tab will be disabled. |
+
+#### MpTab Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Tab slot |
+
+### MpTabPanels
+
+#### MpTabPanels Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Tab panels slot |
+
+### MpTabPanel
+
+#### MpTabPanel Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `is-keep-alive` | `-` | `-` | If true, tab panel will be hidden using CSS instead of destroying DOM. |
+
+#### MpTabPanel Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Tab panel slot |
+
+### Usage: With badge
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import {
+    MpTabs,
+    MpTabList,
+    MpTab,
+    MpTabPanels,
+    MpTabPanel,
+    MpBadge,
+    css,
+    MpText
+  } from '@mekari/pixel3'
+
+  const currentTab = ref(2)
+</script>
+
+<template>
+  <div style="display: flex; flex-direction: column; gap: 8">
+    <MpTabs id="tabs-with-badge" v-model="currentTab" is-manual>
+      <MpTabList>
+        <MpTab>
+          Everything else
+
+          <MpBadge
+            for="tableStatus"
+            :type="currentTab === 0 ? 'information' : 'announcement'"
+            :class="css({ marginLeft: 2 })"
+          >
+            99+
+          </MpBadge>
+        </MpTab>
+        <MpTab>
+          Unread
+          <MpBadge
+            for="tableStatus"
+            :type="currentTab === 1 ? 'information' : 'announcement'"
+            :class="css({ marginLeft: 2 })"
+          >
+            99+
+          </MpBadge>
+        </MpTab>
+        <MpTab> Read </MpTab>
+      </MpTabList>
+
+      <MpTabPanels>
+        <MpTabPanel>
+          <MpText>Everything else content</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Unread content</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Read content</MpText>
+        </MpTabPanel>
+      </MpTabPanels>
+    </MpTabs>
+
+    <div style="margin-top: 32px">
+      State :
+      <code style="font-family: monospace">
+        {{ currentTab }}
+      </code>
+    </div>
+  </div>
+</template>
+
+```
+
+### Usage: With icon
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import {
+    MpTabs,
+    MpTabList,
+    MpTab,
+    MpTabPanels,
+    MpTabPanel,
+    MpIcon,
+    css,
+    MpText
+  } from '@mekari/pixel3'
+
+  const currentTab = ref(0)
+</script>
+
+<template>
+  <div style="display: flex; flex-direction: column; gap: 8">
+    <MpTabs id="tabs-with-icon" v-model="currentTab" is-manual>
+      <MpTabList>
+        <MpTab>
+          <MpIcon
+            name="envelope"
+            size="sm"
+            :variant="currentTab === 0 ? 'fill' : 'outline'"
+            :class="css({ marginRight: 2 })"
+          />
+          Inbox
+        </MpTab>
+        <MpTab>
+          <MpIcon
+            name="sent"
+            size="sm"
+            :variant="currentTab === 1 ? 'fill' : 'outline'"
+            :class="css({ marginRight: 2 })"
+          />
+          Sent
+        </MpTab>
+        <MpTab>
+          <MpIcon
+            name="settings"
+            size="sm"
+            :variant="currentTab === 2 ? 'fill' : 'outline'"
+            :class="css({ marginRight: 2 })"
+          />
+          Settings
+        </MpTab>
+      </MpTabList>
+
+      <MpTabPanels>
+        <MpTabPanel>
+          <MpText>Everything else content</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Unread content</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Read content</MpText>
+        </MpTabPanel>
+      </MpTabPanels>
+    </MpTabs>
+
+    <div style="margin-top: 32px">
+      State :
+      <code style="font-family: monospace">
+        {{ currentTab }}
+      </code>
+    </div>
+  </div>
+</template>
+
+```
+
+### Usage: Manual
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpTabs, MpTabList, MpTab, MpTabPanels, MpTabPanel, MpText, css } from '@mekari/pixel3'
+
+  const currentTab = ref(2)
+</script>
+
+<template>
+  <div style="display: flex; flex-direction: column; gap: 8">
+    <MpTabs id="tabs-manual" v-model="currentTab" is-manual>
+      <MpTabList>
+        <MpTab> Tab 1 </MpTab>
+        <MpTab> Tab 2 </MpTab>
+        <MpTab> Tab 3 </MpTab>
+        <MpTab> Tab 4 </MpTab>
+        <MpTab> Tab 5 </MpTab>
+      </MpTabList>
+
+      <MpTabPanels>
+        <MpTabPanel>
+          <MpText>Content 1</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Content 2</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Content 3</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Content 4</MpText>
+        </MpTabPanel>
+        <MpTabPanel>
+          <MpText>Content 5</MpText>
+        </MpTabPanel>
+      </MpTabPanels>
+    </MpTabs>
+
+    <div style="margin-top: 32px">
+      State :
+      <code style="font-family: monospace">
+        <input type="number" v-model.number="currentTab" />
+      </code>
+    </div>
+  </div>
+</template>
+
+```
+
+### Usage: Dynamic
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import {
+    MpTabs,
+    MpTabList,
+    MpTab,
+    MpTabPanels,
+    MpTabPanel,
+    MpInput,
+    css,
+    MpText
+  } from '@mekari/pixel3'
+
+  const value = ref(5)
+</script>
+
+<template>
+  <div :class="css({ display: 'flex', flexDirection: 'column', gap: '4' })">
+    <div :class="css({ display: 'inline-flex' })">
+      <MpInput id="input-dynamic-tabs" v-model.number="value" type="number" />
+    </div>
+
+    <MpTabs id="tabs-dynamic">
+      <MpTabList>
+        <MpTab v-for="i in value" :key="i"> Tab {{ i }} </MpTab>
+      </MpTabList>
+
+      <MpTabPanels>
+        <MpTabPanel v-for="i in value" :key="i">
+          <MpText>Content {{ i }}</MpText>
+        </MpTabPanel>
+      </MpTabPanels>
+    </MpTabs>
+  </div>
+</template>
+
+```
+
+# Tag
+
+Used to display label that can optionally be selected and unselected or removed.
+
+### MpTag
+
+#### MpTag Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `-` | `-` | Component used for root node. |
+| `id` | `-` | `-` | Id of tag. |
+| `size` | `-` | `-` | Size of tag. |
+| `variant` | `-` | `-` | Variant of tag. |
+| `is-closable` | `-` | `-` | If true, close icon displayed on right. |
+
+#### MpTag Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+| `close` | `-` | `-` | Function for handling close event. |
+
+#### MpTag Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Tag slot. |
+
+### Usage: Variant
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpTag } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpTag id="tag-wtm">Gray</MpTag>
+    <MpTag id="tag-0tn" variant="red">Red</MpTag>
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Size
+
+```vue
+<script setup lang="ts">
+  import { MpFlex, MpTag } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex gap="2" align="flex-start">
+    <MpTag id="tag-wtm">Medium</MpTag>
+    <MpTag id="tag-0tn" size="sm">Small</MpTag>
+  </MpFlex>
+  <MpFlex gap="2" align="flex-start" mt="4">
+    <MpTag id="tag-w3s" variant="red">Medium</MpTag>
+    <MpTag id="tag-ri9" variant="red" size="sm">Small</MpTag>
+  </MpFlex>
+</template>
+
+```
+
+# Text
+
+Display text and links with theme styles.
+
+### MpText
+
+#### MpText Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `-` | `-` | Rendered tag of text. |
+| `size` | `-` | `-` | Font size of text. |
+| `weight` | `-` | `-` | Font weight of text. |
+| `line-clamp` | `-` | `-` | Truncates text at a specific number of lines. |
+| `color` | `-` | `-` | Color of text. |
+| `is-truncated` | `-` | `-` | If true, font will be truncated. |
+| `is-strike` | `-` | `-` | If true, font decoration is line-through. |
+| `is-text-link` | `-` | `-` | If true, font decoration is underline. |
+
+#### MpText Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render text. |
+
+### Usage: Size
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <MpText as="h1" size="h1">This is title with size h1</MpText>
+    <MpText as="h2" size="h2">This is title with size h2</MpText>
+    <MpText as="h3" size="h3">This is title with size h3</MpText>
+    <MpText
+      >This is paragraph with size label. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo omnis
+      perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
+      voluptates.</MpText
+    >
+    <MpText size="label-small"
+      >This is paragraph with size label-small. Lorem ipsum dolor sit amet, consectetur adipisicing
+      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
+      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
+      voluptates.</MpText
+    >
+    <MpText size="body"
+      >This is paragraph with size body. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo omnis
+      perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
+      voluptates.</MpText
+    >
+    <MpText size="body-small"
+      >This is paragraph with size body-small. Lorem ipsum dolor sit amet, consectetur adipisicing
+      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
+      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
+      voluptates.</MpText
+    >
+    <MpText size="overline"
+      >This is paragraph with size overline. Lorem ipsum dolor sit amet, consectetur adipisicing
+      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
+      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
+      voluptates.</MpText
+    >
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpText, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Truncate
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <MpText is-truncated
+      >This is paragraph with size label. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo omnis
+      perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
+      voluptates.</MpText
+    >
+    <MpText size="label-small" color="gray.600" line-clamp="2" is-truncated
+      >This is paragraph with size label-small. Lorem ipsum dolor sit amet, consectetur adipisicing
+      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
+      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
+      voluptates.</MpText
+    >
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpText, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Other
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <MpText weight="semiBold">This is paragraph with weight semi bold</MpText>
+    <MpText is-strike> This is paragraph with decoration line through </MpText>
+    <MpText
+      as="a"
+      href="https://mekari.com"
+      target="_blank"
+      :color="isNextTheme ? 'text.link' : 'blue.400'"
+      is-text-link
+    >
+      Text link
+    </MpText>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpText, MpFlex } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme } = usePixelTheme()
+</script>
+
+```
+
+# Textarea
+
+Enables users to add longer text to a form.
+
+### MpTextarea
+
+#### MpTextarea Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `model-value` | `-` | `-` | The controlled value of the Textarea. Should be binded-with with v-model. |
+| `placeholder` | `-` | `-` | Placeholder of textarea. |
+| `is-read-only` | `-` | `-` | If true, textarea be read only. |
+| `is-disabled` | `-` | `-` | If true, textarea will be disabled. |
+| `is-invalid` | `-` | `-` | If true, textarea is marked as invalid. |
+| `is-required` | `-` | `-` | If true, textarea will be required. |
+| `is-full-width` | `-` | `-` | If true, textarea will span full width of it parent. |
+| `aria-label` | `-` | `-` | Optional prop for accessibility. |
+| `aria-labelled-by` | `-` | `-` | Optional prop for accessibility. |
+
+#### MpTextarea Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `update:model-value` | `-` | `-` | Event handler called when the value changed |
+| `change` | `-` | `-` | Event handler called when the value changed |
+| `input` | `-` | `-` | Event handler called when the value changed |
+
+# Textlink
+
+Button component as Text link.
+
+### MpTextlink
+
+#### MpTextlink Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `-` | `-` | Rendered tag of textlink. |
+| `variant` | `-` | `-` | Variant of textlink. |
+| `is-disabled` | `-` | `-` | If true, textlink will be disable. |
+| `is-loading` | `-` | `-` | If true, textlink will be show loading state. |
+| `left-icon` | `-` | `-` | Show icon on the left |
+| `right-icon` | `-` | `-` | Show icon on the right |
+
+#### MpTextlink Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+
+#### MpTextlink Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Textlink slot. |
+
+### Usage: Variant
+
+```vue
+<template>
+  <MpFlex gap="4">
+    <MpTextlink variant="primary"> Primary link </MpTextlink>
+    <MpTextlink variant="secondary"> Secondary link </MpTextlink>
+    <MpTextlink variant="danger"> Danger link </MpTextlink>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpTextlink, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: With Icon
+
+```vue
+<template>
+  <MpFlex gap="4">
+    <MpTextlink variant="primary" left-icon="add-circular">Add item</MpTextlink>
+    <MpTextlink variant="danger" left-icon="minus-circular">Remove item</MpTextlink>
+    <MpTextlink variant="secondary" right-icon="chevrons-down">Dropdown</MpTextlink>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpTextlink, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Other
+
+```vue
+<template>
+  <MpFlex gap="4">
+    <MpTextlink is-loading>Loading</MpTextlink>
+    <MpTextlink is-disabled left-icon="download">Disable</MpTextlink>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpTextlink, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+# Toggle
+
+Alternate appearance for a toggle that simulates on/off instead of checked/unchecked.
+
+### MpToggle
+
+#### MpToggle Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of toggle. |
+| `name` | `-` | `-` | Name of toggle. |
+| `value` | `-` | `-` | Value of toggle. |
+| `is-checked` | `-` | `-` | If true, toggle will be checked. |
+| `is-disabled` | `-` | `-` | If true, toggle will be disable. |
+| `is-invalid` | `-` | `-` | If true, toggle will be invalid. |
+| `is-read-only` | `-` | `-` | If true, toggle will be read only. |
+
+#### MpToggle Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+| `change` | `-` | `-` | Function for handling change event. |
+| `update:is-checked` | `-` | `-` | Function for update modelValue prop. |
+
+#### MpToggle Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render toggle label. |
+| `description` | `-` | `-` | Slot to render toggle description. |
+
+### Usage: With Description
+
+```vue
+<template>
+  <MpToggle id="toggle-with-description" v-model:is-checked="isChecked" @click="handleClick">
+    Marketing promotion
+    <template #description>
+      Send promotional offers, product announcements, and more to increase awareness and engagement.
+    </template>
+  </MpToggle>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpToggle } from '@mekari/pixel3'
+
+  const isChecked = ref(false)
+
+  function handleClick(): void {
+    alert('Receive marketing promos')
+  }
+</script>
+
+```
+
+# Tour
+
+Tour component is used to display product tour information.
+
+### tour
+
+#### tour Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `isStartTour` | `-` | `-` | If true, tour will be start. |
+| `steps` | `-` | `-` | Steps of tour. |
+| `options` | `-` | `-` | Options of tour. |
+
+# Toast
+
+Used to show dynamic notifications and alerts to user.
+
+### toast
+
+#### toast Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of toast. |
+| `title` | `-` | `-` | Title of toast. |
+| `variant` | `-` | `-` | Variant of toast. |
+| `duration` | `-` | `-` | Duration of toast. |
+| `position` | `-` | `-` | Position of toast. |
+| `render` | `-` | `-` | Render VNode to custom content instead of title prop. |
+
+### Usage: Variant
+
+```vue
+<script setup lang="ts">
+  import { toast, MpFlex, MpButton } from '@mekari/pixel3'
+
+  function handleShowSuccess() {
+    toast.notify({
+      id: 'toast-wtm',
+      position: 'top-center',
+      variant: 'success',
+      title: 'Setting is imported.'
+    })
+  }
+
+  function handleShowError() {
+    toast.notify({
+      id: 'toast-0tn',
+      position: 'top-center',
+      variant: 'error',
+      title: 'Server error, please try again.'
+    })
+  }
+
+  function handleShowGreeting() {
+    toast.notify({
+      id: 'toast-h7d',
+      position: 'top-center',
+      variant: 'greeting',
+      title: '🌤️ Good morning, Fajar'
+    })
+  }
+
+  function handleClear() {
+    toast.closeAll()
+  }
+</script>
+
+<template>
+  <MpFlex gap="2">
+    <MpButton variant="primary" data-testid="show-toast-wtm" @click="handleShowSuccess"
+      >Show success</MpButton
+    >
+    <MpButton variant="danger" data-testid="show-toast-0tn" @click="handleShowError"
+      >Show error</MpButton
+    >
+    <MpButton variant="ghost" data-testid="show-toast-h7d" @click="handleShowGreeting"
+      >Show greeting</MpButton
+    >
+    <MpButton variant="secondary" @click="handleClear">Clear all</MpButton>
+  </MpFlex>
+</template>
 
 ```
 
@@ -10585,525 +10934,6 @@ const { isNextTheme } = usePixelTheme()
 
 ```
 
-# Toast
-
-Used to show dynamic notifications and alerts to user.
-
-### toast
-
-#### toast Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of toast. |
-| `title` | `-` | `-` | Title of toast. |
-| `variant` | `-` | `-` | Variant of toast. |
-| `duration` | `-` | `-` | Duration of toast. |
-| `position` | `-` | `-` | Position of toast. |
-| `render` | `-` | `-` | Render VNode to custom content instead of title prop. |
-
-### Usage: Variant
-
-```vue
-<script setup lang="ts">
-  import { toast, MpFlex, MpButton } from '@mekari/pixel3'
-
-  function handleShowSuccess() {
-    toast.notify({
-      id: 'toast-wtm',
-      position: 'top-center',
-      variant: 'success',
-      title: 'Setting is imported.'
-    })
-  }
-
-  function handleShowError() {
-    toast.notify({
-      id: 'toast-0tn',
-      position: 'top-center',
-      variant: 'error',
-      title: 'Server error, please try again.'
-    })
-  }
-
-  function handleShowGreeting() {
-    toast.notify({
-      id: 'toast-h7d',
-      position: 'top-center',
-      variant: 'greeting',
-      title: '🌤️ Good morning, Fajar'
-    })
-  }
-
-  function handleClear() {
-    toast.closeAll()
-  }
-</script>
-
-<template>
-  <MpFlex gap="2">
-    <MpButton variant="primary" data-testid="show-toast-wtm" @click="handleShowSuccess"
-      >Show success</MpButton
-    >
-    <MpButton variant="danger" data-testid="show-toast-0tn" @click="handleShowError"
-      >Show error</MpButton
-    >
-    <MpButton variant="ghost" data-testid="show-toast-h7d" @click="handleShowGreeting"
-      >Show greeting</MpButton
-    >
-    <MpButton variant="secondary" @click="handleClear">Clear all</MpButton>
-  </MpFlex>
-</template>
-
-```
-
-# Tooltip
-
-A tooltip is a brief, informative message that appears when a user interacts with an element.
-
-### MpTooltip
-
-#### MpTooltip Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `label` | `-` | `-` | Label of tooltip. |
-| `id` | `-` | `-` | Id of tooltip. |
-| `placement` | `-` | `-` | Placement of tooltip. |
-| `is-default-open` | `-` | `-` | If true, tooltip will be open by default. |
-| `is-manual` | `-` | `-` | If true, tooltip show/hide will be handle manual with `isOpen` prop. |
-| `is-open` | `-` | `-` | If true/false, tooltip will show/hide. Only active if `is-manual` prop is true. |
-| `show-delay` | `-` | `-` | Show delay of tooltip in millisecond. |
-| `hide-delay` | `-` | `-` | Hide delay of tooltip in millisecond. |
-| `use-portal` | `-` | `-` | If true, tooltip is rendered with portal. |
-| `is-keep-alive` | `-` | `-` | If true, tooltip will be hidden using CSS instead of destroying DOM. |
-
-#### MpTooltip Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `-` | `-` | Function for handling open event. |
-| `close` | `-` | `-` | Function for handling close event. |
-
-#### MpTooltip Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Tooltip slot |
-
-### Usage: With Icon
-
-```vue
-<script setup lang="ts">
-  import { MpTooltip, MpIcon, MpFlex } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex justify="space-around" gap="4">
-    <MpTooltip id="tooltip-icon-1" label="Upload" placement="top">
-      <MpIcon name="upload" />
-    </MpTooltip>
-
-    <MpTooltip id="tooltip-icon-2" label="Delete" placement="right">
-      <MpIcon name="delete" />
-    </MpTooltip>
-
-    <MpTooltip id="tooltip-icon-3" label="Edit" placement="bottom">
-      <MpIcon name="edit" />
-    </MpTooltip>
-
-    <MpTooltip id="tooltip-icon-4" label="Info" placement="left">
-      <MpIcon name="info" />
-    </MpTooltip>
-  </MpFlex>
-</template>
-
-```
-
-### Usage: With Any Label
-
-```vue
-<script setup lang="ts">
-  import { MpTooltip, MpButton, MpFlex } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex justify-content="space-around" gap="4">
-    <MpTooltip id="tooltip-any-label-1" label="Label">
-      <MpButton> Single line tooltip </MpButton>
-    </MpTooltip>
-
-    <MpTooltip
-      id="tooltip-any-label-2"
-      label="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-    >
-      <MpButton> Multi line tooltip </MpButton>
-    </MpTooltip>
-
-    <MpTooltip
-      id="tooltip-any-label-3"
-      label="this.is.a.very.very.very.very.very.very.very.long.email@gmail.com"
-    >
-      <MpButton> In line tooltip </MpButton>
-    </MpTooltip>
-  </MpFlex>
-</template>
-
-```
-
-### Usage: With Portal
-
-```vue
-<script setup lang="ts">
-  import { MpTooltip, MpIcon } from '@mekari/pixel3'
-</script>
-
-<template>
-  <div>
-    <MpTooltip
-      id="tooltip-portal"
-      use-portal
-      label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis est finibus ligula tincidunt, ac lacinia urna ultricies."
-    >
-      <MpIcon name="info" />
-    </MpTooltip>
-  </div>
-</template>
-
-```
-
-### Usage: With Customize
-
-```vue
-<script setup lang="ts">
-  import { MpTooltip, MpIcon } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpTooltip id="tooltip-customize">
-    <MpIcon name="info" />
-
-    <template #label>
-      <div>
-        <p>Talenta = Software payroll dan HRIS terautomasi.</p>
-        <p>Jurnal = Software akuntansi online terintegrasi.</p>
-        <p>KlikPajak = Software pengelolaan pajak online.</p>
-      </div>
-    </template>
-  </MpTooltip>
-</template>
-
-```
-
-### Usage: With Manual
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpTooltip, MpIcon, MpToggle, css } from '@mekari/pixel3'
-
-  const isOpen = ref(true)
-</script>
-
-<template>
-  <div>
-    <div
-      :class="css({ display: 'flex', alignItems: 'center', justifyContent: 'center', py: '60px' })"
-    >
-      <MpTooltip
-        id="tooltip-manual"
-        is-manual
-        :is-open="isOpen"
-        :is-default-open="isOpen"
-        label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis est finibus ligula tincidunt, ac lacinia urna ultricies."
-      >
-        <MpIcon name="info" />
-      </MpTooltip>
-    </div>
-
-    <MpToggle id="toggle-tooltip-manual" v-model:is-checked="isOpen"> Show Tooltip </MpToggle>
-  </div>
-</template>
-
-```
-
-# Text
-
-Display text and links with theme styles.
-
-### MpText
-
-#### MpText Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `-` | `-` | Rendered tag of text. |
-| `size` | `-` | `-` | Font size of text. |
-| `weight` | `-` | `-` | Font weight of text. |
-| `line-clamp` | `-` | `-` | Truncates text at a specific number of lines. |
-| `color` | `-` | `-` | Color of text. |
-| `is-truncated` | `-` | `-` | If true, font will be truncated. |
-| `is-strike` | `-` | `-` | If true, font decoration is line-through. |
-| `is-text-link` | `-` | `-` | If true, font decoration is underline. |
-
-#### MpText Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render text. |
-
-### Usage: Size
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <MpText as="h1" size="h1">This is title with size h1</MpText>
-    <MpText as="h2" size="h2">This is title with size h2</MpText>
-    <MpText as="h3" size="h3">This is title with size h3</MpText>
-    <MpText
-      >This is paragraph with size label. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo omnis
-      perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
-      voluptates.</MpText
-    >
-    <MpText size="label-small"
-      >This is paragraph with size label-small. Lorem ipsum dolor sit amet, consectetur adipisicing
-      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
-      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
-      voluptates.</MpText
-    >
-    <MpText size="body"
-      >This is paragraph with size body. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo omnis
-      perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
-      voluptates.</MpText
-    >
-    <MpText size="body-small"
-      >This is paragraph with size body-small. Lorem ipsum dolor sit amet, consectetur adipisicing
-      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
-      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
-      voluptates.</MpText
-    >
-    <MpText size="overline"
-      >This is paragraph with size overline. Lorem ipsum dolor sit amet, consectetur adipisicing
-      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
-      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
-      voluptates.</MpText
-    >
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpText, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Truncate
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <MpText is-truncated
-      >This is paragraph with size label. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo omnis
-      perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
-      voluptates.</MpText
-    >
-    <MpText size="label-small" color="gray.600" line-clamp="2" is-truncated
-      >This is paragraph with size label-small. Lorem ipsum dolor sit amet, consectetur adipisicing
-      elit. Atque consequatur dignissimos ducimus, ea eaque et excepturi iusto, laboriosam nemo
-      omnis perferendis praesentium provident quae reiciendis repellendus sunt unde voluptatem
-      voluptates.</MpText
-    >
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpText, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Other
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <MpText weight="semiBold">This is paragraph with weight semi bold</MpText>
-    <MpText is-strike> This is paragraph with decoration line through </MpText>
-    <MpText
-      as="a"
-      href="https://mekari.com"
-      target="_blank"
-      :color="isNextTheme ? 'text.link' : 'blue.400'"
-      is-text-link
-    >
-      Text link
-    </MpText>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpText, MpFlex } from '@mekari/pixel3'
-  import { usePixelTheme } from '@mekari/pixel3-utils'
-
-  const { isNextTheme } = usePixelTheme()
-</script>
-
-```
-
-# Toggle
-
-Alternate appearance for a toggle that simulates on/off instead of checked/unchecked.
-
-### MpToggle
-
-#### MpToggle Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of toggle. |
-| `name` | `-` | `-` | Name of toggle. |
-| `value` | `-` | `-` | Value of toggle. |
-| `is-checked` | `-` | `-` | If true, toggle will be checked. |
-| `is-disabled` | `-` | `-` | If true, toggle will be disable. |
-| `is-invalid` | `-` | `-` | If true, toggle will be invalid. |
-| `is-read-only` | `-` | `-` | If true, toggle will be read only. |
-
-#### MpToggle Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-| `change` | `-` | `-` | Function for handling change event. |
-| `update:is-checked` | `-` | `-` | Function for update modelValue prop. |
-
-#### MpToggle Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render toggle label. |
-| `description` | `-` | `-` | Slot to render toggle description. |
-
-### Usage: With Description
-
-```vue
-<template>
-  <MpToggle id="toggle-with-description" v-model:is-checked="isChecked" @click="handleClick">
-    Marketing promotion
-    <template #description>
-      Send promotional offers, product announcements, and more to increase awareness and engagement.
-    </template>
-  </MpToggle>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpToggle } from '@mekari/pixel3'
-
-  const isChecked = ref(false)
-
-  function handleClick(): void {
-    alert('Receive marketing promos')
-  }
-</script>
-
-```
-
-# Tour
-
-Tour component is used to display product tour information.
-
-### tour
-
-#### tour Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `isStartTour` | `-` | `-` | If true, tour will be start. |
-| `steps` | `-` | `-` | Steps of tour. |
-| `options` | `-` | `-` | Options of tour. |
-
-# Textlink
-
-Button component as Text link.
-
-### MpTextlink
-
-#### MpTextlink Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `-` | `-` | Rendered tag of textlink. |
-| `variant` | `-` | `-` | Variant of textlink. |
-| `is-disabled` | `-` | `-` | If true, textlink will be disable. |
-| `is-loading` | `-` | `-` | If true, textlink will be show loading state. |
-| `left-icon` | `-` | `-` | Show icon on the left |
-| `right-icon` | `-` | `-` | Show icon on the right |
-
-#### MpTextlink Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-
-#### MpTextlink Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Textlink slot. |
-
-### Usage: Variant
-
-```vue
-<template>
-  <MpFlex gap="4">
-    <MpTextlink variant="primary"> Primary link </MpTextlink>
-    <MpTextlink variant="secondary"> Secondary link </MpTextlink>
-    <MpTextlink variant="danger"> Danger link </MpTextlink>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpTextlink, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: With Icon
-
-```vue
-<template>
-  <MpFlex gap="4">
-    <MpTextlink variant="primary" left-icon="add-circular">Add item</MpTextlink>
-    <MpTextlink variant="danger" left-icon="minus-circular">Remove item</MpTextlink>
-    <MpTextlink variant="secondary" right-icon="chevrons-down">Dropdown</MpTextlink>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpTextlink, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Other
-
-```vue
-<template>
-  <MpFlex gap="4">
-    <MpTextlink is-loading>Loading</MpTextlink>
-    <MpTextlink is-disabled left-icon="download">Disable</MpTextlink>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpTextlink, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
 # Upload
 
 Upload files through a file input form element.
@@ -11311,6 +11141,176 @@ Upload files through a file input form element.
     URL.revokeObjectURL(url)
   }
 </script>
+
+```
+
+# Tooltip
+
+A tooltip is a brief, informative message that appears when a user interacts with an element.
+
+### MpTooltip
+
+#### MpTooltip Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `-` | `-` | Label of tooltip. |
+| `id` | `-` | `-` | Id of tooltip. |
+| `placement` | `-` | `-` | Placement of tooltip. |
+| `is-default-open` | `-` | `-` | If true, tooltip will be open by default. |
+| `is-manual` | `-` | `-` | If true, tooltip show/hide will be handle manual with `isOpen` prop. |
+| `is-open` | `-` | `-` | If true/false, tooltip will show/hide. Only active if `is-manual` prop is true. |
+| `show-delay` | `-` | `-` | Show delay of tooltip in millisecond. |
+| `hide-delay` | `-` | `-` | Hide delay of tooltip in millisecond. |
+| `use-portal` | `-` | `-` | If true, tooltip is rendered with portal. |
+| `is-keep-alive` | `-` | `-` | If true, tooltip will be hidden using CSS instead of destroying DOM. |
+
+#### MpTooltip Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `-` | `-` | Function for handling open event. |
+| `close` | `-` | `-` | Function for handling close event. |
+
+#### MpTooltip Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Tooltip slot |
+
+### Usage: With Icon
+
+```vue
+<script setup lang="ts">
+  import { MpTooltip, MpIcon, MpFlex } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex justify="space-around" gap="4">
+    <MpTooltip id="tooltip-icon-1" label="Upload" placement="top">
+      <MpIcon name="upload" />
+    </MpTooltip>
+
+    <MpTooltip id="tooltip-icon-2" label="Delete" placement="right">
+      <MpIcon name="delete" />
+    </MpTooltip>
+
+    <MpTooltip id="tooltip-icon-3" label="Edit" placement="bottom">
+      <MpIcon name="edit" />
+    </MpTooltip>
+
+    <MpTooltip id="tooltip-icon-4" label="Info" placement="left">
+      <MpIcon name="info" />
+    </MpTooltip>
+  </MpFlex>
+</template>
+
+```
+
+### Usage: With Any Label
+
+```vue
+<script setup lang="ts">
+  import { MpTooltip, MpButton, MpFlex } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex justify-content="space-around" gap="4">
+    <MpTooltip id="tooltip-any-label-1" label="Label">
+      <MpButton> Single line tooltip </MpButton>
+    </MpTooltip>
+
+    <MpTooltip
+      id="tooltip-any-label-2"
+      label="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    >
+      <MpButton> Multi line tooltip </MpButton>
+    </MpTooltip>
+
+    <MpTooltip
+      id="tooltip-any-label-3"
+      label="this.is.a.very.very.very.very.very.very.very.long.email@gmail.com"
+    >
+      <MpButton> In line tooltip </MpButton>
+    </MpTooltip>
+  </MpFlex>
+</template>
+
+```
+
+### Usage: With Portal
+
+```vue
+<script setup lang="ts">
+  import { MpTooltip, MpIcon } from '@mekari/pixel3'
+</script>
+
+<template>
+  <div>
+    <MpTooltip
+      id="tooltip-portal"
+      use-portal
+      label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis est finibus ligula tincidunt, ac lacinia urna ultricies."
+    >
+      <MpIcon name="info" />
+    </MpTooltip>
+  </div>
+</template>
+
+```
+
+### Usage: With Customize
+
+```vue
+<script setup lang="ts">
+  import { MpTooltip, MpIcon } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpTooltip id="tooltip-customize">
+    <MpIcon name="info" />
+
+    <template #label>
+      <div>
+        <p>Talenta = Software payroll dan HRIS terautomasi.</p>
+        <p>Jurnal = Software akuntansi online terintegrasi.</p>
+        <p>KlikPajak = Software pengelolaan pajak online.</p>
+      </div>
+    </template>
+  </MpTooltip>
+</template>
+
+```
+
+### Usage: With Manual
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpTooltip, MpIcon, MpToggle, css } from '@mekari/pixel3'
+
+  const isOpen = ref(true)
+</script>
+
+<template>
+  <div>
+    <div
+      :class="css({ display: 'flex', alignItems: 'center', justifyContent: 'center', py: '60px' })"
+    >
+      <MpTooltip
+        id="tooltip-manual"
+        is-manual
+        :is-open="isOpen"
+        :is-default-open="isOpen"
+        label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis est finibus ligula tincidunt, ac lacinia urna ultricies."
+      >
+        <MpIcon name="info" />
+      </MpTooltip>
+    </div>
+
+    <MpToggle id="toggle-tooltip-manual" v-model:is-checked="isOpen"> Show Tooltip </MpToggle>
+  </div>
+</template>
 
 ```
 

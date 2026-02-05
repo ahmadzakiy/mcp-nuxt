@@ -254,7 +254,6 @@ A tutorial to add Pixel directives.
 You can register the tooltip directive automatically by setting `tooltipDirective: true` in the plugin options (defaults to `false`). For better type safety, we recommend importing the `PixelPluginConfig` type from `@mekari/pixel3` when configuring the plugin options.
 
 ```js{3,7}
-// main.{ts|js}
 import { createApp } from 'vue'
 import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
 import App from './App.vue'
@@ -343,36 +342,32 @@ The `v-mask` directive is used to format input values automatically. You can pro
 
 
 <template>
-  <div :class="css({
-    display: 'grid',
-    gap: '16px',
-    gridTemplateColumns: '4'
-  })">
+  <div
+    :class="
+      css({
+        display: 'grid',
+        gap: '16px',
+        gridTemplateColumns: '4'
+      })
+    "
+  >
     <MpFormControl>
-      <MpFormLabel>
-        Number (#####)
-      </MpFormLabel>
+      <MpFormLabel> Number (#####) </MpFormLabel>
       <MpInput v-mask="'#####'" placeholder="12345" />
     </MpFormControl>
 
     <MpFormControl>
-      <MpFormLabel>
-        Letter uppercase and lowercase (SSSSS)
-      </MpFormLabel>
+      <MpFormLabel> Letter uppercase and lowercase (SSSSS) </MpFormLabel>
       <MpInput v-mask="'SSSSS'" placeholder="Hello" />
     </MpFormControl>
 
     <MpFormControl>
-      <MpFormLabel>
-        Letter uppercase only (AAAAA)
-      </MpFormLabel>
+      <MpFormLabel> Letter uppercase only (AAAAA) </MpFormLabel>
       <MpInput v-mask="'AAAAA'" placeholder="HELLO" />
     </MpFormControl>
 
     <MpFormControl>
-      <MpFormLabel>
-        Letter lowercase only (aaaaa)
-      </MpFormLabel>
+      <MpFormLabel> Letter lowercase only (aaaaa) </MpFormLabel>
       <MpInput v-mask="'aaaaa'" placeholder="hello" />
     </MpFormControl>
   </div>
@@ -975,7 +970,9 @@ For technical support or questions about Pixel3 itself, refer to the [Getting St
 
 Starting in v1, Mekari Pixel introduced Design Token v2.4 with built-in light/dark mode capabilities and new `usePixelTheme` composable function for seamless theme management.
 
-We strongly recommend using the `usePixelTheme` composable for managing themes. It handles all the complexity for you with:
+## Features
+
+We strongly recommend using the `usePixelTheme` for managing themes. It handles all the complexity for you with:
 
 - **Automatic Theme Handling** – No need to manually set HTML attributes
 - **Full Compatibility** – Switch seamlessly between Design Token v2.1 and v2.4
@@ -998,7 +995,7 @@ Pixel offers two design token versions. Choose based on your project needs:
 | **Theming System**         | Not supported     | Default & Enterprise           |
 | **Default Recommendation** | Existing projects | New / Migration project        |
 
-**Migration Tip:** You can gradually migrate to Token v2.4 per page (see [Gradually Apply Token v2.4](#gradually-apply-token-2-4) section).
+**Migration Tip:** You can gradually migrate to Token v2.4 per page (see [Gradually Apply Token v2.4](#gradually-apply-token-v2-4) section).
 
 ## Managing Pixel Theme
 
@@ -1163,7 +1160,7 @@ Always keep `isNextTheme` in sync when handling themes manually.
 - Set `isNextTheme = true` when `data-panda-theme="next"` is applied
 - Set `isNextTheme = false` when `data-panda-theme="next"` is removed
 
-Mismatched states may result in incorrect component's styling.
+Mismatched states may result in incorrect Pixel component's styling.
 :::
 
 ```ts{16,21}
@@ -1289,29 +1286,26 @@ Pixel Vue 3 also accepts arrays as value.
 
 Using auto import in Vue 3 with Vite and Nuxt 3 streamlines development by reducing boilerplate code, boosting productivity with automatic component imports, and also supporting TypeScript types.
 
-<img src="https://cdn.mekari.design/pixel3-docs/auto-import.gif" style="border-radius: 12px;" />
+<ComponentBadge component="pixel3-auto-import" />
 
 ## Vue 3 + Vite
 
+<img src="https://cdn.mekari.design/pixel3-docs/auto-import.gif" style="border-radius: 12px;" />
+
 To enable auto import in a Vue 3 project using Vite, you need to configure your `vite.config.ts`.
 
-```ts{5,11}
-// vite.config.ts
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import PixelComponent from '@mekari/pixel3-auto-import';
+```ts{4,7}
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import PixelComponent from '@mekari/pixel3-auto-import'
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    PixelComponent(),
-  ],
+  plugins: [vue(), vueJsx(), PixelComponent()]
 })
 ```
 
-::: details Click me to view example
+::: details View example
 
 <iframe
   id="inlineFrameExample"
@@ -1322,20 +1316,23 @@ export default defineConfig({
 </iframe>
 :::
 
-## Nuxt 3
+## Nuxt
 
-To enable auto import in a Nuxt 3 project, you need to configure your `nuxt.config.ts`.
+To enable auto import component in a Nuxt 3 or Nuxt 4 project, you need to configure your `nuxt.config.ts`,
 
-```ts{4}
-// nuxt.config.ts
+::: warning
+The Nuxt module provides auto import and additional features. For more details, see the [documentation](/docs/nuxt-module).
+:::
+
+```ts{3}
 export default defineNuxtConfig({
   modules: [
-    '@mekari-pixel3/nuxt'
+    '@mekari/pixel3-nuxt'
   ],
 })
 ```
 
-::: details Click me to view example
+::: details View example
 
 <iframe
   id="inlineFrameExample"
@@ -1368,7 +1365,6 @@ npm install @mekari/pixel3 @mekari/pixel3-postcss
 Add `PixelPlugin` plugin to your Vue project.
 
 ```js{3,7,8,9}
-// main.{ts|js}
 import { createApp } from 'vue'
 import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
 import App from './App.vue'
@@ -1451,7 +1447,6 @@ npm install @mekari/pixel3 @mekari/pixel3-postcss
 Create plugin file `plugins/pixel.ts` or `plugins/pixel.client.ts` and add the following code.
 
 ```ts{2,5,6,7}
-// plugins/pixel.ts or plugins/pixel.client.ts
 import { PixelPlugin, type PixelPluginConfig } from '@mekari/pixel3'
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -1508,6 +1503,150 @@ Use components from `@mekari/pixel3` package in your code and Pixel will extract
 </template>
 
 
+```
+
+# Nuxt Module
+
+Using The Pixel Nuxt module is an official Nuxt integration for the Pixel Design System.
+It provides seamless integration of components and styles into your Nuxt application with minimal configuration.
+
+<ComponentBadge component="pixel3-nuxt" />
+
+## Features
+
+- **Auto-import Components** - Automatically imports all Pixel components (e.g., `MpButton`, `MpInput`)
+- **CSS Integration** - Automatically includes Pixel CSS and component-specific styles
+- **PostCSS Support** - Built-in PostCSS plugin configuration for custom styling needs
+- **Pixel Plugin** - Install client-side plugin for additional functionality (e.g `tooltip` directive)
+- **TypeScript Support** - Full TypeScript types auto-imported for better DX
+- **Zero Configuration** - Works out of the box with sensible defaults
+- **Nuxt 3 & 4 Compatible** - Supports Nuxt 3.0.0 and above
+
+## How to Use
+
+### Installation
+
+Install the Pixel Nuxt module along with the core Pixel package:
+
+```bash [pnpm]
+pnpm add @mekari/pixel3 @mekari/pixel3-postcss @mekari/pixel3-nuxt
+```
+
+### Usage
+
+#### Basic Setup
+
+Add the module to your `nuxt.config.ts`:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@mekari/pixel3-nuxt']
+})
+```
+
+That's it! You can now use Pixel components directly in your templates without importing them:
+
+```vue
+<template>
+  <div>
+    <MpButton variant="primary">Click me</MpButton>
+    <MpInput placeholder="Enter text" />
+  </div>
+</template>
+```
+
+#### Advanced Configuration
+
+Customize the module behavior using the `mekariPixel` configuration key:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@mekari/pixel3-nuxt'],
+
+  mekariPixel: {
+    // Enable/disable auto-import for components (default: true)
+    component: true,
+
+    // Enable/disable Pixel CSS (default: true)
+    css: true,
+
+    // Enable/disable Pixel plugin (default: true)
+    plugin: true,
+
+    // PostCSS configuration (default: {})
+    postcss: {
+      // Add your PostCSS plugin options here
+    }
+  }
+})
+```
+
+#### Configuration Options
+
+| Option      | Type      | Default | Description                             |
+| ----------- | --------- | ------- | --------------------------------------- |
+| `component` | `boolean` | `true`  | Enable auto-import for Pixel components |
+| `css`       | `boolean` | `true`  | Include Pixel CSS stylesheets           |
+| `plugin`    | `boolean` | `true`  | Enable Pixel client-side plugin         |
+| `postcss`   | `object`  | `{}`    | PostCSS plugin configuration            |
+
+#### Disable Auto-Import
+
+If you prefer manual imports, disable auto-import:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@mekari/pixel3-nuxt'],
+
+  mekariPixel: {
+    component: false
+  }
+})
+```
+
+Then import components manually:
+
+```vue
+<template>
+  <MpButton>Click me</MpButton>
+</template>
+
+<script lang="ts" setup>
+  import { MpButton } from '@mekari/pixel3'
+</script>
+```
+
+#### CSS-Only Usage
+
+To use only Pixel styles without components:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@mekari/pixel3-nuxt'],
+
+  mekariPixel: {
+    component: false,
+    css: true
+  }
+})
+```
+
+#### Custom PostCSS Configuration
+
+Configure PostCSS plugins for Pixel3:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@mekari/pixel3-nuxt'],
+
+  mekariPixel: {
+    postcss: {
+      include: [
+        './app/**/*.{js,jsx,ts,tsx,vue}' // Nuxt 4 new app directory
+      ]
+    }
+  }
+})
 ```
 
 # Utility Props

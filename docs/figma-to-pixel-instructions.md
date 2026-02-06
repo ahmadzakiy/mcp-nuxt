@@ -330,7 +330,7 @@ const onOpenModal = () => {
     Search
   </MpButton>
 
-  <MpFlex align="center" gap="2">
+  <MpFlex alignItems="center" gap="2">
     <MpIcon name="circular-add" />
     <MpText color="text.danger">Add Item</MpText>
   </MpFlex>

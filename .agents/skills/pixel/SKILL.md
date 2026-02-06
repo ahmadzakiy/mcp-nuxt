@@ -1,8 +1,8 @@
 ---
 name: pixel
-description: Implement designs using Mekari Pixel 3 design system with Vue 3 and Nuxt. Use when translating Figma designs to production code, working with Pixel components, or implementing design tokens.
+description: Implement designs (Figma or general) using Mekari Pixel 3 design system to Vue 3 and Nuxt web applications.
 metadata:
-  author: Mekari Design System Team
+  author: UXE Team
   version: "1.0.8"
   source: https://docs.mekari.design/
 ---
@@ -35,6 +35,28 @@ You are an expert design engineer specializing in implementing complex designs w
 
 ## Step 1: Analyze Design
 
+### For Figma Designs (Recommended)
+
+**Use Figma MCP tools to extract design details:**
+
+1. **Extract node ID** from Figma URL
+   - Format: `https://figma.com/design/file-key?node-id=1-2` → Node ID: `1:2`
+   - Replace hyphens with colons: `1-2` becomes `1:2`
+
+2. **Use Figma MCP tools:**
+   - `get_design_context(nodeId: "1:2")` - Get structured design data
+   - `get_screenshot(nodeId: "1:2")` - Get visual reference
+
+3. **Analyze design details:**
+   - Visual hierarchy and layout structure
+   - Colors, typography, spacing values
+   - Interactive elements and their states
+   - Responsive behavior
+
+> For complete Figma-to-code workflow, use the **figma-implement-design** skill.
+
+### For General Designs (Manual Analysis)
+
 1. Analyze the design requested (ex: create a login form)
 2. Analyze visual hierarchy, layout, colors, typography, spacing
 3. Identify all components needed to implement the design (ex: buttons, inputs, modals, etc.)
@@ -45,21 +67,25 @@ You are an expert design engineer specializing in implementing complex designs w
 2. Use #get-component MCP tool for each identified component (ex: buttons, inputs, modals, etc.)
 3. Use #get-docs MCP tool for design tokens and additional context (ex: colors, spacing, typography, etc.)
 
-## Step 3: Map Figma to Pixel 3 Components (IF HAS FIGMA DESIGN)
+## Step 3: Map Design to Pixel 3 Components
 
-| Figma Element  | Pixel Component             |
-| -------------- | --------------------------- |
-| Text/Heading   | `<MpText>`                  |
-| Icon           | `<MpIcon>`                  |
-| Button         | `<MpButton>`                |
-| Text Link      | `<MpTextlink>`              |
-| Input Field    | `<MpInput>`                 |
-| Dropdown       | `<MpSelect>`                |
-| Checkbox/Radio | `<MpCheckbox>`, `<MpRadio>` |
-| Modal/Dialog   | `<MpModal>`                 |
-| Drawer         | `<MpDrawer>`                |
-| Flex Layout    | `<MpFlex>`                  |
-| Box Layout     | `<Pixel.div>`               |
+Map design elements to appropriate Pixel components:
+
+| Design Element | Pixel Component             | Notes                                           |
+| -------------- | --------------------------- | ----------------------------------------------- |
+| Text/Heading   | `<MpText>`                  | Use size prop: h1, h2, h3, body, caption        |
+| Icon           | `<MpIcon>`                  | Use name prop for icon identifier               |
+| Button         | `<MpButton>`                | Variants: primary, secondary, tertiary, outline |
+| Text Link      | `<MpTextlink>`              | For inline and standalone links                 |
+| Input Field    | `<MpInput>`                 | Supports text, email, password types            |
+| Dropdown       | `<MpSelect>`                | For select/dropdown menus                       |
+| Checkbox/Radio | `<MpCheckbox>`, `<MpRadio>` | Boolean and option selection                    |
+| Modal/Dialog   | `<MpModal>`                 | Overlay dialogs with header/content             |
+| Drawer         | `<MpDrawer>`                | Side panels and navigation                      |
+| Flex Layout    | `<MpFlex>`                  | Flexible layouts with gap/alignItems/justifyContent |
+| Box Layout     | `<Pixel.div>`               | Custom containers with design tokens            |
+
+> **For Figma designs:** Use the **figma-implement-design** skill for detailed element identification and design extraction.
 
 ## Step 4: Apply Styling
 
@@ -134,6 +160,8 @@ For complete examples, see [components.md](references/components.md)
 </MpFlex>
 ```
 
+**Note:** Always use full property names: `alignItems`, `justifyContent`, `flexGrow`, etc. Never use shorthand props like `align`, `justify`, `grow`.
+
 **Modal Pattern:**
 
 ```vue
@@ -160,14 +188,15 @@ Provide complete implementation with:
 
 Before completing:
 
-- [ ] All UI elements from Figma implemented
+- [ ] Design analyzed (Figma MCP tools used if applicable)
+- [ ] All UI elements identified and mapped to Pixel components
 - [ ] Template block placed **before** script block
 - [ ] Using Pixel components exclusively (no raw HTML)
 - [ ] All Pixel components explicitly imported
-- [ ] Styling uses utility props (no `<style>` blocks)
+- [ ] Styling uses CSS Props/Function hierarchy correctly
 - [ ] Design tokens applied (no hardcoded values)
-- [ ] Spacing matches Figma exactly
-- [ ] Typography sizes match Figma
+- [ ] Spacing matches design (mapped to space tokens)
+- [ ] Typography matches design (mapped to size/weight)
 - [ ] Colors use Design Token 2.4 semantic tokens
 - [ ] Mock event handlers added for all component events
 - [ ] Mock data arrays added for data-driven components
@@ -175,7 +204,25 @@ Before completing:
 - [ ] Code follows TypeScript best practices
 - [ ] Script setup follows proper code order
 - [ ] Design Token 2.4 enabled with `setNextTheme(true)`
+- [ ] Visual verification against design (Figma screenshot if available)
 
 ---
 
-Start by analyzing the Figma design using MCP tools, then gather Pixel 3 component documentation.
+## MCP Tools Reference
+
+### Pixel MCP Tools
+
+- `get-component` - Get Pixel component documentation and API
+- `get-docs` - Get Pixel setup, tokens, and general docs
+
+### Figma MCP Tools (if working with Figma designs)
+
+- `get_design_context` - Extract structured design data from Figma
+- `get_screenshot` - Get visual reference from Figma node
+- `get_metadata` - Get high-level node map for large designs
+
+See [figma-integration.md](references/figma-integration.md) for complete Figma workflow.
+
+---
+
+Start by analyzing the design (use Figma MCP tools if available), then gather Pixel 3 component documentation.

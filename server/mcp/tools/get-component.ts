@@ -32,16 +32,17 @@ export default defineMcpTool({
 
       // Find the section that matches the component name
       let componentSection = null;
+      const normalizedSearchName = normalizedName.toLowerCase();
+
       for (const section of sections) {
         const firstLine = section.split("\n")[0];
         if (firstLine.startsWith("# ")) {
           const sectionName = firstLine.replace("# ", "").trim();
-          // Check if the section name matches (case-insensitive)
-          // Match both the base name (e.g., "Button") and the original input
-          if (
-            sectionName.toLowerCase() === normalizedName.toLowerCase() ||
-            sectionName.toLowerCase() === componentName.toLowerCase()
-          ) {
+          const normalizedSectionName =
+            normalizeComponentName(sectionName).toLowerCase();
+
+          // Case-insensitive comparison of normalized names
+          if (normalizedSectionName === normalizedSearchName) {
             componentSection = section;
             break;
           }

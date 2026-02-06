@@ -8,6 +8,10 @@ Use component props like `padding="4"`, `backgroundColor="background.surface"`, 
 
 **Use for:** MpFlex, Pixel.div, and other layout components that support CSS Props
 
+**Important:** Always use full property names, not shorthand:
+- ✅ `alignItems`, `justifyContent`, `flexGrow`
+- ❌ `align`, `justify`, `grow`
+
 ```vue
 <MpFlex gap="3" padding="4" backgroundColor="background.surface">
   Hello World
@@ -49,10 +53,15 @@ setNextTheme(true); // Enable Design Token 2.4
 - ❌ Define custom CSS classes in `<style>` blocks
 - ❌ Use inline `style` attributes (e.g., `style="color: blue;"`)
 - ❌ Use hard-coded values (e.g., `#FFF`, `16px`, `blue`)
-- ❌ Use `borderTop` (use `borderTopWidth` with `borderTopStyle` and `borderColor` instead)
-- ❌ Use `grow` (use `flexGrow` instead)
-- ❌ Use `align` (use `alignItems` or `alignSelf` instead)
-- ❌ Use `justify` (use `justifyItems` or `justifyContent` instead)
+- ❌ Use shorthand props: `align`, `justify`, `grow`, `shrink`, `basis`, `wrap`
+
+**Always use full property names:**
+- ✅ Use `alignItems` or `alignSelf` (never `align`)
+- ✅ Use `justifyContent` or `justifyItems` (never `justify`)
+- ✅ Use `flexGrow` (never `grow`)
+- ✅ Use `flexShrink` (never `shrink`)
+- ✅ Use `flexBasis` (never `basis`)
+- ✅ Use `flexWrap` (never `wrap`)
 
 ## Implementation Rules
 

@@ -284,7 +284,7 @@
               A simple test tool to verify MCP server connection.
             </MpText>
             <MpText size="body-small" color="text.warning">
-              Example: "Hello Pixel"
+              Example: "Hello Pixel, I'm Zakiy"
             </MpText>
           </MpFlex>
         </MpFlex>

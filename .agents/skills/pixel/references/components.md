@@ -15,7 +15,7 @@ Map Figma elements to Pixel components for implementation:
 | Checkbox/Radio | `<MpCheckbox>`, `<MpRadio>` | Boolean and option selection         |
 | Modal/Dialog   | `<MpModal>`                 | Overlay dialogs and confirmations    |
 | Drawer         | `<MpDrawer>`                | Side panels and navigation           |
-| Flex Layout    | `<MpFlex>`                  | Flexible layouts with gap/align      |
+| Flex Layout    | `<MpFlex>`                  | Flexible layouts with gap/alignItems |
 | Box Layout     | `<Pixel.div>`               | Custom containers with tokens        |
 
 ## Common Usage Patterns
@@ -112,7 +112,7 @@ const onOpenModal = () => {
     Search
   </MpButton>
 
-  <MpFlex align="center" gap="2">
+  <MpFlex alignItems="center" gap="2">
     <MpIcon name="circular-add" />
     <MpText color="text.danger">Add Item</MpText>
   </MpFlex>

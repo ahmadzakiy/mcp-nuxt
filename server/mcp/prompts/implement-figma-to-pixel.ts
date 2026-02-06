@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod";
 
 const PROMPT_TEMPLATE = `You are an expert frontend engineer specializing in implementing Figma designs with the Mekari Pixel 3 design system.
 
@@ -226,58 +226,64 @@ Before completing:
 
 ---
 
-Start by analyzing the Figma design using MCP tools, then gather Pixel 3 component documentation.`
+Start by analyzing the Figma design using MCP tools, then gather Pixel 3 component documentation.`;
 
 export default defineMcpPrompt({
-  name: 'implement-figma-to-pixel',
-  title: 'Implement Figma Design with Pixel 3',
-  description: 'Convert Figma design selection to Vue component code using Pixel 3 design system',
+  name: "implement-figma-to-pixel",
+  title: "Implement Figma Design with Pixel 3",
+  description:
+    "Convert Figma design selection to Vue component code using Pixel 3 design system",
 
   inputSchema: {
     figmaLink: z
       .string()
       .describe(
-        'Figma design link or node URL (e.g., https://figma.com/design/file-key/file-name?node-id=1-2)'
+        "Figma design link or node URL (e.g., https://figma.com/design/file-key/file-name?node-id=1-2)"
       ),
     componentName: z
       .string()
       .optional()
       .describe(
-        '(Optional) Target Pixel 3 component name to implement (e.g., MpButton, MpCard, MpInput). If not provided, will be determined from Figma design'
+        "(Optional) Target Pixel 3 component name to implement (e.g., MpButton, MpCard, MpInput). If not provided, will be determined from Figma design"
       )
   },
 
   handler: async ({ figmaLink, componentName }) => {
     // Replace placeholders in template
-    const promptText = PROMPT_TEMPLATE.replace('{{figmaLink}}', figmaLink)
-      .replace('{{componentName}}', componentName || 'To be determined from Figma design')
+    const promptText = PROMPT_TEMPLATE.replace("{{figmaLink}}", figmaLink)
       .replace(
-        '{{componentValidation}}',
-        componentName
-          ? 'Validate design matches specified component type'
-          : 'Identify appropriate Pixel 3 components (buttons, inputs, modals, etc.)'
+        "{{componentName}}",
+        componentName || "To be determined from Figma design"
       )
       .replace(
-        '{{componentDocStep1}}',
+        "{{componentValidation}}",
+        componentName
+          ? "Validate design matches specified component type"
+          : "Identify appropriate Pixel 3 components (buttons, inputs, modals, etc.)"
+      )
+      .replace(
+        "{{componentDocStep1}}",
         componentName
           ? `Use #get-component MCP tool for \`${componentName}\``
-          : 'Identify needed Pixel 3 components from design'
+          : "Identify needed Pixel 3 components from design"
       )
       .replace(
-        '{{componentDocStep2}}',
-        componentName ? '' : 'Use #get-component MCP tool for each identified component'
-      )
+        "{{componentDocStep2}}",
+        componentName
+          ? ""
+          : "Use #get-component MCP tool for each identified component"
+      );
 
     return {
       messages: [
         {
-          role: 'user',
+          role: "user",
           content: {
-            type: 'text',
+            type: "text",
             text: promptText
           }
         }
       ]
-    }
+    };
   }
-})
+});

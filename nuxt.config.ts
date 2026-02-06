@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: true,
+  ssr: false,
   compatibilityDate: "2025-07-15",
   devtools: {
     enabled: process.env.NODE_ENV === "development"
@@ -26,6 +26,7 @@ export default defineNuxtConfig({
         include: [
           "./app/**/*.{js,jsx,ts,tsx,vue}" // Nuxt 4 app directory
         ]
+        // replaceConfig: ["include"]
       }
     }
   },

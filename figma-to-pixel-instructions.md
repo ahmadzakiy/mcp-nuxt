@@ -11,44 +11,48 @@
 ### 1. Analyze Figma Design
 
 **If using MCP Tools:**
+
 ```
 - Call Figma MCP tools `get_design_context` and `get_screenshot` to get design details
 - Call Pixel MCP tools `get_docs` and `get_component` to get component suggestions
 ```
 
 **Manual approach:**
+
 - Inspect Figma layers and properties
 - Note colors, spacing, typography, and layout structure
 - Identify interactive elements (text, icon, button, input, modal)
 
 ### 2. Map to Pixel Components
 
-| Figma Element | Pixel Component |
-|--------------|-----------------|
-| Text/Heading | `<MpText>` |
-| Icon | `<MpIcon>` |
-| Button | `<MpButton>` |
-| Text Link | `<MpTextlink>` |
-| Input Field | `<MpInput>` |
-| Dropdown | `<MpSelect>` |
+| Figma Element  | Pixel Component             |
+| -------------- | --------------------------- |
+| Text/Heading   | `<MpText>`                  |
+| Icon           | `<MpIcon>`                  |
+| Button         | `<MpButton>`                |
+| Text Link      | `<MpTextlink>`              |
+| Input Field    | `<MpInput>`                 |
+| Dropdown       | `<MpSelect>`                |
 | Checkbox/Radio | `<MpCheckbox>`, `<MpRadio>` |
-| Modal/Dialog | `<MpModal>` |
-| Drawer | `<MpDrawer>` |
-| Flex Layout | `<MpFlex>` |
-| Box Layout | `<Pixel.div>` |
-| Grid Layout | `<Pixel.div>` |
+| Modal/Dialog   | `<MpModal>`                 |
+| Drawer         | `<MpDrawer>`                |
+| Flex Layout    | `<MpFlex>`                  |
+| Box Layout     | `<Pixel.div>`               |
+| Grid Layout    | `<Pixel.div>`               |
 
 ### 3. Apply Design Tokens
 
 **Token Priority Order:**
+
 1. **Design Token 2.4** (newest, preferred)
 2. **Design Token 2.1** (fallback)
 3. **Exact hex from Figma** (last resort)
 
 **Enable Token 2.4:**
+
 ```vue
 <script setup lang="ts">
-import { usePixelTheme } from '@mekari/pixel3';
+import { usePixelTheme } from "@mekari/pixel3";
 
 const { setNextTheme } = usePixelTheme();
 setNextTheme(true); // Enable Design Token 2.4
@@ -60,6 +64,7 @@ setNextTheme(true); // Enable Design Token 2.4
 ## Design Token Reference
 
 ### Colors Usage
+
 ```vue
 <!-- Text -->
 <MpText>Default text color</MpText>
@@ -72,6 +77,7 @@ setNextTheme(true); // Enable Design Token 2.4
 ```
 
 ### Spacing
+
 Use semantic spacing props: `space.2`, `space.4`, `space.6`, `space.8`, `space.12`, `space.16`
 
 ```vue
@@ -81,6 +87,7 @@ Use semantic spacing props: `space.2`, `space.4`, `space.6`, `space.8`, `space.1
 ```
 
 ### Typography
+
 ```vue
 <MpText size="h1">Heading 1</MpText>
 <MpText size="h2">Heading 2</MpText>
@@ -98,7 +105,7 @@ Apply styles in this **exact order of preference**:
    - Use props like `padding="4"`, `backgroundColor="background.surface"`, `gap="3"`
    - Example:
      ```vue
-     <MpFlex gap="3" padding="4" backgroundColor="background.surface" >
+     <MpFlex gap="3" padding="4" backgroundColor="background.surface">
        Hello World
      </MpFlex>
      ```
@@ -107,7 +114,7 @@ Apply styles in this **exact order of preference**:
    - Use props like `marginTop="4"
    - Example:
      ```vue
-     <MpButton :class="css({ marginTop: '4' })" >
+     <MpButton :class="css({ marginTop: '4' })">
        Submit
      </MpButton>
      ```
@@ -125,6 +132,7 @@ Apply styles in this **exact order of preference**:
 ## Implementation Rules
 
 ### ✅ DO
+
 - Prioritize Pixel components over HTML elements
 - **Explicitly import** all Pixel components in `<script setup>`
 - Use CSS props as primary styling method (for component that support CSS Props)
@@ -136,6 +144,7 @@ Apply styles in this **exact order of preference**:
 - Enable accessibility with `aria-*` attributes
 
 ### ❌ DON'T
+
 - Use raw HTML elements (`<button>`, `<div>`, `<input>`)
 - Use `<style>` blocks or inline `style` attributes
 - Hardcode colors (`#FF0000`, `rgb(255,0,0)`)
@@ -171,7 +180,9 @@ Apply styles in this **exact order of preference**:
 ```
 
 ### Script Setup Order
+
 Code within `<script setup lang="ts">` **must** follow this order:
+
 1. Imports
 2. Props (`defineProps`)
 3. Emits (`defineEmits`)
@@ -182,11 +193,12 @@ Code within `<script setup lang="ts">` **must** follow this order:
 8. Functions (methods)
 
 **Example:**
+
 ```vue
 <script setup lang="ts">
 // 1. Imports
-import { ref, computed, onMounted } from 'vue';
-import { MpButton, MpInput } from '@mekari/pixel3';
+import { ref, computed, onMounted } from "vue";
+import { MpButton, MpInput } from "@mekari/pixel3";
 
 // 2. Props
 const props = defineProps<{
@@ -199,24 +211,24 @@ const emit = defineEmits<{
 }>();
 
 // 4. Reactive state
-const inputValue = ref('');
+const inputValue = ref("");
 
 // 5. Computed properties
 const isValid = computed(() => inputValue.value.length > 0);
 
 // 6. Watchers
 watch(inputValue, (newVal) => {
-  console.log('Input changed:', newVal);
+  console.log("Input changed:", newVal);
 });
 
 // 7. Lifecycle hooks
 onMounted(() => {
-  console.log('Component mounted');
+  console.log("Component mounted");
 });
 
 // 8. Functions
 const onSubmit = () => {
-  emit('submit', inputValue.value);
+  emit("submit", inputValue.value);
 };
 </script>
 ```
@@ -226,6 +238,7 @@ const onSubmit = () => {
 ## Common Patterns
 
 ### Form with Validation
+
 ```vue
 <template>
   <MpFlex direction="column" gap="4">
@@ -242,45 +255,47 @@ const onSubmit = () => {
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { MpInput, MpButton, MpFlex } from '@mekari/pixel3';
+import { ref } from "vue";
+import { MpInput, MpButton, MpFlex } from "@mekari/pixel3";
 
-const email = ref('');
+const email = ref("");
 const isError = ref(false);
 
 const onSubmit = () => {
   // Handle form submission
-  console.log('Form submitted:', email.value);
+  console.log("Form submitted:", email.value);
 };
 </script>
 ```
 
 ### Card Layout
+
 ```vue
 <template>
-    <MpFlex direction="column" gap="4">
-      <MpText size="h3" color="text.primary">Card Title</MpText>
-      <MpText size="body" color="text.secondary">
-        Card description text goes here
-      </MpText>
-      <MpButton variant="outline" size="sm" @click="onAction">Action</MpButton>
-    </MpFlex>
+  <MpFlex direction="column" gap="4">
+    <MpText size="h3" color="text.primary">Card Title</MpText>
+    <MpText size="body" color="text.secondary">
+      Card description text goes here
+    </MpText>
+    <MpButton variant="outline" size="sm" @click="onAction">Action</MpButton>
+  </MpFlex>
 </template>
 
 <script setup lang="ts">
-import { MpFlex, MpText, MpButton } from '@mekari/pixel3';
+import { MpFlex, MpText, MpButton } from "@mekari/pixel3";
 
 const onAction = () => {
-  console.log('Action clicked');
+  console.log("Action clicked");
 };
 </script>
 ```
 
 ### Modal Dialog
+
 ```vue
 <template>
   <MpButton @click="onOpenModal">Open Modal</MpButton>
-  
+
   <MpModal v-model="isOpen">
     <MpModalHeader title="Modal Title" />
     <MpModalContent>
@@ -290,8 +305,14 @@ const onAction = () => {
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { MpModal, MpModalContent, MpModalHeader, MpButton, MpText } from '@mekari/pixel3';
+import { ref } from "vue";
+import {
+  MpModal,
+  MpModalContent,
+  MpModalHeader,
+  MpButton,
+  MpText
+} from "@mekari/pixel3";
 
 const isOpen = ref(false);
 
@@ -302,12 +323,13 @@ const onOpenModal = () => {
 ```
 
 ### Icon with Text
+
 ```vue
 <template>
   <MpButton left-icon="search" variant="primary" size="md" @click="onSearch">
     Search
   </MpButton>
-  
+
   <MpFlex align="center" gap="2">
     <MpIcon name="circular-add" />
     <MpText color="text.danger">Add Item</MpText>
@@ -315,10 +337,10 @@ const onOpenModal = () => {
 </template>
 
 <script setup lang="ts">
-import { MpButton, MpText, MpFlex, MpIcon } from '@mekari/pixel3';
+import { MpButton, MpText, MpFlex, MpIcon } from "@mekari/pixel3";
 
 const onSearch = () => {
-  console.log('Search clicked');
+  console.log("Search clicked");
 };
 </script>
 ```

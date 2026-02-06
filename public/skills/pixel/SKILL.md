@@ -11,7 +11,7 @@ Mekari Pixel 3 is a comprehensive design system for building consistent, accessi
 
 **Important:** Before implementing with Pixel, agents should check the project's `plugins/pixel.client.ts` to understand theme configuration (Design Token 2.1 vs 2.4) and available setup. If unclear, start by using the MCP tools (`get-docs`, `get-component`) to gather component documentation and design token information.
 
-> This skill is based on Mekari Pixel 3.x, targeting Vue 3 Composition API with Nuxt integration.
+> This skill is based on Mekari Pixel 3, targeting Vue 3 Composition API with Nuxt integration.
 
 # UXE: Design to Pixel 3 Implementation Guide
 

@@ -3,6 +3,6 @@ export default defineEventHandler(() => {
 
   return {
     isHealthy: true,
-    config,
+    config
   };
 });

@@ -1,6 +1,8 @@
-# Pixel Components Catalog
+# Components Catalog
 
-## Component Mapping
+Complete reference of Pixel components with mapping from Figma elements and common usage patterns.
+
+## 1. Component Mapping (if working with Figma designs)
 
 Map Figma elements to Pixel components for implementation:
 
@@ -18,28 +20,34 @@ Map Figma elements to Pixel components for implementation:
 | Flex Layout    | `<MpFlex>`                  | Flexible layouts with gap/alignItems |
 | Box Layout     | `<Pixel.div>`               | Custom containers with tokens        |
 
-## Common Usage Patterns
+## 2. Common Usage Patterns
 
 ### Form with Validation
 
 ```vue
 <template>
   <MpFlex direction="column" gap="4">
-    <MpInput
-      id="email"
-      v-model="email"
-      type="email"
-      placeholder="name@company.com"
-      :is-error="isError"
-      is-required
-    />
+    <MpFormControl id="email-input" :is-error="isError" is-required>
+      <MpFormLabel>Email</MpFormLabel>
+      <MpInput v-model="email" type="email" placeholder="name@company.com" />
+      <MpFormErrorMessage>You must fill in email</MpFormErrorMessage>
+      <MpFormHelpText>The email field is required</MpFormHelpText>
+    </MpFormControl>
     <MpButton variant="primary" size="md" @click="onSubmit">Submit</MpButton>
   </MpFlex>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { MpInput, MpButton, MpFlex } from "@mekari/pixel3";
+import {
+  MpButton,
+  MpFlex,
+  MpFormControl,
+  MpFormLabel,
+  MpFormHelpText,
+  MpFormErrorMessage
+  MpInput,
+} from "@mekari/pixel3";
 
 const email = ref("");
 const isError = ref(false);
@@ -64,7 +72,7 @@ const onSubmit = () => {
 </template>
 
 <script setup lang="ts">
-import { MpFlex, MpText, MpButton } from "@mekari/pixel3";
+import { MpButton, MpFlex, MpText } from "@mekari/pixel3";
 
 const onAction = () => {
   console.log("Action clicked");
@@ -79,9 +87,21 @@ const onAction = () => {
   <MpButton @click="onOpenModal">Open Modal</MpButton>
 
   <MpModal v-model="isOpen">
-    <MpModalHeader title="Modal Title" />
+    <MpModalHeader>
+      Modal title goes here
+
+      <MpModalCloseButton />
+    </MpModalHeader>
     <MpModalContent>
-      <MpText>Modal content goes here</MpText>
+      <MpModalBody>
+        <MpText>Modal content goes here</MpText>
+      </MpModalBody>
+      <MpModalFooter>
+        <MpButtonGroup>
+          <MpButton variant="secondary" @click="onClose"> Cancel </MpButton>
+          <MpButton> Approve </MpButton>
+        </MpButtonGroup>
+      </MpModalFooter>
     </MpModalContent>
   </MpModal>
 </template>
@@ -89,10 +109,13 @@ const onAction = () => {
 <script setup lang="ts">
 import { ref } from "vue";
 import {
+  MpButton,
   MpModal,
   MpModalContent,
   MpModalHeader,
-  MpButton,
+  MpModalCloseButton,
+  MpModalBody,
+  MpModalFooter,
   MpText
 } from "@mekari/pixel3";
 
@@ -113,13 +136,13 @@ const onOpenModal = () => {
   </MpButton>
 
   <MpFlex alignItems="center" gap="2">
-    <MpIcon name="circular-add" />
-    <MpText color="text.danger">Add Item</MpText>
+    <MpIcon name="delete" />
+    <MpText color="text.danger">Delete item</MpText>
   </MpFlex>
 </template>
 
 <script setup lang="ts">
-import { MpButton, MpText, MpFlex, MpIcon } from "@mekari/pixel3";
+import { MpButton, MpFlex, MpIcon, MpText } from "@mekari/pixel3";
 
 const onSearch = () => {
   console.log("Search clicked");
@@ -127,15 +150,8 @@ const onSearch = () => {
 </script>
 ```
 
-## MCP Tools for Components
+## 3. Additional Rules
 
-Use these MCP tools to get component documentation:
+### NEVER
 
-- `get-component` - Get detailed component API, props, events, and usage
-- `get-docs` - Get general Pixel setup, installation, and design system docs
-
-**Example usage:**
-
-```
-Use get-component for MpButton, MpInput, and MpModal
-```
+- Use raw HTML elements (e.g., `<div>`, `<span>`, `<button>`) instead of Pixel components.

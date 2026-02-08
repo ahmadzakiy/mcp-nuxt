@@ -1,6 +1,8 @@
-# File Structure
+# Code Structure
 
-## Vue SFC Block Order
+Code structure for Vue SFC block order, script setup code order, and TypeScript best practices.
+
+## 1. Vue SFC Block Order
 
 **CRITICAL:** In all `.vue` files, the `<template>` block **must** be defined first, before the `<script setup>` block.
 
@@ -26,7 +28,7 @@
 </template>
 ```
 
-## Script Setup Code Order
+## 2. Script Setup Code Order
 
 Code within `<script setup lang="ts">` **must** follow this order:
 
@@ -121,7 +123,7 @@ const onSubmit = () => {
 </script>
 ```
 
-## Import Organization
+## 3. Import Organization
 
 Group imports by category with blank lines between:
 
@@ -140,7 +142,7 @@ import { MpButton, MpFlex, MpInput, MpText } from "@mekari/pixel3";
 import type { FormState, ValidationError } from "@/types";
 ```
 
-## TypeScript Best Practices
+## 4. TypeScript Best Practices
 
 ### Props with Defaults
 

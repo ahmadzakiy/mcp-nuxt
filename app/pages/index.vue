@@ -29,9 +29,9 @@
           <NuxtLink to="/chat">
             <MpButton variant="primary" left-icon="chat"> Try Chat </MpButton>
           </NuxtLink>
-          <NuxtLink to="/result">
-            <MpButton variant="secondary" left-icon="code">
-              View Result
+          <NuxtLink to="/skills">
+            <MpButton variant="tertiary" left-icon="add-circular">
+              Add SKILLS
             </MpButton>
           </NuxtLink>
         </MpButtonGroup>
@@ -322,6 +322,35 @@
             <MpText size="body-small" color="text.warning">
               Example: /implement-figma-to-pixel https:figma.com/file/xyz123
             </MpText>
+            <NuxtLink to="/result/test-0">
+              <MpButton variant="secondary" left-icon="code">
+                View Result
+              </MpButton>
+            </NuxtLink>
+          </MpFlex>
+
+          <!-- create-design-to-pixel prompt -->
+          <MpFlex direction="column" gap="2">
+            <MpFlex alignItems="center" gap="2">
+              <MpText weight="semiBold" color="text.highlight">
+                /create-design-to-pixel
+              </MpText>
+            </MpFlex>
+            <MpText color="text.secondary">
+              Generate Vue component from natural language description using
+              Pixel 3 design system. No Figma required - purely text-to-code
+              implementation with automatic component selection, styling, and
+              best practices.
+            </MpText>
+            <MpText size="body-small" color="text.warning">
+              Example: /create-design-to-pixel "a login form with email,
+              password, and reset button"
+            </MpText>
+            <NuxtLink to="/result/test-2">
+              <MpButton variant="secondary" left-icon="code">
+                View Result
+              </MpButton>
+            </NuxtLink>
           </MpFlex>
         </MpFlex>
       </MpFlex>
@@ -352,6 +381,10 @@
         </MpText>
         <MpText color="text.secondary">
           • "What's the difference between design token 2.1 and 2.4?"
+        </MpText>
+        <MpText color="text.secondary">
+          • "/create-design-to-pixel a user profile card with avatar and edit
+          button"
         </MpText>
       </MpFlex>
 

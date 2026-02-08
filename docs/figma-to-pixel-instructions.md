@@ -155,7 +155,7 @@ Apply styles in this **exact order of preference**:
 
 ---
 
-## File Structure Rules
+## Code Structure Rules
 
 **CRITICAL**: In all `.vue` files, the `<template>` block **must** be defined first, before the `<script setup>` block.
 

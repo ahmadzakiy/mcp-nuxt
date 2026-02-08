@@ -3,7 +3,8 @@ import { join } from "path";
 
 export default defineEventHandler(async (event) => {
   try {
-    const skillPath = join(process.cwd(), ".agents/skills/pixel/SKILL.md");
+    // Read from public/skills instead of .agents/skills for production compatibility
+    const skillPath = join(process.cwd(), "public/skills/pixel/SKILL.md");
     console.log("Reading skill from:", skillPath);
 
     const content = await readFile(skillPath, "utf-8");
@@ -46,7 +47,7 @@ export default defineEventHandler(async (event) => {
       success: false,
       error: "Failed to load skill file",
       details: error?.message || "Unknown error",
-      path: join(process.cwd(), ".agents/skills/pixel/SKILL.md")
+      path: join(process.cwd(), "public/skills/pixel/SKILL.md")
     };
   }
 });

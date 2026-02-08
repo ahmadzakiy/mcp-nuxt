@@ -4,7 +4,8 @@ import { stat } from "fs/promises";
 
 export default defineEventHandler(async (event) => {
   try {
-    const skillPath = join(process.cwd(), ".agents/skills/pixel");
+    // Read from public/skills instead of .agents/skills for production compatibility
+    const skillPath = join(process.cwd(), "public/skills/pixel");
 
     // Verify the directory exists
     const dirStats = await stat(skillPath);

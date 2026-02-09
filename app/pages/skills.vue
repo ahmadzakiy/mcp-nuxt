@@ -3,7 +3,7 @@
     direction="column"
     alignItems="center"
     minHeight="100vh"
-    background="background.neutral"
+    background="background.surface"
     padding="4"
   >
     <MpFlex
@@ -13,7 +13,7 @@
       :width="{ base: '100%', md: '800px' }"
     >
       <!-- Page Header -->
-      <MpFlex direction="column" gap="4">
+      <MpFlex direction="column" alignItems="center" gap="4">
         <MpText as="h1" size="h1" weight="semiBold">Agent Skills</MpText>
         <MpText size="body" color="text.secondary">
           Learn about Agent Skills and how to use the Pixel skill for
@@ -26,7 +26,7 @@
         direction="column"
         gap="4"
         padding="6"
-        backgroundColor="background.surface"
+        backgroundColor="background.neutral"
         borderRadius="lg"
         borderWidth="1px"
         borderColor="border.default"
@@ -99,7 +99,7 @@
         direction="column"
         gap="4"
         padding="6"
-        backgroundColor="background.surface"
+        backgroundColor="background.neutral"
         borderRadius="lg"
         borderWidth="1px"
         borderColor="border.default"
@@ -153,7 +153,7 @@
         direction="column"
         gap="4"
         padding="6"
-        backgroundColor="background.surface"
+        backgroundColor="background.neutral"
         borderRadius="lg"
         borderWidth="1px"
         borderColor="border.default"

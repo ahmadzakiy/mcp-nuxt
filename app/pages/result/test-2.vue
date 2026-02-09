@@ -5,6 +5,7 @@
     justifyContent="center"
     padding="8"
     backgroundColor="background.surface"
+    height="100vh"
   >
     <MpFlex
       direction="column"

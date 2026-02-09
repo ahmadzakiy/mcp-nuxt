@@ -2,9 +2,8 @@
   <MpFlex
     width="full"
     justifyContent="center"
-    background="background.airene"
-    mt="4"
-    p="4"
+    background="background.surface"
+    py="4"
     textAlign="center"
   >
     <MpText size="body-small" color="text.secondary">

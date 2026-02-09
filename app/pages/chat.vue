@@ -3,7 +3,7 @@
     direction="column"
     alignItems="center"
     height="calc(100vh - 71px)"
-    background="background.airene"
+    background="background.surface"
     padding="2"
   >
     <MpFlex

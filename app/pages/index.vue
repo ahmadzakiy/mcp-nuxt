@@ -387,13 +387,6 @@
           button"
         </MpText>
       </MpFlex>
-
-      <!-- Footer -->
-      <MpFlex mt="12" textAlign="center">
-        <MpText size="body-small" color="text.secondary">
-          Built with ❤️ using Mekari Pixel Design System
-        </MpText>
-      </MpFlex>
     </MpFlex>
   </MpFlex>
 </template>

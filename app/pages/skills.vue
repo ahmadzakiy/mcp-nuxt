@@ -31,9 +31,9 @@
         borderWidth="1px"
         borderColor="border.default"
       >
-        <MpText as="h2" size="h2" weight="semiBold"
-          >What are Agent Skills?</MpText
-        >
+        <MpText as="h2" size="h2" weight="semiBold">
+          What are Agent Skills?
+        </MpText>
         <MpText size="body" color="text.primary">
           Agent Skills are a lightweight, open format for extending AI agent
           capabilities with specialized knowledge and workflows. At its core, a
@@ -104,9 +104,9 @@
         borderWidth="1px"
         borderColor="border.default"
       >
-        <MpText as="h2" size="h2" weight="semiBold"
-          >About the Pixel Skill</MpText
-        >
+        <MpText as="h2" size="h2" weight="semiBold">
+          What is the Pixel Skill?
+        </MpText>
         <MpText size="body" color="text.primary">
           The Pixel skill is a specialized Agent Skills implementation for
           translating designs into production-ready code using the Mekari Pixel
@@ -119,61 +119,30 @@
           <MpFlex direction="column" gap="2">
             <MpFlex gap="2" alignItems="center">
               <MpIcon name="check" color="icon.success" />
-              <MpText size="body">Component mapping and usage patterns</MpText>
+              <MpText size="body">
+                Component (mapping figma element to pixel, common usage
+                patterns)
+              </MpText>
             </MpFlex>
             <MpFlex gap="2" alignItems="center">
               <MpIcon name="check" color="icon.success" />
-              <MpText size="body">Design Token 2.4 semantic tokens</MpText>
-            </MpFlex>
-            <MpFlex gap="2" alignItems="center">
-              <MpIcon name="check" color="icon.success" />
-              <MpText size="body">Figma-to-code workflow integration</MpText>
+              <MpText size="body">
+                Styling hierarchy (CSS Props, CSS Functions)
+              </MpText>
             </MpFlex>
             <MpFlex gap="2" alignItems="center">
               <MpIcon name="check" color="icon.success" />
               <MpText size="body"
-                >Styling hierarchy (CSS Props, Functions, Tokens)</MpText
+                >Design tokens (semantic token, foundation colors,
+                spacing)</MpText
               >
             </MpFlex>
             <MpFlex gap="2" alignItems="center">
               <MpIcon name="check" color="icon.success" />
-              <MpText size="body">TypeScript best practices</MpText>
-            </MpFlex>
-          </MpFlex>
-        </MpFlex>
-
-        <MpFlex
-          direction="column"
-          gap="2"
-          padding="4"
-          backgroundColor="background.neutral.subtle"
-          borderRadius="md"
-        >
-          <MpText size="label-small" weight="semiBold" color="text.secondary"
-            >SKILL METADATA</MpText
-          >
-          <MpFlex direction="column" gap="1">
-            <MpText size="body-small" color="text.primary">
-              <strong>Name:</strong> pixel
-            </MpText>
-            <MpText size="body-small" color="text.primary">
-              <strong>Version:</strong> {{ skillMetadata.version }}
-            </MpText>
-            <MpText size="body-small" color="text.primary">
-              <strong>Author:</strong> {{ skillMetadata.author }}
-            </MpText>
-            <MpText size="body-small" color="text.primary">
-              <strong>Source:</strong>
-              <MpText
-                as="a"
-                :href="skillMetadata.source"
-                target="_blank"
-                color="text.link"
-                is-text-link
-              >
-                {{ skillMetadata.source }}
+              <MpText size="body">
+                Code structure (Vue SFC order, TypeScript best practices)
               </MpText>
-            </MpText>
+            </MpFlex>
           </MpFlex>
         </MpFlex>
       </MpFlex>
@@ -190,9 +159,7 @@
         borderColor="border.default"
       >
         <MpFlex justifyContent="space-between" alignItems="center">
-          <MpText as="h2" size="h2" weight="semiBold"
-            >Skill Code Structure</MpText
-          >
+          <MpText as="h2" size="h2" weight="semiBold">Pixel Skill</MpText>
           <MpButton
             variant="primary"
             size="sm"
@@ -204,10 +171,10 @@
           </MpButton>
         </MpFlex>
 
-        <MpText size="body-small" color="text.secondary">
-          The Pixel skill includes a comprehensive SKILL.md file with
-          step-by-step implementation guidance, component mappings, styling
-          rules, and reference documentation. Download as a zip file to get the
+        <MpText>
+          The Pixel skill includes a comprehensive <code>SKILL.md</code> with a
+          set of references included as <code>components.md</code>,
+          <code>styling.md</code> and etc. Download as a zip file to get the
           complete skill with all reference files.
         </MpText>
 
@@ -216,31 +183,39 @@
           justifyContent="center"
           alignItems="center"
           padding="8"
-          backgroundColor="background.neutral.subtle"
+          backgroundColor="background.inverse"
           borderRadius="md"
         >
-          <MpText size="body" color="text.secondary"
-            >Loading skill content...</MpText
-          >
+          <MpText size="body" color="text.inverse">
+            Loading skill content...
+          </MpText>
         </MpFlex>
 
         <MpFlex
           v-else
           direction="column"
           padding="4"
-          backgroundColor="background.neutral.subtle"
+          backgroundColor="background.inverse"
           borderRadius="md"
           maxHeight="400px"
           overflow="auto"
         >
           <pre
-            :class="css({ fontSize: '12px', lineHeight: '1.5', margin: '0' })"
+            :class="
+              css({
+                fontSize: '12px',
+                lineHeight: '1.5',
+                margin: '0',
+                color: 'text.inverse'
+              })
+            "
           ><code>{{ skillFilePreview }}</code></pre>
         </MpFlex>
       </MpFlex>
 
       <!-- Usage Instructions -->
       <MpFlex
+        width="full"
         direction="column"
         gap="4"
         padding="6"
@@ -250,25 +225,21 @@
         borderColor="border.default"
       >
         <MpFlex gap="2" alignItems="start">
-          <MpIcon name="info" color="icon.info" />
           <MpFlex direction="column" gap="3">
-            <MpText size="label" weight="semiBold"
-              >How to Use the Pixel Skill</MpText
-            >
+            <MpText size="h2" weight="semiBold">How to Use Pixel Skill</MpText>
             <MpFlex direction="column" gap="2">
-              <MpText size="body-small" color="text.primary">
+              <MpText color="text.primary">
                 1. Download the skill ZIP file and extract it to your project's
-                <code>.agents/skills/</code> directory (it will create a
-                <code>pixel/</code> folder with all references)
+                <code>.agents/skills/</code> directory
               </MpText>
-              <MpText size="body-small" color="text.primary">
+              <MpText color="text.primary">
                 2. Ensure your AI agent supports Agent Skills format
               </MpText>
-              <MpText size="body-small" color="text.primary">
+              <MpText color="text.primary">
                 3. Simply mention "Use the pixel skill" or "Implement this with
                 Pixel" in your prompts
               </MpText>
-              <MpText size="body-small" color="text.primary">
+              <MpText color="text.primary">
                 4. The agent will automatically follow the Pixel implementation
                 guidelines
               </MpText>

@@ -1,18 +1,16 @@
 import archiver from "archiver";
-import { join } from "path";
-import { stat } from "fs/promises";
+
+// Define the skill file structure
+const skillFiles = [
+  "SKILL.md",
+  "references/components.md",
+  "references/design-tokens.md",
+  "references/styling.md",
+  "references/code-structure.md"
+];
 
 export default defineEventHandler(async (event) => {
   try {
-    // Read from public/skills instead of .agents/skills for production compatibility
-    const skillPath = join(process.cwd(), "public/skills/pixel");
-
-    // Verify the directory exists
-    const dirStats = await stat(skillPath);
-    if (!dirStats.isDirectory()) {
-      throw new Error("Skill directory not found");
-    }
-
     // Set response headers for zip download
     setResponseHeaders(event, {
       "Content-Type": "application/zip",
@@ -37,8 +35,28 @@ export default defineEventHandler(async (event) => {
       throw err;
     });
 
-    // Add the entire pixel directory to the zip
-    archive.directory(skillPath, "pixel");
+    // Get base URL from runtime config
+    const config = useRuntimeConfig();
+    const baseUrl = `${config.pixelMcpBaseUrl}/skills/pixel`;
+    console.log("Creating skill archive from:", baseUrl);
+
+    // Fetch and add each file to the archive
+    for (const filePath of skillFiles) {
+      try {
+        const fileUrl = `${baseUrl}/${filePath}`;
+        console.log("Fetching:", fileUrl);
+
+        const content = await $fetch(fileUrl, {
+          responseType: "text"
+        });
+
+        // Add file to archive
+        archive.append(content as string, { name: `pixel/${filePath}` });
+      } catch (error) {
+        console.warn(`Failed to fetch ${filePath}:`, error);
+        // Continue with other files even if one fails
+      }
+    }
 
     // Finalize the archive
     archive.finalize();

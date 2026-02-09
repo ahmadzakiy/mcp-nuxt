@@ -1,13 +1,14 @@
-import { readFile } from "fs/promises";
-import { join } from "path";
-
 export default defineEventHandler(async (event) => {
   try {
-    // Read from public/skills instead of .agents/skills for production compatibility
-    const skillPath = join(process.cwd(), "public/skills/pixel/SKILL.md");
-    console.log("Reading skill from:", skillPath);
+    // Get base URL from runtime config
+    const config = useRuntimeConfig();
+    const baseUrl = `${config.pixelMcpBaseUrl}/skills/pixel`;
+    const skillUrl = `${baseUrl}/SKILL.md`;
 
-    const content = await readFile(skillPath, "utf-8");
+    console.log("Fetching skill from:", skillUrl);
+    const content = (await $fetch(skillUrl, {
+      responseType: "text"
+    })) as string;
 
     // Extract metadata from frontmatter
     const metadataMatch = content.match(/---\n([\s\S]*?)\n---/);
@@ -47,7 +48,10 @@ export default defineEventHandler(async (event) => {
       success: false,
       error: "Failed to load skill file",
       details: error?.message || "Unknown error",
-      path: join(process.cwd(), "public/skills/pixel/SKILL.md")
+      code: error?.statusCode || error?.code || "UNKNOWN",
+      cwd: process.cwd(),
+      platform: process.platform,
+      nodeEnv: process.env.NODE_ENV
     };
   }
 });

@@ -161,7 +161,7 @@
         <MpFlex justifyContent="space-between" alignItems="center">
           <MpText as="h2" size="h2" weight="semiBold">Pixel Skill</MpText>
           <MpButton
-            variant="primary"
+            variant="secondary"
             size="sm"
             left-icon="download"
             :is-disabled="isLoading || !fullSkillContent"
@@ -225,7 +225,7 @@
         borderColor="border.default"
       >
         <MpFlex gap="2" alignItems="start">
-          <MpFlex direction="column" gap="3">
+          <MpFlex direction="column" gap="3" width="full">
             <MpText size="h2" weight="semiBold">How to Use Pixel Skill</MpText>
             <MpFlex direction="column" gap="2">
               <MpText color="text.primary">
@@ -244,6 +244,18 @@
                 guidelines
               </MpText>
             </MpFlex>
+            <MpText weight="semiBold">Or, install using npx</MpText>
+            <MpFlex
+              direction="column"
+              gap="3"
+              p="4"
+              background="background.inverse"
+              rounded="md"
+            >
+              <MpText as="code" color="text.inverse">
+                npx skills add ahmadzakiy/skills --skill 'pixel'
+              </MpText>
+            </MpFlex>
           </MpFlex>
         </MpFlex>
       </MpFlex>
@@ -257,9 +269,9 @@ import { MpFlex, MpText, MpButton, MpIcon, css } from "@mekari/pixel3";
 
 // Skill metadata
 const skillMetadata = ref({
-  version: "1.0.8",
-  author: "UXE Team",
-  source: "https://docs.mekari.design/"
+  version: "0.0.1",
+  author: "Ahmad Zakiy",
+  source: "https://docs.mekari.design/skills/"
 });
 
 // Loading state

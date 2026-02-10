@@ -1,17 +1,18 @@
 <template>
   <MpFlex
     as="header"
-    alignItems="center"
-    justify="space-between"
-    :gap="{ base: '4', md: '0' }"
-    :wrap="{ base: 'wrap', md: 'nowrap' }"
+    :flexDirection="{ sm: 'column', md: 'row' }"
+    :alignItems="{ sm: 'flex-start', md: 'center' }"
+    justifyContent="space-between"
+    :gap="{ sm: '4', md: '0' }"
+    :flexWrap="{ sm: 'wrap', md: 'nowrap' }"
     padding="4"
     background="background.airene"
     borderBottomWidth="1px"
     borderColor="border.default"
   >
     <NuxtLink to="/">
-      <MpFlex :height="{ base: '48px', md: '32px' }" alignItems="center">
+      <MpFlex :height="{ sm: '36px', md: '36px' }" alignItems="center">
         <img
           :src="
             isDarkMode
@@ -19,33 +20,24 @@
               : 'https://cdn.mekari.design/logo/pixel/default.svg'
           "
           alt="Mekari Pixel Logo"
-          style="height: 100%;"
+          style="height: 100%"
         />
       </MpFlex>
     </NuxtLink>
 
     <MpFlex
-      :alignItems="{ base: 'flex-start', md: 'center' }"
+      :flexDirection="{ sm: 'column', md: 'row' }"
+      :alignItems="{ sm: 'flex-start', md: 'center' }"
       gap="4"
-      :width="{ base: '100%', md: 'auto' }"
-      :direction="{ base: 'column', md: 'row' }"
     >
-      <MpFlex
-        alignItems="center"
-        gap="2"
-        flex="none"
-        :width="{ base: '100%', sm: 'auto' }"
-      >
-        <MpText weight="semiBold" :display="{ base: 'none', sm: 'block' }">
-          Theme
-        </MpText>
+      <MpFlex alignItems="center" gap="2" flex="none">
+        <MpText weight="semiBold"> Theme </MpText>
         <MpAutocomplete
           id="product-theme-select"
           v-model="productTheme"
           :data="productThemeOptions"
           placeholder="Select Theme"
           size="sm"
-          :width="{ base: '100%', sm: 'auto' }"
         />
       </MpFlex>
       <MpFlex alignItems="center" gap="2" flex="none">

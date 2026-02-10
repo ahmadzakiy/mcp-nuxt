@@ -236,6 +236,12 @@ const onSearch = () => {
 
 ## 4. Additional Rules
 
-### NEVER
+### ✅ ALWAYS
+
+- Use `<MpIcon>` for all icons, even when Figma provides custom SVG assets.
+- Prefer the closest matching Pixel icon name instead of importing or inlining SVGs.
+
+### ❌ NEVER
 
 - Use raw HTML elements (e.g., `<div>`, `<span>`, `<button>`) instead of Pixel components.
+- Use icons from Figma assets, inline SVGs, or external icon packs.

@@ -77,8 +77,9 @@ Before coding, agents should check
 
 See [components reference](references/components.md) for:
 
-1. Component mapping table (Figma elements to Pixel comppnents)
+1. Component mapping table (Figma elements to Pixel components)
 2. Common usage patterns (forms, cards, modals, icons)
+3. Prop validation guidelines
 
 ## Step 4: Apply Styling
 

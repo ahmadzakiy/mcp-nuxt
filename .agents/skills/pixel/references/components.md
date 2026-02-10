@@ -20,7 +20,91 @@ Map Figma elements to Pixel components for implementation:
 | Flex Layout    | `<MpFlex>`                  | Flexible layouts with gap/alignItems |
 | Box Layout     | `<Pixel.div>`               | Custom containers with tokens        |
 
-## 2. Common Usage Patterns
+## 2. Prop Validation Guidelines
+
+**⚠️ CRITICAL: Always validate prop values against Pixel documentation**
+
+Many TypeScript errors come from using invalid prop values. Before using ANY component:
+
+1. Use `get-component` MCP tool to retrieve documentation
+2. Check the actual prop types and valid values
+3. Never assume generic values like `"md"`, `"xl"`, `"sm"` will work
+
+### Common Invalid Props to Avoid
+
+#### ❌ MpText - Invalid size values
+
+```vue
+<!-- WRONG: These will cause TypeScript errors -->
+<MpText size="md">Text</MpText>
+<MpText size="xl">Large text</MpText>
+<MpText size="sm">Small text</MpText>
+<MpText size="lg">Text</MpText>
+```
+
+#### ✅ MpText - Valid size values
+
+```vue
+<!-- CORRECT: Use documented size values -->
+<MpText size="h1">Heading 1</MpText>
+<MpText size="h2">Heading 2</MpText>
+<MpText size="h3">Heading 3</MpText>
+<MpText size="label">Label text (default)</MpText>
+<MpText size="label-small">Small label</MpText>
+<MpText size="body">Body text</MpText>
+<MpText size="body-small">Small body text</MpText>
+<MpText size="overline">Overline text</MpText>
+<MpText>Text with default size</MpText>
+<!-- Omit prop for default -->
+```
+
+#### ❌ MpIcon - Invalid icon names
+
+```vue
+<!-- WRONG: These icons don't exist in Pixel -->
+<MpIcon name="sort" />
+<MpIcon name="document" />
+<MpIcon name="text-editor" />
+<MpIcon name="setting" />
+<!-- Missing 's' -->
+```
+
+#### ✅ MpIcon - Valid icon names
+
+```vue
+<!-- CORRECT: Use valid Pixel icon names -->
+<MpIcon name="filter" />
+<MpIcon name="settings" />
+<!-- Note the 's' -->
+<MpIcon name="edit" />
+<MpIcon name="help" />
+<MpIcon name="info" />
+<MpIcon name="search" />
+<MpIcon name="delete" />
+```
+
+#### ❌ MpProgress - Invalid value type
+
+```vue
+<!-- WRONG: Number instead of string -->
+<MpProgress :value="82" />
+```
+
+#### ✅ MpProgress - Valid value type
+
+```vue
+<!-- CORRECT: String value -->
+<MpProgress value="82" />
+```
+
+### Validation Workflow
+
+1. **Get component docs**: `get-component("MpText")` → Check props table
+2. **Verify prop types**: Look for valid values in documentation examples
+3. **Use TypeScript hints**: If TypeScript complains, the value is invalid
+4. **When in doubt**: Omit optional props, use defaults
+
+## 3. Common Usage Patterns
 
 ### Form with Validation
 
@@ -150,7 +234,7 @@ const onSearch = () => {
 </script>
 ```
 
-## 3. Additional Rules
+## 4. Additional Rules
 
 ### NEVER
 

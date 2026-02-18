@@ -43,9 +43,69 @@ Refer to [design-tokens.md](./design-tokens.md) for:
 
 ## 4. Additional Rules
 
-### NEVER
+### ❌ NEVER
 
-- Mix CSS props and CSS function incorrectly
 - Use `css()` function in `MpFlex` or `Pixel.div`
 - Use inline `style` attributes (e.g., `style="color: blue;"`)
 - Use hard-coded values (e.g., `#FFF`, `16px`, `blue`)
+- Use shorthand css flex props: `align`, `justify`, `grow`, `shrink`, `basis`, `wrap`
+- Use shorthand css border props: `border`, `borderTop`,
+
+### ❌ WRONG: Using CSS shorthand properties
+
+```vue
+<!-- VIOLATION: Never use shorthand properties in css() function -->
+<MpDrawerFooter
+  :class="css({
+    borderTop: '1px solid',
+    borderColor: 'border.default'
+  })"
+>
+```
+
+### ✅ CORRECT: Using individual CSS properties
+
+```vue
+<!-- Use individual properties with design tokens -->
+<MpDrawerFooter
+  :class="css({
+    borderTopWidth: '1px',
+    borderTopStyle: 'solid',
+    borderTopColor: 'border.default'
+  })"
+>
+```
+
+### ❌ WRONG: Using css() in MpFlex
+
+```vue
+<!-- MpFlex or Pixel.div should ONLY use CSS Props, never css() function -->
+<MpFlex direction="column" gap="4" :class="css({ pb: '10' })">
+  Content
+</MpFlex>
+
+<Pixel.div gap="2" :class="css({ flexWrap: 'wrap', cursor: 'pointer' })">
+  Content
+</Pixel.div>
+```
+
+### ✅ CORRECT: Using CSS Props in MpFlex
+
+```vue
+<!-- Use CSS Props directly on MpFlex -->
+<MpFlex direction="column" gap="4" pb="10">
+  Content
+</MpFlex>
+
+<Pixel.div gap="2" flexWrap="wrap" cursor="pointer">
+  Content
+</Pixel.div>
+```
+
+### Rule Summary
+
+| Component Type                        | Styling Method        | Example                                 |
+| ------------------------------------- | --------------------- | --------------------------------------- |
+| `MpFlex`, `Pixel.div`, `Pixel.*`      | ✅ CSS Props only     | `<MpFlex gap="4" padding="2" flex="1">` |
+| `MpButton`, `MpText`, `MpInput`, etc. | ✅ css() function     | `<MpButton :class="css({ mt: '4' })">`  |
+| Any component                         | ❌ NEVER inline style | `<div style="color: blue">`             |

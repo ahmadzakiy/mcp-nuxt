@@ -3,7 +3,7 @@ name: pixel
 description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill to implement designs from Figma nodes or natural language to Vue 3 component or Nuxt pages using Mekari Pixel 3 design system. Requires a working Pixel MCP server connection.
 metadata:
   author: Ahmad Zakiy
-  version: "2026.2.10"
+  version: "2026.2.18"
   source: https://pixel-mcp.netlify.app/skills/
 ---
 

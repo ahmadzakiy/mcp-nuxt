@@ -21,18 +21,22 @@ export default defineMcpPrompt({
           role: "user",
           content: {
             type: "text",
-            text: `Create: ${description}
+            text: `
+## Create: ${description}
 
-Use the **"pixel"** skill to implement this with Mekari Pixel 3 design system.
+**Required Skills:**
+- Use **Pixel** skill to implement the design with Pixel 3 components
 
-The pixel skill will:
+**Required MCP:**
+- Use **Pixel** MCP for component documentation and design token reference
+
+**Workflow:**
 - Analyze what components are needed
 - Use Pixel MCP tools (get-component, get-docs) for documentation
 - Generate complete Vue SFC with proper structure
-- Apply Design Token 2.4 semantic tokens
-- Follow all Pixel design system guidelines
-
-Begin implementation using the pixel skill.`
+- Apply Design Token 2.4
+- Use Pixel Skill to follow all Pixel design system guidelines
+`
           }
         }
       ]

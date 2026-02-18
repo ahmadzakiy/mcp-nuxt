@@ -27,17 +27,18 @@ export default defineMcpPrompt({
           role: "user",
           content: {
             type: "text",
-            text: `Implement the Figma design into a Vue component using Mekari Pixel 3.
+            text: `
+## Implement Figma design into a Vue component using Mekari Pixel 3.
 
 **Figma URL:** ${figmaLink}
 ${componentName ? `**Target Component:** ${componentName}` : "**Target Component:** (Auto-detect from design)"}
 
 **Required Skills:**
-- Use **"Pixel"** skill to implement the design with Pixel 3 components
+- Use **Pixel** skill to implement the design with Pixel 3 components
 
 **Required MCP:**
-- Use **"Figma"** MCP for design extraction and context
-- Use **"Pixel"** MCP for component documentation and design token reference
+- Use **Figma** MCP for design extraction and context
+- Use **Pixel** MCP for component documentation and design token reference
 
 **Workflow:**
 

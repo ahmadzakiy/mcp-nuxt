@@ -131,8 +131,6 @@ pnpm preview
 For specialized implementation guides, refer to the skills in the `.agents/skills/` directory:
 
 - **`pixel`** - Implementing designs with Mekari Pixel 3 design system
-- **`figma`** - Working with Figma MCP server
-- **`figma-implement-design`** - Translating Figma designs to code
 - **`nuxt`** - Nuxt full-stack framework development
 - **`web-design-guidelines`** - UI/UX best practices and accessibility
 

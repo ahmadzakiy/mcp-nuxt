@@ -57,8 +57,6 @@ Before coding, agents should check
    - Interactive elements and their states
    - Responsive behavior
 
-> For complete Figma implementation workflow, use the **figma-implement-design** skill.
-
 ### For General Designs (if using natural language or other design sources)
 
 1. Analyze the design requested (ex: create a login form)

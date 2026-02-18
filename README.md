@@ -119,7 +119,6 @@ Comp.agents/ # Agent Skills directory
 │ └── skills/ # Installed agent skills
 │ ├── pixel/ # Pixel implementation skill
 │ ├── figma/ # Figma MCP integration skill
-│ ├── figma-implement-design/ # Figma-to-code workflow
 │ ├── frontend-design/ # Frontend design best practices
 │ ├── nuxt/ # Nuxt development skill
 │ └── web-design-guidelines/ # UI/UX guidelines
@@ -173,7 +172,6 @@ Comp.agents/ # Agent Skills directory
 │ │ ├── pixel/ # Pixel skill files
 │ │ │ ├── SKILL.md
 │ │ │ └── references/ # Reference docs
-│ │ └── figma-implement-design/
 │ ├── llms-components.txt # Pixel components LLM doc
 │ ├── llms-design-tokens-21.txt # Token 2.1 LLM doc
 │ ├── llms-design-tokens-24.txt # Token 2.4 LLM doc
@@ -271,7 +269,6 @@ Add to your `~/.cursor/mcp.json`:
 - **[Agent Skills](/.agents/skills/)** - Specialized knowledge domains
   - `pixel` - Pixel implementation guide
   - `figma` - Figma MCP integration
-  - `figma-implement-design` - Figma-to-code workflow
   - `frontend-design` - UI/UX best practices
   - `nuxt` - Nuxt development
   - `web-design-guidelines` - Accessibility guidelines

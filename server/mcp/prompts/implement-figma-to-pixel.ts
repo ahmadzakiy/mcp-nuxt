@@ -4,7 +4,7 @@ export default defineMcpPrompt({
   name: "implement-figma-to-pixel",
   title: "Implement Figma Design with Pixel 3",
   description:
-    "Convert Figma design to Vue component using Pixel 3 design system. Delegates to figma-implement-design and pixel skills.",
+    "Convert Figma design to Vue component using Pixel 3 design system.",
 
   inputSchema: {
     figmaLink: z
@@ -33,21 +33,24 @@ export default defineMcpPrompt({
 ${componentName ? `**Target Component:** ${componentName}` : "**Target Component:** (Auto-detect from design)"}
 
 **Required Skills:**
-- Use the **"figma-implement-design"** skill to fetch and analyze the Figma design
-- Use the **"pixel"** skill to implement the design with Pixel 3 components
+- Use **"Pixel"** skill to implement the design with Pixel 3 components
+
+**Required MCP:**
+- Use **"Figma"** MCP for design extraction and context
+- Use **"Pixel"** MCP for component documentation and design token reference
 
 **Workflow:**
 
-1. **Extract Design from Figma** (using figma-implement-design skill):
+1. **Extract Design from Figma**
    - Parse node ID from the Figma URL
    - Use Figma MCP tools to fetch design context and screenshot
    - Analyze layout, colors, typography, spacing, and interactive elements
 
-2. **Get Pixel Documentation** (using pixel skill):
+2. **Get Pixel Documentation**
    - Identify required Pixel components from design
-   - Use Pixel MCP tools (get-component, get-docs) for component APIs
+   - Use Pixel MCP tools (get-component, get-docs) for component details and usage guidelines
 
-3. **Implement Vue Component** (using pixel skill):
+3. **Implement Vue Component**
    - Map design elements to Pixel components
    - Apply styling hierarchy: CSS Props → CSS Function → Design Token 2.4
    - Follow Vue 3 Composition API with <script setup>
@@ -57,11 +60,7 @@ ${componentName ? `**Target Component:** ${componentName}` : "**Target Component
    - Verify all UI elements match Figma design
    - Ensure Design Token 2.4 semantic tokens used
    - Check spacing, typography, and colors accuracy
-   - Add TypeScript types, event handlers, accessibility attributes
-
-**Important:** Let the skills handle MCP tool calls. The figma-implement-design skill knows how to interact with Figma MCP properly.
-
-Begin by using the figma-implement-design skill to extract the design from Figma.`
+`
           }
         }
       ]

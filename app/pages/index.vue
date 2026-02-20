@@ -49,7 +49,7 @@
         boxShadow="lg"
         mb="6"
       >
-        <MpText as="h2" size="h2" weight="semiBold"> What is MCP? </MpText>
+        <MpText as="h2" size="h2" weight="semiBold"> What is MCP </MpText>
         <MpText color="text.secondary">
           MCP (Model Context Protocol) is an open-source standard for connecting
           AI applications to external systems (resources, tools, and prompts).
@@ -57,7 +57,7 @@
 
         <br />
 
-        <MpText size="h2">What is Mekari Pixel MCP?</MpText>
+        <MpText size="h2">What is Mekari Pixel MCP</MpText>
         <MpText color="text.secondary">
           Mekari Pixel MCP is a <strong>remote MCP server</strong> hosted on the
           internet, providing structured access to our component library from

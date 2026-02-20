@@ -32,7 +32,7 @@
         borderColor="border.default"
       >
         <MpText as="h2" size="h2" weight="semiBold">
-          What are Agent Skills?
+          What are Agent Skills
         </MpText>
         <MpText size="body" color="text.primary">
           Agent Skills are a lightweight, open format for extending AI agent
@@ -105,7 +105,7 @@
         borderColor="border.default"
       >
         <MpText as="h2" size="h2" weight="semiBold">
-          What is the Pixel Skill?
+          What is the Pixel Skill
         </MpText>
         <MpText size="body" color="text.primary">
           The Pixel skill is a specialized Agent Skills implementation for

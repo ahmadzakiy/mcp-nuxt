@@ -114,7 +114,7 @@
                 color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '32px' }"
               >
-                "pixel3": {
+                "pixel": {
               </MpText>
               <MpText
                 size="body-small"
@@ -182,7 +182,7 @@
                 color="text.inverse"
                 :style="{ fontFamily: 'monospace', paddingLeft: '32px' }"
               >
-                "pixel3": {
+                "pixel": {
               </MpText>
               <MpText
                 size="body-small"
@@ -242,7 +242,7 @@
         <MpFlex direction="column" gap="5">
           <!-- get-component tool -->
           <MpFlex direction="column" gap="2">
-            <MpFlex align="center" gap="2">
+            <MpFlex alignItems="center" gap="2">
               <MpText weight="semiBold" color="text.highlight">
                 #get-component
               </MpText>
@@ -258,7 +258,7 @@
 
           <!-- get-docs tool -->
           <MpFlex direction="column" gap="2">
-            <MpFlex align="center" gap="2">
+            <MpFlex alignItems="center" gap="2">
               <MpText weight="semiBold" color="text.highlight">
                 #get-docs
               </MpText>
@@ -275,7 +275,7 @@
 
           <!-- hello-pixel tool -->
           <MpFlex direction="column" gap="2">
-            <MpFlex align="center" gap="2">
+            <MpFlex alignItems="center" gap="2">
               <MpText weight="semiBold" color="text.highlight">
                 #hello-pixel
               </MpText>

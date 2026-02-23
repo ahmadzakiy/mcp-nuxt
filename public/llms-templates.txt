@@ -1,0 +1,1181 @@
+# Template: jurnal/report-index
+
+## index
+
+Placeholder page for Jurnal report index; entry point for report listing.
+
+
+```vue
+<script setup lang="ts"></script>
+
+<template>
+  <div>Report index</div>
+</template>
+
+<route lang="yaml">
+meta:
+  cover: /cover/templates/jurnal/default.png
+</route>
+```
+
+
+# Template: layouts/enterprise
+
+## [...path]
+
+Enterprise layout with left and right sidebars (SideMenu, SideMenuAI), toggleable; dynamic page title from route path. BaseLayout with PageShell, PageHeader, PageContent.
+
+
+```vue
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { css, MpFlex, MpText } from '@mekari/pixel3'
+import { BaseLayout, PageShell, PageLeftSidebar, PageMain, PageRightSidebar, PageHeader, PageToggleButton, PageContent, SideMenu, SideMenuAI } from '../components/layout'
+import { useAppSidebar } from '../composables/useAppSidebar'
+
+const route = useRoute()
+
+// Sidebar state
+const { isLeftOpen, isRightOpen, left, right } = useAppSidebar()
+
+const pageTitle = computed(() => {
+  const path = route.params.path
+  if (Array.isArray(path) && path.length > 0) {
+    // Convert path like "sales-deliveries" to "Sales deliveries"
+    return path[path.length - 1]
+      .split('-')
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
+  return 'Page'
+})
+</script>
+
+<template>
+  <BaseLayout>
+    <PageShell>
+      <PageLeftSidebar :open="isLeftOpen">
+        <SideMenu @toggle="left.toggle" />
+      </PageLeftSidebar>
+
+      <PageMain>
+        <PageHeader>
+          <MpFlex align="center" gap="6">
+            <PageToggleButton v-if="!isLeftOpen" @click="left.toggle" />
+            <MpText size="h1">{{ pageTitle }}</MpText>
+          </MpFlex>
+          <div />
+        </PageHeader>
+
+        <PageContent :left-sidebar-open="isLeftOpen" :right-sidebar-open="isRightOpen">
+          <MpText :class="css({ color: 'gray.500' })">
+            ...
+          </MpText>
+        </PageContent>
+      </PageMain>
+
+      <PageRightSidebar :open="isRightOpen">
+        <SideMenuAI @toggle="right.toggle" />
+      </PageRightSidebar>
+    </PageShell>
+  </BaseLayout>
+</template>
+```
+
+
+## index
+
+Enterprise layout entry; redirects to sales-invoices. Uses BaseLayout with PageShell and PageContent.
+
+
+```vue
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { BaseLayout, PageShell, PageMain, PageContent } from '../components/layout'
+
+const router = useRouter()
+
+// Redirect to sales-invoices by default
+router.replace('/templates/layouts/enterprise/sales-invoices')
+</script>
+
+<template>
+  <BaseLayout>
+    <PageShell>
+      <PageMain>
+        <PageContent>
+          <div>Content</div>
+        </PageContent>
+      </PageMain>
+    </PageShell>
+  </BaseLayout>
+</template>
+
+<route lang="yaml">
+meta:
+  cover: /cover/templates/layouts/enterprise.png
+</route>
+```
+
+
+## sales-invoices
+
+Full enterprise data-view page: summary cards, tabs, table with column settings and export, filters, popovers, drawer; uses EnterpriseTable, SummaryCards, AskAiButton, SearchInput.
+
+
+```vue
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import {
+  css,
+  MpButton,
+  MpFlex,
+  MpText,
+  MpButtonGroup,
+  MpTabs,
+  MpTabList,
+  MpTab,
+  MpTable,
+  MpTableHead,
+  MpTableBody,
+  MpTableRow,
+  MpTableCell,
+  MpTableContainer,
+  MpBadge,
+  MpIcon,
+  MpPopover,
+  MpPopoverTrigger,
+  MpPopoverContent,
+  MpPopoverList,
+  MpPopoverListItem,
+  MpAutocomplete,
+  MpDrawer,
+  MpDrawerContent,
+  MpDrawerBody,
+  MpDrawerOverlay,
+} from '@mekari/pixel3'
+import { AskAiButton, SearchInput } from '../components/shared'
+import { BaseLayout, PageShell, PageLeftSidebar, PageMain, PageRightSidebar, PageHeader, PageToggleButton, PageContent, SideMenu, SideMenuAI } from '../components/layout'
+import { EnterpriseTable, type EnterpriseTableColumn } from '../components/table'
+import { SummaryCards, SummaryCardItem, ColumnSettings, ExportButton } from '../components/data-view'
+import { useAppSidebar } from '../composables/useAppSidebar'
+
+// Compact table styles (consumer-level override)
+const compactTableClass = css({
+  '& th, & td': {
+    minHeight: '7!',
+    paddingX: '2!',
+  },
+  '& th': {
+    paddingY: '1.5!',
+  },
+  '& td': {
+    paddingY: '2.5!',
+  }
+})
+
+// Types
+interface SalesInvoice {
+  id: number
+  date: string
+  number: string
+  customer: string
+  dueDate: string
+  status: 'Paid' | 'Open' | 'Overdue'
+  overdueNote?: string
+  due: string
+  paid: string
+  tags?: string[]
+}
+
+// Tab & UI state
+const currentTab = ref(0)
+
+// Status filter
+const statusOptions = ['All', 'Open', 'Paid', 'Overdue']
+const selectedStatus = ref('All')
+
+// Search
+const searchQuery = ref('')
+
+// Sidebar state
+const { isLeftOpen, isRightOpen, left, right } = useAppSidebar()
+
+// Selection state (v-model with EnterpriseTable)
+const selectedInvoiceIds = ref<(string | number)[]>([])
+
+// Column configuration
+const columns: EnterpriseTableColumn<SalesInvoice>[] = [
+  { id: 'date', label: 'DATE', width: 100, minWidth: 80, accessor: (r) => r.date },
+  { id: 'number', label: 'NUMBER', width: 180, minWidth: 100, accessor: (r) => r.number },
+  { id: 'customer', label: 'CUSTOMER', width: 220, minWidth: 120, accessor: (r) => r.customer },
+  { id: 'dueDate', label: 'DUE DATE', width: 100, minWidth: 80, accessor: (r) => r.dueDate },
+  { id: 'status', label: 'STATUS', width: 120, minWidth: 80 },
+  { id: 'due', label: 'DUE', width: 140, minWidth: 80, accessor: (r) => r.due },
+  { id: 'paid', label: 'PAID', width: 140, minWidth: 80, accessor: (r) => r.paid },
+  { id: 'tags', label: 'TAGS', width: 100, minWidth: 60 },
+  { id: 'actions', label: '', width: 48, minWidth: 48 },
+]
+
+// Mock data
+const invoices = ref<SalesInvoice[]>([
+  { id: 1, date: '1/12/2025', number: 'Sales Invoice #1591', customer: 'Intriq Keys', dueDate: '8/12/2025', status: 'Open', due: 'SGD900,00', paid: '0,00', tags: ['VIP'] },
+  { id: 2, date: '1/11/2025', number: 'Sales Invoice #1589', customer: 'Tera Logistics', dueDate: '17/11/2025', status: 'Paid', due: '0,00', paid: 'Rp800.000,00' },
+  { id: 3, date: '10/11/2025', number: 'Sales Invoice #1587', customer: 'High Five Solutions Pte Ltd', dueDate: '1/12/2025', status: 'Overdue', overdueNote: 'Overdue by 2 days', due: 'Rp39.743.396,83', paid: '0,00' },
+  { id: 4, date: '28/10/2025', number: 'Sales Invoice #1586', customer: 'Column Flowers', dueDate: '8/11/2025', status: 'Paid', due: '0,00', paid: 'Rp45.000.000,00' },
+  { id: 5, date: '27/10/2025', number: 'Sales Invoice #1585', customer: 'Ayam Tulang Lunak Hayam Wu', dueDate: '7/11/2025', status: 'Paid', due: '0,00', paid: 'Rp550.000,00' },
+  { id: 6, date: '10/10/2025', number: 'Sales Invoice #1580', customer: 'EnTI', dueDate: '17/10/2025', status: 'Paid', due: '0,00', paid: 'Rp550.000,00' },
+  { id: 7, date: '1/10/2025', number: 'Sales Invoice #1579', customer: 'Tomo Digital Pte Ltd', dueDate: '8/10/2025', status: 'Paid', due: '0,00', paid: 'SGD3.500,00' },
+  { id: 8, date: '1/10/2025', number: 'Sales Invoice #1576', customer: 'De Heus Indonesia', dueDate: '8/10/2025', status: 'Paid', due: '0,00', paid: 'Rp7.500.000,00' },
+  { id: 9, date: '10/9/2025', number: 'Sales Invoice #1575', customer: 'Pre School By-The Park Pte Ltd', dueDate: '17/9/2025', status: 'Paid', due: '0,00', paid: 'SGD900,00' },
+  { id: 10, date: '10/9/2025', number: 'Sales Invoice #1574', customer: 'PT United Tractors Tbk.', dueDate: '17/9/2025', status: 'Paid', due: '0,00', paid: 'Rp45.000.000,00' },
+  { id: 11, date: '7/9/2025', number: 'Sales Invoice #1573', customer: 'CV Bintang Terang', dueDate: '14/9/2025', status: 'Paid', due: '0,00', paid: 'Rp25.000.000,00' },
+  { id: 12, date: '4/9/2025', number: 'Sales Invoice #1572', customer: 'Tomo Digital Pte Ltd', dueDate: '11/9/2025', status: 'Paid', due: '0,00', paid: 'SGD2.500,00' },
+  { id: 13, date: '4/9/2025', number: 'Sales Invoice #1571', customer: 'De Heus Indonesia', dueDate: '11/9/2025', status: 'Paid', due: '0,00', paid: 'Rp15.000.000,00' },
+  { id: 14, date: '1/9/2025', number: 'Sales Invoice #1570', customer: 'UD Karya Abadi', dueDate: '8/9/2025', status: 'Paid', due: '0,00', paid: 'Rp10.000.000,00' },
+  { id: 15, date: '28/8/2025', number: 'Sales Invoice #1567', customer: 'Tomo Digital Pte Ltd', dueDate: '28/9/2025', status: 'Paid', due: '0,00', paid: 'SGD1.500,00' },
+  { id: 16, date: '28/8/2025', number: 'Sales Invoice #1566', customer: 'Pre School By-The Park Pte Ltd', dueDate: '28/9/2025', status: 'Paid', due: '0,00', paid: 'SGD900,00' },
+  { id: 17, date: '9/8/2025', number: 'Sales Invoice #1568', customer: 'PT Cipta Karya', dueDate: '13/9/2025', status: 'Paid', due: '0,00', paid: 'Rp3.000.000,00' },
+  { id: 18, date: '5/8/2025', number: 'Sales Invoice #1565', customer: 'PT Maju Jaya', dueDate: '12/8/2025', status: 'Paid', due: '0,00', paid: 'Rp8.500.000,00' },
+  { id: 19, date: '1/8/2025', number: 'Sales Invoice #1564', customer: 'CV Sentosa Abadi', dueDate: '8/8/2025', status: 'Paid', due: '0,00', paid: 'Rp12.000.000,00' },
+  { id: 20, date: '28/7/2025', number: 'Sales Invoice #1563', customer: 'PT Global Tech', dueDate: '4/8/2025', status: 'Paid', due: '0,00', paid: 'SGD4.200,00' },
+  { id: 21, date: '25/7/2025', number: 'Sales Invoice #1562', customer: 'Toko Berkah Sejahtera', dueDate: '1/8/2025', status: 'Paid', due: '0,00', paid: 'Rp2.750.000,00' },
+  { id: 22, date: '20/7/2025', number: 'Sales Invoice #1561', customer: 'PT Indofood Sukses', dueDate: '27/7/2025', status: 'Paid', due: '0,00', paid: 'Rp95.000.000,00' },
+  { id: 23, date: '15/7/2025', number: 'Sales Invoice #1560', customer: 'CV Harmoni Raya', dueDate: '22/7/2025', status: 'Paid', due: '0,00', paid: 'Rp6.800.000,00' },
+  { id: 24, date: '10/7/2025', number: 'Sales Invoice #1559', customer: 'PT Telkom Indonesia', dueDate: '17/7/2025', status: 'Paid', due: '0,00', paid: 'Rp150.000.000,00', tags: ['Enterprise'] },
+  { id: 25, date: '5/7/2025', number: 'Sales Invoice #1558', customer: 'Warung Makan Sederhana', dueDate: '12/7/2025', status: 'Paid', due: '0,00', paid: 'Rp1.200.000,00' },
+  { id: 26, date: '1/7/2025', number: 'Sales Invoice #1557', customer: 'PT Bank Central Asia', dueDate: '8/7/2025', status: 'Paid', due: '0,00', paid: 'Rp75.000.000,00', tags: ['VIP'] },
+  { id: 27, date: '28/6/2025', number: 'Sales Invoice #1556', customer: 'CV Sinar Mas', dueDate: '5/7/2025', status: 'Paid', due: '0,00', paid: 'Rp18.500.000,00' },
+  { id: 28, date: '25/6/2025', number: 'Sales Invoice #1555', customer: 'PT Astra International', dueDate: '2/7/2025', status: 'Paid', due: '0,00', paid: 'Rp200.000.000,00', tags: ['Enterprise'] },
+  { id: 29, date: '20/6/2025', number: 'Sales Invoice #1554', customer: 'Toko Elektronik Jaya', dueDate: '27/6/2025', status: 'Paid', due: '0,00', paid: 'Rp4.500.000,00' },
+  { id: 30, date: '15/6/2025', number: 'Sales Invoice #1553', customer: 'PT Pertamina', dueDate: '22/6/2025', status: 'Paid', due: '0,00', paid: 'Rp500.000.000,00', tags: ['Enterprise', 'VIP'] },
+  { id: 31, date: '10/6/2025', number: 'Sales Invoice #1552', customer: 'CV Mega Perkasa', dueDate: '17/6/2025', status: 'Paid', due: '0,00', paid: 'Rp8.200.000,00' },
+  { id: 32, date: '5/6/2025', number: 'Sales Invoice #1551', customer: 'PT Sumber Rejeki', dueDate: '12/6/2025', status: 'Paid', due: '0,00', paid: 'Rp14.500.000,00' },
+  { id: 33, date: '1/6/2025', number: 'Sales Invoice #1550', customer: 'Toko Makmur Sentosa', dueDate: '8/6/2025', status: 'Paid', due: '0,00', paid: 'Rp3.300.000,00' },
+  { id: 34, date: '28/5/2025', number: 'Sales Invoice #1549', customer: 'PT Garuda Indonesia', dueDate: '4/6/2025', status: 'Paid', due: '0,00', paid: 'Rp85.000.000,00', tags: ['Enterprise'] },
+  { id: 35, date: '25/5/2025', number: 'Sales Invoice #1548', customer: 'CV Anugerah Jaya', dueDate: '1/6/2025', status: 'Paid', due: '0,00', paid: 'Rp5.600.000,00' },
+  { id: 36, date: '20/5/2025', number: 'Sales Invoice #1547', customer: 'UD Sinar Terang', dueDate: '27/5/2025', status: 'Paid', due: '0,00', paid: 'Rp2.100.000,00' },
+  { id: 37, date: '15/5/2025', number: 'Sales Invoice #1546', customer: 'PT Mandiri Persero', dueDate: '22/5/2025', status: 'Paid', due: '0,00', paid: 'Rp120.000.000,00', tags: ['VIP'] },
+  { id: 38, date: '10/5/2025', number: 'Sales Invoice #1545', customer: 'Restoran Padang Sederhana', dueDate: '17/5/2025', status: 'Paid', due: '0,00', paid: 'Rp1.850.000,00' },
+  { id: 39, date: '5/5/2025', number: 'Sales Invoice #1544', customer: 'PT Bukalapak Indonesia', dueDate: '12/5/2025', status: 'Paid', due: '0,00', paid: 'Rp45.000.000,00', tags: ['Enterprise'] },
+  { id: 40, date: '1/5/2025', number: 'Sales Invoice #1543', customer: 'CV Prima Sakti', dueDate: '8/5/2025', status: 'Paid', due: '0,00', paid: 'Rp7.400.000,00' },
+  { id: 41, date: '28/4/2025', number: 'Sales Invoice #1542', customer: 'Singapore Tech Solutions Pte Ltd', dueDate: '5/5/2025', status: 'Paid', due: '0,00', paid: 'SGD5.800,00' },
+  { id: 42, date: '25/4/2025', number: 'Sales Invoice #1541', customer: 'PT Unilever Indonesia', dueDate: '2/5/2025', status: 'Paid', due: '0,00', paid: 'Rp180.000.000,00', tags: ['Enterprise', 'VIP'] },
+  { id: 43, date: '20/4/2025', number: 'Sales Invoice #1540', customer: 'Toko Bangunan Maju', dueDate: '27/4/2025', status: 'Paid', due: '0,00', paid: 'Rp4.200.000,00' },
+  { id: 44, date: '15/4/2025', number: 'Sales Invoice #1539', customer: 'PT Tokopedia', dueDate: '22/4/2025', status: 'Paid', due: '0,00', paid: 'Rp65.000.000,00', tags: ['Enterprise'] },
+  { id: 45, date: '10/4/2025', number: 'Sales Invoice #1538', customer: 'CV Berkah Abadi', dueDate: '17/4/2025', status: 'Paid', due: '0,00', paid: 'Rp9.100.000,00' },
+  { id: 46, date: '5/4/2025', number: 'Sales Invoice #1537', customer: 'Marina Bay Trading Pte Ltd', dueDate: '12/4/2025', status: 'Paid', due: '0,00', paid: 'SGD2.200,00' },
+  { id: 47, date: '1/4/2025', number: 'Sales Invoice #1536', customer: 'PT XL Axiata', dueDate: '8/4/2025', status: 'Paid', due: '0,00', paid: 'Rp55.000.000,00', tags: ['Enterprise'] },
+  { id: 48, date: '28/3/2025', number: 'Sales Invoice #1535', customer: 'UD Jaya Makmur', dueDate: '4/4/2025', status: 'Paid', due: '0,00', paid: 'Rp3.750.000,00' },
+  { id: 49, date: '25/3/2025', number: 'Sales Invoice #1534', customer: 'PT Gojek Indonesia', dueDate: '1/4/2025', status: 'Paid', due: '0,00', paid: 'Rp95.000.000,00', tags: ['Enterprise', 'VIP'] },
+  { id: 50, date: '20/3/2025', number: 'Sales Invoice #1533', customer: 'CV Usaha Bersama', dueDate: '27/3/2025', status: 'Paid', due: '0,00', paid: 'Rp6.500.000,00' }
+])
+
+// Customer drawer state
+const isCustomerDrawerOpen = ref(false)
+
+function openCustomerDrawer() {
+  isCustomerDrawerOpen.value = true
+}
+
+function closeCustomerDrawer() {
+  isCustomerDrawerOpen.value = false
+}
+
+// Helper functions
+type BadgeType = 'completed' | 'announcement' | 'critical' | 'information' | 'warning'
+const getBadgeType = (status: string): BadgeType => {
+  const map: Record<string, BadgeType> = {
+    'Paid': 'completed',
+    'Open': 'announcement',
+    'Overdue': 'critical'
+  }
+  return map[status] || 'information'
+}
+
+// Pagination computed
+const totalItems = computed(() => invoices.value.length)
+</script>
+
+<template>
+  <BaseLayout>
+    <PageShell>
+      <!-- Left Sidebar -->
+      <PageLeftSidebar :open="isLeftOpen">
+        <SideMenu @toggle="left.toggle" />
+      </PageLeftSidebar>
+
+      <!-- Main Content Area -->
+      <PageMain>
+        <!-- Page Header -->
+        <PageHeader>
+          <!-- Left Section -->
+          <MpFlex align="center" gap="6">
+            <PageToggleButton v-if="!isLeftOpen" @click="left.toggle" />
+            <MpText size="h1">Sales invoices</MpText>
+          </MpFlex>
+
+          <!-- Right Section -->
+          <MpFlex align="center" gap="2">
+            <MpButton variant="secondary" style="border-radius: 9999px;">
+              Import
+            </MpButton>
+
+            <MpButtonGroup is-split>
+              <MpButton :class="css({ roundedLeft: 'full' })">Create sales invoice</MpButton>
+              <MpPopover placement="bottom-end">
+                <MpPopoverTrigger>
+                  <MpButton :class="css({
+                    roundedRight: 'full',
+                    borderLeftWidth: '1px',
+                    borderLeftColor: 'neutral.400'
+                  })" right-icon="chevrons-down" />
+                </MpPopoverTrigger>
+                <MpPopoverContent :class="css({ minWidth: '200px' })">
+                  <MpPopoverList>
+                    <MpPopoverListItem>Create sales invoice</MpPopoverListItem>
+                    <MpPopoverListItem>Create sales quote</MpPopoverListItem>
+                    <MpPopoverListItem>Create sales order</MpPopoverListItem>
+                  </MpPopoverList>
+                </MpPopoverContent>
+              </MpPopover>
+            </MpButtonGroup>
+          </MpFlex>
+        </PageHeader>
+
+        <!-- Page Content -->
+        <PageContent :left-sidebar-open="isLeftOpen" :right-sidebar-open="isRightOpen">
+          <!-- Summary Cards -->
+          <SummaryCards>
+            <SummaryCardItem title="Overdue" subtitle="As of today" value="Rp39.749.959,00" value-color="danger"
+              label="Label" label-link="/templates/layouts/enterprise/sales-invoices?status=overdue" />
+            <SummaryCardItem title="Unpaid" subtitle="As of today" value="Rp51.290.270,88"
+              label="Label" label-link="/templates/layouts/enterprise/sales-invoices?status=unpaid" />
+            <SummaryCardItem title="Payment received" subtitle="Last 30 days" value="Rp120.890.000,00"
+              label="Label" label-link="/templates/layouts/enterprise/sales-invoices?status=paid" />
+
+            <!-- Accept online payments Banner -->
+            <div :class="css({
+              display: 'flex',
+              gap: '3',
+              alignItems: 'flex-start'
+            })">
+              <div :class="css({
+                width: '48px',
+                height: '48px',
+                rounded: 'lg',
+                bg: '#E1F6FF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: '0'
+              })">
+                <MpIcon name="pay-brand" :class="css({ h: '8', w: '8' })" />
+              </div>
+
+              <div :class="css({ flex: '1' })">
+                <MpFlex justify="space-between" align="flex-start">
+                  <div>
+                    <MpText weight="semiBold">Accept online payments and give customers more ways to pay</MpText>
+                    <MpText size="body-small">
+                      Add a 'Pay with Mekari Pay' button to your invoices and get paid up to twice as fast.
+                    </MpText>
+                  </div>
+                  <MpButton left-icon="close" variant="ghost" size="sm" :class="css({ flexShrink: '0', ml: '2' })" />
+                </MpFlex>
+                <MpButton variant="secondary" :class="css({ mt: '3', rounded: 'full', color: 'text.secondary' })">Start set up</MpButton>
+              </div>
+            </div>
+          </SummaryCards>
+
+          <!-- Tabs -->
+          <MpTabs v-model="currentTab" is-manual>
+            <MpTabList>
+              <MpTab>Invoices</MpTab>
+              <MpTab>Awaiting approval</MpTab>
+              <MpTab>Recurring</MpTab>
+            </MpTabList>
+          </MpTabs>
+
+          <!-- Invoices Tab Content -->
+          <div>
+            <!-- Filter Bar -->
+            <MpFlex justify="space-between" align="center" mb="5">
+              <!-- Left: Status & Filter -->
+              <MpFlex align="center" gap="2">
+                <MpAutocomplete id="status-filter" v-model="selectedStatus" :data="statusOptions" placeholder="Status"
+                  :class="css({ width: '120px' })" />
+
+                <MpButton left-icon="filter" variant="secondary" :class="css({ borderRadius: 'full', color: 'text.secondary' })">
+                  All Filters
+                </MpButton>
+              </MpFlex>
+
+              <!-- Right: Actions & Ask AI -->
+              <MpFlex align="center" gap="2">
+                <AskAiButton @click="right.open" />
+                <ColumnSettings />
+                <ExportButton />
+                <SearchInput id="search-invoices" v-model="searchQuery" placeholder="Search in sales invoices..." />
+              </MpFlex>
+            </MpFlex>
+
+            <!-- Enterprise Table -->
+            <EnterpriseTable :data="invoices" :columns="columns" row-key="id" :total-items="totalItems"
+              v-model:selected-keys="selectedInvoiceIds" :features="{
+                stickyHeader: true,
+                columnPin: true,
+                columnResize: true,
+                selectable: true,
+                pagination: true,
+              }">
+              <!-- Number column with truncation -->
+              <template #cell-number="{ row }">
+                <MpText :class="css({ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' })">
+                  {{ row.number }}
+                </MpText>
+              </template>
+
+              <!-- Customer column with view details hover -->
+              <template #cell-customer="{ row }">
+                <div :class="css({ position: 'relative' })">
+                  <MpText :class="css({ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' })">
+                    {{ row.customer }}
+                  </MpText>
+
+                  <div :class="css({
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '20px',
+                    position: 'absolute',
+                    top: '0',
+                    right: '0',
+                    background: 'background.neutral',
+                    rounded: 'sm',
+                    borderWidth: '1px',
+                    borderColor: 'border.bold',
+                    px: '1.5',
+                    gap: '1',
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    opacity: '0',
+                    transform: 'translateX(4px)',
+                    transition: 'all',
+                    transitionTimingFunction: 'ease-out',
+                    transitionDuration: '150ms',
+                    '.group:hover &': {
+                      opacity: '1',
+                      transform: 'translateY(0)'
+                    }
+                  })" @click.stop="openCustomerDrawer">
+                    <MpIcon name="table-view-field" :class="css({ height: '3', width: '3' })" />
+                    <MpText size="label-small" :class="css({ fontSize: '10px' })" weight="semiBold">VIEW DETAILS
+                    </MpText>
+                  </div>
+                </div>
+              </template>
+
+              <!-- Due Date with color -->
+              <template #cell-dueDate="{ row }">
+                <MpText :class="css({ color: row.status === 'Overdue' ? 'red.600' : 'inherit' })">
+                  {{ row.dueDate }}
+                </MpText>
+              </template>
+
+              <!-- Status with badge -->
+              <template #cell-status="{ row }">
+                <div>
+                  <MpBadge for="tableStatus" :type="getBadgeType(row.status)">
+                    {{ row.status }}
+                  </MpBadge>
+                  <MpText v-if="row.overdueNote" :class="css({ fontSize: 'xs', color: 'red.600', mt: '1' })">
+                    {{ row.overdueNote }}
+                  </MpText>
+                </div>
+              </template>
+
+              <!-- Tags -->
+              <template #cell-tags="{ row }">
+                <MpBadge v-if="row.tags?.length" for="tableStatus" type="announcement">
+                  {{ row.tags[0] }}
+                </MpBadge>
+              </template>
+
+              <!-- Actions -->
+              <template #cell-actions>
+                <MpFlex justifyContent="flex-end">
+                  <MpPopover placement="bottom-end">
+                    <MpPopoverTrigger>
+                      <MpButton variant="ghost" size="sm" :class="css({ p: '0', minWidth: '24px', height: '24px' })">
+                        <MpIcon name="menu-kebab" size="sm" />
+                      </MpButton>
+                    </MpPopoverTrigger>
+                    <MpPopoverContent :class="css({ minWidth: '140px' })">
+                      <MpPopoverList>
+                        <MpPopoverListItem>View details</MpPopoverListItem>
+                        <MpPopoverListItem>Edit</MpPopoverListItem>
+                        <MpPopoverListItem>Archive</MpPopoverListItem>
+                      </MpPopoverList>
+                    </MpPopoverContent>
+                  </MpPopover>
+                </MpFlex>
+              </template>
+            </EnterpriseTable>
+          </div>
+        </PageContent>
+      </PageMain>
+
+      <!-- Right Sidebar -->
+      <PageRightSidebar :open="isRightOpen">
+        <SideMenuAI @toggle="right.toggle" />
+      </PageRightSidebar>
+    </PageShell>
+  </BaseLayout>
+
+  <!-- Customer Detail Drawer -->
+  <MpDrawer id="customer-detail-drawer" :is-open="isCustomerDrawerOpen" @close="closeCustomerDrawer" placement="right"
+    size="md" variant="floating">
+
+    <MpDrawerContent>
+      <MpDrawerBody tabindex="0">
+        <MpFlex direction="column" gap="0">
+          <!-- Close Button -->
+          <MpFlex justifyContent="flex-end" p="2">
+            <MpButton left-icon="close" variant="ghost" size="sm" @click="closeCustomerDrawer" />
+          </MpFlex>
+
+          <MpFlex direction="column" gap="6">
+            <!-- Header -->
+            <MpFlex direction="column" gap="0.5" px="4">
+              <MpFlex justifyContent="space-between" alignItems="flex-start">
+                <MpText size="h3" weight="semiBold">Hayam Tulang Lunak Hayam Wuruk</MpText>
+                <MpText size="body-small" is-text-link color="text.link"
+                  :class="css({ textDecoration: 'underline', cursor: 'pointer' })">View in contacts</MpText>
+              </MpFlex>
+              <MpText size="body-small" color="text.secondary">Customer</MpText>
+            </MpFlex>
+
+            <!-- Customer Info Section -->
+            <MpFlex direction="column" gap="3" px="4">
+              <MpFlex>
+                <MpText weight="semiBold" :class="css({ width: '140px', flexShrink: '0' })">Company
+                  name
+                </MpText>
+                <MpText :class="css({ flex: '1' })">PT Panen Raya Bersama</MpText>
+              </MpFlex>
+              <MpFlex>
+                <MpText weight="semiBold" :class="css({ width: '140px', flexShrink: '0' })">Contact name
+                </MpText>
+                <MpText :class="css({ flex: '1' })">Rudi Hakim</MpText>
+              </MpFlex>
+              <MpFlex>
+                <MpText weight="semiBold" :class="css({ width: '140px', flexShrink: '0' })">Email address
+                </MpText>
+                <MpText is-text-link color="text.link"
+                  :class="css({ flex: '1', textDecoration: 'underline', cursor: 'pointer' })">sales@atlhw.com
+                </MpText>
+              </MpFlex>
+              <MpFlex>
+                <MpText weight="semiBold" :class="css({ width: '140px', flexShrink: '0' })">Contact no.</MpText>
+                <MpText is-text-link color="text.link"
+                  :class="css({ flex: '1', textDecoration: 'underline', cursor: 'pointer' })">+6281234567890
+                </MpText>
+              </MpFlex>
+              <MpFlex>
+                <MpText weight="semiBold" :class="css({ width: '140px', flexShrink: '0' })">Billing address
+                </MpText>
+                <MpText :class="css({ flex: '1' })">Gedung Graha Kencana Blok EQ/88, JL Raya Pejuangan,
+                  No. 88, Kebon Jeruk, Jakarta Barat, DKI Jakarta, Indonesia</MpText>
+              </MpFlex>
+              <MpFlex>
+                <MpText weight="semiBold" :class="css({ width: '140px', flexShrink: '0' })">Shipping address
+                </MpText>
+                <MpText :class="css({ flex: '1' })">Gedung Graha Kencana Blok EQ/88, JL Raya Pejuangan,
+                  No. 88, Kebon Jeruk, Jakarta Barat, DKI Jakarta, Indonesia</MpText>
+              </MpFlex>
+            </MpFlex>
+
+            <!-- Stats Section -->
+            <MpFlex gap="6" px="4" borderTopWidth="1px" borderColor="border.default" pt="4">
+              <!-- Invoices owed -->
+              <MpFlex direction="column" gap="1"
+                :class="css({ flex: '1', borderRightWidth: '1px', borderColor: 'border.default', pr: '4' })">
+                <MpText :class="css({ color: 'gray.600' })">Invoices owed to you</MpText>
+                <MpText size="body-small" :class="css({ color: 'gray.600' })">As of today</MpText>
+                <MpText size="h2" weight="semiBold" :class="css({ mt: '2' })">Rp45.000.000,00</MpText>
+                <MpText size="body-small" :class="css({ color: 'gray.600' })">1 invoice</MpText>
+              </MpFlex>
+
+              <!-- Average pay days -->
+              <MpFlex direction="column" gap="1" :class="css({ flex: '1' })">
+                <MpText :class="css({ color: 'gray.600' })">They pay in</MpText>
+                <MpText size="h2" weight="semiBold" :class="css({ mt: '2' })">~8 days</MpText>
+              </MpFlex>
+            </MpFlex>
+
+            <!-- Latest Transactions Section -->
+            <MpFlex direction="column" gap="3" px="4">
+              <MpText weight="semiBold">Latest transactions</MpText>
+
+              <MpTableContainer
+                :class="css({ width: 'full', borderWidth: '1px', borderColor: 'border.default', rounded: 'lg', overflow: 'auto' })">
+                <MpTable :class="compactTableClass">
+                  <MpTableHead>
+                    <MpTableRow>
+                      <MpTableCell scope="col">DATE</MpTableCell>
+                      <MpTableCell scope="col">NUMBER</MpTableCell>
+                      <MpTableCell scope="col">STATUS</MpTableCell>
+                      <MpTableCell scope="col">AMOUNT</MpTableCell>
+                    </MpTableRow>
+                  </MpTableHead>
+                  <MpTableBody>
+                    <MpTableRow>
+                      <MpTableCell>1/12/25</MpTableCell>
+                      <MpTableCell>
+                        <MpText>
+                          Sales Invoice #1591
+                        </MpText>
+                      </MpTableCell>
+                      <MpTableCell>
+                        <MpBadge for="tableStatus" type="warning">Open</MpBadge>
+                      </MpTableCell>
+                      <MpTableCell>Rp45.000.000,00</MpTableCell>
+                    </MpTableRow>
+                    <MpTableRow>
+                      <MpTableCell>1/11/25</MpTableCell>
+                      <MpTableCell>
+                        <MpText>
+                          Sales Invoice #1589
+                        </MpText>
+                      </MpTableCell>
+                      <MpTableCell>
+                        <MpBadge for="tableStatus" type="completed">Paid</MpBadge>
+                      </MpTableCell>
+                      <MpTableCell>Rp8.500.000,00</MpTableCell>
+                    </MpTableRow>
+                    <MpTableRow>
+                      <MpTableCell>10/11/25</MpTableCell>
+                      <MpTableCell>
+                        <MpText>
+                          Sales Invoice #1587
+                        </MpText>
+                      </MpTableCell>
+                      <MpTableCell>
+                        <MpBadge for="tableStatus" type="completed">Paid</MpBadge>
+                      </MpTableCell>
+                      <MpTableCell>Rp12.000.000,00</MpTableCell>
+                    </MpTableRow>
+                    <MpTableRow>
+                      <MpTableCell>28/10/25</MpTableCell>
+                      <MpTableCell>
+                        <MpText>
+                          Sales Invoice #1586
+                        </MpText>
+                      </MpTableCell>
+                      <MpTableCell>
+                        <MpBadge for="tableStatus" type="completed">Paid</MpBadge>
+                      </MpTableCell>
+                      <MpTableCell>Rp4.500.000,00</MpTableCell>
+                    </MpTableRow>
+                    <MpTableRow>
+                      <MpTableCell>27/10/25</MpTableCell>
+                      <MpTableCell>
+                        <MpText>
+                          Sales Invoice #1585
+                        </MpText>
+                      </MpTableCell>
+                      <MpTableCell>
+                        <MpBadge for="tableStatus" type="completed">Paid</MpBadge>
+                      </MpTableCell>
+                      <MpTableCell>Rp25.000.000,00</MpTableCell>
+                    </MpTableRow>
+                  </MpTableBody>
+                </MpTable>
+              </MpTableContainer>
+            </MpFlex>
+          </MpFlex>
+
+        </MpFlex>
+
+      </MpDrawerBody>
+    </MpDrawerContent>
+
+    <MpDrawerOverlay />
+  </MpDrawer>
+</template>
+```
+
+
+# Template: layouts/general
+
+## boxed
+
+General layout with boxed content: grid of cards in the main area. BaseLayout and PixelContent.
+
+
+```vue
+<script setup lang="ts">
+  import { MpButton, MpFlex, MpText, css } from '@mekari/pixel3'
+  import BaseLayout from '../parts/BaseLayout.vue'
+  import { usePixelLayout } from '@/components/layouts/composables'
+
+  const { pixelContentAttrs } = usePixelLayout()
+
+  const card = css({
+    bg: 'background.neutral',
+    borderWidth: '1px',
+    borderColor: 'border.default',
+    rounded: 'md',
+    p: 6,
+    h: '250px'
+  })
+</script>
+
+<template>
+  <BaseLayout>
+    <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+      <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+        <MpText size="h1" weight="semiBold"> Title </MpText>
+
+        <MpButton> Action </MpButton>
+      </MpFlex>
+
+      <div
+        :class="
+          css({
+            display: 'grid',
+            gridTemplateColumns: '3',
+            gap: '3',
+            pr: '6',
+            pb: '3'
+          })
+        "
+      >
+        <div :class="card">
+          <MpText>Place content here...</MpText>
+        </div>
+
+        <div :class="card">
+          <MpText>Place content here...</MpText>
+        </div>
+
+        <div :class="card">
+          <MpText>Place content here...</MpText>
+        </div>
+
+        <div :class="[card, css({ gridColumn: '3' })]">
+          <MpText>Place content here...</MpText>
+        </div>
+
+        <div :class="[card, css({ gridColumn: '3' })]">
+          <MpText>Place content here...</MpText>
+        </div>
+      </div>
+    </main>
+  </BaseLayout>
+</template>
+
+<route lang="yaml">
+meta:
+cover: /cover/templates/layouts/default.png
+</route>
+```
+
+
+## child-menu
+
+General layout with child menu: BaseLayout with isShowChildMenu, sidebar collapsed by default. For pages with nested navigation.
+
+
+```vue
+<script setup lang="ts">
+  import { onBeforeMount } from 'vue'
+  import { MpFlex, MpText, css } from '@mekari/pixel3'
+  import { usePixelLayout } from '@/components/layouts/composables'
+  import BaseLayout from '../parts/BaseLayout.vue'
+
+  const { pixelContentAttrs, useSidebar } = usePixelLayout()
+
+  const mainContentClass = css({
+    bg: 'background.neutral',
+    borderTopWidth: '1px',
+    borderLeftWidth: '1px',
+    borderColor: 'border.default',
+    roundedTopLeft: 'md',
+    p: 6,
+    minH: '100svh'
+  })
+
+  onBeforeMount(() => {
+    useSidebar.setCollapse(true)
+  })
+</script>
+
+<template>
+  <BaseLayout :isShowChildMenu="true">
+    <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+      <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+        <MpText size="h1" weight="semiBold"> Title </MpText>
+      </MpFlex>
+
+      <div :class="mainContentClass">Content</div>
+    </main>
+  </BaseLayout>
+</template>
+
+<route lang="yaml">
+meta:
+  cover: /cover/templates/layouts/default.png
+</route>
+```
+
+
+## index
+
+General layout with BaseLayout and PixelContent: page title, action button, main content area. Base for simple app shell.
+
+
+```vue
+<script setup lang="ts">
+  import { MpButton, MpFlex, MpText, css } from '@mekari/pixel3'
+  import BaseLayout from '../parts/BaseLayout.vue'
+  import { usePixelLayout } from '@/components/layouts/composables'
+
+  const { pixelContentAttrs } = usePixelLayout()
+</script>
+
+<template>
+  <BaseLayout>
+    <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+      <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+        <MpText size="h1" weight="semiBold"> Title </MpText>
+
+        <MpButton> Action </MpButton>
+      </MpFlex>
+
+      <div
+        :class="
+          css({
+            bg: 'background.neutral',
+            borderTopWidth: '1px',
+            borderLeftWidth: '1px',
+            borderColor: 'border.default',
+            roundedTopLeft: 'md',
+            p: 6,
+            minH: '100svh'
+          })
+        "
+      >
+        <MpText>Place content here...</MpText>
+      </div>
+    </main>
+  </BaseLayout>
+</template>
+
+<route lang="yaml">
+meta:
+cover: /cover/templates/layouts/default.png
+</route>
+```
+
+
+# Template: layouts/jurnal
+
+## [...path]
+
+Jurnal layout with BaseLayout and PixelContent: page title, action button, main content area. Used for dynamic route pages.
+
+
+```vue
+<script setup lang="ts">
+  import { MpButton, MpFlex, MpText, css } from '@mekari/pixel3'
+  import BaseLayout from '../parts/BaseLayout.vue'
+  import { usePixelLayout } from '@/components/layouts/composables'
+
+  const { pixelContentAttrs } = usePixelLayout()
+</script>
+
+<template>
+  <BaseLayout>
+    <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+      <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+        <MpText size="h1" weight="semiBold"> Title </MpText>
+
+        <MpButton> Action </MpButton>
+      </MpFlex>
+
+      <div
+        :class="
+          css({
+            bg: 'background.neutral',
+            borderTopWidth: '1px',
+            borderLeftWidth: '1px',
+            borderColor: 'border.default',
+            roundedTopLeft: 'md',
+            p: 6,
+            minH: '100svh'
+          })
+        "
+      >
+        <MpText>Place content here...</MpText>
+      </div>
+    </main>
+  </BaseLayout>
+</template>
+
+<route lang="yaml">
+meta:
+cover: /cover/templates/layouts/default.png
+</route>
+```
+
+
+## index
+
+Jurnal layout entry; redirects to home. BaseLayout with PixelContent.
+
+
+```vue
+<script setup lang="ts">
+  import { MpButton, MpFlex, MpText, css } from '@mekari/pixel3'
+  import { useRouter } from 'vue-router'
+  import BaseLayout from '../parts/BaseLayout.vue'
+  import { usePixelLayout } from '@/components/layouts/composables'
+
+  const { pixelContentAttrs } = usePixelLayout()
+  const router = useRouter()
+
+  router.push('/templates/layouts/jurnal/home')
+</script>
+
+<template>
+  <BaseLayout>
+    <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+      <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+        <MpText size="h1" weight="semiBold"> Title </MpText>
+
+        <MpButton> Action </MpButton>
+      </MpFlex>
+
+      <div
+        :class="
+          css({
+            bg: 'background.neutral',
+            borderTopWidth: '1px',
+            borderLeftWidth: '1px',
+            borderColor: 'border.default',
+            roundedTopLeft: 'md',
+            p: 6,
+            minH: '100svh'
+          })
+        "
+      >
+        <MpText>Place content here...</MpText>
+      </div>
+    </main>
+  </BaseLayout>
+</template>
+
+<route lang="yaml">
+meta:
+  cover: /cover/templates/jurnal/default.png
+</route>
+```
+
+
+## settings
+
+Jurnal layout with child menu (e.g. settings): BaseLayout with isShowChildMenu, sidebar collapsed. For settings or nested pages.
+
+
+```vue
+<script setup lang="ts">
+  import { MpButton, MpFlex, MpText, css } from '@mekari/pixel3'
+  import BaseLayout from '../parts/BaseLayout.vue'
+  import { usePixelLayout } from '@/components/layouts/composables'
+
+  const { pixelContentAttrs, useSidebar } = usePixelLayout()
+
+  // Update sidebar collapse programmatically.
+  useSidebar.setCollapse(true)
+</script>
+
+<template>
+  <BaseLayout :isShowChildMenu="true">
+    <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+      <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+        <MpText size="h1" weight="semiBold"> Title </MpText>
+
+        <MpButton> Action </MpButton>
+      </MpFlex>
+
+      <div
+        :class="
+          css({
+            bg: 'background.neutral',
+            borderTopWidth: '1px',
+            borderLeftWidth: '1px',
+            borderColor: 'border.default',
+            roundedTopLeft: 'md',
+            p: 6,
+            minH: '100svh'
+          })
+        "
+      >
+        <MpText>Place content here...</MpText>
+      </div>
+    </main>
+  </BaseLayout>
+</template>
+
+<route lang="yaml">
+meta:
+cover: /cover/templates/layouts/default.png
+</route>
+```
+
+
+# Template: qontak/chat
+
+## inbox
+
+Chat inbox: two-column layout with ChatList (conversations), filters, and main content area for selected chat. BaseLayout with child menu.
+
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpText, MpFlex, MpSelect, MpButton, MpImage, css } from '@mekari/pixel3'
+  import { usePixelLayout } from '@/components/layouts/composables'
+  import BaseLayout from '../parts/BaseLayout.vue'
+  import ChatList from '../parts/ChatList.vue'
+
+  // DUMMY DATA
+  import { CHAT_LIST_DATA } from '../data/chat'
+
+  const { pixelContentAttrs } = usePixelLayout()
+
+  const title = ref('All inboxes')
+  const select = ref('newest')
+  const chatIdClicked = ref('')
+
+  function onChatClick(id: string) {
+    chatIdClicked.value = id
+  }
+
+  function onChatChecked(id: string, isChecked: boolean) {
+    console.log(`${id} is checked:`, isChecked)
+  }
+
+  function onChatHovered(id: string, isHovered: boolean) {
+    console.log(`${id} is hovered:`, isHovered)
+  }
+</script>
+
+<template>
+  <BaseLayout :is-show-child-menu="true">
+    <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+      <div
+        :class="
+          css({
+            display: 'flex',
+            bg: 'background.surface',
+            borderLeftWidth: '1px',
+            borderColor: 'border.default',
+            height: 'calc(100vh - var(--pixel-navbar-height))',
+            overflow: 'hidden'
+          })
+        "
+      >
+        <MpFlex
+          direction="column"
+          width="288px"
+          minWidth="288px"
+          borderRightWidth="1"
+          borderColor="border.default"
+          bg="background.neutral"
+        >
+          <MpFlex
+            alignItems="center"
+            height="60px"
+            px="4"
+            borderBottomWidth="1"
+            borderColor="border.default"
+          >
+            <MpText size="h2">{{ title }}</MpText>
+          </MpFlex>
+          <MpFlex
+            gap="2"
+            alignItems="center"
+            height="60px"
+            px="4"
+            borderBottomWidth="1"
+            borderColor="border.default"
+          >
+            <MpSelect v-model="select">
+              <option value="newest">Newest</option>
+              <option value="oldesst">Oldest</option>
+              <option value="auto">Auto</option>
+            </MpSelect>
+            <MpButton left-icon="done" variant="ghost" />
+            <MpButton left-icon="empty" variant="ghost" />
+            <MpButton left-icon="filter" variant="ghost" />
+          </MpFlex>
+          <MpFlex
+            as="ul"
+            direction="column"
+            overflow="auto"
+            height="calc(100vh - var(--pixel-navbar-height) - 120px)"
+          >
+            <ChatList
+              v-for="(item, index) in CHAT_LIST_DATA"
+              v-bind="item"
+              :key="index"
+              :id="`chat-list-${index}`"
+              :is-active="`chat-list-${index}` === chatIdClicked"
+              @click="onChatClick"
+              @checked="onChatChecked"
+              @hover="onChatHovered"
+            />
+          </MpFlex>
+        </MpFlex>
+        <MpFlex justifyContent="center" alignItems="center" width="full">
+          <MpFlex direction="column" alignItems="center" gap="1" width="376px">
+            <MpImage
+              src="https://cdn.mekari.design/illustration/blank-slate/StartChat_PI_L_01.png"
+              layout="fixed"
+              :width="288"
+              :height="240"
+            />
+            <MpText size="h3">Conversation will appear here</MpText>
+            <MpText color="text.secondary"
+              >Please select a conversation from the list on the left first.</MpText
+            >
+          </MpFlex>
+        </MpFlex>
+      </div>
+    </main>
+  </BaseLayout>
+</template>
+```
+
+
+## index
+
+Chat template entry; redirects to inbox page.
+
+
+```vue
+<script setup lang="ts">
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
+  router.push('/templates/qontak/chat/inbox')
+</script>
+
+<route lang="yaml">
+meta:
+  cover: /cover/templates/qontak/inbox-revamp.jpg
+</route>
+```

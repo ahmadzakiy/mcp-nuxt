@@ -1,0 +1,3371 @@
+# Pattern: beaker
+
+## beaker
+
+A visual status indicator for list or card items (e.g. transactional vs non-transactional). Use variants (transactional, nonTransactional, warning, danger) to show state. Often paired with progress or icon.
+
+
+```vue
+<script setup lang="ts">
+import { MpProgress, MpIcon, MpText, css } from '@mekari/pixel3'
+import { cva } from '@mekari/pixel3-styled-system/css'
+
+const beakerWrapper = cva({
+  base: {
+    display: 'flex',
+    p: 2,
+    gap: 2,
+    rounded: 'md',
+    alignItems: 'center',
+    borderWidth: '1px',
+    borderColor: 'white',
+    transition: 'all 250ms',
+    cursor: 'pointer'
+  },
+  variants: {
+    variant: {
+      transactional: {
+        bg: 'background',
+        _hover: {
+          borderWidth: '1px',
+          borderColor: 'gray.100'
+        }
+      },
+      nonTransactional: {
+        bg: 'blue.50',
+        _hover: {
+          borderWidth: '1px',
+          borderColor: 'blue.400'
+        }
+      },
+      warning: {
+        bg: 'orange.50',
+        _hover: {
+          borderWidth: '1px',
+          borderColor: 'orange.400'
+        }
+      },
+      danger: {
+        bg: 'red.50',
+        _hover: {
+          borderWidth: '1px',
+          borderColor: 'red.400'
+        }
+      }
+    }
+  },
+  defaultVariants: {
+    variant: 'transactional'
+  }
+})
+</script>
+
+<template>
+  <div :class="css({ display: 'flex' })">
+    <div :class="css({ p: 4, display: 'flex', flexDirection: 'column', gap: 4 })">
+      <div>
+        <button :class="beakerWrapper({ variant: 'transactional' })">
+          <MpProgress value="75" variant="circular" size="sm" color="lime.400" />
+
+          <MpText>
+            Sisa kuota faktur
+
+            <MpText as="span" weight="semiBold"> 750 </MpText>
+          </MpText>
+
+          <MpIcon name="chevrons-right" size="sm" />
+        </button>
+      </div>
+
+      <div>
+        <button :class="beakerWrapper({ variant: 'warning' })">
+          <MpProgress value="45" variant="circular" size="sm" color="amber.400" />
+
+          <MpText>
+            Sisa kuota faktur
+
+            <MpText as="span" weight="semiBold"> 120 </MpText>
+          </MpText>
+
+          <MpIcon name="chevrons-right" size="sm" />
+        </button>
+      </div>
+
+      <div>
+        <button :class="beakerWrapper({ variant: 'danger' })">
+          <MpProgress value="10" variant="circular" size="sm" color="rose.400" />
+
+          <MpText>
+            Sisa kuota faktur
+
+            <MpText as="span" weight="semiBold"> 50 </MpText>
+          </MpText>
+
+          <MpIcon name="chevrons-right" size="sm" />
+        </button>
+      </div>
+
+      <div>
+        <button :class="beakerWrapper({ variant: 'danger' })">
+          <MpIcon name="error" size="sm" variant="duotone" />
+
+          <MpText>
+            Sisa kuota faktur
+
+            <MpText as="span" weight="semiBold"> 0 </MpText>
+          </MpText>
+
+          <MpIcon name="chevrons-right" size="sm" />
+        </button>
+      </div>
+
+      <div>
+        <button :class="beakerWrapper({ variant: 'nonTransactional' })">
+          <MpIcon name="people" size="sm" />
+
+          <MpText>
+            Sisa kuota faktur
+
+            <MpText as="span" weight="semiBold"> 5/5 </MpText>
+          </MpText>
+
+          <MpIcon name="chevrons-right" size="sm" />
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+```
+
+
+# Pattern: floating-bulk-action
+
+## floating-bulk-action
+
+Floating action bar at bottom-center for bulk operations on selected items; configurable drag handle, bottom offset, and advanced layout.
+
+
+```vue
+<template>
+  <MpFlex direction="column">
+    <MpFlex
+      alignItems="center"
+      height="56px"
+      px="4"
+      borderBottomWidth="1px"
+      borderColor="border.default"
+    >
+      <MpText size="h2">Header</MpText>
+    </MpFlex>
+    <MpFlex height="calc(100vh - 56px)">
+      <MpFlex
+        flex="none"
+        p="4"
+        width="264px"
+        bg="background.surface"
+        borderRightWidth="1px"
+        borderColor="border.default"
+      >
+        <MpText size="h2">Sidebar</MpText>
+      </MpFlex>
+      <MpFlex width="full">
+        <MpFlex
+          direction="column"
+          gap="4"
+          height="fit-content"
+          width="300px"
+          p="4"
+          m="4"
+          shadow="lg"
+          borderWidth="1px"
+          borderColor="border.bold"
+          rounded="md"
+        >
+          <MpText size="h2">Floating Bulk Action Config</MpText>
+          <MpToggle v-model:is-checked="isShow"> Show drag handle </MpToggle>
+          <MpToggle v-model:is-checked="isDisableDrag"> Disable drag handle </MpToggle>
+          <MpFormControl>
+            <MpFormLabel> Bottom offset </MpFormLabel>
+            <MpInputGroup :class="css({ width: '150px' })">
+              <MpInput v-model="bottomOffest" type="number" />
+              <MpInputRightAddon has-background>
+                <MpText weight="semiBold">px</MpText>
+              </MpInputRightAddon>
+            </MpInputGroup>
+          </MpFormControl>
+          <MpDivider />
+          <MpToggle v-model:is-checked="isAdvanced"> Advanced mode </MpToggle>
+          <MpFlex direction="column" gap="2">
+            <MpCheckbox
+              :is-indeterminate="isIndeterminate"
+              :is-checked="checkedNames.length === 3"
+              @change="handleCheckAll"
+              @click="showAdvanced"
+            >
+              Check All
+            </MpCheckbox>
+            <MpCheckbox value="check_one" v-model="checkedNames" @click="showAdvanced">
+              Data One
+            </MpCheckbox>
+            <MpCheckbox value="check_two" v-model="checkedNames" @click="showAdvanced">
+              Data Two
+            </MpCheckbox>
+            <MpCheckbox value="check_three" v-model="checkedNames" @click="showAdvanced">
+              Data Three
+            </MpCheckbox>
+          </MpFlex>
+        </MpFlex>
+        <!-- Simple Usage -->
+        <FloatingBulkAction
+          v-if="isShow && !isAdvanced"
+          :is-disable-drag="isDisableDrag"
+          :bottom-offest="bottomOffest"
+          @close="isShow = false"
+        />
+
+        <!-- Advanced Usage -->
+        <FloatingBulkAction
+          v-if="isShow && isAdvanced"
+          :is-disable-drag="isDisableDrag"
+          :bottom-offest="bottomOffest"
+          @close="isShow = false"
+        >
+          <template #content>
+            <MpFlex gap="4">
+              <MpText weight="semiBold">{{ `${checkedNames.length} data selected` }}</MpText>
+              <MpTextlink
+                v-if="checkedNames.length < 3"
+                @click="checkedNames = ['check_one', 'check_two', 'check_three']"
+              >
+                Select all data
+              </MpTextlink>
+              <MpTextlink
+                v-if="checkedNames.length === 3"
+                @click="checkedNames = []"
+                variant="secondary"
+              >
+                Clear all selection
+              </MpTextlink>
+            </MpFlex>
+          </template>
+          <template #actions>
+            <MpPopover is-close-on-select>
+              <MpPopoverTrigger>
+                <MpButton right-icon="chevrons-down">Actions</MpButton>
+              </MpPopoverTrigger>
+
+              <MpPopoverContent>
+                <MpPopoverList>
+                  <MpPopoverListItem> Bulk change selection </MpPopoverListItem>
+                  <MpPopoverListItem> Download selection </MpPopoverListItem>
+                  <MpPopoverListItem>
+                    <MpText color="text.danger">Delete all</MpText>
+                  </MpPopoverListItem>
+                </MpPopoverList>
+              </MpPopoverContent>
+            </MpPopover>
+          </template>
+        </FloatingBulkAction>
+      </MpFlex>
+    </MpFlex>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import {
+  css,
+  MpFlex,
+  MpText,
+  MpButton,
+  MpTextlink,
+  MpFormControl,
+  MpFormLabel,
+  MpToggle,
+  MpCheckbox,
+  MpInput,
+  MpInputGroup,
+  MpInputRightAddon,
+  MpPopover,
+  MpPopoverTrigger,
+  MpPopoverContent,
+  MpPopoverList,
+  MpPopoverListItem,
+  MpDivider
+} from '@mekari/pixel3'
+import FloatingBulkAction from '../components/FloatingBulkAction.vue'
+
+const isShow = ref(false)
+const isDisableDrag = ref(false)
+const isAdvanced = ref(false)
+const bottomOffest = ref(40)
+let checkedNames = ref([] as string[])
+
+const isIndeterminate = computed(
+  () => checkedNames.value?.length > 0 && checkedNames.value?.length < 3
+)
+
+function showAdvanced(): void {
+  isShow.value = true
+  isAdvanced.value = true
+}
+
+function handleCheckAll(val: boolean): void {
+  if (val) {
+    checkedNames.value = ['check_one', 'check_two', 'check_three']
+  } else {
+    checkedNames.value = []
+  }
+}
+</script>
+```
+
+
+### Component: FloatingBulkAction
+
+```vue
+<template>
+  <MpFlex
+    ref="wrapperRef"
+    id="floating-bulk-action-wrapper"
+    alignItems="center"
+    gap="3"
+    width="fit-content"
+    height="52px"
+    px="4"
+    rounded="md"
+    bg="background.neutral.subtle"
+    borderWidth="1px"
+    borderColor="border.default"
+    transition="background 250ms, border-color 250ms, box-shadow 250ms"
+    shadow="sm"
+    position="absolute"
+    :_hover="{
+      bg: 'background.neutral.subtle.hovered',
+      borderColor: 'border.bold'
+    }"
+  >
+    <MpButton
+      v-if="!isDisableDrag"
+      ref="handleRef"
+      id="floating-bulk-action-drag-handle"
+      left-icon="drag"
+      variant="ghost"
+      aria-label="Drag handler"
+      :style="{
+        cursor: 'grab'
+      }"
+    />
+    <slot name="content">
+      <MpFlex gap="4">
+        <MpText weight="semiBold" is-truncate>Floating bulk actions</MpText>
+        <MpTextlink>Text link</MpTextlink>
+      </MpFlex>
+    </slot>
+    <MpDivider
+      orientation="vertical"
+      :class="
+        css({
+          height: '28px',
+          mx: '1'
+        })
+      "
+    />
+    <slot name="actions">
+      <MpButtonGroup>
+        <MpButton variant="secondary">Action 1</MpButton>
+        <MpButton variant="primary">Action 2</MpButton>
+      </MpButtonGroup>
+    </slot>
+    <MpButton
+      v-tooltip="{
+        label: closeButtonTooltip,
+        placement: 'right'
+      }"
+      id="floating-bulk-action-close-button"
+      left-icon="close"
+      variant="ghost"
+      aria-label="Drag handle"
+      @click="$emit('close')"
+    />
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import {
+    css,
+    MpFlex,
+    MpButton,
+    MpButtonGroup,
+    MpText,
+    MpTextlink,
+    MpDivider
+  } from '@mekari/pixel3'
+  import { ref, onMounted, onUnmounted, type ComponentPublicInstance } from 'vue'
+  import { Draggable } from '@neodrag/vanilla'
+
+  const props = defineProps({
+    closeButtonTooltip: {
+      type: String,
+      default: 'Close'
+    },
+    isDisableDrag: {
+      type: Boolean,
+      default: false
+    },
+    bottomOffest: {
+      type: Number,
+      default: 40
+    }
+  })
+
+  const wrapperRef = ref<ComponentPublicInstance | HTMLElement | null>(null)
+  const handleRef = ref<ComponentPublicInstance | HTMLElement | null>(null)
+  let draggableInstance: Draggable | null = null
+
+  onMounted(() => {
+    // Initialize draggable after component is mounted
+    if (wrapperRef.value) {
+      const element = (wrapperRef.value as ComponentPublicInstance)?.$el || wrapperRef.value
+      const parent = element.parentElement
+
+      // Calculate center bottom position relative to parent
+      const elementWidth = element.offsetWidth
+      const elementHeight = element.offsetHeight
+      const parentWidth = parent?.offsetWidth || window.innerWidth
+      const parentHeight = parent?.offsetHeight || window.innerHeight
+
+      // Center horizontally, position at bottom with offset
+      const x = (parentWidth - elementWidth) / 2
+      const y = parentHeight - elementHeight - props.bottomOffest
+
+      draggableInstance = new Draggable(element, {
+        handle: !props.isDisableDrag
+          ? (handleRef.value as ComponentPublicInstance)?.$el || handleRef.value
+          : undefined,
+        axis: 'both',
+        defaultPosition: { x, y },
+        bounds: 'parent',
+        disabled: props.isDisableDrag
+      })
+    }
+  })
+
+  onUnmounted(() => {
+    // Cleanup draggable instance
+    if (draggableInstance) {
+      draggableInstance.destroy()
+      draggableInstance = null
+    }
+  })
+</script>
+```
+
+
+# Pattern: input
+
+## otp
+
+Multi-digit one-time password input with paste support and completed event; useful for verification codes.
+
+
+```vue
+<script setup lang="ts">
+  import { onBeforeUnmount, onMounted, ref } from 'vue'
+  import OTP from '../components/OTP.vue'
+
+  const otpValue = ref()
+
+  function onCompleted(val: string) {
+    console.log('COMPLETED: ', val)
+  }
+
+  function handlePaste(event: any) {
+    event.preventDefault()
+
+    const pasteData = (event.clipboardData || window.Clipboard).getData('text')
+    console.log('PASTE :', pasteData)
+    otpValue.value = pasteData
+  }
+
+  onMounted(() => {
+    window.addEventListener('paste', handlePaste)
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('paste', handlePaste)
+  })
+</script>
+
+<template>
+  <div style="padding: 16px">
+    <OTP v-model="otpValue" :digits="6" @completed="onCompleted" />
+  </div>
+</template>
+```
+
+
+## popover-prefix-suffix
+
+Input with left or right addons that open popovers (e.g. country/dial code selector with virtual list and search).
+
+
+```vue
+<script setup lang="ts">
+  import {
+    MpFormControl,
+    MpFormLabel,
+    MpIcon,
+    MpInput,
+    MpInputGroup,
+    MpInputLeftAddon,
+    MpInputRightAddon,
+    MpPopover,
+    MpPopoverContent,
+    MpPopoverList,
+    MpPopoverListItem,
+    MpPopoverTrigger,
+    MpText,
+    css
+  } from '@mekari/pixel3'
+  import { nextTick, ref } from 'vue'
+  import { useVirtualList } from '@mekari/pixel3-utils'
+
+  interface Regions {
+    name: string
+    flag: string
+    code: string
+    dial_code: string
+    height: number
+    id: number
+  }
+  const regions = ref<Regions[]>([])
+
+  function getAllRegions() {
+    fetch(
+      'https://gist.githubusercontent.com/DmytroLisitsyn/1c31186e5b66f1d6c52da6b5c70b12ad/raw/2bc71083a77106afec2ec37cf49d05ee54be1a22/country_dial_info.json'
+    )
+      .then((res) => res.json())
+      .then(
+        (data) =>
+          (regions.value = data.map((v: Regions, i: number) => {
+            return {
+              ...v,
+              id: i,
+              height: 37
+            }
+          }))
+      )
+  }
+  getAllRegions()
+
+  const { list, containerProps, wrapperProps } = useVirtualList(regions, {
+    itemHeight: (i) => regions.value[i].height,
+    overscan: 10
+  })
+
+  function onOpenPopover() {
+    nextTick(() => {
+      const inputEl = document.getElementById('phoneNumber-control')
+
+      inputEl?.focus()
+    })
+  }
+</script>
+
+<template>
+  <div
+    :class="
+      css({
+        p: 4,
+        display: 'grid',
+        gridTemplateColumns: '3',
+        gap: 8
+      })
+    "
+  >
+    <MpFormControl>
+      <MpFormLabel> Additional period </MpFormLabel>
+
+      <MpInputGroup size="md">
+        <MpInputLeftAddon
+          has-background
+          :class="
+            css({
+              cursor: 'pointer'
+            })
+          "
+        >
+          <MpPopover isAdaptiveWidth>
+            <MpPopoverTrigger>
+              <div
+                style="padding: 0 12px"
+                :class="
+                  css({
+                    display: 'flex'
+                  })
+                "
+              >
+                <MpText weight="semiBold"> Months </MpText>
+                <MpIcon
+                  name="chevrons-down"
+                  :class="
+                    css({
+                      ml: 2
+                    })
+                  "
+                />
+              </div>
+            </MpPopoverTrigger>
+
+            <MpPopoverContent>
+              <MpPopoverList>
+                <MpPopoverListItem isActive> Months </MpPopoverListItem>
+                <MpPopoverListItem> Years </MpPopoverListItem>
+              </MpPopoverList>
+            </MpPopoverContent>
+          </MpPopover>
+        </MpInputLeftAddon>
+        <MpInput is-clearable />
+      </MpInputGroup>
+    </MpFormControl>
+
+    <MpFormControl>
+      <MpFormLabel> Additional period </MpFormLabel>
+
+      <MpInputGroup size="md">
+        <MpInput is-clearable />
+        <MpInputRightAddon
+          has-background
+          :class="
+            css({
+              cursor: 'pointer'
+            })
+          "
+        >
+          <MpPopover isAdaptiveWidth>
+            <MpPopoverTrigger>
+              <div
+                style="padding: 0 12px"
+                :class="
+                  css({
+                    display: 'flex'
+                  })
+                "
+              >
+                <MpText weight="semiBold"> Months </MpText>
+                <MpIcon
+                  name="chevrons-down"
+                  :class="
+                    css({
+                      ml: 2
+                    })
+                  "
+                />
+              </div>
+            </MpPopoverTrigger>
+
+            <MpPopoverContent>
+              <MpPopoverList>
+                <MpPopoverListItem isActive> Months </MpPopoverListItem>
+                <MpPopoverListItem> Years </MpPopoverListItem>
+              </MpPopoverList>
+            </MpPopoverContent>
+          </MpPopover>
+        </MpInputRightAddon>
+      </MpInputGroup>
+    </MpFormControl>
+
+    <MpFormControl>
+      <MpFormLabel> Additional period </MpFormLabel>
+
+      <MpInputGroup size="md">
+        <MpInputLeftAddon
+          has-background
+          :class="
+            css({
+              cursor: 'pointer'
+            })
+          "
+        >
+          <MpPopover :isKeepAlive="false" @open="onOpenPopover">
+            <MpPopoverTrigger>
+              <div
+                style="padding: 0 12px"
+                :class="
+                  css({
+                    display: 'flex',
+                    alignItems: 'center'
+                  })
+                "
+              >
+                <MpText weight="semiBold"> 🇮🇩 </MpText>
+                <MpIcon
+                  name="chevrons-down"
+                  :class="
+                    css({
+                      ml: 2
+                    })
+                  "
+                />
+              </div>
+            </MpPopoverTrigger>
+
+            <MpPopoverContent
+              :class="
+                css({
+                  width: '420px',
+                  overflowY: 'hidden',
+                  marginTop: 1
+                })
+              "
+            >
+              <div v-bind="containerProps" style="height: 300px">
+                <div v-bind="wrapperProps">
+                  <div :class="css({ px: 3, pt: 4 })">
+                    <MpInput id="phoneNumber" placeholder="Search...." />
+                  </div>
+
+                  <MpPopoverList>
+                    <MpPopoverListItem
+                      v-for="region in list"
+                      :key="region.index"
+                      :style="{
+                        height: `${region.data.height}px`
+                      }"
+                    >
+                      <MpText>
+                        <span style="margin-right: 4px">{{ region.data.flag }}</span>
+                        {{ region.data.name }}
+                      </MpText>
+
+                      <MpText color="gray.600">
+                        {{ region.data.dial_code }}
+                      </MpText>
+                    </MpPopoverListItem>
+                  </MpPopoverList>
+                </div>
+              </div>
+            </MpPopoverContent>
+          </MpPopover>
+        </MpInputLeftAddon>
+        <MpInput is-clearable placeholder="+62" />
+      </MpInputGroup>
+    </MpFormControl>
+  </div>
+</template>
+```
+
+
+### Component: OTP
+
+```vue
+<script setup lang="tsx">
+  import { MpInput, css } from '@mekari/pixel3'
+  import type { PropType } from 'vue'
+  import { computed, nextTick, ref, watch } from 'vue'
+
+  const props = defineProps({
+    modelValue: { type: String as PropType<string>, default: '' },
+    digits: { type: Number as PropType<number>, default: 6 },
+    type: {
+      type: String as PropType<'number' | 'text' | 'password'>,
+      default: 'text',
+      validator(value: string) {
+        return ['number', 'text', 'password'].includes(value)
+      }
+    }
+  })
+  const emit = defineEmits(['update:modelValue', 'completed'])
+
+  const inputNode = ref()
+  const innerValue = ref(Array.from({ length: props.digits }).fill('') as string[])
+  const currentFocus = ref()
+
+  const isCompleted = computed(() => innerValue.value.every((item) => item !== ''))
+
+  function handleInput() {
+    if (!isCompleted.value) handleForceFocus()
+  }
+  function handleKeydown(e: KeyboardEvent) {
+    if (
+      e.code === 'Backspace' &&
+      !innerValue.value[currentFocus.value] &&
+      currentFocus.value !== 0
+    ) {
+      const result = innerValue.value.map((item, index) =>
+        index === currentFocus.value - 1 ? '' : item
+      )
+
+      innerValue.value = result
+      handleForceFocus()
+    }
+  }
+  function handleFocus() {
+    if (!isCompleted.value) {
+      // Set focus to empty input box.
+      handleForceFocus()
+    } else {
+      // Set focus to last input box.
+      inputNode.value[props.digits - 1].$el.children[0].focus()
+    }
+  }
+  function handleForceFocus() {
+    const position = innerValue.value.findIndex((item) => item === '')
+    if (position >= 0) {
+      currentFocus.value = position
+      inputNode.value[position].$el.children[0].focus()
+    }
+  }
+
+  const inputStyle = css({
+    width: '36px',
+    height: '48px',
+    px: 1,
+    minWidth: 'auto',
+    textAlign: 'center',
+    fontSize: 'xl',
+    fontWeight: 'semiBold'
+  })
+
+  // Utils
+  function valueToArray(value: string, digits: number) {
+    const sources =
+      props.type === 'number' ? Array.from(String(value)) : Array.from(String(value).toUpperCase())
+
+    // eslint-disable-next-line unicorn/no-new-array
+    const target = new Array(digits).fill('')
+    const result = target.map((item, index) => sources[index] || item)
+
+    return result
+  }
+  function arrayToValue(value: string[]) {
+    return String(value.join(''))
+  }
+
+  watch(
+    () => props.modelValue,
+    (newValue: any) => {
+      innerValue.value = valueToArray(newValue, props.digits)
+    }
+  )
+
+  watch(
+    () => innerValue.value,
+    () => {
+      emit('update:modelValue', arrayToValue(innerValue.value) || '')
+    }
+  )
+
+  watch(
+    () => isCompleted.value,
+    (newValue: any) => {
+      if (newValue) {
+        emit('completed', arrayToValue(innerValue.value))
+        nextTick(() => {
+          handleFocus()
+        })
+      }
+    }
+  )
+</script>
+
+<template>
+  <div
+    :class="
+      css({
+        display: 'inline-flex',
+        gap: 4
+      })
+    "
+  >
+    <MpInput
+      v-for="(_, index) in props.digits"
+      :key="index"
+      ref="inputNode"
+      v-model="innerValue[index]"
+      class="hide-arrow-input-number"
+      :class="inputStyle"
+      maxlength="1"
+      :type="props.type"
+      @input="handleInput"
+      @focus="handleFocus"
+      @keydown="handleKeydown"
+    />
+  </div>
+</template>
+```
+
+
+# Pattern: pagination
+
+## pagination
+
+Rows-per-page selector (popover), page range text (e.g. "Showing 120-130 of 242"), and previous/next page navigation for tables or lists.
+
+
+```vue
+<script setup lang="ts">
+  import {
+    Pixel,
+    css,
+    MpFlex,
+    MpIcon,
+    MpText,
+    MpButton,
+    MpTooltip,
+    MpAutocomplete,
+    MpPopover,
+    MpPopoverTrigger,
+    MpPopoverContent,
+    MpPopoverList,
+    MpPopoverListItem
+  } from '@mekari/pixel3'
+</script>
+
+<template>
+  <Pixel.div px="2" py="4">
+    <MpFlex justify="space-between">
+      <MpFlex align="center">
+        <MpText :class="css({ pr: '1', pl: '1' })" color="gray.600">Rows per page</MpText>
+        <MpPopover isCloseOnSelect>
+          <MpPopoverTrigger>
+            <Pixel.div v-tooltip="'Result per page'">
+              <MpButton
+                size="sm"
+                variant="ghost"
+                :class="css({ h: '7', display: 'inline-flex', pl: '3', pr: '2', py: '2' })"
+              >
+                <MpText>10</MpText>
+                <MpIcon name="chevrons-down" size="sm" />
+              </MpButton>
+            </Pixel.div>
+          </MpPopoverTrigger>
+          <MpPopoverContent>
+            <MpPopoverList>
+              <MpPopoverListItem is-active>10</MpPopoverListItem>
+              <MpPopoverListItem>25</MpPopoverListItem>
+              <MpPopoverListItem>50</MpPopoverListItem>
+              <MpPopoverListItem>100</MpPopoverListItem>
+            </MpPopoverList>
+          </MpPopoverContent>
+        </MpPopover>
+
+        <MpText :class="css({ pl: '5', py: '1' })" color="gray.600">
+          Showing 120-130 of 242
+        </MpText>
+      </MpFlex>
+      <MpFlex align-items="center">
+        <Pixel.div>
+          <MpAutocomplete
+            :class="css({ w: '16', h: '7.5', pr: '8' })"
+            is-searchable
+            :v-model="1"
+            v-tooltip="'Jump to page'"
+          />
+        </Pixel.div>
+        <MpText :class="css({ pl: '2', pr: '4', py: '1' })" color="gray.600">of 24 page</MpText>
+        <MpTooltip label="Prev page" position="bottom">
+          <MpButton variant="ghost" left-icon="chevrons-left" size="sm" v-tooltip="'Prev page'" />
+        </MpTooltip>
+        <MpTooltip label="Next page" position="bottom">
+          <MpButton variant="ghost" left-icon="chevrons-right" size="sm" v-tooltip="'Next page'" />
+        </MpTooltip>
+      </MpFlex>
+    </MpFlex>
+  </Pixel.div>
+</template>
+```
+
+
+# Pattern: summary-box
+
+## summary-box
+
+Grid of summary cards showing label, amount, and optional badge; supports loading state, link/hover, and color variants (e.g. green, red, blue, orange).
+
+
+```vue
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
+<script setup lang="ts">
+  import SummaryBox from '../components/SummaryBox.vue'
+  import { css, MpText, MpTooltip, MpIcon, MpButton } from '@mekari/pixel3'
+  import { ref, onMounted } from 'vue'
+
+  const state = ref({
+    isLoading: true,
+    isActive: false,
+    salesFilter: {
+      card1: false,
+      card2: false
+    },
+    purchaseFilter: {
+      card1: false,
+      card2: false
+    },
+    expenseFilter: {
+      card1: false,
+      card2: false,
+      card3: false
+    },
+    contactFilter: {
+      card1: false,
+      card2: false,
+      card3: false
+    }
+  })
+
+  function handleClick(category: any, key: any, message: any) {
+    ;(state.value as any)[category][key] = !(state.value as any)[category][key]
+  }
+
+  onMounted(() => {
+    setTimeout(() => {
+      state.value.isLoading = false
+    }, 1000)
+  })
+</script>
+
+<template>
+  <div :class="css({ display: 'grid', gap: '16', p: '8' })">
+    <!-- CASH & BANK -->
+    <div>
+      <MpText size="h2" weight="regular">CASH & BANK</MpText>
+
+      <div :class="css({ display: 'grid', gridTemplateColumns: '4', gap: '4', mt: 2 })">
+        <SummaryBox
+          as="a"
+          href="https://mekari.com/"
+          is-hoverable
+          variant="green"
+          label="Pemasukan 30 hari mendatang"
+          badge="100"
+          amount="Rp10.000.000.000,00"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          as="a"
+          href="https://mekari.com/"
+          is-hoverable
+          variant="red"
+          label="Pengeluaran 30 hari mendatang"
+          badge="100"
+          amount="Rp10.000.000,00"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="blue"
+          label="Saldo kas"
+          badge="10.000"
+          amount="Rp10.000.000,00"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="orange"
+          label="Saldo kartu kredit"
+          badge="0"
+          amount="Rp10.000.000,00"
+          :isLoading="state.isLoading"
+        />
+      </div>
+    </div>
+
+    <!-- SALES -->
+    <div>
+      <MpText size="h2" weight="regular">SALES</MpText>
+
+      <div :class="css({ display: 'grid', gridTemplateColumns: '4', gap: '4', mt: 2 })">
+        <SummaryBox
+          variant="orange"
+          label="Penjualan belum dibayar"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.salesFilter.card1"
+          @click="handleClick('salesFilter', 'card1', 'Penjualan belum di bayar')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="red"
+          label="Penjualan jatuh tempo"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.salesFilter.card2"
+          @click="handleClick('salesFilter', 'card2', 'Penjualan jatuh tempo')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          as="a"
+          href="https://mekari.com/"
+          is-hoverable
+          variant="green"
+          label="Pelunasan diterima 30 hari terakhir"
+          badge="10.000"
+          amount="Rp10.000.000,00"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          as="a"
+          href="https://mekari.com/"
+          is-hoverable
+          variant="gray"
+          labelSrc="https://res.cloudinary.com/uxe-mekari/image/upload/v1678247306/jurnal/logo-mekari-pay-default_trv3sh.svg"
+          amount="Rp10.000.000,00"
+          :isLoading="state.isLoading"
+        />
+      </div>
+    </div>
+
+    <!-- PUCHASE -->
+    <div>
+      <MpText size="h2" weight="regular">PURCHASE</MpText>
+
+      <div :class="css({ display: 'grid', gridTemplateColumns: '3', gap: '4', mt: 2 })">
+        <SummaryBox
+          variant="orange"
+          label="Pembelian belum dibayar"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.purchaseFilter.card1"
+          @click="handleClick('purchaseFilter', 'card1', 'Pembelian belum dibayar')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="red"
+          label="Pembelian jatuh tempo"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.purchaseFilter.card2"
+          @click="handleClick('purchaseFilter', 'card2', 'Pembelian jatuh tempo')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          as="a"
+          href="https://mekari.com/"
+          is-hoverable
+          variant="green"
+          label="Pelunasan dibayar 30 hari terakhir"
+          badge="10.000"
+          amount="Rp10.000.000,00"
+          :isLoading="state.isLoading"
+        />
+      </div>
+    </div>
+
+    <!-- EXPENSE -->
+    <div>
+      <MpText size="h2" weight="regular">EXPENSE</MpText>
+
+      <div :class="css({ display: 'grid', gridTemplateColumns: '3', gap: '4', mt: 2 })">
+        <SummaryBox
+          variant="blue"
+          label="Total biaya bulan ini"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.expenseFilter.card1"
+          @click="handleClick('expenseFilter', 'card1', 'Total biaya bulan ini')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="green"
+          label="Biaya 30 hari terakhir"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.expenseFilter.card2"
+          @click="handleClick('expenseFilter', 'card2', 'Biaya 30 hari terakhir')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="orange"
+          label="Biaya belum dibayar"
+          badge="10.000"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.expenseFilter.card3"
+          @click="handleClick('expenseFilter', 'card3', 'Biaya belum dibayar')"
+          :isLoading="state.isLoading"
+        />
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div>
+      <MpText size="h2" weight="regular">CONTACT</MpText>
+
+      <div :class="css({ display: 'grid', gridTemplateColumns: '3', gap: '4', mt: 2 })">
+        <SummaryBox
+          variant="orange"
+          label="Piutang belum dibayar"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.contactFilter.card1"
+          @click="handleClick('contactFilter', 'card1', 'Piutang belum dibayar')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="red"
+          label="Piutang jatuh tempo"
+          badge="100"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.contactFilter.card2"
+          @click="handleClick('contactFilter', 'card2', 'Piutang jatuh tempo')"
+          :isLoading="state.isLoading"
+        />
+        <SummaryBox
+          variant="blue"
+          label="Kredit memo"
+          badge="10.000"
+          amount="Rp10.000.000,00"
+          is-filter
+          :is-active="state.contactFilter.card3"
+          @click="handleClick('contactFilter', 'card3', 'Kredit memo')"
+          :isLoading="state.isLoading"
+        />
+      </div>
+    </div>
+
+    <!-- PRODUCT -->
+    <div>
+      <MpText size="h2" weight="regular">PRODUCT</MpText>
+
+      <div :class="css({ display: 'grid', gridTemplateColumns: '4', gap: '4', mt: 2 })">
+        <SummaryBox
+          variant="green"
+          label="Stok tersedia"
+          caption="Total produk"
+          amount="10.000"
+          :isLoading="state.isLoading"
+        >
+          <template #top-right-content>
+            <MpTooltip label="Label">
+              <MpIcon name="doc" style="cursor: pointer" />
+            </MpTooltip>
+          </template>
+        </SummaryBox>
+        <SummaryBox
+          variant="orange"
+          label="Stok segera habis"
+          caption="Total produk"
+          amount="800"
+          :isLoading="state.isLoading"
+        >
+          <template #top-right-content>
+            <MpTooltip label="Label">
+              <MpIcon name="doc" style="cursor: pointer" />
+            </MpTooltip>
+          </template>
+        </SummaryBox>
+        <SummaryBox
+          variant="red"
+          label="Stok habis"
+          caption="Total produk"
+          amount="200"
+          :isLoading="state.isLoading"
+        >
+          <template #top-right-content>
+            <MpTooltip label="Label">
+              <MpIcon name="doc" style="cursor: pointer" />
+            </MpTooltip>
+          </template>
+        </SummaryBox>
+        <SummaryBox
+          variant="blue"
+          label="Gudang"
+          caption="Total produk"
+          amount="1.000"
+          :isLoading="state.isLoading"
+        >
+          <template #top-right-content>
+            <MpTooltip label="Label">
+              <MpIcon name="doc" style="cursor: pointer" />
+            </MpTooltip>
+          </template>
+        </SummaryBox>
+      </div>
+    </div>
+
+    <!-- EXPORT IMPORT -->
+    <div>
+      <MpText size="h2" weight="regular">EXPORT IMPORT</MpText>
+
+      <div :class="css({ display: 'grid', gridTemplateColumns: '3', gap: '4', mt: 2 })">
+        <SummaryBox
+          variant="gray"
+          label="Total baris impor"
+          amount="4 baris"
+          :isLoading="state.isLoading"
+        >
+          <template #bottom-right-content>
+            <MpButton size="sm" variant="secondary">Unduh</MpButton>
+          </template>
+        </SummaryBox>
+        <SummaryBox
+          variant="gray"
+          label="Gagal impor"
+          amount="3 baris"
+          :isLoading="state.isLoading"
+        >
+          <template #bottom-right-content>
+            <div :class="css({ display: 'flex', gap: '2' })">
+              <MpButton size="sm" variant="ghost">Lihat error</MpButton>
+              <MpButton size="sm" variant="secondary">Perbaiki</MpButton>
+            </div>
+          </template>
+        </SummaryBox>
+        <SummaryBox
+          variant="gray"
+          label="Berhasil impor"
+          amount="1 baris"
+          :isLoading="state.isLoading"
+        >
+        </SummaryBox>
+      </div>
+    </div>
+  </div>
+</template>
+```
+
+
+### Component: SummaryBox
+
+```vue
+<script setup lang="ts">
+  import { sva } from '@mekari/pixel3-styled-system/css'
+  import { MpText, MpTooltip, MpSpinner, MpIcon } from '@mekari/pixel3'
+  import { useSlots } from 'vue'
+
+  const props = defineProps({
+    as: { type: String, default: 'div' },
+    id: [String, Number],
+    isLoading: Boolean,
+    variant: [String, Number],
+    label: { type: [String], default: 'Label' },
+    labelSrc: String,
+    badge: [String, Number],
+    caption: { type: [String, Number], default: 'Total' },
+    amount: { type: [String, Number], default: 0 },
+    isFilter: Boolean,
+    isActive: Boolean,
+    isHoverable: Boolean
+  })
+
+  const slots = useSlots()
+  const hasSlot = (name: string) => {
+    return !!slots[name]
+  }
+
+  const summaryBoxStyle = sva({
+    slots: [
+      'root',
+      'topContent',
+      'badge',
+      'bottomContent',
+      'bottomContentWrapper',
+      'loadingWrapper',
+      'filterWrapper',
+      'filterIcon'
+    ],
+    base: {
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        borderWidth: '1px',
+        transition: 'all 0.1s ease, box-shadow 0.5s ease',
+        rounded: 'md'
+      },
+      topContent: {
+        display: 'flex',
+        position: 'relative',
+        px: 3,
+        py: 2,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        roundedTop: 'md'
+      },
+      badge: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        px: '1.5',
+        py: '0.5',
+        rounded: '16',
+        color: 'text.inverse.static',
+        fontFamily: 'body',
+        fontWeight: 'regular',
+        letterSpacing: 'normal',
+        height: '5'
+      },
+      bottomContent: {
+        position: 'relative',
+        bg: 'background.neutral',
+        roundedBottom: 'md',
+        width: 'full'
+      },
+      bottomContentWrapper: {
+        flexDirection: 'column',
+        px: 3,
+        py: 2
+      },
+      loadingWrapper: {
+        position: 'absolute',
+        top: '0',
+        width: 'full',
+        height: 'full',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      filterWrapper: {
+        position: 'absolute',
+        top: '5',
+        right: '3'
+      },
+      filterIcon: {
+        transition: 'all 0.2s ease',
+        opacity: '0',
+        transform: 'scale(.5)',
+        _active: {
+          opacity: '100',
+          transform: 'scale(1)'
+        },
+        _groupHover: {
+          opacity: '100',
+          transform: 'scale(1)'
+        }
+      }
+    },
+    variants: {
+      color: {
+        orange: {
+          root: {
+            '&[data-hoverabale=true]': {
+              _hover: {
+                borderColor: 'border.warning',
+                boxShadow: 'lg'
+              }
+            },
+            '&[data-active=true]': {
+              borderColor: 'border.warning'
+            },
+            '&[data-active=false]': {
+              borderColor: 'border.warning'
+            }
+          },
+          topContent: {
+            bg: 'background.warning'
+          },
+          badge: {
+            bg: 'background.warning.bold'
+          }
+        },
+        green: {
+          root: {
+            '&[data-hoverabale=true]': {
+              _hover: {
+                borderColor: 'green.700',
+                boxShadow: 'lg'
+              }
+            },
+            '&[data-active=true]': {
+              borderColor: 'green.700'
+            },
+            '&[data-active=false]': {
+              borderColor: 'orange.400'
+            }
+          },
+          topContent: {
+            bg: 'background.success'
+          },
+          badge: {
+            bg: 'background.success.bold'
+          }
+        },
+        red: {
+          root: {
+            '&[data-hoverabale=true]': {
+              _hover: {
+                borderColor: 'red.700',
+                boxShadow: 'lg'
+              }
+            },
+            '&[data-active=true]': {
+              borderColor: 'red.700'
+            },
+            '&[data-active=false]': {
+              borderColor: 'red.400'
+            }
+          },
+          topContent: {
+            bg: 'background.danger'
+          },
+          badge: {
+            bg: 'background.danger.bold'
+          }
+        },
+        blue: {
+          root: {
+            '&[data-hoverabale=true]': {
+              _hover: {
+                borderColor: 'blue.700',
+                boxShadow: 'lg'
+              }
+            },
+            '&[data-active=true]': {
+              borderColor: 'blue.700'
+            },
+            '&[data-active=false]': {
+              borderColor: 'blue.400'
+            }
+          },
+          topContent: {
+            bg: 'background.brand'
+          },
+          badge: {
+            bg: 'background.brand.bold'
+          }
+        },
+        gray: {
+          root: {
+            '&[data-hoverabale=true]': {
+              _hover: {
+                borderColor: 'gray.400',
+                boxShadow: 'lg'
+              }
+            },
+            '&[data-active=true]': {
+              borderColor: 'gray.400'
+            },
+            '&[data-active=false]': {
+              borderColor: 'gray.100'
+            }
+          },
+          topContent: {
+            bg: 'background.neutral.subtle'
+          },
+          badge: {
+            bg: 'background.neutral.bold'
+          }
+        }
+      }
+    }
+  })
+
+  const {
+    root,
+    topContent,
+    bottomContent,
+    bottomContentWrapper,
+    badge: badgeStyle,
+    loadingWrapper,
+    filterWrapper,
+    filterIcon
+  } = summaryBoxStyle({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    color: props.variant as any
+  })
+</script>
+
+<template>
+  <component
+    :is="props.as"
+    data-slot="root"
+    data-active="true"
+    :class="['group', root]"
+    :style="{
+      cursor: props.isHoverable || props.isFilter ? 'pointer' : ''
+    }"
+    v-bind="$attrs"
+  >
+    <!-- Top Content -->
+    <div data-slot="top-content" :class="topContent">
+      <div w="calc(100% - 32px)">
+        <img
+          v-if="props.labelSrc"
+          :style="{ height: '20px', width: 'auto' }"
+          :src="labelSrc"
+          alt=""
+        />
+
+        <div v-else>
+          <MpTooltip :label="label">
+            <MpText weight="semiBold" isTruncated>
+              {{ label }}
+            </MpText>
+          </MpTooltip>
+        </div>
+      </div>
+
+      <div v-if="badge && !props.isLoading" data-slot="badge" :class="badgeStyle">
+        {{ isLoading ? '' : badge }}
+      </div>
+
+      <mp-box v-if="hasSlot('top-right-content')">
+        <slot name="top-right-content" />
+      </mp-box>
+    </div>
+
+    <!-- Bottom Content -->
+    <div data-slot="bottom-content" :class="bottomContent">
+      <div
+        :class="bottomContentWrapper"
+        :style="{
+          visibility: props.isLoading ? 'hidden' : 'visible'
+        }"
+      >
+        <MpText color="gray.600" size="label-small">
+          {{ caption }}
+        </MpText>
+        <MpText as="h2" size="h2">
+          {{ amount }}
+        </MpText>
+
+        <div v-if="props.isFilter || hasSlot('bottom-right-content')" :class="filterWrapper">
+          <div v-if="props.isFilter">
+            <MpTooltip label="Filter" placement="bottom">
+              <MpIcon
+                :data-active="props.isActive || undefined"
+                name="filter"
+                :variant="props.isActive ? 'duotone' : 'outline'"
+                :class="filterIcon"
+              />
+            </MpTooltip>
+          </div>
+
+          <slot v-else name="bottom-right-content" />
+        </div>
+      </div>
+
+      <div v-if="isLoading" data-slot="loading-wrapper" :class="loadingWrapper">
+        <MpSpinner size="md" />
+      </div>
+    </div>
+  </component>
+</template>
+```
+
+
+# Pattern: unified-notification
+
+## unified-notification
+
+Notification center in navbar with tabs (e.g. general, inbox, approval), list items, and empty states.
+
+
+```vue
+<template>
+  <nav
+    data-pixel-component="PixelNavbar"
+    :class="
+      css({
+        position: 'fixed',
+        zIndex: '101',
+        width: 'full',
+        bg: 'background.stage',
+        px: '6',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottomWidth: '1px',
+        borderColor: 'border.default',
+        py: '2',
+        height: '56px'
+      })
+    "
+  >
+    <div
+      :class="
+        css({
+          display: 'flex',
+          gap: '2',
+          alignItems: 'center'
+        })
+      "
+    >
+      <RouterLink to="/">
+        <img
+          :class="css({ display: 'block', _dark: { display: 'none' } })"
+          src="https://cdn.mekari.design/logo/qontak/default.svg"
+          alt=""
+          height="56"
+          width="auto"
+        />
+        <img
+          :class="css({ display: 'none', _dark: { display: 'block' } })"
+          src="https://cdn.mekari.design/logo/qontak/white.svg"
+          alt=""
+          height="56"
+          width="auto"
+        />
+      </RouterLink>
+    </div>
+
+    <div
+      :class="
+        css({
+          display: 'flex',
+          gap: '2',
+          alignItems: 'center'
+        })
+      "
+    >
+      <NotificationCenter />
+    </div>
+  </nav>
+  <section
+    :class="
+      css({
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'lg',
+        height: '100vh',
+        width: 'full',
+        p: 'lg',
+        pt: 'calc(56px + 24px)',
+        overflowY: 'auto'
+      })
+    "
+  >
+    <NotificationIconsShowcase />
+    <NotificationItemShowcase />
+  </section>
+</template>
+
+<script setup lang="tsx">
+  import { css } from '@mekari/pixel3'
+  import NotificationCenter from '../components/NotificationCenter.vue'
+  import NotificationIconsShowcase from '../showcase/NotificationIconsShowcase.vue'
+  import NotificationItemShowcase from '../showcase/NotificationItemShowcase.vue'
+</script>
+```
+
+
+### Component: BlankState
+
+```vue
+<template>
+  <MpFlex
+    v-if="showBlankState"
+    :class="
+      css({
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: '6'
+      })
+    "
+  >
+    <img
+      :class="css({ height: '240px', width: 'auto' })"
+      :src="variantToImage.src"
+      :alt="variantToImage.alt"
+    />
+
+    <MpText size="h3" :class="css({ fontWeight: 'semiBold', marginBottom: '1' })">
+      {{ title }}
+    </MpText>
+
+    <MpText :class="css({ color: 'gray.600' })">
+      {{ subtitle }}
+    </MpText>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { computed } from 'vue'
+  import { css, MpFlex, MpText } from '@mekari/pixel3'
+
+  // Import images as URLs from public directory
+  import NotNotifImage from '/illustrations/no_notif.png'
+  import AllReadImage from '/illustrations/all_read.png'
+  import NotFoundImage from '/illustrations/not_found.png'
+
+  type BlankStateProps = {
+    showBlankState: boolean
+    variant: 'no-notification' | 'all-read' | 'not-found'
+    title: string
+    subtitle: string
+  }
+
+  const props = withDefaults(defineProps<BlankStateProps>(), {
+    variant: 'no-notification'
+  })
+
+  const variantToImage = computed(() => {
+    switch (props.variant) {
+      case 'no-notification':
+        return {
+          src: NotNotifImage,
+          alt: 'No notification illustration'
+        }
+      case 'all-read':
+        return {
+          src: AllReadImage,
+          alt: 'All read illustration'
+        }
+      case 'not-found':
+        return {
+          src: NotFoundImage,
+          alt: 'Not found illustration'
+        }
+      default:
+        return {
+          src: NotNotifImage,
+          alt: 'No notification illustration'
+        }
+    }
+  })
+</script>
+```
+
+
+### Component: EndOfTab
+
+```vue
+<template>
+  <MpFlex
+    flexDirection="column"
+    justifyContent="center"
+    alignItems="center"
+    gap="2"
+    py="3"
+  >
+    <MpIcon
+      name="inbox"
+      variant="fill"
+      :color="isNextTheme ? 'icon.brand' : 'blue.400'"
+    />
+    <MpText
+      size="label-small"
+      :color="isNextTheme ? 'text.secondary' : 'gray.600'"
+    >
+      <slot>
+        You have viewed all your notifications from the past 90 days.
+      </slot>
+    </MpText>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+import { MpFlex, MpIcon, MpText } from '@mekari/pixel3';
+import { usePixelTheme } from '@mekari/pixel3-utils';
+
+const { isNextTheme } = usePixelTheme();
+</script>
+```
+
+
+### Component: NotificationBlankStates
+
+```vue
+<template>
+  <template v-if="!isLoading">
+    <BlankState
+      :show-blank-state="!hasNotifications"
+      variant="no-notification"
+      title="No notification yet"
+      subtitle="Your notification list will appear here."
+    />
+
+    <BlankState
+      :show-blank-state="hasViewedAll"
+      variant="all-read"
+      title="You have viewed all your notifications"
+      subtitle="All your notifications are from the past 90 days."
+    />
+
+    <BlankState
+      :show-blank-state="hasNoResult"
+      variant="not-found"
+      :title="`No ${generalFilter} yet`"
+      :subtitle="`The ${generalFilter} list will appear here.`"
+    />
+  </template>
+</template>
+
+<script setup lang="ts">
+import BlankState from './BlankState.vue';
+
+interface NotificationBlankStatesProps {
+  isLoading: boolean;
+  hasNotifications: boolean;
+  hasViewedAll: boolean;
+  hasNoResult: boolean;
+  generalFilter: string;
+}
+
+defineProps<NotificationBlankStatesProps>();
+</script>
+```
+
+
+### Component: NotificationCenter
+
+```vue
+<template>
+  <MpPopover id="notification-center" is-default-open>
+    <MpPopoverTrigger>
+      <MpFlex position="relative" alignItems="center">
+        <MpTooltip placement="bottom" :label="labelTooltip" use-portal>
+          <MpButton left-icon="notification" variant="ghost" />
+        </MpTooltip>
+        <MpBadge
+          v-if="isShowBadge"
+          :class="css({ position: 'absolute', top: '0', right: '-4px' })"
+          for="additionalInformation"
+          type="critical"
+          size="sm"
+        >
+          {{ unreadCountTotal > 99 ? '99+' : unreadCountTotal }}
+        </MpBadge>
+      </MpFlex>
+    </MpPopoverTrigger>
+
+    <MpPopoverContent
+      :class="
+        css({
+          width: '480px',
+          minHeight: '368px',
+          maxHeight: 'calc(100vh - 80px)',
+          overflowY: 'auto',
+          background: 'white',
+          _nextTheme: {
+            background: 'background.stage'
+          }
+        })
+      "
+      @scroll="handleScroll"
+    >
+      <NotificationCenterPopover :is-scrolled="isScrolled" />
+    </MpPopoverContent>
+  </MpPopover>
+</template>
+
+<script setup lang="ts">
+  import { computed, ref } from 'vue'
+  import {
+    css,
+    MpFlex,
+    MpPopover,
+    MpPopoverTrigger,
+    MpPopoverContent,
+    MpButton,
+    MpBadge,
+    MpTooltip
+  } from '@mekari/pixel3'
+  import NotificationCenterPopover from './NotificationCenterPopover.vue'
+
+  const unreadCountTotal = ref(100)
+  const isScrolled = ref(false)
+
+  const isShowBadge = computed(() => unreadCountTotal.value > 0)
+  const labelTooltip = computed(() =>
+    isShowBadge.value
+      ? `View ${unreadCountTotal.value} unread notifications.`
+      : 'No new notifications yet.'
+  )
+
+  function handleScroll(e: Event) {
+    const target = e.target as HTMLElement
+    isScrolled.value = target.scrollTop > 50
+  }
+</script>
+```
+
+
+### Component: NotificationCenterPopover
+
+```vue
+<template>
+  <div id="notification-center-popover">
+    <MpFlex
+      id="notification-center-header"
+      alignItems="center"
+      justifyContent="space-between"
+      pt="4"
+      pb="2"
+      px="4"
+    >
+      <MpText size="h2">Notifications</MpText>
+      <MpToggle v-model:is-checked="isShowUnreadOnly">
+        Show unread only
+      </MpToggle>
+    </MpFlex>
+
+    <MpFlex id="notification-center-content">
+      <MpTabs
+        id="notification-center-tabs"
+        v-model="currentTab"
+        is-manual
+        :class="css({ width: 'full', mb: '0' })"
+        @change="handleChangTab"
+      >
+        <div
+          :class="
+            css({
+              position: 'sticky',
+              top: 0,
+              zIndex: 1,
+              background: 'white',
+              _nextTheme: {
+                background: 'background.stage',
+              },
+            })
+          "
+          :style="{
+            boxShadow: isScrolled ? token.var('shadows.xs') : 'none',
+          }"
+        >
+          <MpTabList
+            :class="css({ '& > div': { marginBottom: '0', px: '4' } })"
+          >
+            <MpTab v-for="(tab, index) in tabs" :key="index">
+              {{ tab.name }}
+              <MpBadge
+                v-if="tab.unreadCount > 0"
+                for="additionalInformation"
+                type="critical"
+                :class="
+                  css({
+                    marginLeft: '2',
+                  })
+                "
+              >
+                {{ tab.unreadCount }}
+              </MpBadge>
+            </MpTab>
+          </MpTabList>
+          <MpFlex
+            alignItems="center"
+            justifyContent="space-between"
+            py="2"
+            px="4"
+          >
+            <MpFlex width="216px">
+              <MpAutocomplete
+                v-model="generalFilter"
+                :data="currentFilterData"
+              />
+            </MpFlex>
+
+            <MpButton variant="textLink" @click="handleMarkAllAsRead">
+              Mark all as read
+            </MpButton>
+          </MpFlex>
+          <!-- End of Filter Area -->
+        </div>
+
+        <MpTabPanels>
+          <MpTabPanel>
+            <!-- General Tab Content -->
+            <TabGeneral
+              :is-loading="isLoading"
+              :is-show-unread-only="isShowUnreadOnly"
+              :general-filter="generalFilter"
+              :notifications="generalTabNotifications"
+              @notification-click="handleNotificationClick"
+              @mark-as-read="handleMarkAsRead"
+            />
+          </MpTabPanel>
+
+          <MpTabPanel>
+            <!-- Inbox Tab Content -->
+            <TabInbox
+              :is-loading="isLoading"
+              :is-show-unread-only="isShowUnreadOnly"
+              :general-filter="generalFilter"
+              :notifications="inboxTabNotifications"
+              @notification-click="handleNotificationClick"
+              @mark-as-read="handleMarkAsRead"
+            />
+          </MpTabPanel>
+
+          <MpTabPanel>
+            <!-- Approval Tab Content -->
+            <TabApproval
+              :is-loading="isLoading"
+              :is-show-unread-only="isShowUnreadOnly"
+              :general-filter="generalFilter"
+              :notifications="approvalTabNotifications"
+              @notification-click="handleNotificationClick"
+              @mark-as-read="handleMarkAsRead"
+            />
+          </MpTabPanel>
+        </MpTabPanels>
+      </MpTabs>
+    </MpFlex>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
+import {
+  css,
+  token,
+  MpAutocomplete,
+  MpBadge,
+  MpButton,
+  MpFlex,
+  MpTab,
+  MpTabList,
+  MpTabs,
+  MpTabPanels,
+  MpTabPanel,
+  MpText,
+  MpToggle,
+} from '@mekari/pixel3';
+import TabGeneral from './TabGeneral.vue';
+import TabInbox from './TabInbox.vue';
+import TabApproval from './TabApproval.vue';
+import { defineNotifications, type Notification } from './utils';
+
+// Reactive state
+const currentTab = ref(0);
+const isLoading = ref(false);
+const generalFilter = ref('All general notifications');
+const isShowUnreadOnly = ref(false);
+
+// Static filter data (UI only)
+const generalFilterData = [
+  'All general notifications',
+  'Reminder',
+  'Mention',
+  'Assignment',
+  'Update',
+  'Download & upload',
+];
+const inboxFilterData = [
+  'All inbox notifications',
+  'Incoming chats',
+  'Chat assignments',
+  'Resolved chats',
+  'Blocked contacts',
+];
+const approvalFilterData = ['All request', 'Deals', 'Expenses'];
+
+const tabs = [
+  { name: 'General', unreadCount: 8 },
+  { name: 'Inbox', unreadCount: 12 },
+  { name: 'Approval', unreadCount: 3 },
+];
+
+const generalTabNotifications = defineNotifications([
+  {
+    category: 'reminder',
+    title: 'Deals due soon on 20 June 2025, 11:11',
+    message: '24 June 2025 - Blanco Coffee Blok M',
+    timestamp: 'Just now',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Christin Purnama Sari',
+    title: 'Christin Purnama Sari mentioned you in Deals',
+    message: '1234ABCD - Espresso machine bulk sales',
+    timestamp: '2 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'assignment-task',
+    name: 'Rizal Chandra',
+    title: 'Rizal Chandra assigned you a task',
+    message: 'Coffee machine warranty void procedure guideline',
+    timestamp: '5 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'reminder',
+    title: 'SLA will breach in 1 minute',
+    message: 'First respond to Anastasia Utami',
+    timestamp: '10 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'download-upload-general',
+    title: 'File ready to download',
+    message: 'Deals export - 30 Jul 2025',
+    timestamp: '15 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'update-general',
+    title: 'System update completed',
+    message: 'Platform has been updated to version 2.5.1 with new features',
+    timestamp: '20 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Ahmad Rahman',
+    title: 'Ahmad Rahman mentioned you in Deals',
+    message: '5678WXYZ - Premium coffee subscription service',
+    timestamp: '25 minutes ago',
+    isRead: true,
+  },
+  {
+    category: 'assignment-task',
+    name: 'Maya Putri',
+    title: 'Maya Putri assigned you a task',
+    message: 'Prepare quarterly sales report for board meeting',
+    timestamp: '30 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'reminder',
+    title: 'Meeting reminder',
+    message: 'Daily standup meeting starts in 15 minutes',
+    timestamp: '1 hour ago',
+    isRead: true,
+  },
+  {
+    category: 'download-upload-general',
+    title: 'File ready to download',
+    message: 'Company export at 30 Jul 2025, 12:23',
+    timestamp: '1 hour ago',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Jessie Tan',
+    title: 'Jessie Tan mentioned you in Tasks',
+    message: 'Follow up visit',
+    timestamp: '2 hours ago',
+    isRead: true,
+  },
+  {
+    category: 'reminder',
+    title: 'Task deadline approaching',
+    message: 'Complete customer feedback analysis by 5 PM today',
+    timestamp: '3 hours ago',
+    isRead: true,
+  },
+  {
+    category: 'update-general',
+    title: 'Security patch applied',
+    message: 'Important security updates have been installed automatically',
+    timestamp: '4 hours ago',
+    isRead: true,
+  },
+  {
+    category: 'assignment-task',
+    name: 'Sari Dewi',
+    title: 'Sari Dewi assigned you a checklist in a Tasks',
+    message: 'Customer database update verification steps',
+    timestamp: '20 Jul 2025 at 16:15',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Bambang Sutrisno',
+    title: 'Bambang Sutrisno mentioned you in Companies',
+    message: 'ABC Corporation',
+    timestamp: '20 Jul 2025 at 14:45',
+    isRead: true,
+  },
+]);
+
+const inboxTabNotifications = defineNotifications([
+  {
+    category: 'channel-whatsapp',
+    title: 'Indra Pangestu sent a message',
+    message: '"Kak kapan bisa cair refundnya ya?"',
+    timestamp: 'Just now',
+    isRead: false,
+  },
+  {
+    category: 'channel-whatsapp',
+    title: 'Indra Pangestu sent 10 messages',
+    message:
+      '"Kak kapan bisa cair refundnya ya? Saya udah nunggu lama banget barangnya juga ga bisa dipake tapi ga ada respo..."',
+    timestamp: '2 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-instagram',
+    title: 'Siti Aisyah Putri commented',
+    message: '"Berapa lama pengiriman untuk wilayah Jakarta?"',
+    timestamp: '5 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-whatsapp',
+    title: 'Maya Sari sent a message',
+    message: '"Terima kasih atas pelayanannya yang luar biasa!"',
+    timestamp: '10 minutes ago',
+    isRead: true,
+  },
+  {
+    category: 'channel-shopee',
+    title: 'Maya Sari Putri sent a message',
+    message: '"Berapa lama pengiriman untuk wilayah Jakarta?"',
+    timestamp: '15 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-tokopedia',
+    title: 'Andi Setiawan sent a message',
+    message: '"Apakah ada diskon untuk pembelian dalam jumlah besar?"',
+    timestamp: '20 minutes ago',
+    isRead: true,
+  },
+  {
+    category: 'channel-whatsapp',
+    title: 'Siti Rahayu sent a message',
+    message: '"Apakah produk masih tersedia untuk pengiriman hari ini?"',
+    timestamp: '25 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-google-business',
+    title: 'Rudi Setiawan left a review',
+    message:
+      '"A very nice and vintage place to grab the most delicious coffee in Jogja."',
+    timestamp: '30 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-instagram',
+    title: '@fashionista_id sent a direct message',
+    message: '"Hi, apakah produk ini masih tersedia?"',
+    timestamp: '1 hour ago',
+    isRead: true,
+  },
+  {
+    category: 'channel-whatsapp',
+    title: 'Indra Pangestu sent a message',
+    message: 'Image',
+    timestamp: '1 hour ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-email',
+    title: 'Tri Wulandari sent an email',
+    message:
+      '"Variant yang saya beli kemarin ternyata beda ukuran dengan dripper yang saya punya, masih bisa retur ngga y..."',
+    timestamp: '2 hours ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-shopee',
+    title: 'Rizki Pratama sent a message',
+    message: '"Masih ada stok untuk produk ini tidak?"',
+    timestamp: '3 hours ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-google-business',
+    title: 'Sari Dewi left a review',
+    message:
+      '"Excellent customer service! Highly recommended. 5 stars ⭐⭐⭐⭐⭐"',
+    timestamp: '4 hours ago',
+    isRead: true,
+  },
+  {
+    category: 'channel-whatsapp',
+    name: 'Eka Setiawan',
+    title: 'Eka Setiawan resolved a conversation',
+    message: 'Indra Pangestu',
+    timestamp: '5 hours ago',
+    isRead: false,
+  },
+  {
+    category: 'channel-instagram',
+    title: '@coffeelover22 commented',
+    message: '"Looks amazing! Where can I order this?"',
+    timestamp: '20 Jul 2025 at 14:20',
+    isRead: false,
+  },
+  {
+    category: 'channel-email',
+    title: 'Lisa Chen sent an email',
+    message:
+      '"Hello, I need help with my recent order and would like to know the status"',
+    timestamp: '20 Jul 2025 at 22:15',
+    isRead: true,
+  },
+  {
+    category: 'channel-blocked-contact',
+    name: 'Jessie Tan',
+    title: 'Jessie Tan blocked a contact',
+    message: 'Sari Ayu',
+    timestamp: '19 Jul 2025 at 16:30',
+    isRead: false,
+  },
+]);
+
+const approvalTabNotifications = defineNotifications([
+  {
+    category: 'avatar',
+    name: 'Ali Imran',
+    title: 'Ali Imran request to add a deals on Sales Pipeline',
+    message: '7890UIIAI - Refund broken coffee machine',
+    timestamp: 'Just now',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Galih Prakoso',
+    title: 'Galih Prakoso request to add a expense',
+    message: 'Business trip to Tokyo 12 Agustus 2025',
+    timestamp: '2 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Maya Putri',
+    title: 'Maya Putri request to add a expense',
+    message: 'Conference registration fee - Tech Summit 2025',
+    timestamp: '5 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Rizal Chandra',
+    title: 'Rizal Chandra approved your request to create a deals',
+    message: '4567UUIAI - Origami paper filter 100 pcs',
+    timestamp: '10 minutes ago',
+    isRead: true,
+  },
+  {
+    category: 'avatar',
+    name: 'Rizal Chandra',
+    title: 'Rizal Chandra request to edit expense amount',
+    message: 'Business trip to Tokyo 12 Agustus 2025',
+    timestamp: '15 minutes ago',
+    isRead: false,
+    previousCondition: 'IDR 20.000.000',
+    currentCondition: 'IDR 32.000.000',
+  },
+  {
+    category: 'avatar',
+    name: 'Sari Dewi',
+    title: 'Sari Dewi request to add a deals on Lead Qualification',
+    message: '1234ABCD - Espresso machine bulk sales',
+    timestamp: '20 minutes ago',
+    isRead: true,
+  },
+  {
+    category: 'avatar',
+    name: 'Jessie Tan',
+    title: 'Jessie Tan request to move a deal',
+    message: '4567UUIAI - Origami paper filter 100 pcs',
+    timestamp: '25 minutes ago',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Rizal Chandra',
+    title: 'Rizal Chandra approved your request to add an expense',
+    message: 'Business trip to Tokyo 12 Agustus 2025',
+    timestamp: '30 minutes ago',
+    isRead: true,
+  },
+  {
+    category: 'avatar',
+    name: 'Linda Sari',
+    title: 'Linda Sari rejected your request to add an expense',
+    message: 'Team building activity at Sentul',
+    timestamp: '1 hour ago',
+    isRead: false,
+  },
+  {
+    category: 'avatar',
+    name: 'Jessie Tan',
+    title: 'Jessie Tan approved your request to move a deals',
+    message: '4567UUIAI - Origami paper filter 100 pcs',
+    timestamp: '2 hours ago',
+    isRead: true,
+    previousCondition: 'Lead Qualification',
+    currentCondition: 'Proposal Sent',
+  },
+  {
+    category: 'avatar',
+    name: 'Ahmad Rahman',
+    title: 'Ahmad Rahman request to move a deal',
+    message: '9876XYZI - Premium coffee beans subscription',
+    timestamp: '3 hours ago',
+    isRead: true,
+  },
+  {
+    category: 'avatar',
+    name: 'Rizal Chandra',
+    title: 'Rizal Chandra rejected request to edit expense category',
+    message: 'Business trip to Tokyo 12 Agustus 2025',
+    timestamp: '4 hours ago',
+    isRead: false,
+    previousCondition: 'Entertainment',
+    currentCondition: 'Hotel/Lodging/Accommodation',
+  },
+]);
+
+// Computed properties
+const currentFilterData = computed(() => {
+  switch (currentTab.value) {
+    case 0:
+      return generalFilterData;
+    case 1:
+      return inboxFilterData;
+    case 2:
+      return approvalFilterData;
+    default:
+      return generalFilterData;
+  }
+});
+
+type NotificationCenterPopoverProps = {
+  isScrolled: boolean;
+};
+
+withDefaults(defineProps<NotificationCenterPopoverProps>(), {
+  isScrolled: false,
+});
+
+// Lifecycle
+onMounted(() => {
+  isLoading.value = true;
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
+});
+
+// Methods
+function handleChangTab() {
+  // Update filter display (UI only)
+  switch (currentTab.value) {
+    case 0:
+      generalFilter.value = 'All general notifications';
+      break;
+    case 1:
+      generalFilter.value = 'All inbox notifications';
+      break;
+    case 2:
+      generalFilter.value = 'All request';
+      break;
+  }
+}
+
+// UI-only handlers
+function handleMarkAllAsRead() {
+  console.log('Mark all as read clicked (UI only)');
+}
+
+function handleNotificationClick(notification: Notification) {
+  console.log('Notification clicked (UI only):', notification);
+}
+
+function handleMarkAsRead(notification: Notification) {
+  console.log('Mark as read (UI only):', notification);
+}
+</script>
+```
+
+
+### Component: NotificationIcon
+
+```vue
+<template>
+  <MpFlex
+    position="relative"
+    flex="none"
+    alignItems="center"
+    justifyContent="center"
+    height="9"
+    width="9"
+    borderRadius="full"
+    :style="{
+      backgroundColor: getNotificationBackground(categoryValue)
+    }"
+  >
+    <MpText
+      v-if="categoryValue === 'avatar'"
+      size="body-small"
+      weight="semiBold"
+      :color="isNextTheme ? 'text.inverse' : 'white'"
+    >
+      {{ getInitialName(name || '') }}
+    </MpText>
+
+    <MpIcon
+      v-else-if="categoryValue === 'reminder'"
+      name="time"
+      variant="fill"
+      :color="isNextTheme ? 'icon.inverse' : 'white'"
+    />
+    <component
+      :is="getChannelIcon(categoryValue)"
+      v-else-if="getCategoryGroup(categoryValue) === 'channel' && getChannelIcon(categoryValue)"
+      :class="
+        css({
+          borderRadius: 'full',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '9',
+          width: '9'
+        })
+      "
+    />
+
+    <!-- Special Channel Icons (Regular Icons) -->
+    <MpIcon
+      v-else-if="
+        getCategoryGroup(categoryValue) === 'channel' && getSpecialChannelIcon(categoryValue)
+      "
+      :name="getSpecialChannelIcon(categoryValue)"
+      variant="fill"
+      :style="{
+        color: getSpecialChannelIconColor(categoryValue) || 'text.inverse'
+      }"
+    />
+
+    <!-- Assignment Icons -->
+    <MpIcon
+      v-else-if="
+        getCategoryGroup(categoryValue) === 'assignment' && getAssignmentIcon(categoryValue)
+      "
+      :name="getAssignmentIcon(categoryValue)"
+      variant="fill"
+      :color="isNextTheme ? 'icon.inverse' : 'white'"
+    />
+
+    <!-- Download/Upload Icons -->
+    <MpIcon
+      v-else-if="
+        getCategoryGroup(categoryValue) === 'download-upload' &&
+        getDownloadUploadIcon(categoryValue)
+      "
+      :name="getDownloadUploadIcon(categoryValue)"
+      variant="fill"
+      :color="isNextTheme ? 'icon.inverse' : 'white'"
+    />
+
+    <!-- Update Icons -->
+    <MpIcon
+      v-else-if="getCategoryGroup(categoryValue) === 'update' && getUpdateIcon(categoryValue)"
+      :name="getUpdateIcon(categoryValue)"
+      variant="fill"
+      :color="isNextTheme ? 'icon.inverse' : 'white'"
+    />
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { computed } from 'vue'
+  import { MpFlex, MpIcon, MpText, css } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+  import {
+    getAssignmentIcon,
+    getCategoryGroup,
+    getChannelIcon,
+    getDownloadUploadIcon,
+    getInitialName,
+    getNotificationBackground,
+    getSpecialChannelIcon,
+    getSpecialChannelIconColor,
+    getUpdateIcon,
+    type NotificationCategory
+  } from './utils'
+
+  const { isNextTheme } = usePixelTheme()
+
+  interface Props {
+    /**
+     * The type of notification icon to display
+     * @default 'reminder'
+     */
+    category?: NotificationCategory
+    /**
+     * The name or identifier for the notification source
+     */
+    name?: string
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    category: 'reminder',
+    name: undefined
+  })
+
+  // Computed property to access the category value
+  const categoryValue = computed(() => props.category)
+</script>
+```
+
+
+### Component: NotificationItem
+
+```vue
+<template>
+  <MpFlex
+    position="relative"
+    gap="3"
+    alignItems="start"
+    py="3"
+    px="2"
+    borderRadius="lg"
+    cursor="pointer"
+    :_hover="{
+      bg: '#F7F8F9',
+      _nextTheme: { bg: 'background.neutral.hovered' },
+    }"
+    @click="handleClick"
+  >
+    <NotificationIcon :category="category" :name="name" />
+
+    <!-- Notification Content -->
+    <MpFlex direction="column" gap="2px" width="full">
+      <MpText size="label-small" weight="semiBold">
+        {{ title }}
+      </MpText>
+
+      <MpText line-clamp="2" is-truncated>
+        {{ message }}
+      </MpText>
+
+      <MpText
+        size="label-small"
+        :color="isNextTheme ? 'text.secondary' : 'gray.600'"
+      >
+        {{ timestamp }}
+      </MpText>
+
+      <MpFlex
+        v-if="previousCondition && currentCondition"
+        mt="2"
+        py="1"
+        px="2"
+        borderRadius="lg"
+        borderWidth="1px"
+        :borderColor="isNextTheme ? 'background.neutral.subtle' : 'gray.50'"
+      >
+        <MpText
+          size="body-small"
+          :color="isNextTheme ? 'text.secondary' : 'gray.600'"
+        >
+          {{ `${previousCondition} to ${currentCondition}` }}
+        </MpText>
+      </MpFlex>
+
+      <slot></slot>
+
+      <!-- Unread indicator -->
+      <MpFlex
+        v-if="!hasRead"
+        position="absolute"
+        top="4"
+        right="3"
+        @click.stop="markAsRead"
+      >
+        <MpBadge v-tooltip="'Mark as read'" for="indicator" type="critical" />
+      </MpFlex>
+    </MpFlex>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+import { MpFlex, MpBadge, MpText } from '@mekari/pixel3';
+import { usePixelTheme } from '@mekari/pixel3-utils';
+import NotificationIcon from './NotificationIcon.vue';
+import { type NotificationCategory } from './utils';
+
+const { isNextTheme } = usePixelTheme();
+
+interface Props {
+  /**
+   * The notification category (matches NotificationIcon categories)
+   * Must be one of: 'avatar', 'reminder', 'channel-*', 'assignment-*', 'download-upload-*', 'update-*'
+   */
+  category: NotificationCategory;
+  /** User/source name (for avatar categories) */
+  name?: string;
+  /** Main notification title */
+  title: string;
+  /** Notification content/body */
+  message: string;
+  /** When the notification occurred */
+  timestamp: string;
+  /** Previous value */
+  previousCondition?: string | null;
+  /** Current value */
+  currentCondition?: string | null;
+  /** Boolean indicating read status */
+  hasRead: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  name: '',
+  previousCondition: null,
+  currentCondition: null,
+});
+
+const emit = defineEmits<{
+  click: [props: Props];
+  markAsRead: [props: Props];
+}>();
+
+function handleClick() {
+  emit('click', props);
+  if (!props.hasRead) {
+    emit('markAsRead', props);
+  }
+}
+
+function markAsRead() {
+  emit('markAsRead', props);
+}
+</script>
+```
+
+
+### Component: NotificationLoading
+
+```vue
+<template>
+  <MpFlex flexDirection="column" width="full" px="2">
+    <MpFlex v-for="index in 3" :key="index" gap="3" py="3" px="2">
+      <MpSkeleton height="36px" width="36px" borderRadius="full" />
+      <MpFlex flexDirection="column" gap="1">
+        <MpSkeleton height="12px" width="171px" borderRadius="full" />
+        <MpSkeleton height="16px" width="312px" borderRadius="full" />
+      </MpFlex>
+    </MpFlex>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+import { MpFlex, MpSkeleton } from '@mekari/pixel3';
+</script>
+```
+
+
+### Component: TabApproval
+
+```vue
+<template>
+  <NotificationLoading v-if="isLoading" />
+
+  <template
+    v-if="!isLoading && hasNotifications && !hasViewedAll && !hasNoResult"
+  >
+    <MpFlex p="2" flexDirection="column">
+      <template
+        v-for="(groupedNotifications, dateGroup) in groupNotificationsByDate(
+          notifications
+        )"
+      >
+        <template v-if="groupedNotifications.length > 0">
+          <MpText
+            :key="`header-${dateGroup}`"
+            size="overline"
+            :color="isNextTheme ? 'text.secondary' : 'gray.600'"
+            weight="semiBold"
+            :class="css({ py: '1', px: '2', letterSpacing: '2px' })"
+          >
+            {{ dateGroup === 'today' ? 'TODAY' : 'OLDER' }}
+          </MpText>
+          <NotificationItem
+            v-for="(notification, index) in groupedNotifications.filter(
+              n => !isShowUnreadOnly || !n.isRead
+            )"
+            :key="`${dateGroup}-${index}`"
+            :category="notification.category"
+            :name="notification.name"
+            :title="notification.title"
+            :message="notification.message"
+            :timestamp="notification.timestamp"
+            :has-read="notification.isRead"
+            :previous-condition="notification.previousCondition"
+            :current-condition="notification.currentCondition"
+            @click="handleNotificationClick"
+            @mark-as-read="handleMarkAsRead"
+          />
+        </template>
+      </template>
+    </MpFlex>
+    <EndOfTab v-if="isShowUnreadOnly">
+      You have viewed all your <strong>unread notifications</strong> from the
+      past 90 days.
+    </EndOfTab>
+    <EndOfTab v-else>
+      You have viewed all your notifications from the past 90 days.
+    </EndOfTab>
+  </template>
+
+  <NotificationBlankStates
+    :is-loading="isLoading"
+    :has-notifications="hasNotifications"
+    :has-viewed-all="hasViewedAll"
+    :has-no-result="hasNoResult"
+    :general-filter="generalFilter"
+  />
+</template>
+
+<script setup lang="ts">
+import { css, MpFlex, MpText } from '@mekari/pixel3';
+import { usePixelTheme } from '@mekari/pixel3-utils';
+import NotificationLoading from './NotificationLoading.vue';
+import NotificationItem from './NotificationItem.vue';
+import NotificationBlankStates from './NotificationBlankStates.vue';
+import EndOfTab from './EndOfTab.vue';
+import { groupNotificationsByDate } from './utils';
+import {
+  useNotificationTab,
+  type NotificationTabProps,
+  type NotificationTabEmits,
+} from '../compasables/useNotificationTab';
+
+const { isNextTheme } = usePixelTheme();
+
+const props = defineProps<NotificationTabProps>();
+
+const emit = defineEmits<NotificationTabEmits>();
+
+const {
+  hasNotifications,
+  hasViewedAll,
+  hasNoResult,
+  handleNotificationClick,
+  handleMarkAsRead,
+} = useNotificationTab(props, emit);
+</script>
+```
+
+
+### Component: TabGeneral
+
+```vue
+<template>
+  <NotificationLoading v-if="isLoading" />
+
+  <template v-if="!isLoading && hasNotifications && !hasViewedAll && !hasNoResult">
+    <MpFlex p="2" flexDirection="column">
+      <template
+        v-for="(groupedNotifications, dateGroup) in groupNotificationsByDate(notifications)"
+      >
+        <template v-if="groupedNotifications.length > 0">
+          <MpText
+            :key="`header-${dateGroup}`"
+            size="overline"
+            :color="isNextTheme ? 'text.secondary' : 'gray.600'"
+            weight="semiBold"
+            :class="css({ py: '1', px: '2', letterSpacing: '2px' })"
+          >
+            {{ dateGroup === 'today' ? 'TODAY' : 'OLDER' }}
+          </MpText>
+          <NotificationItem
+            v-for="(notification, index) in groupedNotifications.filter(
+              (n) => !isShowUnreadOnly || !n.isRead
+            )"
+            :key="`${dateGroup}-${index}`"
+            :category="notification.category"
+            :name="notification.name"
+            :title="notification.title"
+            :message="notification.message"
+            :timestamp="notification.timestamp"
+            :has-read="notification.isRead"
+            :previous-condition="notification.previousCondition"
+            :current-condition="notification.currentCondition"
+            @click="handleNotificationClick"
+            @mark-as-read="handleMarkAsRead"
+          />
+        </template>
+      </template>
+    </MpFlex>
+    <EndOfTab v-if="isShowUnreadOnly">
+      You have viewed all your <strong>unread notifications</strong> from the past 90 days.
+    </EndOfTab>
+    <EndOfTab v-else> You have viewed all your notifications from the past 90 days. </EndOfTab>
+  </template>
+
+  <NotificationBlankStates
+    :is-loading="isLoading"
+    :has-notifications="hasNotifications"
+    :has-viewed-all="hasViewedAll"
+    :has-no-result="hasNoResult"
+    :general-filter="generalFilter"
+  />
+</template>
+
+<script setup lang="ts">
+  import { css, MpFlex, MpText } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+  import NotificationLoading from './NotificationLoading.vue'
+  import NotificationItem from './NotificationItem.vue'
+  import NotificationBlankStates from './NotificationBlankStates.vue'
+  import EndOfTab from './EndOfTab.vue'
+  import { groupNotificationsByDate } from './utils'
+  import {
+    useNotificationTab,
+    type NotificationTabProps,
+    type NotificationTabEmits
+  } from '../compasables/useNotificationTab'
+
+  const { isNextTheme } = usePixelTheme()
+
+  const props = defineProps<NotificationTabProps>()
+
+  const emit = defineEmits<NotificationTabEmits>()
+
+  const { hasNotifications, hasViewedAll, hasNoResult, handleNotificationClick, handleMarkAsRead } =
+    useNotificationTab(props, emit)
+</script>
+```
+
+
+### Component: TabInbox
+
+```vue
+<template>
+  <NotificationLoading v-if="isLoading" />
+
+  <template
+    v-if="!isLoading && hasNotifications && !hasViewedAll && !hasNoResult"
+  >
+    <MpFlex p="2" flexDirection="column">
+      <template
+        v-for="(groupedNotifications, dateGroup) in groupNotificationsByDate(
+          notifications
+        )"
+      >
+        <template v-if="groupedNotifications.length > 0">
+          <MpText
+            :key="`header-${dateGroup}`"
+            size="overline"
+            :color="isNextTheme ? 'text.secondary' : 'gray.600'"
+            weight="semiBold"
+            :class="css({ py: '1', px: '2', letterSpacing: '2px' })"
+          >
+            {{ dateGroup === 'today' ? 'TODAY' : 'OLDER' }}
+          </MpText>
+          <NotificationItem
+            v-for="(notification, index) in groupedNotifications.filter(
+              n => !isShowUnreadOnly || !n.isRead
+            )"
+            :key="`${dateGroup}-${index}`"
+            :category="notification.category"
+            :name="notification.name"
+            :title="notification.title"
+            :message="notification.message"
+            :timestamp="notification.timestamp"
+            :has-read="notification.isRead"
+            :previous-condition="notification.previousCondition"
+            :current-condition="notification.currentCondition"
+            @click="handleNotificationClick"
+            @mark-as-read="handleMarkAsRead"
+          />
+        </template>
+      </template>
+    </MpFlex>
+    <EndOfTab v-if="isShowUnreadOnly">
+      You have viewed all your <strong>unread notifications</strong> from the
+      past 90 days.
+    </EndOfTab>
+    <EndOfTab v-else>
+      You have viewed all your notifications from the past 90 days.
+    </EndOfTab>
+  </template>
+
+  <NotificationBlankStates
+    :is-loading="isLoading"
+    :has-notifications="hasNotifications"
+    :has-viewed-all="hasViewedAll"
+    :has-no-result="hasNoResult"
+    :general-filter="generalFilter"
+  />
+</template>
+
+<script setup lang="ts">
+import { css, MpFlex, MpText } from '@mekari/pixel3';
+import { usePixelTheme } from '@mekari/pixel3-utils';
+import NotificationLoading from './NotificationLoading.vue';
+import NotificationItem from './NotificationItem.vue';
+import NotificationBlankStates from './NotificationBlankStates.vue';
+import EndOfTab from './EndOfTab.vue';
+import { groupNotificationsByDate } from './utils';
+import {
+  useNotificationTab,
+  type NotificationTabProps,
+  type NotificationTabEmits,
+} from '../compasables/useNotificationTab';
+
+const { isNextTheme } = usePixelTheme();
+
+const props = defineProps<NotificationTabProps>();
+
+const emit = defineEmits<NotificationTabEmits>();
+
+const {
+  hasNotifications,
+  hasViewedAll,
+  hasNoResult,
+  handleNotificationClick,
+  handleMarkAsRead,
+} = useNotificationTab(props, emit);
+</script>
+```
+
+
+# Pattern: user-account
+
+## user-account
+
+Popover trigger with avatar and user/company info; includes company list with search and account actions (e.g. switch account, settings).
+
+
+```vue
+<script setup lang="ts">
+  import { computed, ref } from 'vue'
+  import {
+    MpAvatar,
+    MpButton,
+    MpDivider,
+    MpIcon,
+    MpInput,
+    MpInputGroup,
+    MpInputLeftAddon,
+    MpPopover,
+    MpPopoverContent,
+    MpPopoverList,
+    MpPopoverListItem,
+    MpPopoverTrigger,
+    MpText,
+    css
+  } from '@mekari/pixel3'
+
+  const activeStack = ref('parent')
+  const companyQuery = ref('')
+  const companyItems = ref([
+    { name: 'PT Mid Solusi Nusantara', isActive: true },
+    { name: 'PT Talenta Digital Indonesia', isActive: false },
+    { name: 'SP-holding', isActive: false },
+    { name: 'CV Kreatif Abadi', isActive: false },
+    { name: 'PT Solusi Teknologi Cerdas', isActive: false },
+    { name: 'PT Nusantara Inovasi', isActive: false },
+    { name: 'SP Digital Media', isActive: false },
+    { name: 'PT Global Sinergi', isActive: false },
+    { name: 'CV Mandiri Sejahtera', isActive: false },
+    { name: 'PT Sukses Bersama', isActive: false },
+    { name: 'PT Talenta Prima', isActive: false }
+  ])
+  const filteredCompanyItems = computed(() => {
+    const query = (companyQuery.value || '').toLowerCase().trim()
+    if (!query) {
+      return companyItems.value
+    }
+    return companyItems.value.filter((item) => (item.name || '').toLowerCase().includes(query))
+  })
+</script>
+
+<template>
+  <div :class="css({ paddingX: '2', paddingY: '4' })">
+    <MpPopover :isKeepAlive="false" @close="() => (activeStack = 'parent')">
+      <MpPopoverTrigger>
+        <MpButton variant="ghost" size="sm">
+          <MpAvatar name="Rizal Chandra" src="https://randomuser.me/api/portraits/women/11.jpg" />
+          <div :class="css({ textAlign: 'left' })">
+            <MpText weight="semiBold"> Rizal Chandra </MpText>
+            <MpText size="label-small" color="gray.600"> PT Mid Solusi Nusantara </MpText>
+          </div>
+        </MpButton>
+      </MpPopoverTrigger>
+      <MpPopoverContent :class="css({ width: '65', p: '0' })">
+        <template v-if="activeStack === 'parent'">
+          <div
+            :class="
+              css({
+                backgroundColor: 'background.neutral.subtle',
+                borderBottomWidth: '1px',
+                borderColor: 'border.default',
+                borderTopRadius: 'md',
+                paddingY: 4
+              })
+            "
+          >
+            <div
+              :class="
+                css({
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'column'
+                })
+              "
+            >
+              <MpAvatar
+                :class="css({ marginBottom: '2' })"
+                name="Rizal Chandra"
+                src="https://randomuser.me/api/portraits/women/11.jpg"
+                size="lg"
+              />
+              <MpText weight="semiBold"> Rizal Chandra </MpText>
+              <MpText color="gray.600"> PT Mid Solusi Nusantara </MpText>
+            </div>
+          </div>
+          <MpPopoverList>
+            <MpPopoverListItem>
+              Account settings
+              <MpIcon name="newtab" size="sm" />
+            </MpPopoverListItem>
+            <MpPopoverListItem>
+              Company info
+              <MpIcon name="newtab" size="sm" />
+            </MpPopoverListItem>
+            <MpPopoverListItem is-arrow @click="activeStack = 'company-list'">
+              Company list
+            </MpPopoverListItem>
+            <MpPopoverListItem @click="activeStack = 'change-language'">
+              Change language
+              <MpText color="gray.600"> English </MpText>
+            </MpPopoverListItem>
+          </MpPopoverList>
+          <MpDivider :class="css({ marginY: '0' })" />
+          <MpPopoverList>
+            <MpPopoverListItem is-arrow @click="activeStack = 'switch-account'">
+              Switch account
+            </MpPopoverListItem>
+            <MpPopoverListItem>Sign out</MpPopoverListItem>
+          </MpPopoverList>
+          <div
+            :class="
+              css({ display: 'flex', gap: '3', flexWrap: 'wrap', paddingX: '3', paddingY: '4' })
+            "
+          >
+            <MpText :class="css({ fontSize: 'xs', color: 'gray.600' })"> Privacy </MpText>
+            <MpText :class="css({ fontSize: 'xs', color: 'gray.600' })"> Terms of Use </MpText>
+            <MpText :class="css({ fontSize: 'xs', color: 'gray.600' })">
+              About Mekari Account
+            </MpText>
+            <MpText :class="css({ fontSize: 'xs', color: 'gray.600' })"> Mekari © 2025 </MpText>
+          </div>
+        </template>
+
+        <template v-if="activeStack === 'company-list'">
+          <div
+            :class="
+              css({
+                display: 'flex',
+                gap: '2',
+                alignItems: 'center',
+                paddingY: '2',
+                paddingX: '3',
+                roundedTop: 'md',
+                backgroundColor: 'background.neutral.subtle',
+                borderBottomWidth: '1px',
+                borderColor: 'border.default'
+              })
+            "
+          >
+            <MpButton
+              aria-label="edit button"
+              left-icon="arrows-left"
+              variant="ghost"
+              size="sm"
+              @click="activeStack = 'parent'"
+            />
+            <MpText weight="semiBold"> Company list </MpText>
+          </div>
+          <div v-if="companyItems.length > 6" :class="css({ paddingTop: '3', paddingX: '3' })">
+            <MpInputGroup size="md">
+              <MpInputLeftAddon>
+                <MpIcon name="search" size="sm" />
+              </MpInputLeftAddon>
+              <MpInput v-model="companyQuery" placeholder="Search..." is-clearable />
+            </MpInputGroup>
+          </div>
+          <MpPopoverList>
+            <MpText
+              v-if="filteredCompanyItems.length === 0"
+              :class="css({ color: 'gray.600', paddingBottom: '2' })"
+            >
+              No data found
+            </MpText>
+            <MpPopoverListItem v-for="item in filteredCompanyItems" :key="item.name">
+              <MpText>
+                {{ item.name }}
+              </MpText>
+              <MpIcon v-if="item.isActive" name="check" size="sm" />
+            </MpPopoverListItem>
+          </MpPopoverList>
+        </template>
+
+        <template v-if="activeStack === 'change-language'">
+          <div
+            :class="
+              css({
+                display: 'flex',
+                gap: '2',
+                alignItems: 'center',
+                paddingY: '2',
+                paddingX: '3',
+                roundedTop: 'md',
+                backgroundColor: 'background.neutral.subtle',
+                borderBottomWidth: '1px',
+                borderColor: 'border.default'
+              })
+            "
+          >
+            <MpButton
+              aria-label="edit button"
+              left-icon="arrows-left"
+              variant="ghost"
+              size="sm"
+              @click="activeStack = 'parent'"
+            />
+            <MpText weight="semiBold"> Change language </MpText>
+          </div>
+          <MpPopoverList>
+            <MpPopoverListItem>
+              <MpText weight="semiBold"> English </MpText>
+              <MpIcon name="check" size="sm" />
+            </MpPopoverListItem>
+            <MpPopoverListItem>
+              <MpText>Indonesia</MpText>
+            </MpPopoverListItem>
+          </MpPopoverList>
+        </template>
+
+        <template v-if="activeStack === 'switch-account'">
+          <div
+            :class="
+              css({
+                display: 'flex',
+                gap: '2',
+                alignItems: 'center',
+                paddingY: '2',
+                paddingX: '3',
+                roundedTop: 'md',
+                backgroundColor: 'background.neutral.subtle',
+                borderBottomWidth: '1px',
+                borderColor: 'border.default'
+              })
+            "
+          >
+            <MpButton
+              aria-label="edit button"
+              left-icon="arrows-left"
+              variant="ghost"
+              size="sm"
+              @click="activeStack = 'parent'"
+            />
+            <MpText weight="semiBold"> Switch account </MpText>
+          </div>
+          <MpPopoverList>
+            <MpPopoverListItem>
+              <MpText weight="semiBold"> rizal.chandra@msn.com </MpText>
+              <MpIcon name="check" size="sm" />
+            </MpPopoverListItem>
+            <MpPopoverListItem>
+              <MpText> rizal.chandra@gmail.com </MpText>
+            </MpPopoverListItem>
+          </MpPopoverList>
+        </template>
+      </MpPopoverContent>
+    </MpPopover>
+  </div>
+</template>
+```

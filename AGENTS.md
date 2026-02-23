@@ -1,137 +1,172 @@
 # MCP Nuxt Application Overview
 
-This document provides an overview of the MCP Nuxt application structure and development workflow.
+This document gives coding agents and contributors a quick orientation to the `mcp-nuxt` workspace.
 
-> **For implementation guides:** See the `.agents/skills/` directory for specialized implementation guides (Figma, Pixel, Nuxt, etc.)
+> For implementation playbooks, use the skill docs in `.agents/skills/` and `public/skills/`.
 
 ---
 
-# Application Overview
+## About This App
 
-## About This Application
+This is a **Nuxt 4** application integrated with a **Model Context Protocol (MCP)** server for the **Mekari Pixel 3** design system.
 
-This is a **Nuxt 4 application** integrated with **Model Context Protocol (MCP)** server that provides tools and resources for working with the **Mekari Pixel Design System**. The application serves as a development environment for implementing Figma designs using Pixel components.
+The project provides:
+
+- A UI for chat/docs/skills/demo pages
+- MCP tools/resources/prompts for Pixel workflows
+- Public skill assets and references for agent consumption
 
 ## Tech Stack
 
 - **Framework**: Nuxt 4 (Vue 3)
-- **Design System**: Mekari Pixel 3 (`@mekari/pixel3`)
+- **Styling System**: `@mekari/pixel3` + `@mekari/pixel3-postcss`
+- **Language**: TypeScript
+- **MCP Integration**: `@nuxtjs/mcp-toolkit`
 - **Package Manager**: pnpm
-- **Type Safety**: TypeScript
-- **MCP Integration**: Custom MCP server with tools and resources
+- **Deployment Target**: Netlify (Nitro preset)
 
-## Project Structure
+## Current Project Structure
 
-```
+```text
 mcp-nuxt/
-├── app/                          # Nuxt application
-│   ├── app.vue                   # Root app component
-│   ├── assets/css/               # Global styles
-│   │   └── pixel.css             # Pixel design system styles
-│   ├── components/               # Vue components
-│   │   └── MarkdownRenderer.vue  # Markdown rendering component
-│   ├── pages/                    # Nuxt pages (auto-routing)
-│   │   ├── index.vue             # Home page
-│   │   ├── chat.vue              # Chat interface
-│   │   ├── docs.vue              # Documentation viewer
-│   │   └── result.vue            # Results display
-│   └── plugins/                  # Nuxt plugins
-│       └── pixel.client.ts       # Pixel client setup
+├── app/
+│   ├── app.vue
+│   ├── assets/css/pixel.css
+│   ├── components/
+│   │   ├── AppFooter.vue
+│   │   ├── AppHeader.vue
+│   │   ├── ButtonAddMcp.vue
+│   │   └── MarkdownRenderer.vue
+│   ├── pages/
+│   │   ├── index.vue
+│   │   ├── chat.vue
+│   │   ├── docs.vue
+│   │   ├── skills.vue
+│   │   └── result/
+│   │       ├── test-0.vue
+│   │       ├── test-1.vue
+│   │       ├── test-2.vue
+│   │       └── test-3.vue
+│   └── plugins/pixel.client.ts
 │
-├── server/                       # Server-side code
-│   ├── api/                      # API endpoints
-│   │   ├── chat.ts               # Chat API
-│   │   └── health.ts             # Health check
-│   └── mcp/                      # MCP server implementation
-│       ├── prompts/              # MCP prompts
+├── docs/
+│   ├── figma-to-pixel-instructions.md
+│   └── skills-vs-mcp-prompts.md
+│
+├── public/
+│   ├── llms-components.txt
+│   ├── llms-design-tokens-21.txt
+│   ├── llms-design-tokens-24.txt
+│   ├── llms-docs.txt
+│   ├── robots.txt
+│   └── skills/pixel/
+│       ├── SKILL.md
+│       └── references/
+│
+├── server/
+│   ├── api/
+│   │   ├── chat.ts
+│   │   ├── health.ts
+│   │   └── skills/
+│   │       ├── pixel.ts
+│   │       └── pixel/download.ts
+│   └── mcp/
+│       ├── prompts/
+│       │   ├── create-design-to-pixel.ts
 │       │   └── implement-figma-to-pixel.ts
-│       ├── resources/            # MCP resources
-│       │   ├── component.ts      # Component resources
-│       │   └── docs.ts           # Documentation resources
-│       ├── tools/                # MCP tools
-│       │   ├── get-component.ts  # Get Pixel component info
-│       │   ├── get-docs.ts       # Get documentation
-│       │   ├── get-weather.ts    # Example tool
-│       │   └── hello-pixel.ts    # Test tool
-│       └── utils/                # Utilities
-│           └── normalizeComponentName.ts
+│       ├── resources/
+│       │   ├── component.ts
+│       │   ├── docs.ts
+│       │   ├── patterns.ts
+│       │   ├── templates.ts
+│       │   ├── token21.ts
+│       │   └── token24.ts
+│       ├── tools/
+│       │   ├── get-component.ts
+│       │   ├── get-docs.ts
+│       │   ├── get-pattern.ts
+│       │   ├── get-template.ts
+│       │   └── hello-pixel.ts
+│       └── utils/normalizeComponentName.ts
 │
-├── public/                       # Static files
-│   ├── llms-components.txt       # Pixel components documentation
-│   ├── llms-design-tokens-21.txt # Design Token 2.1
-│   ├── llms-design-tokens-24.txt # Design Token 2.4
-│   ├── llms-docs.txt             # General documentation
-│   └── templates/                # Code templates
-│       └── implement-figma-to-pixel.md
-│
-└── test/                         # Test files
-    └── mcp.eval.ts               # MCP evaluation tests
+└── test/mcp.eval.ts
 ```
 
-## Key Features
+## Routes
 
-### 1. **MCP Server Integration**
+- `/` — Home page
+- `/chat` — Chat interface
+- `/docs` — Docs page
+- `/skills` — Skill info and download page
+- `/result/test-0` to `/result/test-3` — Implementation examples
 
-- Custom MCP tools for Pixel components (`get-component`, `get-docs`)
-- Resources for accessing documentation and component information
-- Prompts for guided Figma-to-Pixel implementation
+## API Endpoints
 
-### 2. **Page Routes**
+- `POST /api/chat`
+- `GET /api/health`
+- `GET /api/skills/pixel`
+- `GET /api/skills/pixel/download`
 
-- `/` - Home/landing page
-- `/chat` - Interactive chat interface
-- `/docs` - Documentation browser
-- `/result` - Display implementation results
+## MCP Capabilities
 
-### 3. **API Endpoints**
+### Tools
 
-- `POST /api/chat` - Chat functionality
-- `GET /api/health` - Health check endpoint
+- `get-component`
+- `get-docs`
+- `get-pattern`
+- `get-template`
+- `hello-pixel`
 
-### 4. **Design System Resources**
+### Resources
 
-- Pre-loaded Pixel component documentation
-- Design Token 2.1 and 2.4 references
-- Implementation templates
+- `component`
+- `docs`
+- `patterns`
+- `templates`
+- `token21`
+- `token24`
+
+### Prompts
+
+- `create-design-to-pixel`
+- `implement-figma-to-pixel`
 
 ## Development Workflow
 
-1. **Adding New Pages**: Create `.vue` files in `app/pages/` (auto-routing enabled)
-2. **Adding Components**: Create reusable components in `app/components/`
-3. **API Development**: Add endpoints in `server/api/`
-4. **MCP Tools**: Extend MCP functionality in `server/mcp/tools/`
-5. **Styling**: Use Pixel components with Design Token 2.4 (configured in `pixel.client.ts`)
+1. **Add pages** in `app/pages/` (file-based routing)
+2. **Add components** in `app/components/`
+3. **Add APIs** in `server/api/`
+4. **Extend MCP** in `server/mcp/tools|resources|prompts`
+5. **Use Pixel styles** via global `app/assets/css/pixel.css`
 
-## Environment Setup
-
-- **Node.js**: Required for running the application
-- **pnpm**: Package manager (install with `npm install -g pnpm`)
-- **MCP Server**: Runs alongside Nuxt dev server
-
-## Running the Application
+## Local Commands
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Development mode
 pnpm dev
-
-# Build for production
 pnpm build
-
-# Preview production build
 pnpm preview
+pnpm eval
+pnpm eval:ui
 ```
 
----
+## Runtime Notes
 
-## Implementation Guides
+- `ssr: false`
+- Nitro preset: `netlify`
+- MCP route: `/mcp`
+- Dev server port: `3200`
 
-For specialized implementation guides, refer to the skills in the `.agents/skills/` directory:
+## Skill References
 
-- **`pixel`** - Implementing designs with Mekari Pixel 3 design system
-- **`nuxt`** - Nuxt full-stack framework development
-- **`web-design-guidelines`** - UI/UX best practices and accessibility
+Primary guides available in this repo:
 
-Each skill contains detailed workflows, best practices, and code examples for its specific domain.
+- `.agents/skills/nuxt/SKILL.md`
+- `.agents/skills/pixel/SKILL.md`
+- `.agents/skills/mcp-builder/SKILL.md`
+- `.agents/skills/web-design-guidelines/SKILL.md`
+
+Public skill package files:
+
+- `public/skills/pixel/SKILL.md`
+- `public/skills/pixel/references/*`

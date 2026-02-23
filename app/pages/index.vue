@@ -273,6 +273,41 @@
             </MpText>
           </MpFlex>
 
+          <!-- get-pattern tool -->
+          <MpFlex direction="column" gap="2">
+            <MpFlex alignItems="center" gap="2">
+              <MpText weight="semiBold" color="text.highlight">
+                #get-pattern
+              </MpText>
+            </MpFlex>
+            <MpText color="text.secondary">
+              Retrieves Pixel UI pattern documentation and code examples.
+              Supports partial name matching — no need to type the full pattern
+              name.
+            </MpText>
+            <MpText size="body-small" color="text.warning">
+              Example: "Show me the floating bulk action pattern" or "beaker
+              pattern"
+            </MpText>
+          </MpFlex>
+
+          <!-- get-template tool -->
+          <MpFlex direction="column" gap="2">
+            <MpFlex alignItems="center" gap="2">
+              <MpText weight="semiBold" color="text.highlight">
+                #get-template
+              </MpText>
+            </MpFlex>
+            <MpText color="text.secondary">
+              Retrieves Pixel UI template documentation and code examples.
+              Supports partial name matching — no need to type the full template
+              name.
+            </MpText>
+            <MpText size="body-small" color="text.warning">
+              Example: "Get the report index template" or "login template"
+            </MpText>
+          </MpFlex>
+
           <!-- hello-pixel tool -->
           <MpFlex direction="column" gap="2">
             <MpFlex alignItems="center" gap="2">
@@ -381,6 +416,12 @@
         </MpText>
         <MpText color="text.secondary">
           • "What's the difference between design token 2.1 and 2.4?"
+        </MpText>
+        <MpText color="text.secondary">
+          • "Show me the floating bulk action pattern"
+        </MpText>
+        <MpText color="text.secondary">
+          • "Get the report index template"
         </MpText>
         <MpText color="text.secondary">
           • "/create-design-to-pixel a user profile card with avatar and edit

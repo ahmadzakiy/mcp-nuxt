@@ -240,22 +240,6 @@
         </MpText>
 
         <MpFlex direction="column" gap="5">
-          <!-- get-component tool -->
-          <MpFlex direction="column" gap="2">
-            <MpFlex alignItems="center" gap="2">
-              <MpText weight="semiBold" color="text.highlight">
-                #get-component
-              </MpText>
-            </MpFlex>
-            <MpText color="text.secondary">
-              Retrieves Pixel component documentation and details including
-              props, slots, and events.
-            </MpText>
-            <MpText size="body-small" color="text.warning">
-              Example: "Get MpButton component documentation"
-            </MpText>
-          </MpFlex>
-
           <!-- get-docs tool -->
           <MpFlex direction="column" gap="2">
             <MpFlex alignItems="center" gap="2">
@@ -273,6 +257,23 @@
             </MpText>
           </MpFlex>
 
+          <!-- get-component tool -->
+          <MpFlex direction="column" gap="2">
+            <MpFlex alignItems="center" gap="2">
+              <MpText weight="semiBold" color="text.highlight">
+                #get-component
+              </MpText>
+            </MpFlex>
+            <MpText color="text.secondary">
+              Retrieves Pixel component documentation and details including
+              props, slots, and events.
+            </MpText>
+            <MpText size="body-small" color="text.warning">
+              Example: "Get MpButton component documentation" or "List all
+              components"
+            </MpText>
+          </MpFlex>
+
           <!-- get-pattern tool -->
           <MpFlex direction="column" gap="2">
             <MpFlex alignItems="center" gap="2">
@@ -286,8 +287,8 @@
               name.
             </MpText>
             <MpText size="body-small" color="text.warning">
-              Example: "Show me the floating bulk action pattern" or "beaker
-              pattern"
+              Example: "Show me the floating bulk action pattern" or "List all
+              patterns"
             </MpText>
           </MpFlex>
 
@@ -304,7 +305,7 @@
               name.
             </MpText>
             <MpText size="body-small" color="text.warning">
-              Example: "Get the report index template" or "login template"
+              Example: "Get the report index template" or "List all templates"
             </MpText>
           </MpFlex>
 
@@ -355,7 +356,8 @@
               hierarchy, and best practices.
             </MpText>
             <MpText size="body-small" color="text.warning">
-              Example: /implement-figma-to-pixel https:figma.com/file/xyz123
+              Example: /implement-figma-to-pixel
+              https:figma.com/file/node-id=123-456
             </MpText>
             <NuxtLink to="/result/test-0">
               <MpButton variant="secondary" left-icon="code">

@@ -1,5 +1,10 @@
 import { z } from "zod";
 import { normalizeComponentName } from "../utils/normalizeComponentName";
+import {
+  buildDocumentationIndex,
+  findBestMatches,
+  isListAllIntent
+} from "../utils/searchDocumentation";
 
 export default defineMcpTool({
   description:
@@ -14,7 +19,6 @@ export default defineMcpTool({
   // cache: '30m',
   async handler({ componentName }) {
     try {
-      // Normalize component name
       const normalizedName = normalizeComponentName(componentName);
 
       // Fetch the llms-components.txt file from public directory
@@ -27,29 +31,42 @@ export default defineMcpTool({
         }
       );
 
-      // Split content by main component headers (lines starting with "# ")
-      const sections = fileContent.split(/\n(?=# )/);
+      const componentIndex = buildDocumentationIndex({
+        fileContent,
+        headerPrefix: "# ",
+        keyStripPattern: /[-/]/g
+      });
 
-      // Find the section that matches the component name
-      let componentSection = null;
-      const normalizedSearchName = normalizedName.toLowerCase();
-
-      for (const section of sections) {
-        const firstLine = section.split("\n")[0];
-        if (firstLine.startsWith("# ")) {
-          const sectionName = firstLine.replace("# ", "").trim();
-          const normalizedSectionName =
-            normalizeComponentName(sectionName).toLowerCase();
-
-          // Case-insensitive comparison of normalized names
-          if (normalizedSectionName === normalizedSearchName) {
-            componentSection = section;
-            break;
-          }
-        }
+      if (isListAllIntent(componentName, "component")) {
+        return jsonResult({
+          total: componentIndex.length,
+          components: componentIndex.map((component) => ({
+            name: normalizeComponentName(component.rawName),
+            description: component.description
+          })),
+          message: `Found ${componentIndex.length} components in documentation.`
+        });
       }
 
-      if (!componentSection) {
+      const searchableComponentIndex = componentIndex.map((component) => {
+        const normalizedComponent = normalizeComponentName(
+          component.rawName
+        ).toLowerCase();
+        return {
+          ...component,
+          slugName: normalizedComponent,
+          keyName: normalizedComponent
+        };
+      });
+
+      const matches = findBestMatches(searchableComponentIndex, {
+        slugName: normalizedName.toLowerCase(),
+        keyName: normalizedName.toLowerCase()
+      });
+
+      const match = matches.length > 0 ? matches[0] : null;
+
+      if (!match) {
         return errorResult(
           `Component '${componentName}' not found in documentation. Please check the component name and try again.`
         );
@@ -58,7 +75,7 @@ export default defineMcpTool({
       return jsonResult({
         name: normalizedName,
         componentName: componentName,
-        documentation: componentSection.trim(),
+        documentation: match.section.trim(),
         documentation_url: `https://docs.mekari.design/components/${normalizedName.toLowerCase()}.html`
       });
     } catch (error) {

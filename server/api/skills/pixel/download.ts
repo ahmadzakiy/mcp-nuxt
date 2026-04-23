@@ -1,4 +1,6 @@
 import archiver from "archiver";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 // Define the skill file structure
 const skillFiles = [
@@ -8,6 +10,8 @@ const skillFiles = [
   "references/styling.md",
   "references/code-structure.md"
 ];
+
+const skillRoot = join(process.cwd(), "public", "skills", "pixel");
 
 export default defineEventHandler(async (event) => {
   try {
@@ -35,20 +39,12 @@ export default defineEventHandler(async (event) => {
       throw err;
     });
 
-    // Get base URL from runtime config
-    const config = useRuntimeConfig();
-    const baseUrl = `${config.pixelMcpBaseUrl}/skills/pixel`;
-    console.log("Creating skill archive from:", baseUrl);
+    console.log("Creating skill archive from local skill files");
 
-    // Fetch and add each file to the archive
+    // Read and add each file from the checked-in skill package
     for (const filePath of skillFiles) {
       try {
-        const fileUrl = `${baseUrl}/${filePath}`;
-        console.log("Fetching:", fileUrl);
-
-        const content = await $fetch(fileUrl, {
-          responseType: "text"
-        });
+        const content = await readFile(join(skillRoot, filePath), "utf8");
 
         // Add file to archive
         archive.append(content as string, { name: `pixel/${filePath}` });

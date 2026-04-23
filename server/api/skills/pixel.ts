@@ -1,21 +1,19 @@
-export default defineEventHandler(async (event) => {
-  try {
-    // Get base URL from runtime config
-    const config = useRuntimeConfig();
-    const baseUrl = `${config.pixelMcpBaseUrl}/skills/pixel`;
-    const skillUrl = `${baseUrl}/SKILL.md`;
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-    console.log("Fetching skill from:", skillUrl);
-    const content = (await $fetch(skillUrl, {
-      responseType: "text"
-    })) as string;
+const skillRoot = join(process.cwd(), "public", "skills", "pixel");
+
+export default defineEventHandler(async () => {
+  try {
+    const skillPath = join(skillRoot, "SKILL.md");
+    const content = await readFile(skillPath, "utf8");
 
     // Extract metadata from frontmatter
     const metadataMatch = content.match(/---\n([\s\S]*?)\n---/);
     let metadata = {
-      version: "1.0.8",
-      author: "UXE Team",
-      source: "https://docs.mekari.design/"
+      version: "2026.4.14",
+      author: "Ahmad Zakiy",
+      source: "https://pixel-mcp.netlify.app/skills/"
     };
 
     if (metadataMatch) {

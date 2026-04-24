@@ -1,4 +1,17 @@
 import archiver from "archiver";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
+async function readSkillFile(relativePath: string): Promise<string> {
+  const storage = useStorage("assets:skills");
+  const content = (await storage.getItem(relativePath)) as string | null;
+  if (content !== null) return content;
+  // Dev fallback: read from filesystem
+  return readFile(
+    join(process.cwd(), "public", "skills", relativePath),
+    "utf8"
+  );
+}
 
 // Define the skill file structure
 const skillFiles = [
@@ -35,12 +48,10 @@ export default defineEventHandler(async (event) => {
       throw err;
     });
 
-    const storage = useStorage("assets:skills");
-
-    // Read and add each file from server assets
+    // Read and add each file from server assets (with fs fallback in dev)
     for (const filePath of skillFiles) {
       try {
-        const content = (await storage.getItem(`pixel/${filePath}`)) as string;
+        const content = await readSkillFile(`pixel/${filePath}`);
         if (content) {
           archive.append(content, { name: `pixel/${filePath}` });
         }

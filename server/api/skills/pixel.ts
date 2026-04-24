@@ -1,11 +1,20 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
+async function readSkillFile(relativePath: string): Promise<string> {
+  const storage = useStorage("assets:skills");
+  const content = (await storage.getItem(relativePath)) as string | null;
+  if (content !== null) return content;
+  // Dev fallback: read from filesystem
+  return readFile(
+    join(process.cwd(), "public", "skills", relativePath),
+    "utf8"
+  );
+}
+
 export default defineEventHandler(async () => {
   try {
-    const storage = useStorage("assets:skills");
-    const content = (await storage.getItem("pixel/SKILL.md")) as string;
-
-    if (!content) {
-      throw new Error("SKILL.md not found in server assets");
-    }
+    const content = await readSkillFile("pixel/SKILL.md");
 
     // Extract metadata from frontmatter
     const metadataMatch = content.match(/---\n([\s\S]*?)\n---/);

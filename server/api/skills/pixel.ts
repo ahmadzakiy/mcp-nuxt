@@ -1,12 +1,11 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-
-const skillRoot = join(process.cwd(), "public", "skills", "pixel");
-
 export default defineEventHandler(async () => {
   try {
-    const skillPath = join(skillRoot, "SKILL.md");
-    const content = await readFile(skillPath, "utf8");
+    const storage = useStorage("assets:skills");
+    const content = (await storage.getItem("pixel/SKILL.md")) as string;
+
+    if (!content) {
+      throw new Error("SKILL.md not found in server assets");
+    }
 
     // Extract metadata from frontmatter
     const metadataMatch = content.match(/---\n([\s\S]*?)\n---/);

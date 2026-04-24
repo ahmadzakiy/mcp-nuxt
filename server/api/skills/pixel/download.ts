@@ -1,6 +1,4 @@
 import archiver from "archiver";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 
 // Define the skill file structure
 const skillFiles = [
@@ -10,8 +8,6 @@ const skillFiles = [
   "references/styling.md",
   "references/code-structure.md"
 ];
-
-const skillRoot = join(process.cwd(), "public", "skills", "pixel");
 
 export default defineEventHandler(async (event) => {
   try {
@@ -39,17 +35,17 @@ export default defineEventHandler(async (event) => {
       throw err;
     });
 
-    console.log("Creating skill archive from local skill files");
+    const storage = useStorage("assets:skills");
 
-    // Read and add each file from the checked-in skill package
+    // Read and add each file from server assets
     for (const filePath of skillFiles) {
       try {
-        const content = await readFile(join(skillRoot, filePath), "utf8");
-
-        // Add file to archive
-        archive.append(content as string, { name: `pixel/${filePath}` });
+        const content = (await storage.getItem(`pixel/${filePath}`)) as string;
+        if (content) {
+          archive.append(content, { name: `pixel/${filePath}` });
+        }
       } catch (error) {
-        console.warn(`Failed to fetch ${filePath}:`, error);
+        console.warn(`Failed to read ${filePath}:`, error);
         // Continue with other files even if one fails
       }
     }

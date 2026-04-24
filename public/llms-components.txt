@@ -554,6 +554,268 @@ Button component for Mekari Airene product.
 
 ```
 
+# Airene Chat Input
+
+Chat Input component for Airene.
+
+### MpAireneChatInput
+
+#### MpAireneChatInput Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of chat input. |
+| `model-value` | `-` | `-` | modelValue of chat input, use for v-model. |
+| `placeholder` | `-` | `-` | Placeholder of chat input. |
+| `maxlength` | `-` | `-` | Max length of chat input. |
+| `aria-labelled` | `-` | `-` | Optional prop for accessibility. |
+| `aria-labelled-by` | `-` | `-` | Optional prop for accessibility. |
+| `is-read-only` | `-` | `-` | If true, chat input will be read only. |
+| `is-disabled` | `-` | `-` | If true, chat input will be disabled. |
+| `is-invalid` | `-` | `-` | If true, chat input will be invalid. |
+| `is-required` | `-` | `-` | If true, chat input will be required. |
+| `is-force-focus` | `-` | `-` | If true, chat input will be force to focus state |
+
+#### MpAireneChatInput Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `change` | `-` | `-` | Function for handling change event. |
+| `input` | `-` | `-` | Function for handling input event. |
+| `focus` | `-` | `-` | Function for handling focus event. |
+| `blur` | `-` | `-` | Function for handling blur event. |
+| `keydown` | `-` | `-` | Function for handling keyboard event. |
+| `send` | `-` | `-` | Function for handling send event. |
+| `update:modelValue` | `-` | `-` | Function for handling v-model. |
+
+#### MpAireneChatInput Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### Usage: Basic
+
+```vue
+<template>
+  <MpFlex direction="column" gap="1.5">
+    <MpAireneChatInput
+      id="basic"
+      v-model="chat"
+      @focus="handleFocus"
+      @blur="handleBlur"
+      @send="handleSendMessage"
+      @keydown="handleKeydown"
+    />
+    <MpText size="label-small" :color="isNextTheme ? 'text.secondary' : 'gray.400'">
+      Airene responses can be inaccurate or misleading.
+      <MpText
+        as="span"
+        size="label-small"
+        :color="isNextTheme ? 'text.link' : 'blue.400'"
+        is-text-link
+      >
+        Learn more
+      </MpText>
+    </MpText>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpAireneChatInput, MpText } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme } = usePixelTheme()
+  const chat = ref('')
+
+  function handleFocus() {
+    console.log('Airene chat input focused')
+  }
+
+  function handleBlur() {
+    console.log('Airene chat input blurred')
+  }
+
+  function handleSendMessage() {
+    console.log('Message sent:', chat.value)
+    chat.value = ''
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault() // Prevent the default behavior of create new line
+      handleSendMessage()
+    }
+  }
+</script>
+
+```
+
+### Usage: Upload
+
+```vue
+<template>
+  <MpFlex direction="column" gap="1.5" mb="8">
+    <MpFlex v-if="previews.length" gap="3">
+      <div v-for="(src, index) in previews" :key="index" style="margin-bottom: 10px">
+        <MpFlex class="group" position="relative" width="64px" height="64px">
+          <MpImage :src="src" layout="fixed" :width="64" :height="64" :is-lazy="false" />
+          <MpIcon
+            :class="
+              css({
+                position: 'absolute',
+                right: '-8px',
+                top: '-8px',
+                cursor: 'pointer',
+                opacity: 0,
+                transition: 'opacity 250ms',
+                _groupHover: {
+                  opacity: 1
+                }
+              })
+            "
+            name="reset"
+            size="sm"
+            @click="removeImage(index)"
+          />
+        </MpFlex>
+      </div>
+    </MpFlex>
+
+    <MpAireneChatInput id="upload" v-model="chat" :is-disabled="false">
+      <MpFlex gap="1.5" alignItems="center" cursor="pointer">
+        <MpIcon name="img" size="sm" @click="triggerUpload" />
+        <input
+          ref="fileInput"
+          type="file"
+          multiple
+          accept="image/*"
+          @change="handleFiles"
+          style="display: none"
+        />
+      </MpFlex>
+    </MpAireneChatInput>
+    <MpText size="label-small" :color="isNextTheme ? 'text.secondary' : 'gray.400'">
+      Airene responses can be inaccurate or misleading.
+      <MpText
+        as="span"
+        size="label-small"
+        :color="isNextTheme ? 'text.link' : 'blue.400'"
+        is-text-link
+      >
+        Learn more
+      </MpText>
+    </MpText>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { css, MpFlex, MpAireneChatInput, MpText, MpImage, MpIcon } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme } = usePixelTheme()
+  const chat = ref('')
+  const fileInput = ref()
+  const previews = ref<string[]>([])
+
+  function triggerUpload() {
+    fileInput.value.click()
+  }
+
+  function handleFiles(event: Event) {
+    const input = event.target as HTMLInputElement
+    if (!input.files) return
+
+    const files = Array.from(input.files)
+    previews.value = []
+
+    files.forEach((file) => {
+      const reader = new FileReader()
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const result = e.target?.result
+        if (typeof result === 'string') {
+          previews.value.push(result)
+        }
+      }
+
+      reader.readAsDataURL(file)
+    })
+
+    input.value = ''
+  }
+
+  function removeImage(index: number) {
+    previews.value.splice(index, 1)
+  }
+</script>
+
+```
+
+### Usage: Advance
+
+```vue
+<template>
+  <MpFlex direction="column" gap="1.5" mb="8">
+    <MpAireneChatInput
+      id="advance"
+      v-model="chat"
+      :is-invalid="isInvalid"
+      :is-force-focus="isForceFocus"
+      :is-disabled="false"
+    >
+      <MpFlex gap="1.5" alignItems="center" cursor="pointer">
+        <MpText :color="isNextTheme ? 'text.secondary' : 'gray.400'" size="label-small"
+          >Topic</MpText
+        >
+        <MpFlex
+          gap="4xs"
+          alignItems="center"
+          px="1"
+          :bg="isNextTheme ? 'background.neutral.subtle' : 'gray.50'"
+          rounded="sm"
+        >
+          <MpText size="label-small">Sales</MpText>
+          <MpIcon name="chevrons-down" />
+        </MpFlex>
+      </MpFlex>
+    </MpAireneChatInput>
+    <MpText v-if="isInvalid" size="label-small" :color="isNextTheme ? 'text.danger' : 'red.400'">
+      Error message
+    </MpText>
+    <MpText size="label-small" :color="isNextTheme ? 'text.secondary' : 'gray.400'">
+      Airene responses can be inaccurate or misleading.
+      <MpText
+        as="span"
+        size="label-small"
+        :color="isNextTheme ? 'text.link' : 'blue.400'"
+        is-text-link
+      >
+        Learn more
+      </MpText>
+    </MpText>
+  </MpFlex>
+  <MpToggle id="toggle-force-focus" v-model:isChecked="isForceFocus">Force focus</MpToggle>
+</template>
+
+<script setup lang="ts">
+  import { ref, computed } from 'vue'
+  import { MpFlex, MpAireneChatInput, MpText, MpIcon, MpToggle } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme } = usePixelTheme()
+  const chat = ref('')
+  const isForceFocus = ref(false)
+
+  const isInvalid = computed(() => {
+    return chat.value.length > 0 && chat.value.length < 10
+  })
+</script>
+
+```
+
 # Airene Chat Bubble
 
 Chat Bubble component for Airene.
@@ -1791,268 +2053,6 @@ Used to display profile image, initial or fallback icon.
     variant-color="stone"
   />
 </template>
-
-```
-
-# Airene Chat Input
-
-Chat Input component for Airene.
-
-### MpAireneChatInput
-
-#### MpAireneChatInput Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of chat input. |
-| `model-value` | `-` | `-` | modelValue of chat input, use for v-model. |
-| `placeholder` | `-` | `-` | Placeholder of chat input. |
-| `maxlength` | `-` | `-` | Max length of chat input. |
-| `aria-labelled` | `-` | `-` | Optional prop for accessibility. |
-| `aria-labelled-by` | `-` | `-` | Optional prop for accessibility. |
-| `is-read-only` | `-` | `-` | If true, chat input will be read only. |
-| `is-disabled` | `-` | `-` | If true, chat input will be disabled. |
-| `is-invalid` | `-` | `-` | If true, chat input will be invalid. |
-| `is-required` | `-` | `-` | If true, chat input will be required. |
-| `is-force-focus` | `-` | `-` | If true, chat input will be force to focus state |
-
-#### MpAireneChatInput Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `change` | `-` | `-` | Function for handling change event. |
-| `input` | `-` | `-` | Function for handling input event. |
-| `focus` | `-` | `-` | Function for handling focus event. |
-| `blur` | `-` | `-` | Function for handling blur event. |
-| `keydown` | `-` | `-` | Function for handling keyboard event. |
-| `send` | `-` | `-` | Function for handling send event. |
-| `update:modelValue` | `-` | `-` | Function for handling v-model. |
-
-#### MpAireneChatInput Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### Usage: Basic
-
-```vue
-<template>
-  <MpFlex direction="column" gap="1.5">
-    <MpAireneChatInput
-      id="basic"
-      v-model="chat"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      @send="handleSendMessage"
-      @keydown="handleKeydown"
-    />
-    <MpText size="label-small" :color="isNextTheme ? 'text.secondary' : 'gray.400'">
-      Airene responses can be inaccurate or misleading.
-      <MpText
-        as="span"
-        size="label-small"
-        :color="isNextTheme ? 'text.link' : 'blue.400'"
-        is-text-link
-      >
-        Learn more
-      </MpText>
-    </MpText>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpAireneChatInput, MpText } from '@mekari/pixel3'
-  import { usePixelTheme } from '@mekari/pixel3-utils'
-
-  const { isNextTheme } = usePixelTheme()
-  const chat = ref('')
-
-  function handleFocus() {
-    console.log('Airene chat input focused')
-  }
-
-  function handleBlur() {
-    console.log('Airene chat input blurred')
-  }
-
-  function handleSendMessage() {
-    console.log('Message sent:', chat.value)
-    chat.value = ''
-  }
-
-  function handleKeydown(e: KeyboardEvent) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault() // Prevent the default behavior of create new line
-      handleSendMessage()
-    }
-  }
-</script>
-
-```
-
-### Usage: Upload
-
-```vue
-<template>
-  <MpFlex direction="column" gap="1.5" mb="8">
-    <MpFlex v-if="previews.length" gap="3">
-      <div v-for="(src, index) in previews" :key="index" style="margin-bottom: 10px">
-        <MpFlex class="group" position="relative" width="64px" height="64px">
-          <MpImage :src="src" layout="fixed" :width="64" :height="64" :is-lazy="false" />
-          <MpIcon
-            :class="
-              css({
-                position: 'absolute',
-                right: '-8px',
-                top: '-8px',
-                cursor: 'pointer',
-                opacity: 0,
-                transition: 'opacity 250ms',
-                _groupHover: {
-                  opacity: 1
-                }
-              })
-            "
-            name="reset"
-            size="sm"
-            @click="removeImage(index)"
-          />
-        </MpFlex>
-      </div>
-    </MpFlex>
-
-    <MpAireneChatInput id="upload" v-model="chat" :is-disabled="false">
-      <MpFlex gap="1.5" alignItems="center" cursor="pointer">
-        <MpIcon name="img" size="sm" @click="triggerUpload" />
-        <input
-          ref="fileInput"
-          type="file"
-          multiple
-          accept="image/*"
-          @change="handleFiles"
-          style="display: none"
-        />
-      </MpFlex>
-    </MpAireneChatInput>
-    <MpText size="label-small" :color="isNextTheme ? 'text.secondary' : 'gray.400'">
-      Airene responses can be inaccurate or misleading.
-      <MpText
-        as="span"
-        size="label-small"
-        :color="isNextTheme ? 'text.link' : 'blue.400'"
-        is-text-link
-      >
-        Learn more
-      </MpText>
-    </MpText>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { css, MpFlex, MpAireneChatInput, MpText, MpImage, MpIcon } from '@mekari/pixel3'
-  import { usePixelTheme } from '@mekari/pixel3-utils'
-
-  const { isNextTheme } = usePixelTheme()
-  const chat = ref('')
-  const fileInput = ref()
-  const previews = ref<string[]>([])
-
-  function triggerUpload() {
-    fileInput.value.click()
-  }
-
-  function handleFiles(event: Event) {
-    const input = event.target as HTMLInputElement
-    if (!input.files) return
-
-    const files = Array.from(input.files)
-    previews.value = []
-
-    files.forEach((file) => {
-      const reader = new FileReader()
-
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        const result = e.target?.result
-        if (typeof result === 'string') {
-          previews.value.push(result)
-        }
-      }
-
-      reader.readAsDataURL(file)
-    })
-
-    input.value = ''
-  }
-
-  function removeImage(index: number) {
-    previews.value.splice(index, 1)
-  }
-</script>
-
-```
-
-### Usage: Advance
-
-```vue
-<template>
-  <MpFlex direction="column" gap="1.5" mb="8">
-    <MpAireneChatInput
-      id="advance"
-      v-model="chat"
-      :is-invalid="isInvalid"
-      :is-force-focus="isForceFocus"
-      :is-disabled="false"
-    >
-      <MpFlex gap="1.5" alignItems="center" cursor="pointer">
-        <MpText :color="isNextTheme ? 'text.secondary' : 'gray.400'" size="label-small"
-          >Topic</MpText
-        >
-        <MpFlex
-          gap="4xs"
-          alignItems="center"
-          px="1"
-          :bg="isNextTheme ? 'background.neutral.subtle' : 'gray.50'"
-          rounded="sm"
-        >
-          <MpText size="label-small">Sales</MpText>
-          <MpIcon name="chevrons-down" />
-        </MpFlex>
-      </MpFlex>
-    </MpAireneChatInput>
-    <MpText v-if="isInvalid" size="label-small" :color="isNextTheme ? 'text.danger' : 'red.400'">
-      Error message
-    </MpText>
-    <MpText size="label-small" :color="isNextTheme ? 'text.secondary' : 'gray.400'">
-      Airene responses can be inaccurate or misleading.
-      <MpText
-        as="span"
-        size="label-small"
-        :color="isNextTheme ? 'text.link' : 'blue.400'"
-        is-text-link
-      >
-        Learn more
-      </MpText>
-    </MpText>
-  </MpFlex>
-  <MpToggle id="toggle-force-focus" v-model:isChecked="isForceFocus">Force focus</MpToggle>
-</template>
-
-<script setup lang="ts">
-  import { ref, computed } from 'vue'
-  import { MpFlex, MpAireneChatInput, MpText, MpIcon, MpToggle } from '@mekari/pixel3'
-  import { usePixelTheme } from '@mekari/pixel3-utils'
-
-  const { isNextTheme } = usePixelTheme()
-  const chat = ref('')
-  const isForceFocus = ref(false)
-
-  const isInvalid = computed(() => {
-    return chat.value.length > 0 && chat.value.length < 10
-  })
-</script>
 
 ```
 
@@ -4925,6 +4925,7 @@ Color picker let the user select a color
 | `is-show-preset` | `-` | `-` | If true, color picker show preset. |
 | `is-disabled` | `-` | `-` | If true, color picker show disabled state. |
 | `is-invalid` | `-` | `-` | If true, color picker show invalid state. |
+| `use-portal` | `-` | `-` | If true, color picker is rendered with portal. |
 
 #### MpColorPicker Events
 
@@ -5159,210 +5160,6 @@ Used to separate contents horizontal and vertical.
     <MpDivider label="Or" variant="dashed" />
   </MpFlex>
 </template>
-
-```
-
-# Dropzone
-
-Dropzone used to upload file within an area.
-
-### MpDropzone
-
-#### MpDropzone Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of dropzone. |
-| `variant` | `-` | `-` | Variant of dropzone. |
-| `accept` | `-` | `-` | List of file types for input. |
-| `name` | `-` | `-` | Name for input. |
-| `placeholder` | `-` | `-` | Placeholder for input. |
-| `description` | `-` | `-` | Description of dropzone. |
-| `loading-text` | `-` | `-` | Text in loading state. |
-| `button-text` | `-` | `-` | Text in button change. |
-| `overlay-variant` | `-` | `-` | Variant style in overlay dropzone. |
-| `is-show-preview` | `-` | `-` | If true, dropzone will show image preview. |
-| `is-multiple` | `-` | `-` | If true, accept multiple input file. |
-| `is-loading` | `-` | `-` | If true, show loading state. |
-| `is-disabled` | `-` | `-` | If true, dropzone will be disable. |
-| `is-invalid` | `-` | `-` | If true, dropzone will be invalid. |
-| `is-required` | `-` | `-` | If true, mark as required. |
-| `has-custom-upload` | `-` | `-` | If true, dropzone will show overlay when drag file. |
-| `is-enable-drag-and-drop` | `-` | `-` | If true, dropzone will have drag and drop feature. |
-| `is-enable-input-file` | `-` | `-` | If true, dropzone will have input file feature. |
-| `is-show-overlay` | `-` | `-` | If true, dropzone will show overlay by default. |
-
-#### MpDropzone Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `click` | `-` | `-` | Function for handling click event. |
-| `dragover` | `-` | `-` | Function for handling dragover event. |
-| `dragleave` | `-` | `-` | Function for handling dragleave event. |
-| `drop` | `-` | `-` | Function for handling drop event. |
-| `change` | `-` | `-` | Function for handling change event. |
-| `clear` | `-` | `-` | Function for handling clear event. |
-| `cancel` | `-` | `-` | Function for handling cancel event. |
-
-#### MpDropzone Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### Usage: With Area Upload
-
-```vue
-<template>
-  <div :class="css({ width: 'full', minHeight: '500px', height: 'full', overflow: 'auto' })">
-    <MpDropzone
-      overlay-variant="black"
-      placeholder="Drop your file(s) here"
-      :has-custom-upload="true"
-      :is-loading="isLoading"
-      @dragover="(e) => log('dragover', e)"
-      @dragleave="(e) => log('dragleave', e)"
-      @drop="(e) => log('drop', e)"
-      @change="handleChange"
-    >
-      <MpText size="h2">Drag Image(s) to This Area</MpText>
-      <div v-for="(item, index) in images" :key="index" :class="css({ width: '400px' })">
-        <img :src="handlePreview(item)" />
-      </div>
-    </MpDropzone>
-  </div>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpDropzone, MpText, css } from '@mekari/pixel3'
-
-  const isLoading = ref(false)
-  const images = ref()
-
-  function log(message: string, e: Event) {
-    console.log(message, e)
-  }
-
-  function handleChange(item: File) {
-    isLoading.value = true
-    console.log('IMAGE: ', item)
-    images.value = item
-    setTimeout(() => {
-      // Upload image to server
-      isLoading.value = false
-    }, 2000)
-  }
-
-  function handlePreview(item: File) {
-    const REGEXP_MIME_TYPE_IMAGES = /^image\/\w+$/
-    if (REGEXP_MIME_TYPE_IMAGES.test(item.type)) {
-      return URL.createObjectURL(item)
-    }
-  }
-</script>
-
-```
-
-### Usage: With Avatar Upload
-
-```vue
-<template>
-  <div :class="css({ width: '80px', height: '80px' })">
-    <MpDropzone
-      variant="avatar"
-      accept=".jpg, .jpeg, .png"
-      placeholder="DS"
-      button-text="Browse file"
-      :is-loading="isLoading"
-      @change="handleChange"
-    />
-  </div>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpDropzone, css } from '@mekari/pixel3'
-
-  const isLoading = ref(false)
-
-  function handleChange(item: File) {
-    isLoading.value = true
-    console.log('IMAGE: ', item)
-    setTimeout(() => {
-      // Upload image to server
-      isLoading.value = false
-    }, 2000)
-  }
-</script>
-
-```
-
-### Usage: With Logo Upload
-
-```vue
-<template>
-  <div :class="css({ width: '200px', height: '88px' })">
-    <MpDropzone
-      variant="logo"
-      accept=".jpg, .jpeg, .png"
-      placeholder="Upload your logo"
-      button-text="Browse file"
-      :is-loading="isLoading"
-      @change="handleChange"
-    />
-  </div>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpDropzone, css } from '@mekari/pixel3'
-
-  const isLoading = ref(false)
-
-  function handleChange(item: File) {
-    isLoading.value = true
-    console.log('IMAGE: ', item)
-    setTimeout(() => {
-      // Upload image to server
-      isLoading.value = false
-    }, 2000)
-  }
-</script>
-
-```
-
-### Usage: With Product Upload
-
-```vue
-<template>
-  <div :class="css({ width: '200px', height: '200px' })">
-    <MpDropzone
-      variant="product"
-      accept=".jpg, .jpeg, .png"
-      placeholder="Upload product here"
-      button-text="Browse file"
-      :is-loading="isLoading"
-      @change="handleChange"
-    />
-  </div>
-</template>
-
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpDropzone, css } from '@mekari/pixel3'
-
-  const isLoading = ref(false)
-
-  function handleChange(item: File) {
-    isLoading.value = true
-    console.log('IMAGE: ', item)
-    setTimeout(() => {
-      // Upload image to server
-      isLoading.value = false
-    }, 2000)
-  }
-</script>
 
 ```
 
@@ -5746,6 +5543,210 @@ The Drawer component is a panel that slides out from the edge of the screen. It 
     </div>
   </MpFlex>
 </template>
+
+```
+
+# Dropzone
+
+Dropzone used to upload file within an area.
+
+### MpDropzone
+
+#### MpDropzone Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of dropzone. |
+| `variant` | `-` | `-` | Variant of dropzone. |
+| `accept` | `-` | `-` | List of file types for input. |
+| `name` | `-` | `-` | Name for input. |
+| `placeholder` | `-` | `-` | Placeholder for input. |
+| `description` | `-` | `-` | Description of dropzone. |
+| `loading-text` | `-` | `-` | Text in loading state. |
+| `button-text` | `-` | `-` | Text in button change. |
+| `overlay-variant` | `-` | `-` | Variant style in overlay dropzone. |
+| `is-show-preview` | `-` | `-` | If true, dropzone will show image preview. |
+| `is-multiple` | `-` | `-` | If true, accept multiple input file. |
+| `is-loading` | `-` | `-` | If true, show loading state. |
+| `is-disabled` | `-` | `-` | If true, dropzone will be disable. |
+| `is-invalid` | `-` | `-` | If true, dropzone will be invalid. |
+| `is-required` | `-` | `-` | If true, mark as required. |
+| `has-custom-upload` | `-` | `-` | If true, dropzone will show overlay when drag file. |
+| `is-enable-drag-and-drop` | `-` | `-` | If true, dropzone will have drag and drop feature. |
+| `is-enable-input-file` | `-` | `-` | If true, dropzone will have input file feature. |
+| `is-show-overlay` | `-` | `-` | If true, dropzone will show overlay by default. |
+
+#### MpDropzone Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click` | `-` | `-` | Function for handling click event. |
+| `dragover` | `-` | `-` | Function for handling dragover event. |
+| `dragleave` | `-` | `-` | Function for handling dragleave event. |
+| `drop` | `-` | `-` | Function for handling drop event. |
+| `change` | `-` | `-` | Function for handling change event. |
+| `clear` | `-` | `-` | Function for handling clear event. |
+| `cancel` | `-` | `-` | Function for handling cancel event. |
+
+#### MpDropzone Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### Usage: With Area Upload
+
+```vue
+<template>
+  <div :class="css({ width: 'full', minHeight: '500px', height: 'full', overflow: 'auto' })">
+    <MpDropzone
+      overlay-variant="black"
+      placeholder="Drop your file(s) here"
+      :has-custom-upload="true"
+      :is-loading="isLoading"
+      @dragover="(e) => log('dragover', e)"
+      @dragleave="(e) => log('dragleave', e)"
+      @drop="(e) => log('drop', e)"
+      @change="handleChange"
+    >
+      <MpText size="h2">Drag Image(s) to This Area</MpText>
+      <div v-for="(item, index) in images" :key="index" :class="css({ width: '400px' })">
+        <img :src="handlePreview(item)" />
+      </div>
+    </MpDropzone>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpDropzone, MpText, css } from '@mekari/pixel3'
+
+  const isLoading = ref(false)
+  const images = ref()
+
+  function log(message: string, e: Event) {
+    console.log(message, e)
+  }
+
+  function handleChange(item: File) {
+    isLoading.value = true
+    console.log('IMAGE: ', item)
+    images.value = item
+    setTimeout(() => {
+      // Upload image to server
+      isLoading.value = false
+    }, 2000)
+  }
+
+  function handlePreview(item: File) {
+    const REGEXP_MIME_TYPE_IMAGES = /^image\/\w+$/
+    if (REGEXP_MIME_TYPE_IMAGES.test(item.type)) {
+      return URL.createObjectURL(item)
+    }
+  }
+</script>
+
+```
+
+### Usage: With Avatar Upload
+
+```vue
+<template>
+  <div :class="css({ width: '80px', height: '80px' })">
+    <MpDropzone
+      variant="avatar"
+      accept=".jpg, .jpeg, .png"
+      placeholder="DS"
+      button-text="Browse file"
+      :is-loading="isLoading"
+      @change="handleChange"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpDropzone, css } from '@mekari/pixel3'
+
+  const isLoading = ref(false)
+
+  function handleChange(item: File) {
+    isLoading.value = true
+    console.log('IMAGE: ', item)
+    setTimeout(() => {
+      // Upload image to server
+      isLoading.value = false
+    }, 2000)
+  }
+</script>
+
+```
+
+### Usage: With Logo Upload
+
+```vue
+<template>
+  <div :class="css({ width: '200px', height: '88px' })">
+    <MpDropzone
+      variant="logo"
+      accept=".jpg, .jpeg, .png"
+      placeholder="Upload your logo"
+      button-text="Browse file"
+      :is-loading="isLoading"
+      @change="handleChange"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpDropzone, css } from '@mekari/pixel3'
+
+  const isLoading = ref(false)
+
+  function handleChange(item: File) {
+    isLoading.value = true
+    console.log('IMAGE: ', item)
+    setTimeout(() => {
+      // Upload image to server
+      isLoading.value = false
+    }, 2000)
+  }
+</script>
+
+```
+
+### Usage: With Product Upload
+
+```vue
+<template>
+  <div :class="css({ width: '200px', height: '200px' })">
+    <MpDropzone
+      variant="product"
+      accept=".jpg, .jpeg, .png"
+      placeholder="Upload product here"
+      button-text="Browse file"
+      :is-loading="isLoading"
+      @change="handleChange"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpDropzone, css } from '@mekari/pixel3'
+
+  const isLoading = ref(false)
+
+  function handleChange(item: File) {
+    isLoading.value = true
+    console.log('IMAGE: ', item)
+    setTimeout(() => {
+      // Upload image to server
+      isLoading.value = false
+    }, 2000)
+  }
+</script>
 
 ```
 
@@ -6160,6 +6161,188 @@ Render icon inside element with theme colors.
 
 ```
 
+# Image
+
+Component that render image with many features.
+
+### MpImage
+
+#### MpImage Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of image. |
+| `src` | `-` | `-` | Souce of image. |
+| `alt` | `-` | `-` | Caption of image. |
+| `layout` | `-` | `-` | Layout of image. |
+| `width` | `-` | `-` | Width of the image when rendered. |
+| `height` | `-` | `-` | Height of the image when rendered. |
+| `sizes` | `-` | `-` | Sizes attribute of images. |
+| `src-placeholder` | `-` | `-` | Source placeholder of images. |
+| `srcset` | `-` | `-` | Srcset attributes of images to be rendered. |
+| `type-srcset` | `-` | `-` | Type attributes of images to be rendered. |
+| `media-srcset` | `-` | `-` | Media attributes of image for srcset. |
+| `max-srcset` | `-` | `-` | Max set of image for srcset. |
+| `object-fit` | `-` | `-` | CSS property use with layout fill. |
+| `object-position` | `-` | `-` | CSS property use with layout fill. |
+| `error-text` | `-` | `-` | Text show when image failed to load. |
+| `is-lazy` | `-` | `-` | If true, images will rendered with lazy load. |
+| `is-show-loading` | `-` | `-` | If true, show default spinner when loading. |
+
+#### MpImage Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `intersect` | `-` | `-` | Function for handling intersaction event. |
+| `load` | `-` | `-` | Function for handling load event. |
+| `error` | `-` | `-` | Function for handling error event. |
+
+#### MpImage Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render loading element for changes Spinner. |
+
+### Usage: With Layout
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <div>
+      <MpText weight="semiBold"> Intrinsic Layout </MpText>
+      <MpText>
+        When use intrinsic layout, the image will first render wrapper element accordingly with
+        width and height of image, this useful to achieve zero CLS (cumulative layout shift).
+        <b>don't forget to pass value for props width and height.</b>
+      </MpText>
+      <MpImage
+        id="layout-intrinsic"
+        src="https://placehold.co/600x200"
+        srcset="https://placehold.co/300x100"
+        type-srcset="image/png"
+        media-srcset="(orientation: portrait)"
+        :width="600"
+        :height="200"
+      />
+    </div>
+    <div>
+      <MpText weight="semiBold"> Fixed Layout </MpText>
+      <MpText>
+        When use fixed layout, the image dimensions will not change as the viewport changes (no
+        responsiveness) similar to the native img element.
+        <b>don't forget to pass value for props width and height.</b>
+      </MpText>
+      <MpImage
+        id="layout-fixed"
+        src="https://placehold.co/200x200"
+        layout="fixed"
+        :width="200"
+        :height="200"
+        :is-lazy="false"
+      />
+    </div>
+    <div>
+      <MpText weight="semiBold"> Responsive Layout </MpText>
+      <MpText>
+        When use responsive layout, the image will have auto dimensions based on assets width and
+        height.
+        <b>don't forget to pass value for props width and height.</b>
+      </MpText>
+      <MpImage
+        id="layout-responsive"
+        src="https://placehold.co/1000x200"
+        layout="responsive"
+        :width="1000"
+        :height="200"
+      />
+    </div>
+    <div style="position: relative">
+      <MpText weight="semiBold"> Fill Layout </MpText>
+      <MpText>
+        When use fill layout, the image will stretch both width and height to the dimensions of its
+        parent element, This is usually paired with the objectFit property.
+      </MpText>
+      <MpFlex
+        position="relative"
+        width="400px"
+        height="200px"
+        border-width="1"
+        border-color="gray.400"
+      >
+        <MpImage
+          id="layout-fill"
+          src="https://placehold.co/600x200"
+          layout="fill"
+          object-fit="contain"
+          object-position="right top"
+        />
+      </MpFlex>
+    </div>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpImage, MpText, MpFlex } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: With Various State
+
+```vue
+<template>
+  <MpFlex direction="column" gap="4">
+    <div>
+      <MpText weight="semiBold"> Custom Loading </MpText>
+      <MpText>
+        By default, MpImage show MpSpinner when image is loading, You can custom visual loading via
+        slot and prop. Change browser network to fast 3G and disable cache to check visual loading.
+      </MpText>
+      <MpImage
+        id="image-custom-loading"
+        src-placeholder="https://placehold.co/1000x200?text=Loading..."
+        src="https://placehold.co/1000x200?text=Loaded"
+        layout="responsive"
+        :width="1000"
+        :height="200"
+        @load="handleLoad"
+        @error="handleError"
+      >
+        <MpLoader />
+      </MpImage>
+    </div>
+    <div>
+      <MpText weight="semiBold"> Error State </MpText>
+      <MpText>
+        By default, MpImage will show error state when failed to load image, You can change error
+        text via prop <b>errorText</b>.
+      </MpText>
+      <MpImage
+        id="image-error"
+        src="###"
+        :width="400"
+        :height="200"
+        error-text="Gagal memuat gambar."
+        @load="handleLoad"
+        @error="handleError"
+      />
+    </div>
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpImage, MpText, MpFlex, MpLoader } from '@mekari/pixel3'
+
+  function handleLoad(id: string) {
+    console.log('load', id)
+  }
+  function handleError(id: string) {
+    console.log('error', id)
+  }
+</script>
+
+```
+
 # Input
 
 Used to get user input in a text field.
@@ -6369,6 +6552,45 @@ Used to get user input in a text field.
         <MpText weight="semiBold">.com</MpText>
       </MpInputRightAddon>
     </MpInputGroup>
+  </MpFlex>
+</template>
+
+```
+
+# Loader
+
+Loading indicator with four animated dots.
+
+### MpLoader
+
+#### MpLoader Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of loader. |
+| `size` | `-` | `-` | Size of dot (in px). |
+| `spacing` | `-` | `-` | Spacing of dot (in px). |
+| `duration` | `-` | `-` | Duration of animation. |
+
+### Usage: Full page
+
+```vue
+<script setup lang="ts">
+  import { MpLoader, MpFlex } from '@mekari/pixel3'
+</script>
+
+<template>
+  <MpFlex
+    align="center"
+    justify="center"
+    bg="background"
+    height="100vh"
+    width="full"
+    :_nextTheme="{
+      background: 'background.stage'
+    }"
+  >
+    <MpLoader />
   </MpFlex>
 </template>
 
@@ -6866,227 +7088,6 @@ Allows user to select or create tag from input.
   function handleValidation(tag: string) {
     const isEmailValid = tag.toLowerCase().match(/^\S+@\S+\.\S+$/)
     isInvalidTag.value = !isEmailValid
-  }
-</script>
-
-```
-
-# Loader
-
-Loading indicator with four animated dots.
-
-### MpLoader
-
-#### MpLoader Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of loader. |
-| `size` | `-` | `-` | Size of dot (in px). |
-| `spacing` | `-` | `-` | Spacing of dot (in px). |
-| `duration` | `-` | `-` | Duration of animation. |
-
-### Usage: Full page
-
-```vue
-<script setup lang="ts">
-  import { MpLoader, MpFlex } from '@mekari/pixel3'
-</script>
-
-<template>
-  <MpFlex
-    align="center"
-    justify="center"
-    bg="background"
-    height="100vh"
-    width="full"
-    :_nextTheme="{
-      background: 'background.stage'
-    }"
-  >
-    <MpLoader />
-  </MpFlex>
-</template>
-
-```
-
-# Image
-
-Component that render image with many features.
-
-### MpImage
-
-#### MpImage Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `-` | `-` | Id of image. |
-| `src` | `-` | `-` | Souce of image. |
-| `alt` | `-` | `-` | Caption of image. |
-| `layout` | `-` | `-` | Layout of image. |
-| `width` | `-` | `-` | Width of the image when rendered. |
-| `height` | `-` | `-` | Height of the image when rendered. |
-| `sizes` | `-` | `-` | Sizes attribute of images. |
-| `src-placeholder` | `-` | `-` | Source placeholder of images. |
-| `srcset` | `-` | `-` | Srcset attributes of images to be rendered. |
-| `type-srcset` | `-` | `-` | Type attributes of images to be rendered. |
-| `media-srcset` | `-` | `-` | Media attributes of image for srcset. |
-| `max-srcset` | `-` | `-` | Max set of image for srcset. |
-| `object-fit` | `-` | `-` | CSS property use with layout fill. |
-| `object-position` | `-` | `-` | CSS property use with layout fill. |
-| `error-text` | `-` | `-` | Text show when image failed to load. |
-| `is-lazy` | `-` | `-` | If true, images will rendered with lazy load. |
-| `is-show-loading` | `-` | `-` | If true, show default spinner when loading. |
-
-#### MpImage Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `intersect` | `-` | `-` | Function for handling intersaction event. |
-| `load` | `-` | `-` | Function for handling load event. |
-| `error` | `-` | `-` | Function for handling error event. |
-
-#### MpImage Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render loading element for changes Spinner. |
-
-### Usage: With Layout
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <div>
-      <MpText weight="semiBold"> Intrinsic Layout </MpText>
-      <MpText>
-        When use intrinsic layout, the image will first render wrapper element accordingly with
-        width and height of image, this useful to achieve zero CLS (cumulative layout shift).
-        <b>don't forget to pass value for props width and height.</b>
-      </MpText>
-      <MpImage
-        id="layout-intrinsic"
-        src="https://placehold.co/600x200"
-        srcset="https://placehold.co/300x100"
-        type-srcset="image/png"
-        media-srcset="(orientation: portrait)"
-        :width="600"
-        :height="200"
-      />
-    </div>
-    <div>
-      <MpText weight="semiBold"> Fixed Layout </MpText>
-      <MpText>
-        When use fixed layout, the image dimensions will not change as the viewport changes (no
-        responsiveness) similar to the native img element.
-        <b>don't forget to pass value for props width and height.</b>
-      </MpText>
-      <MpImage
-        id="layout-fixed"
-        src="https://placehold.co/200x200"
-        layout="fixed"
-        :width="200"
-        :height="200"
-        :is-lazy="false"
-      />
-    </div>
-    <div>
-      <MpText weight="semiBold"> Responsive Layout </MpText>
-      <MpText>
-        When use responsive layout, the image will have auto dimensions based on assets width and
-        height.
-        <b>don't forget to pass value for props width and height.</b>
-      </MpText>
-      <MpImage
-        id="layout-responsive"
-        src="https://placehold.co/1000x200"
-        layout="responsive"
-        :width="1000"
-        :height="200"
-      />
-    </div>
-    <div style="position: relative">
-      <MpText weight="semiBold"> Fill Layout </MpText>
-      <MpText>
-        When use fill layout, the image will stretch both width and height to the dimensions of its
-        parent element, This is usually paired with the objectFit property.
-      </MpText>
-      <MpFlex
-        position="relative"
-        width="400px"
-        height="200px"
-        border-width="1"
-        border-color="gray.400"
-      >
-        <MpImage
-          id="layout-fill"
-          src="https://placehold.co/600x200"
-          layout="fill"
-          object-fit="contain"
-          object-position="right top"
-        />
-      </MpFlex>
-    </div>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpImage, MpText, MpFlex } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: With Various State
-
-```vue
-<template>
-  <MpFlex direction="column" gap="4">
-    <div>
-      <MpText weight="semiBold"> Custom Loading </MpText>
-      <MpText>
-        By default, MpImage show MpSpinner when image is loading, You can custom visual loading via
-        slot and prop. Change browser network to fast 3G and disable cache to check visual loading.
-      </MpText>
-      <MpImage
-        id="image-custom-loading"
-        src-placeholder="https://placehold.co/1000x200?text=Loading..."
-        src="https://placehold.co/1000x200?text=Loaded"
-        layout="responsive"
-        :width="1000"
-        :height="200"
-        @load="handleLoad"
-        @error="handleError"
-      >
-        <MpLoader />
-      </MpImage>
-    </div>
-    <div>
-      <MpText weight="semiBold"> Error State </MpText>
-      <MpText>
-        By default, MpImage will show error state when failed to load image, You can change error
-        text via prop <b>errorText</b>.
-      </MpText>
-      <MpImage
-        id="image-error"
-        src="###"
-        :width="400"
-        :height="200"
-        error-text="Gagal memuat gambar."
-        @load="handleLoad"
-        @error="handleError"
-      />
-    </div>
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpImage, MpText, MpFlex, MpLoader } from '@mekari/pixel3'
-
-  function handleLoad(id: string) {
-    console.log('load', id)
-  }
-  function handleError(id: string) {
-    console.log('error', id)
   }
 </script>
 
@@ -8339,6 +8340,115 @@ Represents a single option in a mutually exclusive list.
 
 ```
 
+# Rating
+
+Rating provide insight regarding others opinions and experiences component.
+
+### MpRating
+
+#### MpRating Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `-` | `-` | Id of rating. |
+| `model-value` | `-` | `-` | modelValue of rating, use for v-model. |
+| `max-value` | `-` | `-` | max of rating, |
+| `variant` | `-` | `-` | Variant of rating. |
+| `color` | `-` | `-` | Color of rating. |
+| `is-show-value` | `-` | `-` | If true, show rating value as description. |
+| `is-read-only` | `-` | `-` | If true, rating only show as display. |
+
+#### MpRating Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `click-rating` | `-` | `-` | Function for handling click event. |
+| `hover-rating` | `-` | `-` | Function for handling click event. |
+| `update:modelValue` | `-` | `-` | Function for handling v-model. |
+
+#### MpRating Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render custom value element. |
+
+### Usage: Basic
+
+```vue
+<template>
+  <MpFlex direction="column" gap="1.5">
+    <MpRating id="rating-star" :model-value="2" :is-show-value="true" :is-read-only="true" />
+    <MpRating
+      id="rating-heart"
+      variant="heart"
+      :model-value="5"
+      :max-value="10"
+      :is-show-value="true"
+      :is-read-only="true"
+    />
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { MpFlex, MpRating } from '@mekari/pixel3'
+</script>
+
+```
+
+### Usage: Advance
+
+```vue
+<template>
+  <MpRating
+    id="rating-advacnce"
+    v-model="rating"
+    variant="heart"
+    color="icon.brand"
+    :is-show-value="true"
+    @click-rating="onClickRating"
+    @hover-rating="onHoverRating"
+  >
+    <MpText weight="semiBold" :color="rating === 5 ? 'icon.brand' : 'text.secondary'">
+      {{ ratingDescription }}
+    </MpText>
+  </MpRating>
+</template>
+
+<script setup lang="ts">
+  import { MpRating, MpText } from '@mekari/pixel3'
+  import { ref } from 'vue'
+
+  const rating = ref(0)
+  const ratingDescription = ref('No review yet')
+
+  setTimeout(() => {
+    rating.value = 3.6
+    updateRatingDescription(rating.value)
+  }, 2000)
+
+  function updateRatingDescription(value: number) {
+    if (value === 5) {
+      ratingDescription.value = 'Awesome experience'
+    } else if (value >= 3) {
+      ratingDescription.value = 'Good vibe'
+    } else if (value > 0) {
+      ratingDescription.value = 'Not good enough'
+    } else {
+      ratingDescription.value = 'No review yet'
+    }
+  }
+
+  function onClickRating(value: number) {
+    console.log('click', value)
+  }
+
+  function onHoverRating(value: number) {
+    updateRatingDescription(value)
+  }
+</script>
+
+```
+
 # Rich text editor
 
 Used to content editor based Tiptap.js
@@ -8354,6 +8464,7 @@ Used to content editor based Tiptap.js
 | `placeholder` | `-` | `-` | Placeholder of rich text editor. |
 | `maxlength` | `-` | `-` | Maximum character length of rich text editor. |
 | `options` | `-` | `-` | Options of rich text editor. |
+| `suggestions` | `-` | `-` | Mention suggestion items. Each item supports id, name, optional description, and optional avatar. |
 | `is-disabled` | `-` | `-` | If true, rich text editor will be disabled. |
 | `is-invalid` | `-` | `-` | If true, rich text editor is marked as invalid. |
 | `has-border` | `-` | `-` | If true, rich text editor border will be displayed. |
@@ -8365,6 +8476,8 @@ Used to content editor based Tiptap.js
 | `change` | `-` | `-` | Function for handling change event. |
 | `focus` | `-` | `-` | Function for handling focus event. |
 | `blur` | `-` | `-` | Function for handling blur event. |
+| `action` | `-` | `-` | Function for handling action event. |
+| `paste` | `-` | `-` | Function for handling paste event. |
 
 ### MpRTEStyleProvider
 
@@ -8373,6 +8486,503 @@ Used to content editor based Tiptap.js
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `id` | `-` | `-` | Id of RTE style provider. |
+
+### Usage: Advance usage
+
+```vue
+<!-- eslint-disable vue/no-v-text-v-html-on-component -->
+<template>
+  <MpFlex direction="column" gap="4">
+    <MpFlex direction="column" gap="2">
+      <MpFlex justifyContent="space-between" alignItems="center">
+        <MpText weight="semiBold">Write your notes here</MpText>
+        <MpText size="label-small" color="text.secondary">
+          {{ rte?.storage.characterCount.characters() ?? 0 }} / {{ MAX_RTE_CHARACTER }}
+        </MpText>
+      </MpFlex>
+      <MpRichTextEditor
+        id="rich-text-editor-advance-usage"
+        placeholder="Type “@” to mention. Use “Ctrl+V” to paste attachments"
+        :maxlength="MAX_RTE_CHARACTER"
+        :value="value"
+        :options="[
+          ['heading'],
+          ['bold', 'italic', 'underline', 'strike'],
+          ['bulletList', 'orderedList', 'align'],
+          ['textColor', 'fillColor'],
+          [
+            'mention',
+            'textLink',
+            { value: 'image', tooltip: `Attach up to ${MAX_IMAGE_UPLOAD} images` },
+            { value: 'file', tooltip: `Attach up to ${MAX_IMAGE_UPLOAD} files` },
+            { value: 'audio', tooltip: 'Record a voice note' },
+            'location'
+          ],
+          ['undo', 'redo'],
+          ['clear']
+        ]"
+        :suggestions="SUGGESTIONS"
+        @change="handleChange"
+        @action="handleAction"
+        @paste="handlePaste"
+      />
+      <MpFlex gap="2" py="2" position="relative">
+        <div
+          v-for="(item, index) in imageBase64List"
+          :key="index"
+          :class="css({ position: 'relative' })"
+        >
+          <MpIcon
+            variant="fill"
+            name="minus-circular"
+            color="icon.danger"
+            :class="
+              css({
+                position: 'absolute',
+                top: '-4px',
+                right: '-4px',
+                cursor: 'pointer',
+                rounded: 'full',
+                backgroundColor: 'background.surface'
+              })
+            "
+            @click="imageBase64List.splice(index, 1)"
+          />
+          <img
+            :src="item"
+            :class="
+              css({
+                width: '60px',
+                height: '60px',
+                rounded: 'md',
+                objectFit: 'cover',
+                borderWidth: '1px',
+                borderColor: 'border.default'
+              })
+            "
+          />
+        </div>
+      </MpFlex>
+    </MpFlex>
+    <MpDivider />
+    <MpFlex
+      direction="column"
+      gap="2"
+      borderWidth="1px"
+      borderColor="border.default"
+      rounded="md"
+      p="4"
+    >
+      <MpText size="h3">Raw Output:</MpText>
+      <MpText size="body-small">{{ value }}</MpText>
+    </MpFlex>
+    <MpFlex
+      direction="column"
+      gap="2"
+      borderWidth="1px"
+      borderColor="border.default"
+      rounded="md"
+      p="4"
+    >
+      <MpText size="h3">Styled Output:</MpText>
+      <MpRTEStyleProvider v-html="value"></MpRTEStyleProvider>
+    </MpFlex>
+
+    <input
+      ref="imageInputRef"
+      type="file"
+      accept=".jpeg,.jpg,.png,image/jpeg,image/jpg,image/png"
+      multiple
+      style="display: none"
+      @change="handleImageUpload"
+    />
+  </MpFlex>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import {
+    css,
+    MpFlex,
+    MpText,
+    MpRichTextEditor,
+    MpRTEStyleProvider,
+    MpDivider,
+    MpIcon
+  } from '@mekari/pixel3'
+
+  interface EditorInstance {
+    storage: {
+      characterCount: {
+        characters: () => number
+      }
+    }
+  }
+
+  const MAX_IMAGE_UPLOAD = 5
+  const MAX_RTE_CHARACTER = 1000
+  const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png']
+  const SUGGESTIONS = [
+    {
+      id: 'agung.setiawarman',
+      name: 'Agung Setiawarman',
+      description: 'agung@mail.com',
+      avatar: 'AS'
+    },
+    {
+      id: 'alfian.ramadhan',
+      name: 'Alfian Ramadhan',
+      description: 'alfian@mail.com',
+      avatar: 'AR'
+    },
+    {
+      id: 'ali.imran',
+      name: 'Ali Imran',
+      description: 'ali.imran@mail.com',
+      avatar: 'AI'
+    },
+    {
+      id: 'bayu.ferdian',
+      name: 'Bayu Ferdian',
+      description: 'bayu.ferdian@mail.com',
+      avatar: 'BF'
+    },
+    {
+      id: 'christin.purnama',
+      name: 'Christin Purnama Sari',
+      description: 'christin@mail.com',
+      avatar: 'CP'
+    },
+    {
+      id: 'evelyn.bellinda',
+      name: 'Evelyn Bellinda',
+      description: 'evelyn.bellinda@mail.com',
+      avatar: 'EB'
+    },
+    {
+      id: 'fajar.nugraha',
+      name: 'Fajar Nugraha',
+      description: 'fajar.nugraha@mail.com',
+      avatar: 'FN'
+    },
+    {
+      id: 'galih.prakoso',
+      name: 'Galih Prakoso',
+      description: 'galih.prakoso@mail.com',
+      avatar: 'GP'
+    },
+    {
+      id: 'jessie.tan',
+      name: 'Jessie Tan',
+      description: 'jessie.tan@mail.com',
+      avatar: 'JT'
+    },
+    {
+      id: 'rizal.chandra',
+      name: 'Rizal Chandra',
+      description: 'rizal@mail.com',
+      avatar: 'RC'
+    },
+    {
+      id: 'nadia.putri',
+      name: 'Nadia Putri',
+      description: 'nadia.putri@mail.com',
+      avatar: 'NP'
+    }
+  ]
+
+  const value = ref('')
+  const imageInputRef = ref<HTMLInputElement | null>(null)
+  const imageBase64List = ref<string[]>([])
+  const rte = ref<EditorInstance | null>(null)
+
+  function handleChange(content: string, editor: EditorInstance) {
+    value.value = content
+    rte.value = editor
+  }
+
+  function toBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+
+      reader.onload = () => {
+        resolve(String(reader.result))
+      }
+
+      reader.onerror = () => {
+        reject(new Error(`Failed to convert ${file.name} to Base64`))
+      }
+
+      reader.readAsDataURL(file)
+    })
+  }
+
+  async function appendImages(files: File[]) {
+    if (!files.length) {
+      return
+    }
+
+    const remainingSlot = MAX_IMAGE_UPLOAD - imageBase64List.value.length
+
+    if (remainingSlot <= 0) {
+      alert(`Maximum ${MAX_IMAGE_UPLOAD} images can be uploaded`)
+      return
+    }
+
+    const validFiles = files.filter((file) => ACCEPTED_IMAGE_TYPES.includes(file.type))
+
+    if (!validFiles.length) {
+      alert('Only JPEG, JPG, and PNG images are allowed')
+      return
+    }
+
+    if (validFiles.length < files.length) {
+      alert('Some files were skipped. Only JPEG, JPG, and PNG images are allowed')
+    }
+
+    const filesToProcess = validFiles.slice(0, remainingSlot)
+
+    if (validFiles.length > remainingSlot) {
+      alert(`Only ${remainingSlot} image(s) can be added. Maximum is ${MAX_IMAGE_UPLOAD} images`)
+    }
+
+    const base64Images = await Promise.all(filesToProcess.map((file) => toBase64(file)))
+    imageBase64List.value = [...imageBase64List.value, ...base64Images]
+  }
+
+  async function handleImageUpload(event: Event) {
+    const target = event.target as HTMLInputElement
+    const files = target.files ? Array.from(target.files) : []
+
+    await appendImages(files)
+
+    target.value = ''
+  }
+
+  function handleAction(action: string) {
+    if (action === 'image') {
+      imageInputRef.value?.click()
+    } else if (action === 'file') {
+      alert('You can handle attach file action here')
+    } else if (action === 'audio') {
+      alert('You can handle attach audio action here')
+    } else if (action === 'location') {
+      alert('You can handle share location action here')
+    }
+  }
+
+  async function handlePaste(event: ClipboardEvent) {
+    const files = event.clipboardData?.files ? Array.from(event.clipboardData.files) : []
+
+    if (!files.length) {
+      return
+    }
+
+    const imageFiles = files.filter((file) => ACCEPTED_IMAGE_TYPES.includes(file.type))
+
+    if (imageFiles.length) {
+      await appendImages(imageFiles)
+      return
+    }
+
+    alert(`Detected ${files.length} pasted file(s). Handle your attachment flow here.`)
+  }
+</script>
+
+```
+
+# Scrollbar
+
+Custom scrollbar component.
+
+### MpScrollbar
+
+#### MpScrollbar Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `-` | `-` | Options for scrollbar. check here for all options https://kingsora.github.io/OverlayScrollbars/ |
+
+#### MpScrollbar Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `initialized` | `-` | `-` | Function for handling scroll event when init. |
+| `scroll` | `-` | `-` | Function for handling scroll event when scrolling. |
+
+#### MpScrollbar Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Scrollbar slot. |
+
+### Usage: Advance
+
+```vue
+<template>
+  <MpScrollbar
+    data-test="advance-scrollbar"
+    width="400px"
+    height="200px"
+    borderWidth="1px"
+    :borderColor="isNextTheme ? 'border.default' : 'gray.100'"
+    padding="4"
+    :options="{ overflow: { x: 'scroll' }, scrollbars: { autoHide: 'never' } }"
+    @initialized="handleScrollToBottom"
+  >
+    <MpFlex direction="column" gap="xl" width="600px">
+      <MpText>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
+        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
+        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
+        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
+        officiis. Alias, error veritatis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Explicabo voluptas, repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus
+        iure inventore fuga modi animi eum laboriosam numquam officiis. Alias, error veritatis.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
+        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
+        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
+        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
+        repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga
+        modi animi eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit
+        amet consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis
+        quidem fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
+        officiis. Alias, error veritatis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Explicabo voluptas, repudiandae nesciunt
+      </MpText>
+      <MpText weight="semiBold">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
+        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
+        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
+        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
+        officiis. Alias, error veritatis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Explicabo voluptas, repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus
+        iure inventore fuga modi animi eum laboriosam numquam officiis. Alias, error veritatis.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
+        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
+        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
+        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
+        repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga
+        modi animi eum laboriosam numquam officiis.
+      </MpText>
+    </MpFlex>
+  </MpScrollbar>
+</template>
+
+<script setup lang="ts">
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-nocheck
+  import { MpText, MpScrollbar, MpFlex } from '@mekari/pixel3'
+  import { usePixelTheme } from '@mekari/pixel3-utils'
+
+  const { isNextTheme } = usePixelTheme()
+
+  function handleScrollToBottom(e) {
+    const { scrollOffsetElement } = e.elements()
+
+    scrollOffsetElement.scrollTo({
+      behavior: 'smooth',
+      top: 600,
+      left: 400
+    })
+  }
+</script>
+
+```
+
+# Segmented control
+
+Used to alternative to radio group component.
+
+### Usage: **Data prop**
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-2')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-ashTy"
+      v-model="check"
+      :data="[
+        {
+          id: 'ezsCsI',
+          label: 'All resign category',
+          value: 'option-1',
+          icon: 'table-view-column'
+        },
+        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2', icon: 'table-view-field' },
+        { id: 'llpHcs', label: 'Involuntary', value: 'option-3', icon: 'table-view-filter' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Without icon
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-2')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-ccJks"
+      v-model="check"
+      :data="[
+        { id: 'ezsCsI', label: 'All resign category', value: 'option-1' },
+        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2' },
+        { id: 'llpHcs', label: 'Involuntary', value: 'option-3' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
+
+### Usage: Icon only
+
+```vue
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
+
+  const check = ref('option-1')
+</script>
+
+<template>
+  <MpFlex>
+    <MpSegmentedControl
+      id="segmented-control-wtm"
+      name="segmented-control-hdjDf"
+      v-model="check"
+      :data="[
+        { id: 'ezsCsI', value: 'option-1', icon: 'table-view-column' },
+        { id: 'jjsCgt', value: 'option-2', icon: 'table-view-field' },
+        { id: 'llpHcs', value: 'option-3', icon: 'table-view-filter' }
+      ]"
+    />
+  </MpFlex>
+</template>
+
+```
 
 # Select
 
@@ -8627,304 +9237,500 @@ Indicate the loading state of a component or page.
 
 ```
 
-# Segmented control
+# Table
 
-Used to alternative to radio group component.
+A table displays rows of data.
 
-### Usage: **Data prop**
+### MpTable
 
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-2')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-ashTy"
-      v-model="check"
-      :data="[
-        {
-          id: 'ezsCsI',
-          label: 'All resign category',
-          value: 'option-1',
-          icon: 'table-view-column'
-        },
-        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2', icon: 'table-view-field' },
-        { id: 'llpHcs', label: 'Involuntary', value: 'option-3', icon: 'table-view-filter' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Without icon
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-2')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-ccJks"
-      v-model="check"
-      :data="[
-        { id: 'ezsCsI', label: 'All resign category', value: 'option-1' },
-        { id: 'jjsCgt', label: 'Voluntary', value: 'option-2' },
-        { id: 'llpHcs', label: 'Involuntary', value: 'option-3' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
-### Usage: Icon only
-
-```vue
-<script setup lang="ts">
-  import { ref } from 'vue'
-  import { MpFlex, MpSegmentedControl } from '@mekari/pixel3'
-
-  const check = ref('option-1')
-</script>
-
-<template>
-  <MpFlex>
-    <MpSegmentedControl
-      id="segmented-control-wtm"
-      name="segmented-control-hdjDf"
-      v-model="check"
-      :data="[
-        { id: 'ezsCsI', value: 'option-1', icon: 'table-view-column' },
-        { id: 'jjsCgt', value: 'option-2', icon: 'table-view-field' },
-        { id: 'llpHcs', value: 'option-3', icon: 'table-view-filter' }
-      ]"
-    />
-  </MpFlex>
-</template>
-
-```
-
-# Rating
-
-Rating provide insight regarding others opinions and experiences component.
-
-### MpRating
-
-#### MpRating Props
+#### MpTable Props
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `id` | `-` | `-` | Id of rating. |
-| `model-value` | `-` | `-` | modelValue of rating, use for v-model. |
-| `max-value` | `-` | `-` | max of rating, |
-| `variant` | `-` | `-` | Variant of rating. |
-| `color` | `-` | `-` | Color of rating. |
-| `is-show-value` | `-` | `-` | If true, show rating value as description. |
-| `is-read-only` | `-` | `-` | If true, rating only show as display. |
+| `is-hoverable` | `-` | `-` | If true, table highlighted when hovered. |
 
-#### MpRating Events
+#### MpTable Slots
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `click-rating` | `-` | `-` | Function for handling click event. |
-| `hover-rating` | `-` | `-` | Function for handling click event. |
-| `update:modelValue` | `-` | `-` | Function for handling v-model. |
+| `default` | `-` | `-` | Slot to render child element. |
 
-#### MpRating Slots
+### MpTableHead
+
+#### MpTableHead Props
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render custom value element. |
+| `is-fixed` | `-` | `-` | If true, table have fixed header. |
+| `is-bordered` | `-` | `-` | If true, adds borders to all table cells. |
+| `is-narrowed` | `-` | `-` | If true, table more compact. |
 
-### Usage: Basic
+#### MpTableHead Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### MpTableBody
+
+#### MpTableBody Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `is-bordered` | `-` | `-` | If true, adds borders to all table cells. |
+| `is-narrowed` | `-` | `-` | If true, table more compact. |
+
+#### MpTableBody Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### MpTableRow
+
+#### MpTableRow Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### MpTableCell
+
+#### MpTableCell Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `-` | `-` | Rendered tag of table cell. |
+| `is-fixed` | `-` | `-` | If true, table have fixed cell. |
+
+#### MpTableCell Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### MpTableContainer
+
+#### MpTableContainer Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `has-shadow` | `-` | `-` | If true, table have shadow when overflow. |
+
+#### MpTableContainer Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `scroll` | `-` | `-` | Function for handling click event. |
+
+#### MpTableContainer Slots
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `default` | `-` | `-` | Slot to render child element. |
+
+### Usage: Table Fixed
 
 ```vue
 <template>
-  <MpFlex direction="column" gap="1.5">
-    <MpRating id="rating-star" :model-value="2" :is-show-value="true" :is-read-only="true" />
-    <MpRating
-      id="rating-heart"
-      variant="heart"
-      :model-value="5"
-      :max-value="10"
-      :is-show-value="true"
-      :is-read-only="true"
-    />
-  </MpFlex>
-</template>
-
-<script setup lang="ts">
-  import { MpFlex, MpRating } from '@mekari/pixel3'
-</script>
-
-```
-
-### Usage: Advance
-
-```vue
-<template>
-  <MpRating
-    id="rating-advacnce"
-    v-model="rating"
-    variant="heart"
-    color="icon.brand"
-    :is-show-value="true"
-    @click-rating="onClickRating"
-    @hover-rating="onHoverRating"
+  <MpTableContainer
+    :class="
+      css({
+        width: 'full',
+        height: '240px'
+      })
+    "
   >
-    <MpText weight="semiBold" :color="rating === 5 ? 'icon.brand' : 'text.secondary'">
-      {{ ratingDescription }}
-    </MpText>
-  </MpRating>
+    <MpTable>
+      <MpTableHead is-fixed>
+        <MpTableRow>
+          <MpTableCell
+            :class="
+              css({
+                boxShadow: borderFixedRight
+              })
+            "
+            scope="col"
+            is-fixed
+          >
+            <MpFlex alignItems="center" gap="2">
+              <MpCheckbox id="employee_name" />
+              Employee name
+            </MpFlex>
+          </MpTableCell>
+          <MpTableCell
+            :class="
+              css({
+                minWidth: '200px'
+              })
+            "
+            scope="col"
+          >
+            Start effective date
+          </MpTableCell>
+          <MpTableCell
+            :class="
+              css({
+                minWidth: '200px'
+              })
+            "
+            scope="col"
+          >
+            Benefit group
+          </MpTableCell>
+          <MpTableCell
+            :class="
+              css({
+                minWidth: '200px'
+              })
+            "
+            scope="col"
+          >
+            Benefit limitation
+          </MpTableCell>
+          <MpTableCell
+            :class="
+              css({
+                boxShadow: borderFixedLeft
+              })
+            "
+            scope="col"
+            is-fixed
+          ></MpTableCell>
+        </MpTableRow>
+      </MpTableHead>
+      <MpTableBody>
+        <MpTableRow v-for="employee in employees" :key="employee.id">
+          <MpTableCell
+            :class="
+              css({
+                boxShadow: borderFixedRight
+              })
+            "
+            as="td"
+            scope="row"
+            is-fixed
+          >
+            <MpFlex alignItems="center" gap="2">
+              <MpCheckbox :id="employee.name" />
+              <MpAvatar :id="employee.name" variant-color="gray" />
+              {{ employee.name }}
+            </MpFlex>
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ employee.effective_date }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ employee.benefit_group }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ employee.benefit_limitation }}
+          </MpTableCell>
+          <MpTableCell
+            :class="
+              css({
+                boxShadow: borderFixedLeft
+              })
+            "
+            as="td"
+            scope="row"
+            is-fixed
+          >
+            <MpButton variant="secondary">Action</MpButton>
+          </MpTableCell>
+        </MpTableRow>
+      </MpTableBody>
+    </MpTable>
+  </MpTableContainer>
 </template>
 
 <script setup lang="ts">
-  import { MpRating, MpText } from '@mekari/pixel3'
-  import { ref } from 'vue'
-
-  const rating = ref(0)
-  const ratingDescription = ref('No review yet')
-
-  setTimeout(() => {
-    rating.value = 3.6
-    updateRatingDescription(rating.value)
-  }, 2000)
-
-  function updateRatingDescription(value: number) {
-    if (value === 5) {
-      ratingDescription.value = 'Awesome experience'
-    } else if (value >= 3) {
-      ratingDescription.value = 'Good vibe'
-    } else if (value > 0) {
-      ratingDescription.value = 'Not good enough'
-    } else {
-      ratingDescription.value = 'No review yet'
-    }
-  }
-
-  function onClickRating(value: number) {
-    console.log('click', value)
-  }
-
-  function onHoverRating(value: number) {
-    updateRatingDescription(value)
-  }
-</script>
-
-```
-
-# Scrollbar
-
-Custom scrollbar component.
-
-### MpScrollbar
-
-#### MpScrollbar Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `options` | `-` | `-` | Options for scrollbar. check here for all options https://kingsora.github.io/OverlayScrollbars/ |
-
-#### MpScrollbar Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `initialized` | `-` | `-` | Function for handling scroll event when init. |
-| `scroll` | `-` | `-` | Function for handling scroll event when scrolling. |
-
-#### MpScrollbar Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Scrollbar slot. |
-
-### Usage: Advance
-
-```vue
-<template>
-  <MpScrollbar
-    data-test="advance-scrollbar"
-    width="400px"
-    height="200px"
-    borderWidth="1px"
-    :borderColor="isNextTheme ? 'border.default' : 'gray.100'"
-    padding="4"
-    :options="{ overflow: { x: 'scroll' }, scrollbars: { autoHide: 'never' } }"
-    @initialized="handleScrollToBottom"
-  >
-    <MpFlex direction="column" gap="xl" width="600px">
-      <MpText>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
-        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
-        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
-        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
-        officiis. Alias, error veritatis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo voluptas, repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus
-        iure inventore fuga modi animi eum laboriosam numquam officiis. Alias, error veritatis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
-        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
-        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
-        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
-        repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga
-        modi animi eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis
-        quidem fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
-        officiis. Alias, error veritatis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo voluptas, repudiandae nesciunt
-      </MpText>
-      <MpText weight="semiBold">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
-        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
-        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
-        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
-        officiis. Alias, error veritatis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo voluptas, repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus
-        iure inventore fuga modi animi eum laboriosam numquam officiis. Alias, error veritatis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptas, repudiandae
-        nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga modi animi
-        eum laboriosam numquam officiis. Alias, error veritatis. Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Explicabo voluptas, repudiandae nesciunt perferendis quidem
-        fugit ducimus neque temporibus iure inventore fuga modi animi eum laboriosam numquam
-        repudiandae nesciunt perferendis quidem fugit ducimus neque temporibus iure inventore fuga
-        modi animi eum laboriosam numquam officiis.
-      </MpText>
-    </MpFlex>
-  </MpScrollbar>
-</template>
-
-<script setup lang="ts">
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-nocheck
-  import { MpText, MpScrollbar, MpFlex } from '@mekari/pixel3'
+  import {
+    MpTable,
+    MpTableHead,
+    MpTableBody,
+    MpTableRow,
+    MpTableCell,
+    MpTableContainer,
+    MpButton,
+    MpAvatar,
+    MpCheckbox,
+    MpFlex,
+    css
+  } from '@mekari/pixel3'
   import { usePixelTheme } from '@mekari/pixel3-utils'
 
   const { isNextTheme } = usePixelTheme()
 
-  function handleScrollToBottom(e) {
-    const { scrollOffsetElement } = e.elements()
+  // isNextTheme used to switch for Pixel Token 2.4
+  const borderFixedRight = isNextTheme.value
+    ? 'inset -2px 0px var(--mp-colors-border-default)'
+    : 'inset -2px 0px var(--mp-colors-gray-100)'
+  const borderFixedLeft = isNextTheme.value
+    ? 'inset 2px 0px var(--mp-colors-border-default)'
+    : 'inset 2px 0px var(--mp-colors-gray-100)'
 
-    scrollOffsetElement.scrollTo({
-      behavior: 'smooth',
-      top: 600,
-      left: 400
-    })
+  const employees = [
+    {
+      id: 1,
+      name: 'Andy Bernard',
+      effective_date: '1 Jan 2020',
+      benefit_group: 'Leader',
+      benefit_limitation: 'Rp150.000.000'
+    },
+    {
+      id: 2,
+      name: 'Angela Martin',
+      effective_date: '-',
+      benefit_group: 'Staff',
+      benefit_limitation: '-'
+    },
+    {
+      id: 3,
+      name: 'Dwight Schrute',
+      effective_date: '1 Jan 2021',
+      benefit_group: 'Management',
+      benefit_limitation: 'Rp200.000.000'
+    },
+    {
+      id: 4,
+      name: 'Jim Helpert',
+      effective_date: '1 Jan 2021',
+      benefit_group: 'Management',
+      benefit_limitation: 'Rp200.000.000'
+    },
+    {
+      id: 5,
+      name: 'Kevin Malone',
+      effective_date: '23 Sep 2020',
+      benefit_group: 'Accounting',
+      benefit_limitation: 'Rp50.000.000'
+    }
+  ]
+</script>
+
+```
+
+### Usage: With Shadow
+
+```vue
+<template>
+  <MpTableContainer has-shadow>
+    <MpTable :is-hoverable="false">
+      <MpTableHead is-fixed>
+        <MpTableRow>
+          <MpTableCell as="th" scope="col"> Product name </MpTableCell>
+          <MpTableCell as="th" scope="col"> Product code </MpTableCell>
+          <MpTableCell as="th" scope="col"> Category </MpTableCell>
+          <MpTableCell as="th" scope="col"> Qty </MpTableCell>
+          <MpTableCell as="th" scope="col"> Minimum stock </MpTableCell>
+          <MpTableCell as="th" scope="col"> Unit </MpTableCell>
+          <MpTableCell as="th" scope="col"> Average price </MpTableCell>
+          <MpTableCell as="th" scope="col"> Buy price </MpTableCell>
+          <MpTableCell as="th" scope="col"> Sell price </MpTableCell>
+        </MpTableRow>
+      </MpTableHead>
+      <MpTableBody>
+        <MpTableRow v-for="product in products" :key="product.id">
+          <MpTableCell as="td" scope="row">
+            {{ product.name }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.code }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.category }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.qty }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.minimumStock }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.unit }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.averagePrice }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.buyPrice }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ product.sellPrice }}
+          </MpTableCell>
+        </MpTableRow>
+      </MpTableBody>
+    </MpTable>
+  </MpTableContainer>
+</template>
+
+<script setup lang="ts">
+  import {
+    MpTable,
+    MpTableHead,
+    MpTableBody,
+    MpTableRow,
+    MpTableCell,
+    MpTableContainer
+  } from '@mekari/pixel3'
+
+  const products = [
+    {
+      id: 1,
+      name: 'Apple Macbook Pro 2021 14" inch M1 Pro Chip 512GB Gray',
+      code: 'MBPM1-2021',
+      category: 'Laptop',
+      qty: 20,
+      minimumStock: 8,
+      unit: 'Pcs',
+      averagePrice: 'Rp28.000.000',
+      buyPrice: 'Rp27.000.000',
+      sellPrice: 'Rp30.000.000'
+    },
+    {
+      id: 2,
+      name: 'Apple iPhone 14 Pro 5G 1TB',
+      code: 'IP14-5G1TB',
+      category: 'Smartphone',
+      qty: 2,
+      minimumStock: 8,
+      unit: 'Pcs',
+      averagePrice: 'Rp18.000.000',
+      buyPrice: 'Rp17.000.000',
+      sellPrice: 'Rp20.000.000'
+    },
+    {
+      id: 3,
+      name: 'Apple iPhone 14 Plus 5G 512GB',
+      code: 'IP14PLS-5G512gb',
+      category: 'Smartphone',
+      qty: 9,
+      minimumStock: 2,
+      unit: 'Pcs',
+      averagePrice: 'Rp16.000.000',
+      buyPrice: 'Rp16.000.000',
+      sellPrice: 'Rp17.000.000'
+    },
+    {
+      id: 4,
+      name: 'iPad Pro M2 2022 4th 11 / 6th 12.9 inch WIFI 128GB',
+      code: 'IPPRO-M2128GB',
+      category: 'Smartphone',
+      qty: 80,
+      minimumStock: 1,
+      unit: 'Pcs',
+      averagePrice: 'Rp13.000.000',
+      buyPrice: 'Rp13.000.000',
+      sellPrice: 'Rp12.000.000'
+    },
+    {
+      id: 5,
+      name: 'MacBook Air 2022 M2 Chip 13" Inch 512GB',
+      code: 'MBAM2-2022',
+      category: 'Laptop',
+      qty: 200,
+      minimumStock: 1,
+      unit: 'Pcs',
+      averagePrice: 'Rp15.000.000',
+      buyPrice: 'Rp16.000.000',
+      sellPrice: 'Rp16.000.000'
+    }
+  ]
+</script>
+
+```
+
+### Usage: With Bordered and Narrowed
+
+```vue
+<template>
+  <MpTableContainer>
+    <MpTable>
+      <MpTableHead is-narrowed is-bordered>
+        <MpTableRow>
+          <MpTableCell scope="col"> Deal name </MpTableCell>
+          <MpTableCell scope="col"> Company name </MpTableCell>
+          <MpTableCell scope="col"> Deal source </MpTableCell>
+          <MpTableCell scope="col"> Deal stage </MpTableCell>
+          <MpTableCell scope="col"> Deal owner </MpTableCell>
+        </MpTableRow>
+      </MpTableHead>
+      <MpTableBody is-narrowed is-bordered>
+        <MpTableRow v-for="employee in employees" :key="employee.id">
+          <MpTableCell as="td" scope="row">
+            {{ employee.name }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ employee.company_name }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ employee.deal_source }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ employee.deal_stage }}
+          </MpTableCell>
+          <MpTableCell as="td" scope="row">
+            {{ employee.deal_owner }}
+          </MpTableCell>
+        </MpTableRow>
+      </MpTableBody>
+    </MpTable>
+  </MpTableContainer>
+</template>
+
+<script setup lang="ts">
+import {
+  MpTable,
+  MpTableHead,
+  MpTableBody,
+  MpTableRow,
+  MpTableCell,
+  MpTableContainer
+} from '@mekari/pixel3'
+
+const employees = [
+  {
+    id: 1,
+    name: 'Adinda Putri',
+    company_name: 'PT Nature Republic',
+    deal_source: 'External Partnership',
+    deal_stage: 'Qualified',
+    deal_owner: 'Rizal Chandra'
+  },
+  {
+    id: 2,
+    name: 'Jasper Steele',
+    company_name: 'PT Chaf Multi',
+    deal_source: 'Adverticement',
+    deal_stage: 'Qualified',
+    deal_owner: 'Rizal Chandra'
+  },
+  {
+    id: 3,
+    name: 'Mia Sullivan',
+    company_name: 'PT Dwi Anugrah',
+    deal_source: 'External Partnership',
+    deal_stage: 'Contacted',
+    deal_owner: 'Rizal Chandra'
+  },
+  {
+    id: 4,
+    name: 'Brandon Jordan',
+    company_name: 'PT Digital Labs',
+    deal_source: 'Adverticement',
+    deal_stage: 'Qualified',
+    deal_owner: 'Rizal Chandra'
+  },
+  {
+    id: 5,
+    name: 'Andika Putra',
+    company_name: 'PT Digital Labs',
+    deal_source: 'Online',
+    deal_stage: 'Not Qualified',
+    deal_owner: 'Alfian Ramadhan'
   }
+]
 </script>
 
 ```
@@ -9308,6 +10114,34 @@ Used to display label that can optionally be selected and unselected or removed.
 
 ```
 
+# Textarea
+
+Enables users to add longer text to a form.
+
+### MpTextarea
+
+#### MpTextarea Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `model-value` | `-` | `-` | The controlled value of the Textarea. Should be binded-with with v-model. |
+| `placeholder` | `-` | `-` | Placeholder of textarea. |
+| `is-read-only` | `-` | `-` | If true, textarea be read only. |
+| `is-disabled` | `-` | `-` | If true, textarea will be disabled. |
+| `is-invalid` | `-` | `-` | If true, textarea is marked as invalid. |
+| `is-required` | `-` | `-` | If true, textarea will be required. |
+| `is-full-width` | `-` | `-` | If true, textarea will span full width of it parent. |
+| `aria-label` | `-` | `-` | Optional prop for accessibility. |
+| `aria-labelled-by` | `-` | `-` | Optional prop for accessibility. |
+
+#### MpTextarea Events
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `update:model-value` | `-` | `-` | Event handler called when the value changed |
+| `change` | `-` | `-` | Event handler called when the value changed |
+| `input` | `-` | `-` | Event handler called when the value changed |
+
 # Text
 
 Display text and links with theme styles.
@@ -9433,34 +10267,6 @@ Display text and links with theme styles.
 </script>
 
 ```
-
-# Textarea
-
-Enables users to add longer text to a form.
-
-### MpTextarea
-
-#### MpTextarea Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `model-value` | `-` | `-` | The controlled value of the Textarea. Should be binded-with with v-model. |
-| `placeholder` | `-` | `-` | Placeholder of textarea. |
-| `is-read-only` | `-` | `-` | If true, textarea be read only. |
-| `is-disabled` | `-` | `-` | If true, textarea will be disabled. |
-| `is-invalid` | `-` | `-` | If true, textarea is marked as invalid. |
-| `is-required` | `-` | `-` | If true, textarea will be required. |
-| `is-full-width` | `-` | `-` | If true, textarea will span full width of it parent. |
-| `aria-label` | `-` | `-` | Optional prop for accessibility. |
-| `aria-labelled-by` | `-` | `-` | Optional prop for accessibility. |
-
-#### MpTextarea Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `update:model-value` | `-` | `-` | Event handler called when the value changed |
-| `change` | `-` | `-` | Event handler called when the value changed |
-| `input` | `-` | `-` | Event handler called when the value changed |
 
 # Textlink
 
@@ -10308,6 +11114,7 @@ Used to show dynamic notifications and alerts to user.
 | `variant` | `-` | `-` | Variant of toast. |
 | `duration` | `-` | `-` | Duration of toast. |
 | `position` | `-` | `-` | Position of toast. |
+| `max-width` | `-` | `-` | Maximum width of toast. |
 | `render` | `-` | `-` | Render VNode to custom content instead of title prop. |
 
 ### Usage: Variant
@@ -10813,504 +11620,6 @@ Upload files through a file input form element.
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
   }
-</script>
-
-```
-
-# Table
-
-A table displays rows of data.
-
-### MpTable
-
-#### MpTable Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `is-hoverable` | `-` | `-` | If true, table highlighted when hovered. |
-
-#### MpTable Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### MpTableHead
-
-#### MpTableHead Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `is-fixed` | `-` | `-` | If true, table have fixed header. |
-| `is-bordered` | `-` | `-` | If true, adds borders to all table cells. |
-| `is-narrowed` | `-` | `-` | If true, table more compact. |
-
-#### MpTableHead Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### MpTableBody
-
-#### MpTableBody Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `is-bordered` | `-` | `-` | If true, adds borders to all table cells. |
-| `is-narrowed` | `-` | `-` | If true, table more compact. |
-
-#### MpTableBody Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### MpTableRow
-
-#### MpTableRow Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### MpTableCell
-
-#### MpTableCell Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `-` | `-` | Rendered tag of table cell. |
-| `is-fixed` | `-` | `-` | If true, table have fixed cell. |
-
-#### MpTableCell Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### MpTableContainer
-
-#### MpTableContainer Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `has-shadow` | `-` | `-` | If true, table have shadow when overflow. |
-
-#### MpTableContainer Events
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `scroll` | `-` | `-` | Function for handling click event. |
-
-#### MpTableContainer Slots
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `default` | `-` | `-` | Slot to render child element. |
-
-### Usage: Table Fixed
-
-```vue
-<template>
-  <MpTableContainer
-    :class="
-      css({
-        width: 'full',
-        height: '240px'
-      })
-    "
-  >
-    <MpTable>
-      <MpTableHead is-fixed>
-        <MpTableRow>
-          <MpTableCell
-            :class="
-              css({
-                boxShadow: borderFixedRight
-              })
-            "
-            scope="col"
-            is-fixed
-          >
-            <MpFlex alignItems="center" gap="2">
-              <MpCheckbox id="employee_name" />
-              Employee name
-            </MpFlex>
-          </MpTableCell>
-          <MpTableCell
-            :class="
-              css({
-                minWidth: '200px'
-              })
-            "
-            scope="col"
-          >
-            Start effective date
-          </MpTableCell>
-          <MpTableCell
-            :class="
-              css({
-                minWidth: '200px'
-              })
-            "
-            scope="col"
-          >
-            Benefit group
-          </MpTableCell>
-          <MpTableCell
-            :class="
-              css({
-                minWidth: '200px'
-              })
-            "
-            scope="col"
-          >
-            Benefit limitation
-          </MpTableCell>
-          <MpTableCell
-            :class="
-              css({
-                boxShadow: borderFixedLeft
-              })
-            "
-            scope="col"
-            is-fixed
-          ></MpTableCell>
-        </MpTableRow>
-      </MpTableHead>
-      <MpTableBody>
-        <MpTableRow v-for="employee in employees" :key="employee.id">
-          <MpTableCell
-            :class="
-              css({
-                boxShadow: borderFixedRight
-              })
-            "
-            as="td"
-            scope="row"
-            is-fixed
-          >
-            <MpFlex alignItems="center" gap="2">
-              <MpCheckbox :id="employee.name" />
-              <MpAvatar :id="employee.name" variant-color="gray" />
-              {{ employee.name }}
-            </MpFlex>
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ employee.effective_date }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ employee.benefit_group }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ employee.benefit_limitation }}
-          </MpTableCell>
-          <MpTableCell
-            :class="
-              css({
-                boxShadow: borderFixedLeft
-              })
-            "
-            as="td"
-            scope="row"
-            is-fixed
-          >
-            <MpButton variant="secondary">Action</MpButton>
-          </MpTableCell>
-        </MpTableRow>
-      </MpTableBody>
-    </MpTable>
-  </MpTableContainer>
-</template>
-
-<script setup lang="ts">
-  import {
-    MpTable,
-    MpTableHead,
-    MpTableBody,
-    MpTableRow,
-    MpTableCell,
-    MpTableContainer,
-    MpButton,
-    MpAvatar,
-    MpCheckbox,
-    MpFlex,
-    css
-  } from '@mekari/pixel3'
-  import { usePixelTheme } from '@mekari/pixel3-utils'
-
-  const { isNextTheme } = usePixelTheme()
-
-  // isNextTheme used to switch for Pixel Token 2.4
-  const borderFixedRight = isNextTheme.value
-    ? 'inset -2px 0px var(--mp-colors-border-default)'
-    : 'inset -2px 0px var(--mp-colors-gray-100)'
-  const borderFixedLeft = isNextTheme.value
-    ? 'inset 2px 0px var(--mp-colors-border-default)'
-    : 'inset 2px 0px var(--mp-colors-gray-100)'
-
-  const employees = [
-    {
-      id: 1,
-      name: 'Andy Bernard',
-      effective_date: '1 Jan 2020',
-      benefit_group: 'Leader',
-      benefit_limitation: 'Rp150.000.000'
-    },
-    {
-      id: 2,
-      name: 'Angela Martin',
-      effective_date: '-',
-      benefit_group: 'Staff',
-      benefit_limitation: '-'
-    },
-    {
-      id: 3,
-      name: 'Dwight Schrute',
-      effective_date: '1 Jan 2021',
-      benefit_group: 'Management',
-      benefit_limitation: 'Rp200.000.000'
-    },
-    {
-      id: 4,
-      name: 'Jim Helpert',
-      effective_date: '1 Jan 2021',
-      benefit_group: 'Management',
-      benefit_limitation: 'Rp200.000.000'
-    },
-    {
-      id: 5,
-      name: 'Kevin Malone',
-      effective_date: '23 Sep 2020',
-      benefit_group: 'Accounting',
-      benefit_limitation: 'Rp50.000.000'
-    }
-  ]
-</script>
-
-```
-
-### Usage: With Shadow
-
-```vue
-<template>
-  <MpTableContainer has-shadow>
-    <MpTable :is-hoverable="false">
-      <MpTableHead is-fixed>
-        <MpTableRow>
-          <MpTableCell as="th" scope="col"> Product name </MpTableCell>
-          <MpTableCell as="th" scope="col"> Product code </MpTableCell>
-          <MpTableCell as="th" scope="col"> Category </MpTableCell>
-          <MpTableCell as="th" scope="col"> Qty </MpTableCell>
-          <MpTableCell as="th" scope="col"> Minimum stock </MpTableCell>
-          <MpTableCell as="th" scope="col"> Unit </MpTableCell>
-          <MpTableCell as="th" scope="col"> Average price </MpTableCell>
-          <MpTableCell as="th" scope="col"> Buy price </MpTableCell>
-          <MpTableCell as="th" scope="col"> Sell price </MpTableCell>
-        </MpTableRow>
-      </MpTableHead>
-      <MpTableBody>
-        <MpTableRow v-for="product in products" :key="product.id">
-          <MpTableCell as="td" scope="row">
-            {{ product.name }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.code }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.category }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.qty }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.minimumStock }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.unit }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.averagePrice }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.buyPrice }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ product.sellPrice }}
-          </MpTableCell>
-        </MpTableRow>
-      </MpTableBody>
-    </MpTable>
-  </MpTableContainer>
-</template>
-
-<script setup lang="ts">
-  import {
-    MpTable,
-    MpTableHead,
-    MpTableBody,
-    MpTableRow,
-    MpTableCell,
-    MpTableContainer
-  } from '@mekari/pixel3'
-
-  const products = [
-    {
-      id: 1,
-      name: 'Apple Macbook Pro 2021 14" inch M1 Pro Chip 512GB Gray',
-      code: 'MBPM1-2021',
-      category: 'Laptop',
-      qty: 20,
-      minimumStock: 8,
-      unit: 'Pcs',
-      averagePrice: 'Rp28.000.000',
-      buyPrice: 'Rp27.000.000',
-      sellPrice: 'Rp30.000.000'
-    },
-    {
-      id: 2,
-      name: 'Apple iPhone 14 Pro 5G 1TB',
-      code: 'IP14-5G1TB',
-      category: 'Smartphone',
-      qty: 2,
-      minimumStock: 8,
-      unit: 'Pcs',
-      averagePrice: 'Rp18.000.000',
-      buyPrice: 'Rp17.000.000',
-      sellPrice: 'Rp20.000.000'
-    },
-    {
-      id: 3,
-      name: 'Apple iPhone 14 Plus 5G 512GB',
-      code: 'IP14PLS-5G512gb',
-      category: 'Smartphone',
-      qty: 9,
-      minimumStock: 2,
-      unit: 'Pcs',
-      averagePrice: 'Rp16.000.000',
-      buyPrice: 'Rp16.000.000',
-      sellPrice: 'Rp17.000.000'
-    },
-    {
-      id: 4,
-      name: 'iPad Pro M2 2022 4th 11 / 6th 12.9 inch WIFI 128GB',
-      code: 'IPPRO-M2128GB',
-      category: 'Smartphone',
-      qty: 80,
-      minimumStock: 1,
-      unit: 'Pcs',
-      averagePrice: 'Rp13.000.000',
-      buyPrice: 'Rp13.000.000',
-      sellPrice: 'Rp12.000.000'
-    },
-    {
-      id: 5,
-      name: 'MacBook Air 2022 M2 Chip 13" Inch 512GB',
-      code: 'MBAM2-2022',
-      category: 'Laptop',
-      qty: 200,
-      minimumStock: 1,
-      unit: 'Pcs',
-      averagePrice: 'Rp15.000.000',
-      buyPrice: 'Rp16.000.000',
-      sellPrice: 'Rp16.000.000'
-    }
-  ]
-</script>
-
-```
-
-### Usage: With Bordered and Narrowed
-
-```vue
-<template>
-  <MpTableContainer>
-    <MpTable>
-      <MpTableHead is-narrowed is-bordered>
-        <MpTableRow>
-          <MpTableCell scope="col"> Deal name </MpTableCell>
-          <MpTableCell scope="col"> Company name </MpTableCell>
-          <MpTableCell scope="col"> Deal source </MpTableCell>
-          <MpTableCell scope="col"> Deal stage </MpTableCell>
-          <MpTableCell scope="col"> Deal owner </MpTableCell>
-        </MpTableRow>
-      </MpTableHead>
-      <MpTableBody is-narrowed is-bordered>
-        <MpTableRow v-for="employee in employees" :key="employee.id">
-          <MpTableCell as="td" scope="row">
-            {{ employee.name }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ employee.company_name }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ employee.deal_source }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ employee.deal_stage }}
-          </MpTableCell>
-          <MpTableCell as="td" scope="row">
-            {{ employee.deal_owner }}
-          </MpTableCell>
-        </MpTableRow>
-      </MpTableBody>
-    </MpTable>
-  </MpTableContainer>
-</template>
-
-<script setup lang="ts">
-import {
-  MpTable,
-  MpTableHead,
-  MpTableBody,
-  MpTableRow,
-  MpTableCell,
-  MpTableContainer
-} from '@mekari/pixel3'
-
-const employees = [
-  {
-    id: 1,
-    name: 'Adinda Putri',
-    company_name: 'PT Nature Republic',
-    deal_source: 'External Partnership',
-    deal_stage: 'Qualified',
-    deal_owner: 'Rizal Chandra'
-  },
-  {
-    id: 2,
-    name: 'Jasper Steele',
-    company_name: 'PT Chaf Multi',
-    deal_source: 'Adverticement',
-    deal_stage: 'Qualified',
-    deal_owner: 'Rizal Chandra'
-  },
-  {
-    id: 3,
-    name: 'Mia Sullivan',
-    company_name: 'PT Dwi Anugrah',
-    deal_source: 'External Partnership',
-    deal_stage: 'Contacted',
-    deal_owner: 'Rizal Chandra'
-  },
-  {
-    id: 4,
-    name: 'Brandon Jordan',
-    company_name: 'PT Digital Labs',
-    deal_source: 'Adverticement',
-    deal_stage: 'Qualified',
-    deal_owner: 'Rizal Chandra'
-  },
-  {
-    id: 5,
-    name: 'Andika Putra',
-    company_name: 'PT Digital Labs',
-    deal_source: 'Online',
-    deal_stage: 'Not Qualified',
-    deal_owner: 'Alfian Ramadhan'
-  }
-]
 </script>
 
 ```

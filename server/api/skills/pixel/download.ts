@@ -3,14 +3,16 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 async function readSkillFile(relativePath: string): Promise<string> {
-  const storage = useStorage("assets:skills");
-  const content = (await storage.getItem(relativePath)) as string | null;
-  if (content !== null) return content;
-  // Dev fallback: read from filesystem
-  return readFile(
-    join(process.cwd(), "public", "skills", relativePath),
-    "utf8"
-  );
+  if (process.env.NODE_ENV !== "production") {
+    return readFile(
+      join(process.cwd(), "public", "skills", relativePath),
+      "utf8"
+    );
+  }
+  const url = `https://pixel-mcp.netlify.app/skills/${relativePath}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch skill file: ${res.statusText}`);
+  return res.text();
 }
 
 // Define the skill file structure

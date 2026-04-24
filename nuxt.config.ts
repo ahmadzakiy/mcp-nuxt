@@ -32,13 +32,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     // Nuxt 4 still uses Nitro. Use the Netlify preset:
-    preset: "netlify",
-    serverAssets: [
-      {
-        baseName: "skills",
-        dir: "./public/skills"
-      }
-    ]
+    preset: "netlify"
   },
   mcp: {
     version: "0.0.1",

@@ -28,7 +28,7 @@ export default defineLazyEventHandler(async () => {
     const tools = await mcpClient.tools();
 
     const result = streamText({
-      model: gateway("anthropic/claude-sonnet-4.5"),
+      model: gateway("google/gemini-2.5-flash-lite"),
       tools,
       stopWhen: stepCountIs(5),
       onStepFinish: async ({ toolResults }) => {

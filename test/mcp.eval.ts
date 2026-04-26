@@ -13,7 +13,7 @@ const gateway = createGateway({
 });
 
 // Use gateway with model
-const model = gateway("anthropic/claude-sonnet-4.5");
+const model = gateway("google/gemini-2.5-flash-lite");
 
 // Custom tool call accuracy scorer
 function toolCallAccuracy({

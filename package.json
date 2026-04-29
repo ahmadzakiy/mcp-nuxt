@@ -11,6 +11,7 @@
     "start": "node .output/server/index.mjs",
     "generate": "nuxi generate",
     "postinstall": "nuxi prepare",
+    "sync-skills": "node scripts/sync-skills.mjs",
     "eval": "evalite",
     "eval:ui": "evalite watch"
   },

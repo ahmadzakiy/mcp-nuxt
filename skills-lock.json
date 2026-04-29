@@ -9,7 +9,8 @@
     "pixel": {
       "source": "ahmadzakiy/skills",
       "sourceType": "github",
-      "computedHash": "c2a00df00cc81d0e96ccdcc271f15cf26c9cdbbf01bb37ece236b8ada2519f56"
+      "skillPath": "skills/pixel/SKILL.md",
+      "computedHash": "5385c4c62093f98465b87e914b1ea1064e7b291ad28edf4ef2c90e77a1741346"
     },
     "web-design-guidelines": {
       "source": "vercel-labs/agent-skills",

@@ -1,3 +1,5 @@
+import Fuse from "fuse.js";
+
 export type DocumentationEntry = {
   rawName: string;
   slugName: string;
@@ -67,7 +69,8 @@ export const findBestMatches = <
   T extends { slugName: string; keyName: string }
 >(
   entries: T[],
-  query: { slugName: string; keyName: string }
+  query: { slugName: string; keyName: string },
+  { limit = 10 }: { limit?: number } = {}
 ) => {
   const exact = entries.find((entry) => {
     return entry.slugName === query.slugName || entry.keyName === query.keyName;
@@ -85,28 +88,69 @@ export const findBestMatches = <
   });
 
   if (startsWith.length > 0) {
-    return startsWith;
+    return startsWith.slice(0, limit);
   }
 
-  return entries.filter((entry) => {
-    return (
-      entry.slugName.includes(query.slugName) ||
-      entry.keyName.includes(query.keyName)
-    );
-  });
+  return entries
+    .filter((entry) => {
+      return (
+        entry.slugName.includes(query.slugName) ||
+        entry.keyName.includes(query.keyName)
+      );
+    })
+    .slice(0, limit);
 };
 
 export const isListAllIntent = (query: string, singularType: string) => {
   const normalized = query.trim().toLowerCase();
   const pluralType = `${singularType}s`;
+  const typePattern = new RegExp(`\\b(${singularType}|${pluralType})\\b`);
 
-  return (
-    normalized === "all" ||
-    normalized === `all ${singularType}` ||
-    normalized === `all ${pluralType}` ||
-    normalized === `list all ${singularType}` ||
-    normalized === `list all ${pluralType}` ||
-    normalized === `show all ${singularType}` ||
-    normalized === `show all ${pluralType}`
+  // "all" shorthand on its own
+  if (normalized === "all") return true;
+
+  // Contains "all" or "every" + the type word anywhere in query
+  // e.g. "get all components", "give me every component", "all available components"
+  if (/\b(all|every)\b/.test(normalized) && typePattern.test(normalized))
+    return true;
+
+  // Short verb-only form without "all": "list components", "show the patterns", "fetch available templates"
+  const shortIntentPattern = new RegExp(
+    `^(list|show|get|fetch|display|find)\\s+(all\\s+|the\\s+|available\\s+)?(${singularType}|${pluralType})$`
   );
+  if (shortIntentPattern.test(normalized)) return true;
+
+  return false;
+};
+
+export const findBestMatchesFuzzy = <T extends DocumentationEntry>(
+  entries: T[],
+  rawQuery: string,
+  { tokenSearch = false, limit }: { tokenSearch?: boolean; limit?: number } = {}
+): T[] => {
+  // Collapse 3+ consecutive identical chars ("butonnn" → "buton")
+  const normalizedQuery = rawQuery.replace(/(.)\1{2,}/g, "$1");
+
+  const fuse = new Fuse(entries, {
+    keys: [
+      { name: "rawName", weight: 2 },
+      { name: "slugName", weight: 1.5 },
+      { name: "keyName", weight: 1 },
+      { name: "description", weight: 0.5 }
+    ],
+    useTokenSearch: tokenSearch,
+    threshold: 0.4,
+    ignoreLocation: true,
+    includeScore: true,
+    minMatchCharLength: 2
+  });
+
+  const results = fuse.search(normalizedQuery, limit ? { limit } : {});
+
+  if (results.length > 0) {
+    return results.map((r) => r.item);
+  }
+
+  // Fallback to exact/prefix/includes matching
+  return findBestMatches(entries, toSearchQuery(normalizedQuery, /[-/]/g));
 };

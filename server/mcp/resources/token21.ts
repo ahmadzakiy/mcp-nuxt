@@ -5,5 +5,6 @@ export default defineMcpResource({
   file: "public/llms-design-tokens-21.txt",
   metadata: {
     mimeType: "text/plain"
-  }
+  },
+  cache: "24h"
 });

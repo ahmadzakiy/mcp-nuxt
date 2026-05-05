@@ -12,6 +12,8 @@ export default defineLazyEventHandler(async () => {
   const config = useRuntimeConfig();
   const apiKey = config.aiGatewayApiKey;
   const mcpURL = config.pixelMcpBaseUrl;
+  const modelId = config.aiGatewayModel;
+
   if (!apiKey) throw new Error("Missing AI Gateway API key");
   const gateway = createGateway({
     apiKey: apiKey
@@ -28,7 +30,7 @@ export default defineLazyEventHandler(async () => {
     const tools = await mcpClient.tools();
 
     const result = streamText({
-      model: gateway("google/gemini-2.5-flash-lite"),
+      model: gateway(modelId),
       tools,
       stopWhen: stepCountIs(5),
       onStepFinish: async ({ toolResults }) => {

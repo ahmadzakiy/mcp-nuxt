@@ -5,5 +5,6 @@ export default defineMcpResource({
   file: 'public/llms-patterns.txt',
   metadata: {
     mimeType: 'text/plain'
-  }
+  },
+  cache: '1h'
 })

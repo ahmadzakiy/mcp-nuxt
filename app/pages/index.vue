@@ -309,6 +309,22 @@
             </MpText>
           </MpFlex>
 
+          <!-- get-icon-name tool -->
+          <MpFlex direction="column" gap="2">
+            <MpFlex alignItems="center" gap="2">
+              <MpText weight="semiBold" color="text.highlight">
+                #get-icon-name
+              </MpText>
+            </MpFlex>
+            <MpText color="text.secondary">
+              Searches for Pixel icon names by keyword. Returns matching icon
+              names you can use directly in Pixel components.
+            </MpText>
+            <MpText size="body-small" color="text.warning">
+              Example: "Find icons for search" or "List all icons"
+            </MpText>
+          </MpFlex>
+
           <!-- hello-pixel tool -->
           <MpFlex direction="column" gap="2">
             <MpFlex alignItems="center" gap="2">

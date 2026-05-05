@@ -51,6 +51,7 @@ mcp-nuxt/
 │
 ├── docs/
 │   ├── figma-to-pixel-instructions.md
+│   ├── mcp-toolkit-improvement.md
 │   └── skills-vs-mcp-prompts.md
 │
 ├── public/
@@ -58,6 +59,9 @@ mcp-nuxt/
 │   ├── llms-design-tokens-21.txt
 │   ├── llms-design-tokens-24.txt
 │   ├── llms-docs.txt
+│   ├── llms-icons.txt
+│   ├── llms-patterns.txt
+│   ├── llms-templates.txt
 │   ├── robots.txt
 │   └── skills/pixel/
 │       ├── SKILL.md
@@ -75,8 +79,9 @@ mcp-nuxt/
 │       │   ├── create-design-to-pixel.ts
 │       │   └── implement-figma-to-pixel.ts
 │       ├── resources/
-│       │   ├── component.ts
+│       │   ├── components.ts
 │       │   ├── docs.ts
+│       │   ├── icons.ts
 │       │   ├── patterns.ts
 │       │   ├── templates.ts
 │       │   ├── token21.ts
@@ -84,10 +89,13 @@ mcp-nuxt/
 │       ├── tools/
 │       │   ├── get-component.ts
 │       │   ├── get-docs.ts
+│       │   ├── get-icon-name.ts
 │       │   ├── get-pattern.ts
 │       │   ├── get-template.ts
 │       │   └── hello-pixel.ts
-│       └── utils/normalizeComponentName.ts
+│       └── utils/
+│           ├── normalizeComponentName.ts
+│           └── searchDocumentation.ts
 │
 └── test/mcp.eval.ts
 ```
@@ -113,14 +121,16 @@ mcp-nuxt/
 
 - `get-component`
 - `get-docs`
+- `get-icon-name`
 - `get-pattern`
 - `get-template`
 - `hello-pixel`
 
 ### Resources
 
-- `component`
+- `components`
 - `docs`
+- `icons`
 - `patterns`
 - `templates`
 - `token21`

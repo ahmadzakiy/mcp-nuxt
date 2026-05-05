@@ -1,8 +1,15 @@
 import { z } from "zod";
+import Fuse from "fuse.js";
 
 export default defineMcpTool({
   description:
     "Retrieves Pixel documentation, answers questions about setup, component usage, design tokens (2.1 vs 2.4), and other Pixel-related queries",
+  annotations: {
+    readOnlyHint: true,
+    destructiveHint: false,
+    idempotentHint: true,
+    openWorldHint: true
+  },
   inputSchema: {
     query: z
       .string()
@@ -10,7 +17,15 @@ export default defineMcpTool({
         'Your question or search query (e.g., "how to setup Pixel", "difference between token 2.1 and 2.4", "MpButton", "dark mode")'
       )
   },
+  inputExamples: [
+    { query: "how to setup Pixel" },
+    { query: "difference between token 2.1 and 2.4" },
+    { query: "MpButton usage" },
+    { query: "dark mode theming" }
+  ],
+  cache: "30m",
   async handler({ query }) {
+    const log = useMcpLogger("get-docs");
     try {
       const normalizedQuery = query.toLowerCase().trim();
 
@@ -24,8 +39,7 @@ export default defineMcpTool({
           normalizedQuery
         );
 
-      const relevantContent = [];
-      const searchResults = [];
+      const relevantContent: { title: string; content: string }[] = [];
 
       // If token-related query, prioritize token documentation
       if (isTokenQuery) {
@@ -72,55 +86,38 @@ export default defineMcpTool({
         responseType: "text"
       });
 
-      const sections = splitIntoSections(docsContent);
+      const sectionEntries = splitIntoSections(docsContent).map((section) => ({
+        title: extractTitle(section),
+        content: section
+      }));
 
-      for (const section of sections) {
-        const sectionLower = section.toLowerCase();
-        const title = extractTitle(section);
+      // Collapse 3+ consecutive identical chars ("butonnn" → "buton")
+      const normalizedDocsQuery = query.replace(/(.)\1{2,}/g, "$1");
 
-        // Score each section based on relevance
-        let relevanceScore = 0;
+      const fuse = new Fuse(sectionEntries, {
+        keys: [
+          { name: "title", weight: 3 },
+          { name: "content", weight: 1 }
+        ],
+        useTokenSearch: true,
+        threshold: 0.4,
+        ignoreLocation: true,
+        includeScore: true,
+        minMatchCharLength: 2
+      });
 
-        // Check for query terms in the section
-        const queryTerms = normalizedQuery
-          .split(" ")
-          .filter((term) => term.length > 2);
-        for (const term of queryTerms) {
-          if (sectionLower.includes(term)) {
-            relevanceScore += 1;
-          }
-          if (title.toLowerCase().includes(term)) {
-            relevanceScore += 3; // Title matches are more relevant
-          }
-        }
+      const maxResults = isTokenQuery ? 3 : 5;
+      const fuseResults = fuse.search(normalizedDocsQuery, {
+        limit: maxResults
+      });
 
-        if (relevanceScore > 0) {
-          searchResults.push({
-            title,
-            content: section,
-            score: relevanceScore
-          });
-        }
-      }
-
-      // Sort by relevance
-      searchResults.sort((a, b) => b.score - a.score);
-
-      // Add top search results from docs (only if we need more content)
-      if (searchResults.length > 0) {
-        // If token query, take fewer doc results (top 2-3)
-        // Otherwise take top 3-5 results
-        const maxResults = isTokenQuery ? 3 : 5;
-        const topResults = searchResults.slice(
-          0,
-          Math.min(maxResults, searchResults.length)
-        );
-        relevantContent.push(...topResults);
+      if (fuseResults.length > 0) {
+        relevantContent.push(...fuseResults.map((r) => r.item));
       }
 
       // If no results found, provide general help
       if (relevantContent.length === 0) {
-        return jsonResult({
+        return {
           query: query,
           found: false,
           message:
@@ -140,7 +137,7 @@ export default defineMcpTool({
             "design-token-2.4 - Design Tokens version 2.4 (recommended)"
           ],
           documentation_url: "https://docs.mekari.design/"
-        });
+        };
       }
 
       // Format the response
@@ -149,7 +146,10 @@ export default defineMcpTool({
         content: result.content.trim()
       }));
 
-      return jsonResult({
+      await log.notify.info({
+        msg: `Found ${formattedResults.length} result(s) for query: ${query}`
+      });
+      return {
         query: query,
         found: true,
         results_count: formattedResults.length,
@@ -158,11 +158,12 @@ export default defineMcpTool({
           ? ["docs", "design-token-2.1", "design-token-2.4"]
           : ["docs"],
         documentation_url: "https://docs.mekari.design/"
-      });
+      };
     } catch (error) {
-      return errorResult(
-        `Error reading documentation: ${error instanceof Error ? error.message : "Unknown error"}`
-      );
+      await log.notify.error({
+        msg: `Error reading documentation: ${error instanceof Error ? error.message : "Unknown error"}`
+      });
+      throw error;
     }
   }
 });

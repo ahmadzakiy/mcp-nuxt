@@ -6,5 +6,6 @@ export default defineMcpResource({
   file: "public/llms-components.txt",
   metadata: {
     mimeType: "text/plain"
-  }
+  },
+  cache: "1h"
 });

@@ -6,6 +6,11 @@
       "sourceType": "github",
       "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
     },
+    "manage-mcp": {
+      "source": "mcp-toolkit.nuxt.dev",
+      "sourceType": "well-known",
+      "computedHash": "7fd165a9322847d47a93c58fd2b52d50f2830e25d8fc250ec4812b270ba98ec9"
+    },
     "pixel": {
       "source": "ahmadzakiy/skills",
       "sourceType": "github",

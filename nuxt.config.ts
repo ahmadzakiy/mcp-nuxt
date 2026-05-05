@@ -8,6 +8,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Server-only keys (secure, not exposed to client)
     aiGatewayApiKey: process.env.AI_GATEWAY_API_KEY || "",
+    aiGatewayModel:
+      process.env.AI_GATEWAY_MODEL || "deepseek/deepseek-v4-flash",
     pixelMcpBaseUrl:
       process.env.NODE_ENV === "development"
         ? "http://localhost:3200"
@@ -32,10 +34,13 @@ export default defineNuxtConfig({
   },
   nitro: {
     // Nuxt 4 still uses Nitro. Use the Netlify preset:
-    preset: "netlify"
+    preset: "netlify",
+    experimental: {
+      asyncContext: true
+    }
   },
   mcp: {
-    version: "0.0.1",
+    version: "0.1.0",
     name: "pixel3-mcp-server",
     route: "/mcp", // Default route for the MCP server
     dir: "mcp", // Base directory for MCP definitions (relative to server/)

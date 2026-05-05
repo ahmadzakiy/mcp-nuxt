@@ -47,7 +47,7 @@
             :id="`chat-bubble-${index}`"
             :variant="m.role === 'user' ? 'question' : 'answer'"
             :title="m.role === 'user' ? 'You' : 'Airene'"
-            avatar-src="https://randomuser.me/api/portraits/men/1.jpg"
+            avatar-src="https://avatars.githubusercontent.com/u/13983391"
           >
             <template #text>
               <div

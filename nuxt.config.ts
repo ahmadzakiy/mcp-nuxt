@@ -6,19 +6,11 @@ export default defineNuxtConfig({
     enabled: process.env.NODE_ENV === "development"
   },
   runtimeConfig: {
-    // Server-only keys (secure, not exposed to client)
     aiGatewayApiKey: process.env.AI_GATEWAY_API_KEY || "",
     aiGatewayModel:
       process.env.AI_GATEWAY_MODEL || "deepseek/deepseek-v4-flash",
     pixelMcpBaseUrl:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3200"
-        : "https://pixel-mcp.netlify.app",
-    public: {
-      // Public keys (exposed to client - only use for non-sensitive data)
-      // WARNING: Don't put API keys here!
-      apiSecret: "123"
-    }
+      process.env.PIXEL_MCP_BASE_URL || "https://pixel-mcp.netlify.app"
   },
   modules: ["@nuxtjs/mcp-toolkit"],
   css: ["~/assets/css/pixel.css"],
@@ -37,6 +29,10 @@ export default defineNuxtConfig({
     preset: "netlify",
     experimental: {
       asyncContext: true
+    },
+    bundledStorage: [],
+    externals: {
+      inline: ["@modelcontextprotocol/sdk", "@ai-sdk/mcp", "ai"]
     }
   },
   mcp: {

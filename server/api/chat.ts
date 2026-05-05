@@ -19,27 +19,29 @@ export default defineLazyEventHandler(async () => {
     apiKey: apiKey
   });
 
-  const mcpClient: MCPClient = await createMCPClient({
-    transport: { type: "http", url: `${mcpURL}/mcp` }
-  });
-
   return defineEventHandler(async (event) => {
     const { messages }: { messages: UIMessage[] } = await readBody(event);
-    const tools = await mcpClient.tools();
 
-    const result = streamText({
-      model: gateway(modelId),
-      tools,
-      stopWhen: stepCountIs(5),
-      onStepFinish: async ({ toolResults }) => {
-        console.log(`STEP RESULTS: ${JSON.stringify(toolResults, null, 2)}`);
-      },
-      onFinish: async () => {
-        await mcpClient.close();
-      },
-      messages: await convertToModelMessages(messages)
+    const mcpClient: MCPClient = await createMCPClient({
+      transport: { type: "http", url: `${mcpURL}/mcp` }
     });
 
-    return result.toUIMessageStreamResponse();
+    try {
+      const tools = await mcpClient.tools();
+
+      const result = streamText({
+        model: gateway(modelId),
+        tools,
+        stopWhen: stepCountIs(5),
+        onStepFinish: async ({ toolResults }) => {
+          console.log(`STEP RESULTS: ${JSON.stringify(toolResults, null, 2)}`);
+        },
+        messages: await convertToModelMessages(messages)
+      });
+
+      return result.toUIMessageStreamResponse();
+    } finally {
+      await mcpClient.close();
+    }
   });
 });

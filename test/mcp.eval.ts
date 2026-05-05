@@ -1,5 +1,11 @@
 import { experimental_createMCPClient as createMCPClient } from "@ai-sdk/mcp";
-import { generateText, createGateway, type ToolCall } from "ai";
+import {
+  generateText,
+  createGateway,
+  stepCountIs,
+  type TypedToolCall,
+  type ToolSet
+} from "ai";
 import { evalite } from "evalite";
 
 const API_KEY = process.env.AI_GATEWAY_API_KEY;
@@ -19,9 +25,18 @@ function toolCallAccuracy({
   actualCalls,
   expectedCalls
 }: {
-  actualCalls: ToolCall[];
-  expectedCalls: Array<{ toolName: string; input?: Record<string, any> }>;
+  actualCalls: TypedToolCall<ToolSet>[];
+  expectedCalls:
+    | Array<{ toolName: string; input?: Record<string, unknown> }>
+    | undefined;
 }) {
+  if (!expectedCalls)
+    return {
+      score: 0,
+      maxScore: 0,
+      name: "Tool Call Accuracy",
+      details: "No expected calls"
+    };
   let score = 0;
   const maxScore = expectedCalls.length;
 
@@ -47,7 +62,10 @@ function toolCallAccuracy({
       // Check if input matches (if specified)
       if (expected.input) {
         for (const [key, value] of Object.entries(expected.input)) {
-          if (actual.args[key] !== value) {
+          if (
+            (actual as { toolName: string; input: Record<string, unknown> })
+              .input?.[key] !== value
+          ) {
             inputMatches = false;
             break;
           }
@@ -113,7 +131,10 @@ evalite("Pixel Component Documentation", {
   },
   scorers: [
     ({ output, expected }) =>
-      toolCallAccuracy({ actualCalls: output, expectedCalls: expected })
+      toolCallAccuracy({
+        actualCalls: (output as TypedToolCall<ToolSet>[]) ?? [],
+        expectedCalls: expected
+      })
   ]
 });
 
@@ -157,7 +178,10 @@ evalite("Pixel Documentation - Setup and General", {
   },
   scorers: [
     ({ output, expected }) =>
-      toolCallAccuracy({ actualCalls: output, expectedCalls: expected })
+      toolCallAccuracy({
+        actualCalls: (output as TypedToolCall<ToolSet>[]) ?? [],
+        expectedCalls: expected
+      })
   ]
 });
 
@@ -201,7 +225,10 @@ evalite("Pixel Documentation - Design Tokens", {
   },
   scorers: [
     ({ output, expected }) =>
-      toolCallAccuracy({ actualCalls: output, expectedCalls: expected })
+      toolCallAccuracy({
+        actualCalls: (output as TypedToolCall<ToolSet>[]) ?? [],
+        expectedCalls: expected
+      })
   ]
 });
 
@@ -238,7 +265,10 @@ evalite("Pixel Documentation - Theming and Styling", {
   },
   scorers: [
     ({ output, expected }) =>
-      toolCallAccuracy({ actualCalls: output, expectedCalls: expected })
+      toolCallAccuracy({
+        actualCalls: (output as TypedToolCall<ToolSet>[]) ?? [],
+        expectedCalls: expected
+      })
   ]
 });
 
@@ -271,7 +301,7 @@ evalite("Multi-Step Workflow - Component and Documentation", {
         model,
         prompt: input,
         tools: await mcp.tools(),
-        maxSteps: 5 // Allow multiple tool calls
+        stopWhen: stepCountIs(5)
       });
       return result.toolCalls ?? [];
     } finally {
@@ -280,7 +310,10 @@ evalite("Multi-Step Workflow - Component and Documentation", {
   },
   scorers: [
     ({ output, expected }) =>
-      toolCallAccuracy({ actualCalls: output, expectedCalls: expected })
+      toolCallAccuracy({
+        actualCalls: (output as TypedToolCall<ToolSet>[]) ?? [],
+        expectedCalls: expected
+      })
   ]
 });
 
@@ -321,13 +354,20 @@ evalite("Pixel Icon Name Search", {
   },
   scorers: [
     ({ output, expected }) =>
-      toolCallAccuracy({ actualCalls: output, expectedCalls: expected })
+      toolCallAccuracy({
+        actualCalls: (output as TypedToolCall<ToolSet>[]) ?? [],
+        expectedCalls: expected
+      })
   ]
 });
 
 // Test tool selection accuracy
+type ToolExpected = { toolName: string; input?: Record<string, unknown> };
+
 evalite("Tool Selection - Component vs Docs", {
-  data: async () => [
+  data: async (): Promise<
+    Array<{ input: string; expected: ToolExpected[] }>
+  > => [
     {
       input: "What components are available in Pixel?",
       expected: [
@@ -370,6 +410,9 @@ evalite("Tool Selection - Component vs Docs", {
   },
   scorers: [
     ({ output, expected }) =>
-      toolCallAccuracy({ actualCalls: output, expectedCalls: expected })
+      toolCallAccuracy({
+        actualCalls: (output as TypedToolCall<ToolSet>[]) ?? [],
+        expectedCalls: expected
+      })
   ]
 });

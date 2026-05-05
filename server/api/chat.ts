@@ -5,7 +5,6 @@ import {
   createGateway,
   stepCountIs
 } from "ai";
-import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { createMCPClient, MCPClient } from "@ai-sdk/mcp";
 
 export default defineLazyEventHandler(async () => {
@@ -15,14 +14,13 @@ export default defineLazyEventHandler(async () => {
   const modelId = config.aiGatewayModel;
 
   if (!apiKey) throw new Error("Missing AI Gateway API key");
+
   const gateway = createGateway({
     apiKey: apiKey
   });
 
-  const transport = new StreamableHTTPClientTransport(new URL(`${mcpURL}/mcp`));
-
   const mcpClient: MCPClient = await createMCPClient({
-    transport
+    transport: { type: "http", url: `${mcpURL}/mcp` }
   });
 
   return defineEventHandler(async (event) => {
@@ -35,6 +33,9 @@ export default defineLazyEventHandler(async () => {
       stopWhen: stepCountIs(5),
       onStepFinish: async ({ toolResults }) => {
         console.log(`STEP RESULTS: ${JSON.stringify(toolResults, null, 2)}`);
+      },
+      onFinish: async () => {
+        await mcpClient.close();
       },
       messages: await convertToModelMessages(messages)
     });

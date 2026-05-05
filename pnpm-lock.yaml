@@ -12,14 +12,11 @@ importers:
         specifier: ^1.0.39
         version: 1.0.39(zod@4.1.13)
       '@mekari/pixel3':
-        specifier: 1.0.9-dev.1
-        version: 1.0.9-dev.1(@mekari/pixel3-postcss@1.0.9-dev.1(typescript@5.8.3))(fuse.js@7.4.0-beta.4)(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))
+        specifier: 1.0.11
+        version: 1.0.11(@mekari/pixel3-postcss@1.0.11(typescript@5.8.3))(fuse.js@7.4.0-beta.4)(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))
       '@mekari/pixel3-postcss':
-        specifier: 1.0.9-dev.1
-        version: 1.0.9-dev.1(typescript@5.8.3)
-      '@modelcontextprotocol/sdk':
-        specifier: ^1.25.1
-        version: 1.25.1(hono@4.12.15)(zod@4.1.13)
+        specifier: 1.0.11
+        version: 1.0.11(typescript@5.8.3)
       '@nuxtjs/mcp-toolkit':
         specifier: ^0.15.0
         version: 0.15.0(@vue/compiler-sfc@3.5.25)(h3@1.15.4)(magicast@0.5.1)(rollup@4.53.3)(vite@7.2.7(@types/node@25.0.2)(jiti@2.6.1)(lightningcss@1.25.1)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.25(typescript@5.8.3))(zod@4.1.13)
@@ -658,12 +655,6 @@ packages:
     peerDependencies:
       hono: ^4
 
-  '@hono/node-server@1.19.7':
-    resolution: {integrity: sha512-vUcD0uauS7EU2caukW8z5lJKtoGMokxNbJtBiwHgpqxEXokaHCBkQUmCHhjFB1VUTWdqj25QoMkMKzgjq+uhrw==}
-    engines: {node: '>=18.14.1'}
-    peerDependencies:
-      hono: ^4
-
   '@ioredis/commands@1.4.0':
     resolution: {integrity: sha512-aFT2yemJJo+TZCmieA7qnYGQooOS7QfNmYrzGtsYd3g9j5iDP8AimYYAesf79ohjbLG12XxC4nG5DyEnC88AsQ==}
 
@@ -720,292 +711,282 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@mekari/pixel3-accordion@0.0.25-dev.1':
-    resolution: {integrity: sha512-D+zHXQHwznwfJSLnbdxe5iOg811d/NdKFk2kFkeiDfykWdeIsDLYov2C/TC5zWhZhzyS/ufpkiCS5PABMPDFdQ==}
+  '@mekari/pixel3-accordion@0.0.26':
+    resolution: {integrity: sha512-4XsMBZdMkBJdd73a7kGZW3rqdrfGeBFmjCNNyXMqBOqdsHVrcLnlfYEbNygUG2CjhK2OC2FFtCMedTG0dE530A==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-airene-button@0.1.8-dev.1':
-    resolution: {integrity: sha512-JmQali2ED3PyGueXOkK7qELJCM1HUT/gj5BXP4uRcCVE0yqxn7EBWPD/NozWr777QufZbE6gZTIW0E5QZv99uQ==}
+  '@mekari/pixel3-airene-button@0.1.9':
+    resolution: {integrity: sha512-9X0qSGzaejmU14k6W+NcVQEJGGaUWv/IBMdrvUfZcgxd8Td6WEeCwxwyQisf7pUJpobJKbVjtgq6aqfmXdvJXw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-airene-chat-bubble@0.1.7-dev.1':
-    resolution: {integrity: sha512-Wiv5AlxfYhGAcCwuZE1+0fwrjl2kHWOYZOnw9g1XUZsr/MMbKg35j7jKOLwySkS/m30ykFomK6m8KcegFNNPIw==}
+  '@mekari/pixel3-airene-chat-bubble@0.1.8':
+    resolution: {integrity: sha512-QNL8fcuYDnlirYc67X8uXorINZ4e1szZRcLoh+xdDNiahLUL1QusCmBFKFGyblKHPtuSUJtcsYqo/b5/RJ+P5Q==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-airene-chat-input@0.0.8-dev.1':
-    resolution: {integrity: sha512-QPYIbbT2MMUvWyVtg0lKot6oDSKmMQKr470Nc1VxLNwuzdlw7ld11HLf7CgE+RtT68Rd9V0cnOoFm1teFA2gtQ==}
+  '@mekari/pixel3-airene-chat-input@0.0.9':
+    resolution: {integrity: sha512-AK9bsIXsBjbu/Gz3mdX9PGl2Gcl2dES8p5ptDQRsQFBhoPyHps/aDGpGzr1wMXnKZN6AVlvMvKsF/lSPrAR9lw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-autocomplete@0.0.25-dev.1':
-    resolution: {integrity: sha512-ozcpbn3cmu5MVnDS18y+wdDyjp3TOKWgCWJ5fwp3iPLd22mMatZsUXYASO1jL/XbNbU/+jAfr1EAfEVw8Yx1iA==}
+  '@mekari/pixel3-autocomplete@0.0.26':
+    resolution: {integrity: sha512-hUhVE7uvYOVcf/TwjkZ7mq8XsvjNNVAehtOfH4urd+0ekaAKHZnn1SIRondH9I0yNzPZbKFvq13U1MID9UNwww==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-avatar@0.0.25-dev.1':
-    resolution: {integrity: sha512-l9pYMtfsp6OqGaUWmKgyDItNbUIUQXzTwtubYYznwf+gbV9NKARxhKMjncFDU7grWxoWy0x8bIOn7oKkZrooxw==}
+  '@mekari/pixel3-avatar@0.0.26':
+    resolution: {integrity: sha512-rZfQMRfOdmMPAG06ZfVa2Kiteg5uAxzgiqNdvE4N1eWoG3EKUk1NfGRNyUL28tx/qabnBCAZpUX5hqi8fsXPLg==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-badge@0.0.22-dev.1':
-    resolution: {integrity: sha512-C1Nj0tufcQ/v926MMYQI4gzUTp/e9nFGGmVH6ijqSYDoB3qeKhIIJwbqtvjc3VfKLPbGhfDD+VdTFQfKaq4hXQ==}
+  '@mekari/pixel3-badge@0.0.22':
+    resolution: {integrity: sha512-ZCnNgouvYMdumSkrwEh4JpzEj7hdTjyW3BDuPIEvGSvxUiQIIr5J/m5Z7qdamMA4BfhWRKrj5pYo+wivsr03lA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-banner@0.1.0-dev.1':
-    resolution: {integrity: sha512-e9vsm6vN+Xc17VlKtKAGsi/9iMEoYokfOwXjyJBXDa/gYnwOVVnMK5qVCy4B0Q6IwMgiM7VDpmJ4Zq/4e5ahOw==}
+  '@mekari/pixel3-banner@0.1.1':
+    resolution: {integrity: sha512-QgW/4CN8t7K3jtMmUh0H2R2GzPn+11S50UDXF8FBZexPtMMvVJW75GP+QI626QcxtMxZpXhwBStK3dY7r8NWXA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-broadcast@0.0.19-dev.1':
-    resolution: {integrity: sha512-yTVh4pzuMqUdyDQrolnQnfsYgqjz7BMXKOeIStwjeS9H0WShRn2ReoZChKwjzwR3Ar3iVzbiq2gWA+k9WXVf6Q==}
+  '@mekari/pixel3-broadcast@0.0.20':
+    resolution: {integrity: sha512-E7Z4xxgkB1lea2dKdk569XRw4GzR9beY3x6PTJDNkRHcpMGS/phz9P7PdXhPApJVYP8qsmNGUA1MzZyPXMvHog==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-button@0.2.0-dev.1':
-    resolution: {integrity: sha512-DP2fYpIGPU3oh3sI0tmPUePNPPBAQROrtNgL3vGeezM2ldA7LvANx/73Prcw3jGlfiDY8MZG9dyadRQfMkHuVA==}
+  '@mekari/pixel3-button@0.2.1':
+    resolution: {integrity: sha512-JX95dqa6kXUL0c0Q59Sv7g6VsaIr2tnZoLjY/yJpbEe8P+7XawMnprSMpKG1vPY0Hhk15mnUwGO1YhcVRfIdvQ==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-carousel@0.0.17-dev.1':
-    resolution: {integrity: sha512-LaC74trj6imr8MHKhhg8KBo/ifaOcZgrn6G3P6j2RPgDT3TB0LSUX9ReS1rumXKxUpld1N0onBrKpbj+LuMM6w==}
+  '@mekari/pixel3-carousel@0.0.18':
+    resolution: {integrity: sha512-S8En4hornEsGGrvKWIIwKDzoGTkaEFiIVeUrV3FRGLpWeGb3wI1csZqba+0XhhTfNwXci7OCs/X/B5myfG1HmA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-chart@0.0.14-dev.1':
-    resolution: {integrity: sha512-igXbE8G4i9I0wgeURo4TQ7c1m3XWLB0KLszCDfYMTy7AY1S0bup9Ayusf6OHP6OaLLOxmqDTYgVqM5dEO1tbcQ==}
+  '@mekari/pixel3-chart@0.0.14':
+    resolution: {integrity: sha512-vioeT16fWUA/9njy1IuzZynmt31LNMY/yLDCOeRy8jgAqeCwLL2+FvrxHnvSEz7Rgde8w9aFlR/zRH0DOjF4dw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-checkbox@0.0.23-dev.1':
-    resolution: {integrity: sha512-BY1TaTJBpDvGQET/idBzihaL4lYEGEqWIqgbdvJVxa/FBl4o0dDNuWBZomI9Ndr/4xdp0FGlBurN05h1dTbm8Q==}
+  '@mekari/pixel3-checkbox@0.0.23':
+    resolution: {integrity: sha512-9mF4C7XrR75FJtURncIvHLQDnzx6ko7WeZm5FMtTqdn4eu5hV46pfVdO3fzXeSvadw/zg3IQelXHJz393LM7GA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-collapse@0.0.24-dev.1':
-    resolution: {integrity: sha512-8Any2mzw8GvDJ6onGKOg4F/S3ZjhEXiDgDB2VfHRZvQ9ZoMPj1v1Gv5pGfgDvdPvTknUxP8JjGGAWMMnP55gXA==}
+  '@mekari/pixel3-collapse@0.0.25':
+    resolution: {integrity: sha512-o+jsTr5ZZlPj+6uA737qsTBlHbTGN/YqCQQ4C2B10fKjvPrnjZQaJ6ng+4OqXgaJ0/CHkNzB2aZx+fedkyaj3w==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-color-picker@0.1.10-dev.1':
-    resolution: {integrity: sha512-jwr/oOlUEA66QURmWSnxFlWLhryzJAGhveDfBJKx6f9Yozj3oBGDyP/UVJzQ0DUFWVfXBqem53m5KA3fbFH4Sg==}
+  '@mekari/pixel3-color-picker@0.2.0':
+    resolution: {integrity: sha512-MQkqvNaInKdDWLGft3dGrbtV2Zjh2z3LYIdSmm6LJ06Zagdbu78fX4tV7BsUSk4PV+t8Gs3HTCgY5+yPJ9Oc0g==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-date-picker@0.1.15-dev.1':
-    resolution: {integrity: sha512-VsRlHxfz45DoctDFCWD5J6EE8mBBM8ykYrIgyEt+/gJCEbXq3oZ+ANNW0yijnjGoHwA1StQTZG09ARTsXLBdTQ==}
+  '@mekari/pixel3-date-picker@0.1.17':
+    resolution: {integrity: sha512-nnRJfxL/SBfUl26dpcSaQ0lNgVnjQfXwI+qNxkpaamTX69phKaYJFXjUbNQtJ6L+IE15uORGmU/05NXtUkMdXw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-divider@0.0.22-dev.1':
-    resolution: {integrity: sha512-MIvKOR5B+BxmjkR8+b/RzA00WV4wzLGSAMt8J1pp+lz5a8h2FgYC7oxw2T4oxRIp8qD9msbnUgrv2tbdl5goVQ==}
+  '@mekari/pixel3-divider@0.0.22':
+    resolution: {integrity: sha512-tmI402ddjirZgNABWKDFFQnaHXPwauzeflld5e+0OBm3+OQMRJ3WjFEIqPrhG7QBtovwC9vcGaWAtaqHD3JcsA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-drawer@0.0.24-dev.1':
-    resolution: {integrity: sha512-8XoPpdu/87FVgBm1iVBQslsI/NPTphokJPUaqIaObTfLbuZaOojUHd9uwI9kh05mVcdHWc633pBkLHA7ckIqTQ==}
+  '@mekari/pixel3-drawer@0.0.25':
+    resolution: {integrity: sha512-Z7Ok9atTjPSzAtR72sy5uXLVz/6WCEn0Al0B54h9IlmF3UQGiP7Hb51+bf07DMKq4X5X+HqRja9Npgy3uhuvTw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-dropzone@0.0.24-dev.1':
-    resolution: {integrity: sha512-mFirLCc52PTZX8zFjLbSYNWuEAgbN2xAZww+njW/Fmosv2CDdlXNh2UEDAPempHG0V18nTOg+HE3WppGfvYK/A==}
+  '@mekari/pixel3-dropzone@0.0.25':
+    resolution: {integrity: sha512-eJjPWrbHzpJ5lUvZ0g1v+vhHXastbnsKEsCf5JdepxzMoHZ6omorxHXLXU85j5ESKNY3+FBsGwbvD8QLLlNI4A==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-form-control@0.0.22-dev.1':
-    resolution: {integrity: sha512-doHv5RWAk7FIKECMtC886gq3VKcGUAdMySrilVsOJIKyo1o4VSnKahUU3sFW+4oMZlgYsWz/PKVy+PWDNA4rRw==}
+  '@mekari/pixel3-form-control@0.0.22':
+    resolution: {integrity: sha512-sv+eEwNL1ZZrRgdP7rnxsym5/nmxx/vpJtUTROg+r+HKedhCqESsRnvJ+buUC02h5NrnV8uGr5x5ygKp5rbFNQ==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-icon@0.1.1-dev.1':
-    resolution: {integrity: sha512-bMkrhe3Gm6D3PuQYHZMO8IP6ywTsdVgQ2JQHzS2igm1i9KXFmTH8gU3m+Tq9uQFs6HODFwH88sAUtD2BLcDE4A==}
+  '@mekari/pixel3-icon@0.1.2':
+    resolution: {integrity: sha512-ThXIKAeRrKVu6sCfUhlBvcDbQDiqYeYCirZluhVOTHg/EbHZNqcuguVLF+h8Ix3oW291ekbDd3Kr8zC3zf+QFg==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-image@0.0.25-dev.1':
-    resolution: {integrity: sha512-BNXrqgD8EIXe4N69Wya1jDvl66QI8Gu4Wt0rczAm7B2XWSHpckc3JnTN+XAGmatTNEENE3rWI5vkamNlSqyqMA==}
+  '@mekari/pixel3-image@0.0.26':
+    resolution: {integrity: sha512-RsBoWgKTOaw68XGbW2aYynrfKdigo0rpV2IQQ8lxRYV9D8Ovoc7OoTxLI1bIPyMvZjMmnPF8xFA8HTpg6PFzsA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-input-tag@0.1.7-dev.1':
-    resolution: {integrity: sha512-Q1ndA6JK/gzp1vFMLMUxzWUXs7mlUkOI4viDn/JiDsoaXBcEyIJM6TC2oIAh2TAUL1DoRkGk4R78grQs/OySIw==}
+  '@mekari/pixel3-input-tag@0.1.8':
+    resolution: {integrity: sha512-qVrq4RGI7ytTB8qUDYakucoGTfWpcxe7mYzk9nUnv7mxo9ArU65dKUIbypT0GgQzeLespDTUo0nMkZD4F8k8EA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-input@0.0.25-dev.1':
-    resolution: {integrity: sha512-tVeia6yDNqYYt5kd1FlcUrAUE3IBB9mISQX6OslHotOn923lo60mdq5aEjEJUcwZC8Oc4j0+2F7dB/iiIw5NVw==}
+  '@mekari/pixel3-input@0.0.26':
+    resolution: {integrity: sha512-Gj6PWvhB/T0yasMvNrlEaXXTbf+H7U8Yi+51YwsUHrFNdE9SjwecBAmQiytxkQxjmGViB5TZgFFqd03LxbPXew==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-loader@0.0.21-dev.1':
-    resolution: {integrity: sha512-X5ZxRRFgKLLFBJys1MW5YGygCpk5fiJ/yq/2qcDlyub3C6gjaftMGLcAZdn6EVWhGvEXxSO1n0JEOqNV5l5WDg==}
+  '@mekari/pixel3-loader@0.0.21':
+    resolution: {integrity: sha512-KGJPfO3aMYmfeYjzXYqQBUYWeHeLvJX3Sa27SdthiQLjBm/g+9mpunpfICZLKqhB3rYIcL9hkBJCMvTOLVDtkw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-mask@0.1.4-dev.1':
-    resolution: {integrity: sha512-2DQ4zKynu2xB+ojdTic+jN1Bjke1jUbkhPIVgpnIkADGy9y9Fdwo5YrrV1mQjddR4PWWY2v+9fDoS2N/5y9lsA==}
+  '@mekari/pixel3-mask@0.1.4':
+    resolution: {integrity: sha512-OwKXoU4e+aQ0bRnNv0X7j3GCy9J8WjzsScNChobv8Pnciagvwu8houBheNerEdidrVW9yTy8r/R0qMLsoD2Stw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-modal@0.0.24-dev.1':
-    resolution: {integrity: sha512-tZvjXo+VjdvYrN0TRQdMDF8zHlBmSmWJsvgjOMBDiVffQHfeiMABF18mWEqfqJI2WE69lcmd4l+367IbLM8A9g==}
+  '@mekari/pixel3-modal@0.0.25':
+    resolution: {integrity: sha512-mjUZ2AwDUtB4gaRdCmJe8yYaoc8LKxm/lbHQW1SC4Fd74ldGJC8oBFELLbGtbiJD0R36EM66kJJB4g6QfdDyEw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-popover@0.0.25-dev.1':
-    resolution: {integrity: sha512-6TewPO5zfsw93IpD3druZnghFaY4usEgRoYUNV/YAojs8xlFrc4A+iF6yDG9LijJTrAKhL+zHM5qtWNF09PusQ==}
+  '@mekari/pixel3-popover@0.0.26':
+    resolution: {integrity: sha512-YxopfvR5Y/R4fDkwPI4dzNYrTUtA6vCEA5b9DS8talS7ZD1Bho0xfB20ooLQbKlE5g7VJFBfLo0S4S2bbrgo4Q==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-postcss@1.0.9-dev.1':
-    resolution: {integrity: sha512-sxbi5HwckmmFJ/XJvll+7vK8cq0Fw9PaAyNQiKVl3zYkEW60Mr+yBKZ9Ruw9U/KqBwJoGgEjofuiV+BzXYR3hw==}
+  '@mekari/pixel3-postcss@1.0.11':
+    resolution: {integrity: sha512-HrBs8nDwS3KNw6pUOkT+Lr6tSqnVjW4AfZW9eC/NQ8Qkc4QULlJMdWt7XyLez1s9X1rbrUw+CWYf3RFdZEL/tw==}
 
-  '@mekari/pixel3-progress@0.0.25-dev.1':
-    resolution: {integrity: sha512-cyj+3qcL7VlPcFuW10YqJfPpXINJLbvEKGD99ht6DWGQhXLX5+YBWku+grSGxA6UNBkEkUvm7gbYiex2d401bw==}
+  '@mekari/pixel3-progress@0.0.26':
+    resolution: {integrity: sha512-kdXhJVqYy81oQbzKCc/CG8Ei6DEKptqE/zFmmSN0kumXzOE2xzSCNFAeaKPsuotXE3n2LI6fcYOE/+Ms+x/ktQ==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-radio@0.0.22-dev.1':
-    resolution: {integrity: sha512-F8xcYyHHsemp9FrOjLZWEeAgfErp08cJbYeuDd2Nq9lMSm7EJ/TkgRWrLbweBF9WVwyRImuytJWZoH2ytZ90Ng==}
+  '@mekari/pixel3-radio@0.0.22':
+    resolution: {integrity: sha512-+METCVhGFOAd94XGbgLwBO3DmtSozjLcJGbGIcKfVUX6qH3cbLvJU077zSeXBIgG1EAI56aGrE6tlQC2vgDKiw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-rating@0.0.5-dev.1':
-    resolution: {integrity: sha512-wDgEiTqEnfN7sZWX5FuYZ1Pr423xg1z2igOicjsbm4U83qAoexhwNRVVsASwySLoHrTiWDj2ws2nW90n7yCBlg==}
+  '@mekari/pixel3-rating@0.0.5':
+    resolution: {integrity: sha512-BIbRvyTbR1kWcEjNj+FI+MDGOjBlh9+Q8y4pkrrfzLYoFwgL/tJI17CgQAomhykrIIz4JmhjZSORCxCJGnkGLw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-rich-text-editor@0.0.18-dev.1':
-    resolution: {integrity: sha512-e86LD3ZifjzE4MJ2GY7KZ52q+xStPJz09XxpGGXN6jx8GAq7p7sYIrpwhPj5DWoN7D5Pqn6Al6yB/zJqyhWFVg==}
+  '@mekari/pixel3-rich-text-editor@0.1.1':
+    resolution: {integrity: sha512-8qFXM9r9erw7Us/YrBMC230D4NgggBkUMbfsKGtON6W7300GPm7/ChFr2T7hTR1dx8mLKfXtSvyBivuo2xZTiw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-scrollbar@0.1.6-dev.1':
-    resolution: {integrity: sha512-OF26ICaDyU9HUUWdpdqiiA5j+7YeI1pwj+kWxnHD+NqX5CUc6P1Z6+UClYDysrlF4mfyhyNCNrKCJSv88QI+Pg==}
+  '@mekari/pixel3-scrollbar@0.1.6':
+    resolution: {integrity: sha512-x4+l+CrbitA45qbOoEB/4CRrpRf/SSL3GAZle8cNwqKPidicVZGSLFZyEVRPsqFNT0K1b/nU/DEV4pg0q5ydvw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-segmented-control@0.0.21-dev.1':
-    resolution: {integrity: sha512-aFGZaO29L+c2FPZ7cq8ThccTpdXECEZTpDiF48KnGS+IEuJLV/S8yQFEbOege4ofBxVRxq3mhzpeXDCAN4IaEw==}
+  '@mekari/pixel3-segmented-control@0.0.22':
+    resolution: {integrity: sha512-4gfTtDTD+CA/yMkz40Ef2MjlY0oEma0M0ZQdznb5VDmcIR/r15CiE2CeU5+BltFUvRvQ2rSb03/momP23q+0Ug==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-select@0.0.25-dev.1':
-    resolution: {integrity: sha512-OsU8AQPFjK866LKjyy+zMyfcVniBVwUMY9dJwmLdMUF9CffyGqmYUJKwb8Rdeiiwf6Bsqzpba5SsFCS/5A0R+g==}
+  '@mekari/pixel3-select@0.0.26':
+    resolution: {integrity: sha512-ksf60KlDufE+L3nSUZ8mgZiOzvTGIe3Ib+UguWCPuFYrvFdIy+EtRaOHDlxRKYRjfgDP+CVnWX0jzWc60x4J2g==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-skeleton@0.1.5-dev.1':
-    resolution: {integrity: sha512-JsqAZpQjp2QdcNAG1CnWO5k9X/8NIn/p6BjShSGwkaI0ILIHJLiLaxT3an3C6O9kvHG2ev+naZ0qTkMmMtcNfw==}
+  '@mekari/pixel3-skeleton@0.1.5':
+    resolution: {integrity: sha512-8Ntmq2jSMZw/COeGqoE2mMl9GGP0X5ODpcqkfNhVLR0FAhu/xNs6nuf5xzvRjZNkkACd8DQz3IY94/0BFCiBOw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-slider@0.0.11-dev.1':
-    resolution: {integrity: sha512-HXpasZLcgPTNsubOxVpavCA3Vi2vGLOCJCmrAkI4yAZ+koyMD9E2U9rjplSk+hy1LGVHlbeGEJjQToUgf4qYWA==}
+  '@mekari/pixel3-slider@0.0.11':
+    resolution: {integrity: sha512-cVgh7dlMPC5V45Ys8RMbg6HX8NzXXfu9CZF7Ts85gPqQobPQCYVdRbe94D+jup8IFVOPH0YYn5IEIq1o4zzUUw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-spinner@0.0.25-dev.1':
-    resolution: {integrity: sha512-7LOS7us1SiA1Y9dnHU2IDb0R3DaxstU2wHiX2Be0V2j3vuJ/xNT17JqtHAxFlw2ZH5iSHSP7rOe95ExOJCQNDw==}
+  '@mekari/pixel3-spinner@0.0.26':
+    resolution: {integrity: sha512-eptKhwgy9B9ILk/+GzEmpgsF5B5O8Js5ctcE2UMUa1rwNDO3bUeLNTaOF642goX9yU8eeoODkfCTCGr2nCeWJw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-styled-system@0.2.0-dev.1':
-    resolution: {integrity: sha512-orD9r1zaEhB4R5CndlpZCJDC1mMd6iCwGhFnkP2MIW1cT1vKDeVoHMN7lUiMNVnJLTWS9UbBMtxzCrkKNW9wzw==}
+  '@mekari/pixel3-styled-system@0.2.0':
+    resolution: {integrity: sha512-1WV1ccNp8CrCI3J3v3NFxokYd2ZYrel6JEW1xvMOwKE9EJFGTcwXcqL/PLBhfzE5ThHqwL9N19mCYNS+2hBb3g==}
 
-  '@mekari/pixel3-table@0.0.22-dev.1':
-    resolution: {integrity: sha512-3t+D0zLJluZYHyAcusFGVOR7ksYKonhj8VrYcvphDyFAaiZ0iY9vAvk6awmgO43Fz/eUv4Uv0dJVBXwZuLCAGA==}
+  '@mekari/pixel3-table@0.0.22':
+    resolution: {integrity: sha512-OnIpy2Rfv5okFQFvihArTVpb9Atqngw/TdjqN3YyzfP6ve/zkqEhRpzJH+oW0U9jlKxDvOTpCxuMTN+iG6NZDw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-tabs@0.0.22-dev.1':
-    resolution: {integrity: sha512-9nzxV83iMjT3QifJ417Px2vjgehSBahMG+CITwiDG7lNV8OA462rmLYT1bu7Fdy/14o9q79FfDNYqMIJ3EXRjw==}
+  '@mekari/pixel3-tabs@0.0.22':
+    resolution: {integrity: sha512-lfoZdh/ZQYXV8N3i71u+jROgwXfwO/k6YUv9h5UIzBH+fLiKr0BuZ37c7AVZrrWECryb5tG5Lhzbj+rZPqwMow==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-tag@0.0.25-dev.1':
-    resolution: {integrity: sha512-h7U6Ux5AOoMNlLoWRp6SzcF5b0ZlHjlHuODCLAZxSZjr3WxhHxIyBSaUS1HUk13BB5vr0lHdjq9ewVkeo6idgw==}
+  '@mekari/pixel3-tag@0.0.26':
+    resolution: {integrity: sha512-LUBPxMk1jG4WGjKlt5VRDqedAU9n4Arf5Ko2dGFQ+XMVwxZuh+CQzne58IX4w+pAB6TVJt7o1sfrj+QhzUHvbg==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-text@0.0.22-dev.1':
-    resolution: {integrity: sha512-9AWT+nBoRevq0/RBw9ibu8o3eCe2JK0agp+CjLL4eJhuzGyNFqTLxnrdSzF3vCvJtbjFIaoH7Z+2n17TJFHf5w==}
+  '@mekari/pixel3-text@0.0.22':
+    resolution: {integrity: sha512-W8zSOVxRsQBcpDwKDUKWhMO8+22BVWkq2GoGO3WdAlG36lsJaWGyp8PNf4r313VORMKuvJVeQl9Q8fjDCg3uxg==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-textarea@0.0.25-dev.1':
-    resolution: {integrity: sha512-ZkxdEg++8AfPo0y4ZtwdAjzmSTka2pUxJas+e58E0UBcTN3dhlhmaEIBD4MMm5hBWdXUD9xHw0MDVgRBpa29Yg==}
+  '@mekari/pixel3-textarea@0.0.26':
+    resolution: {integrity: sha512-bP4RTmh1Hc4ch6UKj879iB5KoEpWg5VqWWLLYc5sPD+RByOS8EnrlyFbMUJyaUewy7q9SyjEgTaN3da+s8/UPw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-textlink@0.1.8-dev.1':
-    resolution: {integrity: sha512-KDEMfx6OlsGmtaB0RwpiRd3AHO+VtZAmV4qzdwm4MxLygWwy2XHz+dykxOAbaDjqH9Sg5jMkVGDWYO63D2pMhA==}
+  '@mekari/pixel3-textlink@0.1.9':
+    resolution: {integrity: sha512-KjU5jS52N65lQg1uqgsg5KA8NJo3QR2Jo5pKRQXabhlxjXVI5lxmZDWEMIBrakoYEu2g9iwUkQDp6fVbnBLytQ==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-theme@0.5.0-dev.1':
-    resolution: {integrity: sha512-mzsIwlHszNQpmtvjLPHl6a/tjw9uDxXucFkZJgZndv0FTNcNP0XBHjTqUyhcDLWoqw/4klsZTlbNhe0zAcFbbg==}
+  '@mekari/pixel3-theme@0.6.0':
+    resolution: {integrity: sha512-oMjnLST5QhXmKjjMdyIsxfdEkx3t70TfmipG4lIMUIMCkN8otPL+QLn17MHeHEeHRr8+fkbOLKamQrHrhNM60Q==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-timeline@0.0.24-dev.1':
-    resolution: {integrity: sha512-qYyksz29VbaemjIGsZyaGiQJcbLBtRlkGUc++EOUuP6vIBjSApZu0IqDxOTMD91nZC6tz0HTaICZilKUkOxQmQ==}
+  '@mekari/pixel3-timeline@0.0.25':
+    resolution: {integrity: sha512-KE5EnR5RAECWD5dTUSEgO8xRCrr88TYYguaxz9rJiM/zrqYY1RTNTg71yBHzVMhEA23mJIcCKAuzLrb44BFylg==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-toast@0.0.21-dev.1':
-    resolution: {integrity: sha512-A45WUJPnLfL4Q4TyM/i/NWZJyVa0Ojy+YOIr002HAlHevsgldC+8j9pcJEsz/kbOiOJHpFyakksHpLVQEe68kA==}
+  '@mekari/pixel3-toast@0.0.22':
+    resolution: {integrity: sha512-OYb9c2Ei0anhTnn6WBSoEYQ64Hegua+x691NI1a4H57oSL6u8136GFuWYv0jdb4C+98r7/ok2pQ01GceKMd4JQ==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-toggle@0.0.25-dev.1':
-    resolution: {integrity: sha512-2dCHX+v748eDynz3gh+Xr3dvO9xmWlkduWOuN87ltL+soB9NihQF1jlwl/M5MWDyQCftPpb5nzW9ICoc88HkEw==}
+  '@mekari/pixel3-toggle@0.0.26':
+    resolution: {integrity: sha512-KR/SF+CLUv76/y38IOtC/NrJ0FGEVGkgwPunD524Com1EuM1gn+C6EqzI9NF2bFfD5YXcymYqteOxYJRGVWPxA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-tooltip@0.0.22-dev.1':
-    resolution: {integrity: sha512-sGibQmyYeRzpD/ku8Z8Ycs5PogI2O/P/zPZ3hzrwqVTKa30uEyoGk9uu5Poe5FL2tIAt28WzQMC7yNDuUjbyiw==}
+  '@mekari/pixel3-tooltip@0.0.22':
+    resolution: {integrity: sha512-46xtYSSR5c69N0D0WxJCm6GUu9aPo57PEXPwPDI0oTUZDwxREOyBBLQLjup0GSUtl/aLSjdWuRxKd0gMfLaNUw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-tour@0.0.9-dev.1':
-    resolution: {integrity: sha512-ptgjXN8leJ/2RdSn2RVEJR1fvd630gdYBZAWM0IC/nPCeOqoU4yVuftz2zhx5xrvJmSUhbWE/hi8AGWmiaIJBg==}
+  '@mekari/pixel3-tour@0.0.9':
+    resolution: {integrity: sha512-Ihb8cikHhJOuY2+6nDNSsXW3xbA3XzneB2mFTAAVWWc0w2thG7qkNaD5eyB875WH32MmnCGtHGdXEZNJyOkuLw==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-transition@0.0.24-dev.1':
-    resolution: {integrity: sha512-48p6PihDmeLfq/CSpRwGrZ+VJya+MMIFFZUjldNrnkwKXHnS3keBrHK5TGHxOqFQWBiFJ9Nl+JdA69y8PQk0aw==}
+  '@mekari/pixel3-transition@0.0.25':
+    resolution: {integrity: sha512-aVIci68gjf3PJ1psnIoU3IYOTtLQSnagO4RUjnrvql64VwAUZOZSCTuiDK53RiBH0Oby9Qwz9GcOWxWHCjv/JA==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-upload@0.0.24-dev.1':
-    resolution: {integrity: sha512-xe98CQQwxyvDIzRGrhuXJ9R0Zj6Ob7hfZpTxKCK5hmjOg9Q6x6+D1Azh2jfJJSWbbAS7wlPr5CfA57ZuyiYZTg==}
+  '@mekari/pixel3-upload@0.0.25':
+    resolution: {integrity: sha512-kF0DkhwjeKValR01cxIwNMbTeh9+4X7SQEvo3nHSnL+RKNCh6Fe8ZFoAMH6rLEUDS6rwjMA7toB1NghLgpaWtQ==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3-utils@0.1.0-dev.1':
-    resolution: {integrity: sha512-NT25GOZmqTfx2vOglTSl//f+nEOurJEOskRFWp8Ks0oPv3NwBrZZNqd8LIasfZpLpjEgAnWGx1ZOx8rBSxcEJQ==}
+  '@mekari/pixel3-utils@0.1.0':
+    resolution: {integrity: sha512-NsebuiB03hBiT2C6ww8QuMsNpr48XoP7O2GnJEKS2LYJkB1Rfj8PpdMbIEwbO1CDYLjhap9IiOJa9Cc4+VNEgQ==}
     peerDependencies:
       vue: ^3.4.9
 
-  '@mekari/pixel3@1.0.9-dev.1':
-    resolution: {integrity: sha512-tR2UVdUmZP3w32hkYBTkFWc6ANGk8XksCqvDUYRc3+ykP/pwKoJaEqU2v45/ENR20iZdnBcX00juO9I9aCgkUA==}
+  '@mekari/pixel3@1.0.11':
+    resolution: {integrity: sha512-REOwsDo5IPkEGfvGcXOA7vllg4punL/MIcV/is7yuvMHe/+szPs2aJI8Lnabil/o5A008wG7IY/z73FdPBmjww==}
     peerDependencies:
-      '@mekari/pixel3-postcss': 1.0.9-dev.1
+      '@mekari/pixel3-postcss': 1.0.11
       vue: ^3.4.9
-
-  '@modelcontextprotocol/sdk@1.25.1':
-    resolution: {integrity: sha512-yO28oVFFC7EBoiKdAn+VqRm+plcfv4v0xp6osG/VsCB0NlPZWi87ajbCZZ8f/RvOFLEu7//rSRmuZZ7lMoe3gQ==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@cfworker/json-schema': ^4.1.1
-      zod: ^3.25 || ^4.0
-    peerDependenciesMeta:
-      '@cfworker/json-schema':
-        optional: true
 
   '@modelcontextprotocol/sdk@1.29.0':
     resolution: {integrity: sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDqRKOXgHNn867PVGCyTdzqpz0izu5ZjQ==}
@@ -1796,6 +1777,12 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
+  '@tiptap/extension-character-count@2.7.4':
+    resolution: {integrity: sha512-maVceKPXqapIvuly4WfCYHnlb4nfRJn4XJ/26J7kXHLHm3K4MgFkM9yX9ozICHvcld50OPBoL4M4nBeB+XKf2w==}
+    peerDependencies:
+      '@tiptap/core': ^2.7.0
+      '@tiptap/pm': ^2.7.0
+
   '@tiptap/extension-code-block@2.7.4':
     resolution: {integrity: sha512-jRKVAEdy3G0SMphWXCTk9SnMuTmJE6blXglU66H89j9R+hG+G0dHfOWhlubhUy6nI2BLy8jJ/isnOzg97iZuQw==}
     peerDependencies:
@@ -1884,6 +1871,13 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
+  '@tiptap/extension-mention@2.7.4':
+    resolution: {integrity: sha512-nfyoFpXOH4HhRn6nLTKqzKfz9mJ+cvKrgwb2YrW96YjdXKtZGMr+5f6zWXtGvmFl1wuNZZ2iJwkDGnkgcqJc8g==}
+    peerDependencies:
+      '@tiptap/core': ^2.7.0
+      '@tiptap/pm': ^2.7.0
+      '@tiptap/suggestion': ^2.7.0
+
   '@tiptap/extension-ordered-list@2.7.4':
     resolution: {integrity: sha512-Y7fnw3lTyOd1h6t5hKSkYqbJXteafIviRdmrQ/ERRayojV934DjRPBeMQnYcArE6nI178/wLI9YMt1HSMJklRw==}
     peerDependencies:
@@ -1930,6 +1924,12 @@ packages:
 
   '@tiptap/starter-kit@2.7.4':
     resolution: {integrity: sha512-ALOphzdSZ+ZgOllc0gKxn7iDQ3c3BEBJzc5dQE1pJMeDHrGu/fAGXtffJOyJsVoBGTB14TXK6decMNUUwBApiA==}
+
+  '@tiptap/suggestion@2.7.4':
+    resolution: {integrity: sha512-5D6SSERsBTkSe7HiWIJm+Pd207r97dAOX/8xMPz0sgeBd7OIb2OV+qNYLCUA+h1JWrrh9cxzYSNHzSuCB44szA==}
+    peerDependencies:
+      '@tiptap/core': ^2.7.0
+      '@tiptap/pm': ^2.7.0
 
   '@tiptap/vue-3@2.7.4':
     resolution: {integrity: sha512-Z75XzP7J3yFAB9qNvso8cX/f3R2PjKxGGk53RR2dhUT+Bsa7K5U8k6QB+ANl2RY+1t/p/LkQvaYLe6CBx9t1Ug==}
@@ -2968,12 +2968,6 @@ packages:
   expect-type@1.3.0:
     resolution: {integrity: sha512-knvyeauYhqjOYvQ66MznSMs83wmHrCycNEN6Ao+2AeYEfxUIkuiVxdEa1qlGEPK+We3n0THiDciYSsCcgW/DoA==}
     engines: {node: '>=12.0.0'}
-
-  express-rate-limit@7.5.1:
-    resolution: {integrity: sha512-7iN8iPMDzOMHPUYllBEsQdWVB6fPDMPqwjBaFrgr4Jgr/+okjvzAy+UHlYYL/Vs0OsOrMkwS6PJDkFlJwoxUnw==}
-    engines: {node: '>= 16'}
-    peerDependencies:
-      express: '>= 4.11'
 
   express-rate-limit@8.4.1:
     resolution: {integrity: sha512-NGVYwQSAyEQgzxX1iCM978PP9AdO/hW93gMcF6ZwQCm+rFvLsBH6w4xcXWTcliS8La5EPRN3p9wzItqBwJrfNw==}
@@ -5290,11 +5284,6 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod-to-json-schema@3.25.0:
-    resolution: {integrity: sha512-HvWtU2UG41LALjajJrML6uQejQhNJx+JBO9IflpSja4R03iNWfKXrj6W2h7ljuLyc1nKS+9yDyL/9tD1U/yBnQ==}
-    peerDependencies:
-      zod: ^3.25 || ^4
-
   zod-to-json-schema@3.25.2:
     resolution: {integrity: sha512-O/PgfnpT1xKSDeQYSCfRI5Gy3hPf91mKVDuYLUHZJMiDFptvP41MSnWofm8dnCm0256ZNfZIM7DSzuSMAFnjHA==}
     peerDependencies:
@@ -5830,10 +5819,6 @@ snapshots:
     dependencies:
       hono: 4.12.15
 
-  '@hono/node-server@1.19.7(hono@4.12.15)':
-    dependencies:
-      hono: 4.12.15
-
   '@ioredis/commands@1.4.0': {}
 
   '@isaacs/balanced-match@4.0.1': {}
@@ -5904,12 +5889,12 @@ snapshots:
       - encoding
       - supports-color
 
-  '@mekari/pixel3-accordion@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-accordion@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-collapse': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-collapse': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -5925,13 +5910,13 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-airene-button@0.1.8-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-airene-button@0.1.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -5947,13 +5932,13 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-airene-chat-bubble@0.1.7-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-airene-chat-bubble@0.1.8(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-avatar': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-avatar': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -5969,11 +5954,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-airene-chat-input@0.0.8-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-airene-chat-input@0.0.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -5989,15 +5974,15 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-autocomplete@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-autocomplete@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-input': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-popover': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-input': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-popover': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6013,11 +5998,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-avatar@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-avatar@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6033,10 +6018,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-badge@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-badge@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6052,11 +6037,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-banner@0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-banner@0.1.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6072,13 +6057,13 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-broadcast@0.0.19-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-broadcast@0.0.20(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6094,12 +6079,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-button@0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-button@0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6115,11 +6100,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-carousel@0.0.17-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-carousel@0.0.18(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6135,11 +6120,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-chart@0.0.14-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-chart@0.0.14(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       chart.js: 4.5.1
       chartjs-plugin-datalabels: 2.2.0(chart.js@4.5.1)
       color: 4.2.3
@@ -6159,12 +6144,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-checkbox@0.0.23-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-checkbox@0.0.23(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6180,12 +6165,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-collapse@0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-collapse@0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-transition': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-transition': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6201,16 +6186,16 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-color-picker@0.1.10-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-color-picker@0.2.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-divider': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-input': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-popover': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-divider': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-input': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-popover': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       clamp: 1.0.1
       lodash.throttle: 4.1.1
       tinycolor2: 1.6.0
@@ -6229,15 +6214,15 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-date-picker@0.1.15-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-date-picker@0.1.17(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-input': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-popover': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-input': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-popover': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       date-fns: 3.6.0
       date-format-parse: 0.2.7
       vue: 3.5.25(typescript@5.8.3)
@@ -6255,11 +6240,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-divider@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-divider@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6275,11 +6260,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-drawer@0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-drawer@0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-modal': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-modal': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       animejs: 3.2.2
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
@@ -6296,14 +6281,14 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-dropzone@0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-dropzone@0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-tooltip': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-tooltip': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6319,10 +6304,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-form-control@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-form-control@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6338,10 +6323,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-icon@0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-icon@0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6357,11 +6342,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-image@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-image@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6377,17 +6362,17 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-input-tag@0.1.7-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-input-tag@0.1.8(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-popover': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-tag': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-tooltip': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-popover': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-tag': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-tooltip': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6403,12 +6388,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-input@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-input@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6424,10 +6409,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-loader@0.0.21-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-loader@0.0.21(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6443,10 +6428,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-mask@0.1.4-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-mask@0.1.4(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6462,11 +6447,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-modal@0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-modal@0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       animejs: 3.2.2
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
@@ -6483,12 +6468,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-popover@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-popover@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
       '@floating-ui/vue': 1.1.9(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6504,7 +6489,7 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-postcss@1.0.9-dev.1(typescript@5.8.3)':
+  '@mekari/pixel3-postcss@1.0.11(typescript@5.8.3)':
     dependencies:
       '@pandacss/dev': 1.3.0(typescript@5.8.3)
       '@pandacss/node': 1.3.0(typescript@5.8.3)
@@ -6514,12 +6499,12 @@ snapshots:
       - jsdom
       - typescript
 
-  '@mekari/pixel3-progress@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-progress@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6535,12 +6520,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-radio@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-radio@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6556,11 +6541,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-rating@0.0.5-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-rating@0.0.5(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6576,22 +6561,25 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-rich-text-editor@0.0.18-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-rich-text-editor@0.1.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-color-picker': 0.1.10-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-divider': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-input': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-popover': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-avatar': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-color-picker': 0.2.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-divider': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-input': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-popover': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-scrollbar': 0.1.6(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       '@popperjs/core': 2.11.8
       '@tiptap/core': 2.7.4(@tiptap/pm@2.7.4)
       '@tiptap/extension-blockquote': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-bold': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-bullet-list': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
+      '@tiptap/extension-character-count': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)
       '@tiptap/extension-code': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-code-block': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)
       '@tiptap/extension-color': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/extension-text-style@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4)))
@@ -6606,6 +6594,7 @@ snapshots:
       '@tiptap/extension-link': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)
       '@tiptap/extension-list-item': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-list-keymap': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
+      '@tiptap/extension-mention': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)(@tiptap/suggestion@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4))
       '@tiptap/extension-ordered-list': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-paragraph': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-placeholder': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)
@@ -6616,6 +6605,7 @@ snapshots:
       '@tiptap/extension-underline': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/pm': 2.7.4
       '@tiptap/starter-kit': 2.7.4
+      '@tiptap/suggestion': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)
       '@tiptap/vue-3': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
@@ -6632,10 +6622,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-scrollbar@0.1.6-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-scrollbar@0.1.6(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       lodash-es: 4.17.21
       overlayscrollbars: 2.11.1
       overlayscrollbars-vue: 0.5.9(overlayscrollbars@2.11.1)(vue@3.5.25(typescript@5.8.3))
@@ -6654,11 +6644,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-segmented-control@0.0.21-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-segmented-control@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6674,13 +6664,13 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-select@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-select@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6696,10 +6686,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-skeleton@0.1.5-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-skeleton@0.1.5(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6715,11 +6705,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-slider@0.0.11-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-slider@0.0.11(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6735,11 +6725,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-spinner@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-spinner@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6755,12 +6745,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-styled-system@0.2.0-dev.1': {}
+  '@mekari/pixel3-styled-system@0.2.0': {}
 
-  '@mekari/pixel3-table@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-table@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6776,10 +6766,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-tabs@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-tabs@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6795,11 +6785,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-tag@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-tag@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6815,10 +6805,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-text@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-text@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6834,12 +6824,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-textarea@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-textarea@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-input': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-input': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6855,12 +6845,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-textlink@0.1.8-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-textlink@0.1.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6876,7 +6866,7 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-theme@0.5.0-dev.1(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-theme@0.6.0(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
       '@pandacss/dev': 1.3.0(typescript@5.8.3)
       vue: 3.5.25(typescript@5.8.3)
@@ -6884,12 +6874,12 @@ snapshots:
       - jsdom
       - typescript
 
-  '@mekari/pixel3-timeline@0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-timeline@0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-transition': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-transition': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6905,11 +6895,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-toast@0.0.21-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-toast@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
       vue-sonner: 1.3.2
     transitivePeerDependencies:
@@ -6926,12 +6916,12 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-toggle@0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-toggle@0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6947,11 +6937,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-tooltip@0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-tooltip@0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
       '@floating-ui/vue': 1.1.9(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6967,10 +6957,10 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-tour@0.0.9-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-tour@0.0.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       '@popperjs/core': 2.11.8
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
@@ -6987,11 +6977,11 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-transition@0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-transition@0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       animejs: 3.2.2
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
@@ -7008,14 +6998,14 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-upload@0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-upload@0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -7031,7 +7021,7 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3-utils@0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3-utils@0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
       '@vueuse/core': 10.6.1(vue@3.5.25(typescript@5.8.3))
       '@vueuse/integrations': 10.11.1(focus-trap@7.6.6)(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
@@ -7051,63 +7041,63 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@mekari/pixel3@1.0.9-dev.1(@mekari/pixel3-postcss@1.0.9-dev.1(typescript@5.8.3))(fuse.js@7.4.0-beta.4)(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))':
+  '@mekari/pixel3@1.0.11(@mekari/pixel3-postcss@1.0.11(typescript@5.8.3))(fuse.js@7.4.0-beta.4)(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))':
     dependencies:
-      '@mekari/pixel3-accordion': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-airene-button': 0.1.8-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-airene-chat-bubble': 0.1.7-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-airene-chat-input': 0.0.8-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-autocomplete': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-avatar': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-badge': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-banner': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-broadcast': 0.0.19-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-button': 0.2.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-carousel': 0.0.17-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-chart': 0.0.14-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-checkbox': 0.0.23-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-collapse': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-color-picker': 0.1.10-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-date-picker': 0.1.15-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-divider': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-drawer': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-dropzone': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-form-control': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-icon': 0.1.1-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-image': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-input': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-input-tag': 0.1.7-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-loader': 0.0.21-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-mask': 0.1.4-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-modal': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-popover': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-postcss': 1.0.9-dev.1(typescript@5.8.3)
-      '@mekari/pixel3-progress': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-radio': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-rating': 0.0.5-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-rich-text-editor': 0.0.18-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-scrollbar': 0.1.6-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-segmented-control': 0.0.21-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-select': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-skeleton': 0.1.5-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-slider': 0.0.11-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-spinner': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-styled-system': 0.2.0-dev.1
-      '@mekari/pixel3-table': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-tabs': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-tag': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-text': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-textarea': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-textlink': 0.1.8-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-theme': 0.5.0-dev.1(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-timeline': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-toast': 0.0.21-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-toggle': 0.0.25-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-tooltip': 0.0.22-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-tour': 0.0.9-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-transition': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-upload': 0.0.24-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
-      '@mekari/pixel3-utils': 0.1.0-dev.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-accordion': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-airene-button': 0.1.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-airene-chat-bubble': 0.1.8(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-airene-chat-input': 0.0.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-autocomplete': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-avatar': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-badge': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-banner': 0.1.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-broadcast': 0.0.20(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-button': 0.2.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-carousel': 0.0.18(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-chart': 0.0.14(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-checkbox': 0.0.23(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-collapse': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-color-picker': 0.2.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-date-picker': 0.1.17(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-divider': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-drawer': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-dropzone': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-form-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-icon': 0.1.2(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-image': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-input': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-input-tag': 0.1.8(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-loader': 0.0.21(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-mask': 0.1.4(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-modal': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-popover': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-postcss': 1.0.11(typescript@5.8.3)
+      '@mekari/pixel3-progress': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-radio': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-rating': 0.0.5(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-rich-text-editor': 0.1.1(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-scrollbar': 0.1.6(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-segmented-control': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-select': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-skeleton': 0.1.5(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-slider': 0.0.11(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-spinner': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-styled-system': 0.2.0
+      '@mekari/pixel3-table': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-tabs': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-tag': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-text': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-textarea': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-textlink': 0.1.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-theme': 0.6.0(typescript@5.8.3)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-timeline': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-toast': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-toggle': 0.0.26(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-tooltip': 0.0.22(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-tour': 0.0.9(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-transition': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-upload': 0.0.25(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
+      '@mekari/pixel3-utils': 0.1.0(fuse.js@7.4.0-beta.4)(vue@3.5.25(typescript@5.8.3))
       vue: 3.5.25(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -7124,28 +7114,6 @@ snapshots:
       - sortablejs
       - typescript
       - universal-cookie
-
-  '@modelcontextprotocol/sdk@1.25.1(hono@4.12.15)(zod@4.1.13)':
-    dependencies:
-      '@hono/node-server': 1.19.7(hono@4.12.15)
-      ajv: 8.17.1
-      ajv-formats: 3.0.1(ajv@8.17.1)
-      content-type: 1.0.5
-      cors: 2.8.5
-      cross-spawn: 7.0.6
-      eventsource: 3.0.7
-      eventsource-parser: 3.0.6
-      express: 5.2.1
-      express-rate-limit: 7.5.1(express@5.2.1)
-      jose: 6.1.3
-      json-schema-typed: 8.0.2
-      pkce-challenge: 5.0.1
-      raw-body: 3.0.2
-      zod: 4.1.13
-      zod-to-json-schema: 3.25.0(zod@4.1.13)
-    transitivePeerDependencies:
-      - hono
-      - supports-color
 
   '@modelcontextprotocol/sdk@1.29.0(zod@4.1.13)':
     dependencies:
@@ -7945,10 +7913,10 @@ snapshots:
       '@rollup/pluginutils': 5.3.0(rollup@4.53.3)
       commondir: 1.0.1
       estree-walker: 2.0.2
-      fdir: 6.5.0(picomatch@4.0.3)
+      fdir: 6.5.0(picomatch@4.0.4)
       is-reference: 1.2.1
       magic-string: 0.30.21
-      picomatch: 4.0.3
+      picomatch: 4.0.4
     optionalDependencies:
       rollup: 4.53.3
 
@@ -7995,7 +7963,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.3
+      picomatch: 4.0.4
     optionalDependencies:
       rollup: 4.53.3
 
@@ -8103,6 +8071,11 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.7.4(@tiptap/pm@2.7.4)
 
+  '@tiptap/extension-character-count@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)':
+    dependencies:
+      '@tiptap/core': 2.7.4(@tiptap/pm@2.7.4)
+      '@tiptap/pm': 2.7.4
+
   '@tiptap/extension-code-block@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)':
     dependencies:
       '@tiptap/core': 2.7.4(@tiptap/pm@2.7.4)
@@ -8176,6 +8149,12 @@ snapshots:
   '@tiptap/extension-list-keymap@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))':
     dependencies:
       '@tiptap/core': 2.7.4(@tiptap/pm@2.7.4)
+
+  '@tiptap/extension-mention@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)(@tiptap/suggestion@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4))':
+    dependencies:
+      '@tiptap/core': 2.7.4(@tiptap/pm@2.7.4)
+      '@tiptap/pm': 2.7.4
+      '@tiptap/suggestion': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)
 
   '@tiptap/extension-ordered-list@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))':
     dependencies:
@@ -8252,6 +8231,11 @@ snapshots:
       '@tiptap/extension-paragraph': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-strike': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
       '@tiptap/extension-text': 2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))
+      '@tiptap/pm': 2.7.4
+
+  '@tiptap/suggestion@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)':
+    dependencies:
+      '@tiptap/core': 2.7.4(@tiptap/pm@2.7.4)
       '@tiptap/pm': 2.7.4
 
   '@tiptap/vue-3@2.7.4(@tiptap/core@2.7.4(@tiptap/pm@2.7.4))(@tiptap/pm@2.7.4)(vue@3.5.25(typescript@5.8.3))':
@@ -8333,7 +8317,7 @@ snapshots:
       glob: 10.5.0
       graceful-fs: 4.2.11
       node-gyp-build: 4.8.4
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       resolve-from: 5.0.0
     transitivePeerDependencies:
       - encoding
@@ -8502,7 +8486,7 @@ snapshots:
       '@vue/compiler-ssr': 3.4.19
       '@vue/shared': 3.4.19
       estree-walker: 2.0.2
-      magic-string: 0.30.17
+      magic-string: 0.30.21
       postcss: 8.5.6
       source-map-js: 1.2.1
 
@@ -8564,7 +8548,7 @@ snapshots:
       alien-signals: 3.1.1
       muggle-string: 0.4.1
       path-browserify: 1.0.1
-      picomatch: 4.0.3
+      picomatch: 4.0.4
     optionalDependencies:
       typescript: 5.8.3
 
@@ -9409,10 +9393,6 @@ snapshots:
 
   expect-type@1.3.0: {}
 
-  express-rate-limit@7.5.1(express@5.2.1):
-    dependencies:
-      express: 5.2.1
-
   express-rate-limit@8.4.1(express@5.2.1):
     dependencies:
       express: 5.2.1
@@ -10193,8 +10173,8 @@ snapshots:
       ofetch: 1.5.1
       ohash: 2.0.11
       pathe: 2.0.3
-      perfect-debounce: 2.0.0
-      pkg-types: 2.3.0
+      perfect-debounce: 2.1.0
+      pkg-types: 2.3.1
       pretty-bytes: 7.1.0
       radix3: 1.1.2
       rollup: 4.53.3
@@ -10631,7 +10611,7 @@ snapshots:
 
   pkg-types@2.2.0:
     dependencies:
-      confbox: 0.2.2
+      confbox: 0.2.4
       exsolve: 1.0.8
       pathe: 2.0.3
 
@@ -11108,7 +11088,7 @@ snapshots:
   rollup-plugin-visualizer@6.0.5(rollup@4.53.3):
     dependencies:
       open: 8.4.2
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       source-map: 0.7.6
       yargs: 17.7.2
     optionalDependencies:
@@ -11698,7 +11678,7 @@ snapshots:
       magic-string: 0.30.21
       mlly: 1.8.0
       pathe: 2.0.3
-      pkg-types: 2.3.0
+      pkg-types: 2.3.1
       unplugin: 2.3.11
 
   update-browserslist-db@1.2.2(browserslist@4.23.3):
@@ -11755,7 +11735,7 @@ snapshots:
       chokidar: 4.0.3
       npm-run-path: 6.0.0
       picocolors: 1.1.1
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       tiny-invariant: 1.3.3
       tinyglobby: 0.2.15
       vite: 7.2.7(@types/node@25.0.2)(jiti@2.6.1)(lightningcss@1.25.1)(terser@5.44.1)(yaml@2.8.2)
@@ -11800,8 +11780,8 @@ snapshots:
   vite@7.2.7(@types/node@25.0.2)(jiti@2.6.1)(lightningcss@1.25.1)(terser@5.44.1)(yaml@2.8.2):
     dependencies:
       esbuild: 0.25.12
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
       postcss: 8.5.6
       rollup: 4.53.3
       tinyglobby: 0.2.15
@@ -11954,10 +11934,6 @@ snapshots:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.7.0
-
-  zod-to-json-schema@3.25.0(zod@4.1.13):
-    dependencies:
-      zod: 4.1.13
 
   zod-to-json-schema@3.25.2(zod@4.1.13):
     dependencies:

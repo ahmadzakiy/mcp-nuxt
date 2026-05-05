@@ -19,6 +19,7 @@ This project is a Nuxt 4 app that serves:
 - TypeScript
 - `@mekari/pixel3` + `@mekari/pixel3-postcss`
 - `@nuxtjs/mcp-toolkit`
+- `ai` + `@ai-sdk/mcp` (built-in HTTP transport)
 - pnpm
 - Netlify Nitro preset
 
@@ -55,14 +56,16 @@ Configured in `nuxt.config.ts`:
 
 - `get-component`
 - `get-docs`
+- `get-icon-name`
 - `get-pattern`
 - `get-template`
 - `hello-pixel`
 
 ### MCP Resources
 
-- `component`
+- `components`
 - `docs`
+- `icons`
 - `patterns`
 - `templates`
 - `token21`
@@ -128,10 +131,13 @@ mcp-nuxt/
 
 `nuxt.config.ts` includes:
 
-- `AI_GATEWAY_API_KEY` (server-only)
+- `aiGatewayApiKey` — set via `NUXT_AI_GATEWAY_API_KEY` (server-only, required on Netlify)
+- `aiGatewayModel` — set via `NUXT_AI_GATEWAY_MODEL`, defaults to `deepseek/deepseek-v4-flash`
 - `pixelMcpBaseUrl`
   - development: `http://localhost:3200`
   - production: `https://pixel-mcp.netlify.app`
+
+> Local `.env` uses `AI_GATEWAY_API_KEY` / `AI_GATEWAY_MODEL` for `evalite` tests only. Netlify requires the `NUXT_` prefixed variants.
 
 ## VS Code MCP Setup
 

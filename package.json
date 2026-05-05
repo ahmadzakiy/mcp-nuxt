@@ -17,9 +17,8 @@
   },
   "dependencies": {
     "@ai-sdk/mcp": "^1.0.39",
-    "@mekari/pixel3": "1.0.9-dev.1",
-    "@mekari/pixel3-postcss": "1.0.9-dev.1",
-    "@modelcontextprotocol/sdk": "^1.25.1",
+    "@mekari/pixel3": "1.0.11",
+    "@mekari/pixel3-postcss": "1.0.11",
     "@nuxtjs/mcp-toolkit": "^0.15.0",
     "ai": "^6.0.175",
     "fuse.js": "7.4.0-beta.4",

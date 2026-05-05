@@ -2,7 +2,7 @@
 
 This document gives coding agents and contributors a quick orientation to the `mcp-nuxt` workspace.
 
-> For implementation playbooks, use the skill docs in `.agents/skills/` and `public/skills/`.
+> For implementation playbooks, use the skill docs in `.agents/skills`.
 
 ---
 
@@ -22,6 +22,7 @@ The project provides:
 - **Styling System**: `@mekari/pixel3` + `@mekari/pixel3-postcss`
 - **Language**: TypeScript
 - **MCP Integration**: `@nuxtjs/mcp-toolkit`
+- **AI SDK**: `ai` + `@ai-sdk/mcp` (built-in HTTP transport, no direct MCP SDK dependency)
 - **Package Manager**: pnpm
 - **Deployment Target**: Netlify (Nitro preset)
 
@@ -50,6 +51,7 @@ mcp-nuxt/
 │   └── plugins/pixel.client.ts
 │
 ├── docs/
+│   ├── announcement.md
 │   ├── figma-to-pixel-instructions.md
 │   ├── mcp-toolkit-improvement.md
 │   └── skills-vs-mcp-prompts.md
@@ -65,6 +67,8 @@ mcp-nuxt/
 │   ├── robots.txt
 │   └── skills/pixel/
 │       ├── SKILL.md
+│       ├── agents/
+│       │   └── openai.yaml
 │       └── references/
 │
 ├── server/
@@ -106,7 +110,7 @@ mcp-nuxt/
 - `/chat` — Chat interface
 - `/docs` — Docs page
 - `/skills` — Skill info and download page
-- `/result/test-0` to `/result/test-3` — Implementation examples
+- `/result/test-0` — Implementation examples
 
 ## API Endpoints
 
@@ -166,6 +170,8 @@ pnpm eval:ui
 - Nitro preset: `netlify`
 - MCP route: `/mcp`
 - Dev server port: `3200`
+- Chat API uses `@ai-sdk/mcp` built-in HTTP transport (`{ type: "http", url }`) — no direct `@modelcontextprotocol/sdk` import
+- Netlify env vars required: `NUXT_AI_GATEWAY_API_KEY`, optionally `NUXT_AI_GATEWAY_MODEL`
 
 ## Skill References
 

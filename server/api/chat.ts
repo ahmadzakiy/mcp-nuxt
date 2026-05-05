@@ -26,22 +26,27 @@ export default defineLazyEventHandler(async () => {
       transport: { type: "http", url: `${mcpURL}/mcp` }
     });
 
+    let tools;
     try {
-      const tools = await mcpClient.tools();
-
-      const result = streamText({
-        model: gateway(modelId),
-        tools,
-        stopWhen: stepCountIs(5),
-        onStepFinish: async ({ toolResults }) => {
-          console.log(`STEP RESULTS: ${JSON.stringify(toolResults, null, 2)}`);
-        },
-        messages: await convertToModelMessages(messages)
-      });
-
-      return result.toUIMessageStreamResponse();
-    } finally {
+      tools = await mcpClient.tools();
+    } catch (err) {
       await mcpClient.close();
+      throw err;
     }
+
+    const result = streamText({
+      model: gateway(modelId),
+      tools,
+      stopWhen: stepCountIs(5),
+      onStepFinish: async ({ toolResults }) => {
+        console.log(`STEP RESULTS: ${JSON.stringify(toolResults, null, 2)}`);
+      },
+      onFinish: async () => {
+        await mcpClient.close();
+      },
+      messages: await convertToModelMessages(messages)
+    });
+
+    return result.toUIMessageStreamResponse();
   });
 });

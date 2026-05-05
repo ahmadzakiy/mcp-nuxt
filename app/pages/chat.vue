@@ -60,9 +60,14 @@
                 />
                 <div
                   v-else-if="part.type === 'dynamic-tool'"
-                  style="opacity: 0.6; font-size: 0.85em; padding: 4px 0;"
+                  style="opacity: 0.6; font-size: 0.85em; padding: 4px 0"
                 >
-                  <span v-if="part.state === 'input-available' || part.state === 'input-streaming'">
+                  <span
+                    v-if="
+                      part.state === 'input-available' ||
+                      part.state === 'input-streaming'
+                    "
+                  >
                     ⏳ Calling {{ part.toolName }}…
                   </span>
                   <span v-else-if="part.state === 'output-available'">
@@ -91,7 +96,10 @@
 
 <script setup lang="ts">
 import { Chat } from "@ai-sdk/vue";
-import { DefaultChatTransport, lastAssistantMessageIsCompleteWithToolCalls } from "ai";
+import {
+  DefaultChatTransport,
+  lastAssistantMessageIsCompleteWithToolCalls
+} from "ai";
 import {
   MpAireneChatInput,
   MpAireneChatBubble,

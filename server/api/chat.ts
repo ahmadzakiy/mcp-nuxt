@@ -8,7 +8,13 @@ import {
 import { createMCPClient, MCPClient } from "@ai-sdk/mcp";
 
 /** Convert MCP tool output to plain text for maximum model compatibility */
-function mcpOutputToText({ output }: { toolCallId: string; input: unknown; output: unknown }) {
+function mcpOutputToText({
+  output
+}: {
+  toolCallId: string;
+  input: unknown;
+  output: unknown;
+}) {
   const result = output as { content?: Array<{ type: string; text?: string }> };
   if (result?.content && Array.isArray(result.content)) {
     const text = result.content
@@ -61,7 +67,9 @@ export default defineLazyEventHandler(async () => {
     let convertedMessages;
     try {
       convertedMessages = await convertToModelMessages(messages);
-      console.log(`[chat] convertedMessages count: ${convertedMessages.length}`);
+      console.log(
+        `[chat] convertedMessages count: ${convertedMessages.length}`
+      );
     } catch (err) {
       console.error("[chat] convertToModelMessages error:", err);
       await mcpClient.close();
@@ -74,10 +82,14 @@ export default defineLazyEventHandler(async () => {
       // Default stopWhen is stepCountIs(1): stops after step 1 (tool call + execution).
       // The client re-submits automatically via sendAutomaticallyWhen in Chat constructor.
       onStepFinish: async ({ toolCalls, toolResults, text, finishReason }) => {
-        console.log(`[chat] onStepFinish: finishReason=${finishReason}, toolCalls=${toolCalls?.length ?? 0}, toolResults=${toolResults?.length ?? 0}, textLen=${text?.length ?? 0}`);
+        console.log(
+          `[chat] onStepFinish: finishReason=${finishReason}, toolCalls=${toolCalls?.length ?? 0}, toolResults=${toolResults?.length ?? 0}, textLen=${text?.length ?? 0}`
+        );
       },
       onFinish: async ({ finishReason, steps }) => {
-        console.log(`[chat] onFinish: finishReason=${finishReason}, steps=${steps.length}`);
+        console.log(
+          `[chat] onFinish: finishReason=${finishReason}, steps=${steps.length}`
+        );
         await mcpClient.close();
       },
       onError: async ({ error }) => {

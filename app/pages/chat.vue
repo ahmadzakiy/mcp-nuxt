@@ -58,6 +58,20 @@
                   v-if="part.type === 'text'"
                   :text="part.text"
                 />
+                <div
+                  v-else-if="part.type === 'dynamic-tool'"
+                  style="opacity: 0.6; font-size: 0.85em; padding: 4px 0;"
+                >
+                  <span v-if="part.state === 'input-available' || part.state === 'input-streaming'">
+                    ⏳ Calling {{ part.toolName }}…
+                  </span>
+                  <span v-else-if="part.state === 'output-available'">
+                    ✓ {{ part.toolName }} returned results
+                  </span>
+                  <span v-else-if="part.state === 'output-error'">
+                    ✗ {{ part.toolName }} failed
+                  </span>
+                </div>
               </div>
             </template>
           </MpAireneChatBubble>
@@ -77,6 +91,7 @@
 
 <script setup lang="ts">
 import { Chat } from "@ai-sdk/vue";
+import { DefaultChatTransport, lastAssistantMessageIsCompleteWithToolCalls } from "ai";
 import {
   MpAireneChatInput,
   MpAireneChatBubble,
@@ -87,7 +102,10 @@ import {
 import MarkdownRenderer from "~/components/MarkdownRenderer.vue";
 
 const input = ref("");
-const chat = new Chat({});
+const chat = new Chat({
+  transport: new DefaultChatTransport({ api: "/api/chat" }),
+  sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls
+});
 
 const handleSendMessage = () => {
   if (input.value.trim()) {

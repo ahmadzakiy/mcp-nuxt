@@ -1,36 +1,64 @@
 <template>
-  <div v-html="renderedHtml" class="markdown-content"></div>
+  <Comark
+    class="markdown-content"
+    :markdown="text"
+    :streaming="isStreaming"
+    :caret="isStreaming"
+    :components="components"
+  />
 </template>
 
 <script setup lang="ts">
-  import { marked } from 'marked'
+import PixelChart from "~/components/chat/PixelChart.vue";
 
-  const props = defineProps<{
-    text: string
-  }>()
+defineProps<{
+  text: string;
+  isStreaming?: boolean;
+}>();
 
-  const renderedHtml = computed(() => {
-    return marked.parse(props.text, {
-      breaks: true, // Convert line breaks to <br>
-      gfm: true // GitHub Flavored Markdown
-    })
-  })
+const components = {
+  "pixel-chart": PixelChart
+};
 </script>
 
 <style scoped>
-  .markdown-content {
-    /* Add any custom styling for markdown content */
-    font-size: inherit;
-  }
-  .markdown-content strong {
-    font-weight: bold;
-  }
-  .markdown-content em {
-    font-style: italic;
-  }
-  .markdown-content code {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-  }
+.markdown-content {
+  font-size: inherit;
+  line-height: 1.6;
+}
+
+.markdown-content :deep(p) {
+  margin: 0 0 0.75rem;
+}
+
+.markdown-content :deep(p:last-child) {
+  margin-bottom: 0;
+}
+
+.markdown-content :deep(strong) {
+  font-weight: 600;
+}
+
+.markdown-content :deep(em) {
+  font-style: italic;
+}
+
+.markdown-content :deep(code) {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  padding: 0.125rem 0.25rem;
+}
+
+.markdown-content :deep(pre) {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  margin: 0.75rem 0;
+  overflow: auto;
+  padding: 0.75rem;
+}
+
+.markdown-content :deep(pre code) {
+  background: transparent;
+  padding: 0;
+}
 </style>

@@ -7,12 +7,13 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     aiGatewayApiKey: process.env.AI_GATEWAY_API_KEY || "",
+    aiGatewayBaseUrl: process.env.AI_GATEWAY_BASE_URL || "",
     aiGatewayModel:
       process.env.AI_GATEWAY_MODEL || "deepseek/deepseek-v4-flash",
     pixelMcpBaseUrl:
       process.env.PIXEL_MCP_BASE_URL || "https://pixel-mcp.netlify.app"
   },
-  modules: ["@nuxtjs/mcp-toolkit"],
+  modules: ["@comark/nuxt", "@nuxtjs/mcp-toolkit"],
   css: ["~/assets/css/pixel.css"],
   postcss: {
     plugins: {

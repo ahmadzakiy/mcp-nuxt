@@ -7,6 +7,32 @@ import {
 } from "ai";
 import { createMCPClient, MCPClient } from "@ai-sdk/mcp";
 
+const CHAT_SYSTEM_PROMPT = `You are helping users work with Mekari Pixel.
+
+Render normal explanations as markdown.
+For tabular data, use GitHub Flavored Markdown tables.
+For charts, use only this Comark component syntax:
+
+::pixel-chart
+\`\`\`yaml [props]
+title: Monthly revenue
+type: bar
+labels:
+  - Jan
+  - Feb
+datasets:
+  - label: Revenue
+    data:
+      - 120
+      - 180
+showLegend: false
+\`\`\`
+::
+
+Chart props are limited to title, type, labels, datasets, horizontal, stacked, area, and showLegend.
+Use chart type bar, line, pie, doughnut, or radar. Labels must be strings. Dataset data must be numbers with the same count as labels.
+Do not output raw Vue components or arbitrary HTML for Pixel charts.`;
+
 /** Convert MCP tool output to plain text for maximum model compatibility */
 function mcpOutputToText({
   output
@@ -32,14 +58,18 @@ function mcpOutputToText({
 export default defineLazyEventHandler(async () => {
   const config = useRuntimeConfig();
   const apiKey = config.aiGatewayApiKey;
+  const baseURL = config.aiGatewayBaseUrl;
   const mcpURL = config.pixelMcpBaseUrl;
   const modelId = config.aiGatewayModel;
 
   if (!apiKey) throw new Error("Missing AI Gateway API key");
 
   const gateway = createGateway({
-    apiKey: apiKey
+    apiKey: apiKey,
+    ...(baseURL ? { baseURL: baseURL } : {})
   });
+
+  console.log("gateway config", gateway);
 
   return defineEventHandler(async (event) => {
     const { messages }: { messages: UIMessage[] } = await readBody(event);
@@ -78,6 +108,7 @@ export default defineLazyEventHandler(async () => {
       onFinish: async () => {
         await mcpClient.close();
       },
+      system: CHAT_SYSTEM_PROMPT,
       messages: convertedMessages
     });
 

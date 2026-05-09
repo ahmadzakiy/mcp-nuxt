@@ -57,6 +57,7 @@
                 <MarkdownRenderer
                   v-if="part.type === 'text'"
                   :text="part.text"
+                  :is-streaming="isStreamingTextPart(index, partIndex)"
                 />
                 <div
                   v-else-if="part.type === 'dynamic-tool'"
@@ -127,5 +128,19 @@ const handleKeydown = (e: KeyboardEvent) => {
     e.preventDefault();
     handleSendMessage();
   }
+};
+
+const isStreamingTextPart = (messageIndex: number, partIndex: number) => {
+  if (chat.status !== "streaming") return false;
+
+  const message = chat.messages[messageIndex];
+  if (!message || message.role !== "assistant") return false;
+  if (messageIndex !== chat.messages.length - 1) return false;
+
+  for (let index = message.parts.length - 1; index >= 0; index -= 1) {
+    if (message.parts[index]?.type === "text") return index === partIndex;
+  }
+
+  return false;
 };
 </script>

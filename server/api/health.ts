@@ -1,8 +1,13 @@
 export default defineEventHandler(() => {
-  const config = useRuntimeConfig();
+  const { aiGatewayBaseUrl, aiGatewayModel, pixelMcpBaseUrl } =
+    useRuntimeConfig();
 
   return {
     isHealthy: true,
-    config
+    config: {
+      aiGatewayBaseUrl,
+      aiGatewayModel,
+      pixelMcpBaseUrl
+    }
   };
 });

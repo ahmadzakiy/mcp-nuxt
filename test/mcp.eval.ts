@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { experimental_createMCPClient as createMCPClient } from "@ai-sdk/mcp";
 import {
   generateText,
@@ -9,18 +10,47 @@ import {
 import { evalite } from "evalite";
 
 const API_KEY = process.env.AI_GATEWAY_API_KEY;
+const BASE_URL = process.env.AI_GATEWAY_BASE_URL;
 const MCP_URL = process.env.MCP_URL ?? "http://localhost:3200/mcp";
 const MODEL_ID = process.env.AI_GATEWAY_MODEL ?? "deepseek/deepseek-v4-flash";
 
 if (!API_KEY) throw new Error("Missing AI_GATEWAY_API_KEY in .env file");
 
 const gateway = createGateway({
-  apiKey: API_KEY
+  apiKey: API_KEY,
+  ...(BASE_URL ? { baseURL: BASE_URL } : {})
 });
 
 const model = gateway(MODEL_ID);
 
-// Custom tool call accuracy scorer
+/** Run generateText with MCP tools, normalizing gateway errors into plain Errors
+ *  so vitest's stack trace parser doesn't crash on custom error classes. */
+async function runWithMcp(
+  input: string,
+  options?: { stopWhen?: Parameters<typeof generateText>[0]["stopWhen"] }
+): Promise<TypedToolCall<ToolSet>[]> {
+  const mcp = await createMCPClient({
+    transport: { type: "http", url: MCP_URL }
+  });
+  try {
+    const result = await generateText({
+      model,
+      prompt: input,
+      tools: await mcp.tools(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...(options?.stopWhen ? { stopWhen: options.stopWhen as any } : {})
+    });
+    return result.toolCalls ?? [];
+  } catch (err) {
+    // Normalize custom gateway errors to plain Error so vitest reporter doesn't crash
+    if (err instanceof Error)
+      throw new Error(`${err.constructor.name}: ${err.message}`);
+    throw err;
+  } finally {
+    await mcp.close();
+  }
+}
+
 function toolCallAccuracy({
   actualCalls,
   expectedCalls
@@ -114,21 +144,7 @@ evalite("Pixel Component Documentation", {
       ]
     }
   ],
-  task: async (input) => {
-    const mcp = await createMCPClient({
-      transport: { type: "http", url: MCP_URL }
-    });
-    try {
-      const result = await generateText({
-        model,
-        prompt: input,
-        tools: await mcp.tools()
-      });
-      return result.toolCalls ?? [];
-    } finally {
-      await mcp.close();
-    }
-  },
+  task: (input) => runWithMcp(input),
   scorers: [
     ({ output, expected }) =>
       toolCallAccuracy({
@@ -161,21 +177,7 @@ evalite("Pixel Documentation - Setup and General", {
       ]
     }
   ],
-  task: async (input) => {
-    const mcp = await createMCPClient({
-      transport: { type: "http", url: MCP_URL }
-    });
-    try {
-      const result = await generateText({
-        model,
-        prompt: input,
-        tools: await mcp.tools()
-      });
-      return result.toolCalls ?? [];
-    } finally {
-      await mcp.close();
-    }
-  },
+  task: (input) => runWithMcp(input),
   scorers: [
     ({ output, expected }) =>
       toolCallAccuracy({
@@ -208,21 +210,7 @@ evalite("Pixel Documentation - Design Tokens", {
       ]
     }
   ],
-  task: async (input) => {
-    const mcp = await createMCPClient({
-      transport: { type: "http", url: MCP_URL }
-    });
-    try {
-      const result = await generateText({
-        model,
-        prompt: input,
-        tools: await mcp.tools()
-      });
-      return result.toolCalls ?? [];
-    } finally {
-      await mcp.close();
-    }
-  },
+  task: (input) => runWithMcp(input),
   scorers: [
     ({ output, expected }) =>
       toolCallAccuracy({
@@ -248,21 +236,7 @@ evalite("Pixel Documentation - Theming and Styling", {
       expected: [{ toolName: "get-docs", input: { query: "theme management" } }]
     }
   ],
-  task: async (input) => {
-    const mcp = await createMCPClient({
-      transport: { type: "http", url: MCP_URL }
-    });
-    try {
-      const result = await generateText({
-        model,
-        prompt: input,
-        tools: await mcp.tools()
-      });
-      return result.toolCalls ?? [];
-    } finally {
-      await mcp.close();
-    }
-  },
+  task: (input) => runWithMcp(input),
   scorers: [
     ({ output, expected }) =>
       toolCallAccuracy({
@@ -292,22 +266,7 @@ evalite("Multi-Step Workflow - Component and Documentation", {
       ]
     }
   ],
-  task: async (input) => {
-    const mcp = await createMCPClient({
-      transport: { type: "http", url: MCP_URL }
-    });
-    try {
-      const result = await generateText({
-        model,
-        prompt: input,
-        tools: await mcp.tools(),
-        stopWhen: stepCountIs(5)
-      });
-      return result.toolCalls ?? [];
-    } finally {
-      await mcp.close();
-    }
-  },
+  task: (input) => runWithMcp(input, { stopWhen: stepCountIs(5) }),
   scorers: [
     ({ output, expected }) =>
       toolCallAccuracy({
@@ -337,21 +296,7 @@ evalite("Pixel Icon Name Search", {
       expected: [{ toolName: "get-icon-name", input: { query: "arrow" } }]
     }
   ],
-  task: async (input) => {
-    const mcp = await createMCPClient({
-      transport: { type: "http", url: MCP_URL }
-    });
-    try {
-      const result = await generateText({
-        model,
-        prompt: input,
-        tools: await mcp.tools()
-      });
-      return result.toolCalls ?? [];
-    } finally {
-      await mcp.close();
-    }
-  },
+  task: (input) => runWithMcp(input),
   scorers: [
     ({ output, expected }) =>
       toolCallAccuracy({
@@ -393,21 +338,7 @@ evalite("Tool Selection - Component vs Docs", {
       ]
     }
   ],
-  task: async (input) => {
-    const mcp = await createMCPClient({
-      transport: { type: "http", url: MCP_URL }
-    });
-    try {
-      const result = await generateText({
-        model,
-        prompt: input,
-        tools: await mcp.tools()
-      });
-      return result.toolCalls ?? [];
-    } finally {
-      await mcp.close();
-    }
-  },
+  task: (input) => runWithMcp(input),
   scorers: [
     ({ output, expected }) =>
       toolCallAccuracy({

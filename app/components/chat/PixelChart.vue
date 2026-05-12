@@ -1,6 +1,19 @@
 <template>
   <MpFlex direction="column" gap="2" class="chat-pixel-chart">
-    <MpText v-if="validationError" size="body-small" color="text.danger">
+    <MpFlex v-if="isLoading" direction="column" gap="2">
+      <MpSkeleton width="40%" height="16px" rounded="md" />
+      <MpSkeleton width="100%" height="220px" rounded="md" />
+      <MpFlex gap="3" justifyContent="center">
+        <MpSkeleton
+          v-for="n in 3"
+          :key="n"
+          width="64px"
+          height="12px"
+          rounded="md"
+        />
+      </MpFlex>
+    </MpFlex>
+    <MpText v-else-if="validationError" size="body-small" color="text.danger">
       {{ validationError }}
     </MpText>
     <MpChart
@@ -25,7 +38,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { MpChart, MpFlex, MpText } from "@mekari/pixel3";
+import { MpChart, MpFlex, MpSkeleton, MpText } from "@mekari/pixel3";
 
 type ChartType = "bar" | "line" | "pie" | "doughnut" | "radar";
 
@@ -76,17 +89,32 @@ const safeStacked = computed(() => toBoolean(props.stacked, false));
 const safeArea = computed(() => toBoolean(props.area, false));
 const safeShowLegend = computed(() => toBoolean(props.showLegend, true));
 
+function tryParseArray(value: unknown): unknown[] {
+  if (Array.isArray(value)) return value;
+  if (typeof value === "string") {
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) return parsed;
+    } catch {
+      // not valid JSON
+    }
+  }
+  return [];
+}
+
 const labels = computed<string[]>(() => {
-  if (!Array.isArray(props.labels)) return [];
-  return props.labels.filter(
+  const raw = tryParseArray(props.labels);
+  if (raw.length === 0) return [];
+  return raw.filter(
     (label): label is string => typeof label === "string" && label.length > 0
   );
 });
 
 const datasets = computed<ChartDataset[]>(() => {
-  if (!Array.isArray(props.datasets)) return [];
+  const raw = tryParseArray(props.datasets);
+  if (raw.length === 0) return [];
 
-  return props.datasets
+  return raw
     .map((dataset) => {
       if (!isRecord(dataset)) return null;
 
@@ -104,17 +132,15 @@ const datasets = computed<ChartDataset[]>(() => {
     .filter((dataset): dataset is ChartDataset => dataset !== null);
 });
 
+const isLoading = computed(
+  () => labels.value.length === 0 || datasets.value.length === 0
+);
+
 const validationError = computed(() => {
+  if (isLoading.value) return "";
+
   if (!allowedTypes.has(props.type as ChartType)) {
     return `Unsupported chart type: ${props.type || "empty"}.`;
-  }
-
-  if (labels.value.length === 0) {
-    return "Chart data is missing labels.";
-  }
-
-  if (datasets.value.length === 0) {
-    return "Chart data is missing datasets.";
   }
 
   const mismatchedDataset = datasets.value.find(

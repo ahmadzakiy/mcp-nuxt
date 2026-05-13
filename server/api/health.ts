@@ -1,5 +1,5 @@
 export default defineEventHandler(() => {
-  const { aiGatewayBaseUrl, aiGatewayModel, pixelMcpBaseUrl } =
+  const { aiGatewayBaseUrl, aiGatewayModel, pixelMcpBaseUrl, mcp } =
     useRuntimeConfig();
 
   return {
@@ -7,7 +7,8 @@ export default defineEventHandler(() => {
     config: {
       aiGatewayBaseUrl,
       aiGatewayModel,
-      pixelMcpBaseUrl
+      pixelMcpBaseUrl,
+      mcp
     }
   };
 });
